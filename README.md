@@ -4,5 +4,5 @@
  Ruth Solis Velasco - A01703206
  Rodrigo Reyes
  Genaro Ambia
- Arturo Acosta
+ Arturo Acosta      -  A01274389
  
