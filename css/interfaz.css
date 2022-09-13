@@ -1,0 +1,23 @@
+#background{
+   width: 100%;
+   height: 50%;
+   position: fixed; 
+   left: 0px;
+   top: 0x;
+   z-index: -1;
+}
+.stretch{
+    width: 100%;
+    height: 10%;
+}
+
+  /*.bg-personal{
+    max-width: 300%;
+    max-height: 50%;
+    object-fit: contain;
+    height: 100px;
+    width: 400px;
+    background-image: url('../images/casaprincipal.jpg'); /*Tu IMAGEN*/
+  /*}*/
+  
+  
