@@ -28,15 +28,31 @@
               </div>
             </div>
           </nav>
-          <!--Insertar imagen principal-->
-          <div class="container">
-              <div id="background">
-                 <div><img src="images/casa1.jpg" class="img-fluid" class="stretch" alt =""></div>
-              </div>
+ <!--Añdir carousel-->
+ <div id="carouselHome" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+       <div class="carousel-item active">
+          <div class="house">
+            <img src="images/casaprincipal.jpg" alt="..." class="d-block w-100">
           </div>
-            <!--Ahora añadir tablero de busqueda-->
-            <div class="container-sm my-5">
-               <div class="box"></div>
-            </div>
-          </body>
+       </div>
+       <div class="carousel-item">
+        <div class="house">
+            <img src="images/casa1.jpg" alt="..." class="d-block w-100">
+          </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselHome" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselHome" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+<!--Linea de javascript-->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+</body>
 </html>
