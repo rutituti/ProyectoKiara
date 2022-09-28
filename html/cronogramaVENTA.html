@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <header>
+            <!--Titulo de página -->
+            <title>Kiara</title>
+            <link rel="stylesheet" href ="../css/bootstrap.min.css"/>
+            <link rel="stylesheet" type= "text/css" href ="../css/interfaz.css"/>
+            <link rel="stylesheet" type= "text/css" href ="../css/timeline.css"/>
+        </header>
+    </head>
+
+    <body>
+        
+
+       
+
+        <div class="container">
+            <div class="row">
+                <!-- SIDE BAR (Inicio, Perfil, Venta,etc)-->
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 350px;">
+                        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                            <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+                            <span class="fs-4">Seguimiento en Linea</span>
+                        </a>
+    
+                        <hr>
+    
+                        <ul class="nav nav-pills flex-column mb-auto">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link link-dark" aria-current="page">
+                                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+                                    Inicio
+                                </a>
+                            </li>
+    
+                            <li class="nav-item">
+                                <a href="#" class="nav-link link-dark" aria-current="page">
+                                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+                                    Perfil
+                                </a>
+                            </li>
+    
+                            <li>
+                                <a href="#" class="nav-link active">
+                                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+                                    Venta
+                                </a>
+                            </li>
+    
+                            <li>
+                                <a href="#" class="nav-link link-dark">
+                                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+                                    Renta
+                                </a>
+                            </li>
+    
+                            <li>
+                                <a href="#" class="nav-link link-dark">
+                                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+                                    Compra
+                                </a>
+                            </li>
+                        </ul>
+
+                        <hr>
+    
+                        <div class="dropdown">
+                            <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                                <strong>Usuario</strong>
+                            </a>
+                            <ul class="dropdown-menu text-small shadow">
+                    
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Sign out</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HEADER BAR & TIMELINE-->
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <!-- NAVIGATION HEADER (Expediente, Mis propiedades, Cronograma)-->
+                    <div class="container-fluid">
+                        <header class="d-flex justify-content-center py-3">
+                            <ul class="nav nav-pills">
+                            <li class="nav-item"><a href="#" class="nav-link ">Expedientes</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link">Mis propiedades</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Cronograma</a></li>
+                            </ul>
+                        </header>
+                    </div>
+
+                    <!--TMELINE-->
+                    <div class="row"> 
+                        <!-- Section: Timeline -->
+                        <section class="py-5">
+                            <ul class="timeline-with-icons">
+                                <li class="timeline-item mb-5">
+                                    <span class="timeline-icon">
+                                        <i class="fas fa-rocket text-primary fa-sm fa-fw"></i>
+                                    </span>
+                                    <h5 class="fw-bold">Recepcion de apartado</h5>
+                                    <p class="text-muted mb-2 fw-bold">1 dia</p>
+                                    
+                                </li>
+    
+                                <li class="timeline-item mb-5">
+                                    <span class="timeline-icon">
+                                        <i class="fas fa-hand-holding-usd text-primary fa-sm fa-fw"></i>
+                                    </span>
+                                    <h5 class="fw-bold">Recepcion de Documentacion</h5>
+                                    <p class="text-muted mb-2 fw-bold">5 dias</p>
+                                    <p class="text-muted">
+                                        Consulte con su asesor la documentacion necesaria para su trámite
+                                    </p>
+                                </li>
+    
+                                <li class="timeline-item mb-5">
+                                    <span class="timeline-icon">
+                                        <i class="fas fa-users text-primary fa-sm fa-fw"></i>
+                                    </span>
+                                    <h5 class="fw-bold">Elaboracion de contrato de compraventa</h5>
+                                    <p class="text-muted mb-2 fw-bold">5 dias</p>
+                                    <p class="text-muted">
+                                        Orci varius natoque penatibus et magnis dis parturient montes,
+                                        nascetur ridiculus mus. Nulla ullamcorper arcu lacus, maximus
+                                        facilisis erat pellentesque nec. Duis et dui maximus dui aliquam
+                                        convallis. Quisque consectetur purus erat, et ullamcorper sapien
+                                        tincidunt vitae.
+                                    </p>
+                                </li>
+    
+                                <li class="timeline-item mb-5">
+                                    <span class="timeline-icon">
+                                        <i class="fas fa-money-bill-wave text-primary fa-sm fa-fw"></i>
+                                    </span>
+                                    <h5 class="fw-bold">Aprobacion de las partes del borrador de contrato</h5>
+                                    <p class="text-muted mb-2 fw-bold">5 dias</p>
+                                    <p class="text-muted">
+                                        Nulla ac tellus convallis, pulvinar nulla ac, fermentum diam. Sed
+                                        et urna sit amet massa dapibus tristique non finibus ligula. Nam
+                                        pharetra libero nibh, id feugiat tortor rhoncus vitae. Ut suscipit
+                                        vulputate mattis.
+                                    </p>
+                                </li>
+
+                                <li class="timeline-item mb-5">
+                                    <span class="timeline-icon">
+                                        <i class="fas fa-money-bill-wave text-primary fa-sm fa-fw"></i>
+                                    </span>
+                                    <h5 class="fw-bold">Firma de contrato compraventa</h5>
+                                    <p class="text-muted mb-2 fw-bold">5 dias</p>
+                                    <p class="text-muted">
+                                        Nulla ac tellus convallis, pulvinar nulla ac, fermentum diam. Sed
+                                        et urna sit amet massa dapibus tristique non finibus ligula. Nam
+                                        pharetra libero nibh, id feugiat tortor rhoncus vitae. Ut suscipit
+                                        vulputate mattis.
+                                    </p>
+                                </li>
+
+                                <li class="timeline-item mb-5">
+                                    <span class="timeline-icon">
+                                        <i class="fas fa-money-bill-wave text-primary fa-sm fa-fw"></i>
+                                    </span>
+                                    <h5 class="fw-bold">Realizacion de avaluo comercial</h5>
+                                    <p class="text-muted mb-2 fw-bold">4 dias</p>
+                                    <p class="text-muted">
+                                        Nulla ac tellus convallis, pulvinar nulla ac, fermentum diam. Sed
+                                        et urna sit amet massa dapibus tristique non finibus ligula. Nam
+                                        pharetra libero nibh, id feugiat tortor rhoncus vitae. Ut suscipit
+                                        vulputate mattis.
+                                    </p>
+                                </li>
+
+                                <li class="timeline-item mb-5">
+                                    <span class="timeline-icon">
+                                        <i class="fas fa-money-bill-wave text-primary fa-sm fa-fw"></i>
+                                    </span>
+                                    <h5 class="fw-bold">Realizacion de avaluo hacendario</h5>
+                                    <p class="text-muted mb-2 fw-bold">4 dias</p>
+                                    <p class="text-muted">
+                                        Nulla ac tellus convallis, pulvinar nulla ac, fermentum diam. Sed
+                                        et urna sit amet massa dapibus tristique non finibus ligula. Nam
+                                        pharetra libero nibh, id feugiat tortor rhoncus vitae. Ut suscipit
+                                        vulputate mattis.
+                                    </p>
+                                </li>
+
+                                <li class="timeline-item mb-5">
+                                    <span class="timeline-icon">
+                                        <i class="fas fa-money-bill-wave text-primary fa-sm fa-fw"></i>
+                                    </span>
+                                    <h5 class="fw-bold">Avaluo terminado y entregado</h5>
+                                    <p class="text-muted mb-2 fw-bold">4 dias</p>
+                                    <p class="text-muted">
+                                        Nulla ac tellus convallis, pulvinar nulla ac, fermentum diam. Sed
+                                        et urna sit amet massa dapibus tristique non finibus ligula. Nam
+                                        pharetra libero nibh, id feugiat tortor rhoncus vitae. Ut suscipit
+                                        vulputate mattis.
+                                    </p>
+                                </li>
+
+                                <li class="timeline-item mb-5">
+                                    <span class="timeline-icon">
+                                        <i class="fas fa-money-bill-wave text-primary fa-sm fa-fw"></i>
+                                    </span>
+                                    <h5 class="fw-bold">Revision de documentacion por parte de la notaria</h5>
+                                    <p class="text-muted mb-2 fw-bold">10 dias</p>
+                                    <p class="text-muted">
+                                        Nulla ac tellus convallis, pulvinar nulla ac, fermentum diam. Sed
+                                        et urna sit amet massa dapibus tristique non finibus ligula. Nam
+                                        pharetra libero nibh, id feugiat tortor rhoncus vitae. Ut suscipit
+                                        vulputate mattis.
+                                    </p>
+                                </li>
+
+                                <li class="timeline-item mb-5">
+                                    <span class="timeline-icon">
+                                        <i class="fas fa-money-bill-wave text-primary fa-sm fa-fw"></i>
+                                    </span>
+                                    <h5 class="fw-bold">Elaboracion de proyecto de escritura</h5>
+                                    <p class="text-muted mb-2 fw-bold">10 dias</p>
+                                    <p class="text-muted">
+                                        Nulla ac tellus convallis, pulvinar nulla ac, fermentum diam. Sed
+                                        et urna sit amet massa dapibus tristique non finibus ligula. Nam
+                                        pharetra libero nibh, id feugiat tortor rhoncus vitae. Ut suscipit
+                                        vulputate mattis.
+                                    </p>
+                                </li>
+
+                                <li class="timeline-item mb-5">
+                                    <span class="timeline-icon">
+                                        <i class="fas fa-money-bill-wave text-primary fa-sm fa-fw"></i>
+                                    </span>
+                                    <h5 class="fw-bold">Firma de escritura de compraventa</h5>
+                                    <p class="text-muted mb-2 fw-bold">10 dias</p>
+                                    <p class="text-muted">
+                                        Nulla ac tellus convallis, pulvinar nulla ac, fermentum diam. Sed
+                                        et urna sit amet massa dapibus tristique non finibus ligula. Nam
+                                        pharetra libero nibh, id feugiat tortor rhoncus vitae. Ut suscipit
+                                        vulputate mattis.
+                                    </p>
+                                </li>
+
+                            </ul>
+                        </section>
+                        <!-- Section: Timeline -->
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+       
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+    </body>
+</html>
