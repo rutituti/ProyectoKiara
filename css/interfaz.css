@@ -40,5 +40,7 @@ img {
  .margen{
   padding: 1px 1px;
  }
-
+ .p-3 {
+  padding: $spacer !important;
+}
  
