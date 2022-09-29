@@ -25,11 +25,11 @@ body{
   content: '';
   position: absolute;
   display: block;
-  width: 7px;
-  background: #ffffff;
+  width: 3px;
+  background: #AFABAB;
   left: 50%;
   top: 20px;
-  bottom: 20px;
+  bottom: 30px;
   margin-left: -4px;
 }
 .timeline-centered .timeline-entry {
@@ -122,9 +122,9 @@ body{
   background-clip: padding-box;
   border-radius: 50%;
   text-align: center;
-  border: 7px solid #ffffff;
-  line-height: 45px;
-  font-size: 15px;
+  border: 5px solid #AFABAB;
+  line-height: 50px;
+  font-size: 30px;
   float: left;
 }
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-primary {
@@ -132,7 +132,7 @@ body{
   color: #fff;
 }
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-success {
-  background-color: #5cb85c;
+  background-color: #70AD47;
   color: #fff;
 }
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-info {
@@ -152,7 +152,7 @@ body{
   color: #fff;
 }
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-green {
-  background-color: #488c6c;
+  background-color: #70AD47;
   color: #fff;
 }
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-blue {
@@ -160,7 +160,7 @@ body{
   color: #fff;
 }
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-yellow {
-  background-color: #f2994b;
+  background-color: #FFC000;
   color: #fff;
 }
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-orange {
@@ -206,10 +206,10 @@ body{
   color: #ffffff;
 }
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label.bg-green {
-  background: #488c6c;
+  background: #70AD47;
 }
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label.bg-green:after {
-  border-color: transparent #488c6c transparent transparent;
+  border-color: transparent #70AD47 transparent transparent;
 }
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label.bg-green .timeline-title,
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label.bg-green p {
