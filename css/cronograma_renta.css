@@ -4,7 +4,7 @@ body{
 }
 
 .timeline-centered {
-  position: relative;
+  position: absolute;
   margin-bottom: 30px;
 }
 .timeline-centered.timeline-sm .timeline-entry {
