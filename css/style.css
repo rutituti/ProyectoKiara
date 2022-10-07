@@ -1,5 +1,5 @@
 :root {
-    --primary: #1285e2;
+    --primary: #a2a5a8;
     --light: #ffffff;
     --grey: #efefef;
     --black: #0000;
@@ -47,7 +47,7 @@ a:hover {
 
 #content {
     overflow-y: auto;
-    height: 80vh;
+    height: 90vh;
     padding-bottom: 5rem;
 }
 
@@ -63,7 +63,7 @@ a:hover {
     border-right: 1px solid var(--light);
 }
 
-  
+  /*
 @media (max-width: 768px) {
     #sidebar-container {
       display: none;
@@ -72,4 +72,4 @@ a:hover {
         border: 0;
     }
   }
-  
+  */
