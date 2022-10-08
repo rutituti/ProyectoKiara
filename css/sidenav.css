@@ -225,7 +225,7 @@
 .home-section{
   position: absolute;
   background: #ffffff;
-  min-height: 110vh;
+  
   top: 0;
   left: 100px;
   width: calc(100% - 78px);

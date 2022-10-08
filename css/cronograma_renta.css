@@ -1,10 +1,6 @@
-body{
-    margin-top:20px;
-    background:#eee;
-}
 
 .timeline-centered {
-  position: absolute;
+  position: relative;
   margin-bottom: 30px;
 }
 .timeline-centered.timeline-sm .timeline-entry {
