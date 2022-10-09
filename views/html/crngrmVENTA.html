@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <header>
+            <!--Titulo de página -->
+            <title>Kiara</title>
+            <link rel="stylesheet" href ="/css/bootstrap.min.css"/>
+            <link rel="stylesheet" type= "text/css" href ="/css/interfaz.css"/>
+            <link rel="stylesheet" href="/css/sidenav.css">
+            <link rel="stylesheet" href ="/css/cronograma_renta.css">
+
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+            <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        </header>
+    </head>
+    <body>
+
+        <!-- Side Bar -->
+        <div class="sidebar">
+            <div class="logo-details">
+              <i class='bx bxl-c-plus-plus icon'></i>
+                <div class="logo_name">CodingLab</div>
+                <i class='bx bx-menu' id="btn" ></i>
+            </div>
+            <ul class="nav-list">
+              <li>
+                  <i class='bx bx-search' ></i>
+                 <input type="text" placeholder="Search...">
+                 <span class="tooltip">Search</span>
+              </li>
+              <li>
+                <a href="#">
+                  <i class='bx bx-grid-alt'></i>
+                  <span class="links_name">Dashboard</span>
+                </a>
+                 <span class="tooltip">Dashboard</span>
+              </li>
+              <li>
+               <a href="#">
+                 <i class='bx bx-user' ></i>
+                 <span class="links_name">User</span>
+               </a>
+               <span class="tooltip">User</span>
+             </li>
+             <li>
+               <a href="#">
+                 <i class='bx bx-chat' ></i>
+                 <span class="links_name">Messages</span>
+               </a>
+               <span class="tooltip">Messages</span>
+             </li>
+             <li>
+               <a href="#">
+                 <i class='bx bx-pie-chart-alt-2' ></i>
+                 <span class="links_name">Analytics</span>
+               </a>
+               <span class="tooltip">Analytics</span>
+             </li>
+             <li>
+               <a href="#">
+                 <i class='bx bx-folder' ></i>
+                 <span class="links_name">File Manager</span>
+               </a>
+               <span class="tooltip">Files</span>
+             </li>
+             <li>
+               <a href="#">
+                 <i class='bx bx-cart-alt' ></i>
+                 <span class="links_name">Order</span>
+               </a>
+               <span class="tooltip">Order</span>
+             </li>
+             <li>
+               <a href="#">
+                 <i class='bx bx-heart' ></i>
+                 <span class="links_name">Saved</span>
+               </a>
+               <span class="tooltip">Saved</span>
+             </li>
+             <li>
+               <a href="#">
+                 <i class='bx bx-cog' ></i>
+                 <span class="links_name">Setting</span>
+               </a>
+               <span class="tooltip">Setting</span>
+             </li>
+             <li class="profile">
+                 <div class="profile-details">
+                   <!--<img src="profile.jpg" alt="profileImg">-->
+                   <div class="name_job">
+                     <div class="name">Prem Shahi</div>
+                     <div class="job">Web designer</div>
+                   </div>
+                 </div>
+                 <i class='bx bx-log-out' id="log_out" ></i>
+             </li>
+            </ul>
+        </div>
+        <!-- Fin Side Bar -->
+          <section class="home-section ">
+            <div class="w-100">
+                        
+                <!-- Navbar -->
+                
+                    <ul class="nav nav-fill nav-tabs nav-right bg-light sticky-top" id="myTab" role="tablist">
+                       
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Cronograma</button>
+                        </li>
+
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Mi Expediente</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Contact</button>
+                        </li>
+
+                       
+                        
+                    </ul>
+                
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+
+                            <!-- Section: Timeline -->
+                            <br>
+                            <br>
+                            <br>
+                            <div class="container">
+                    
+                                <div class="row">
+
+                                    <div  class="col-sm-9 col-md-9 col-lg-9">
+
+                                            <div class="container-fluid bootstrap snippets bootdeys">
+                                                <div class="timeline-centered timeline-sm ">
+
+                                                    <article class="timeline-entry">
+                                                        <div class="timeline-entry-inner">
+                                                            <time datetime="2014-01-10T03:45" class="timeline-time"><span>28/09/22</span><span>Completado</span></time>
+                                                            <div class="timeline-icon bg-green"><i class="fa fa-check "></i></div>
+                                                            <div class="timeline-label"><h5 class="fw-bold">Recepcion de apartado</h5>
+                                                                <p class="text-muted mb-2 fw-bold">1 dia</p>
+                                                                <p class="text-muted ">
+                                                                    Orci varius natoque penatibus et magnis dis parturient montes,
+                                                                    nascetur ridiculus mus. Nulla ullamcorper arcu lacus
+                                                                </p>
+                                                            </div>
+
+                                                        </div>
+                                                    </article>
+                                                
+                                                    <article class="timeline-entry">
+                                                        <div class="timeline-entry-inner">
+                                                            <time datetime="2014-01-10T03:45" class="timeline-time"><span>28/09/22</span><span>Pendiente</span></time>
+                                                            <div class="timeline-icon bg-yellow"><i class="fa fa-clock-o "></i></div>
+                                                            <div class="timeline-label"><h5 class="fw-bold">Recepcion de Documentacion</h5>
+                                                                <p class="text-muted mb-2 fw-bold">1 dia</p>
+                                                                <p class="text-muted ">
+                                                                    Orci varius natoque penatibus et magnis dis parturient montes,
+                                                                    nascetur ridiculus mus. Nulla ullamcorper arcu lacus
+                                                                </p>
+                                                            </div>
+
+                                                        </div>
+                                                    </article>
+                                                
+                                                    <article class="timeline-entry">
+                                                        <div class="timeline-entry-inner">
+                                                            <time datetime="2014-01-10T03:45" class="timeline-time"><span>28/09/22</span><span>No Aprobado</span></time>
+                                                            <div class="timeline-icon bg-red"><i class="fa fa-exclamation-circle"></i></div>
+                                                            <div class="timeline-label"><h5 class="fw-bold">Elaboracion de contrato de compraventa</h5>
+                                                                <p class="text-muted mb-2 fw-bold">1 dia</p>
+                                                                <p class="text-muted ">
+                                                                    Orci varius natoque penatibus et magnis dis parturient montes,
+                                                                    nascetur ridiculus mus. Nulla ullamcorper arcu lacus
+                                                                </p>
+                                                            
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                
+                                                    <article class="timeline-entry">
+                                                        <div class="timeline-entry-inner">
+                                                            <time datetime="2014-01-10T03:45" class="timeline-time"><span>28/09/22</span><span>No Aprobado</span></time>
+                                                            <div class="timeline-icon bg-red"><i class="fa fa-exclamation-circle"></i></div>
+                                                            <div class="timeline-label"><h5 class="fw-bold">Elaboracion de contrato de compraventa</h5>
+                                                                <p class="text-muted mb-2 fw-bold">1 dia</p>
+                                                                <p class="text-muted ">
+                                                                    Orci varius natoque penatibus et magnis dis parturient montes,
+                                                                    nascetur ridiculus mus. Nulla ullamcorper arcu lacus
+                                                                </p>
+                                                            
+                                                            </div>
+                                                        </div>
+                                                    </article>
+
+                                                    <article class="timeline-entry">
+                                                        <div class="timeline-entry-inner">
+                                                            <time datetime="2014-01-10T03:45" class="timeline-time"><span>28/09/22</span><span>No Aprobado</span></time>
+                                                            <div class="timeline-icon bg-red"><i class="fa fa-exclamation-circle"></i></div>
+                                                            <div class="timeline-label"><h5 class="fw-bold">Elaboracion de contrato de compraventa</h5>
+                                                                <p class="text-muted mb-2 fw-bold">1 dia</p>
+                                                                <p class="text-muted ">
+                                                                    Orci varius natoque penatibus et magnis dis parturient montes,
+                                                                    nascetur ridiculus mus. Nulla ullamcorper arcu lacus
+                                                                </p>
+                                                            
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                
+                                                    <article class="timeline-entry">
+                                                        <div class="timeline-entry-inner">
+                                                            <time datetime="2014-01-10T03:45" class="timeline-time"><span>28/09/22</span><span>No Iniciado</span></time>
+                                                            <div class="timeline-icon bg-light"></div>
+                                                            <div class="timeline-label"><h5 class="fw-bold">Firma de contrato</h5></div>
+                                                        </div>
+                                                    </article>
+                                                
+                                                </div>
+                                            
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                           
+                        </div>
+                        <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div>
+                        <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
+                    </div>
+                <!-- Fin Navbar -->
+    
+            
+               
+            
+            </div>
+          </section>
+
+        
+        <script src="/js/bootstrap.bundle.min.js"> </script>
+        <script src="/js/sidenav.js"></script>
+    </body>
+    
+</html>
