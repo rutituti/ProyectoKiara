@@ -14,9 +14,9 @@ let password_env
 
 if(select_env === AlwaysData){
     host_env = 'mysql-kiara.alwaysdata.net';
-    user_env = 'kiara';
+    user_env = 'kiara'; //Nombre de usuario PhpMyAdmin -> https://phpmyadmin.alwaysdata.com/
     database_env = 'kiara_dev';
-    password_env = '!Prjct_K14r4!';
+    password_env = '!Prjct_K14r4!'; //Contraseña PhpMyAdmin -> https://phpmyadmin.alwaysdata.com/
 }else if(select_env === XAMPP){
     host_env = 'localhost';
     user_env = 'root';
