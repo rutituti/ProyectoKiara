@@ -18,7 +18,7 @@
   transition: all 0.5s ease;
 }
 .sidebar.open{
-  width: 250px;
+  width: 350px;
 }
 .sidebar .logo-details{
   height: 60px;
@@ -182,7 +182,7 @@
   overflow: hidden;
 }
 .sidebar.open li.profile{
-  width: 250px;
+  width: 350px;
 }
 .sidebar li .profile-details{
   display: flex;
