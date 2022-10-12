@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 const misRutas = require('./routes/paginainicio.routes');
 const operacionRutas = require('./routes/operacion.routes');
 
-app.use('/inicio',misRutas); // modulo 1
+app.use('/Inicio',misRutas); // modulo 1
 app.use('/seguimiento',operacionRutas); // Modulo 2
 
 // Como funciona esta funcion porque si no esta definido avanza a la siguiente, el otro cosa el con un if-else
