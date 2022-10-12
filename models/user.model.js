@@ -1,7 +1,7 @@
 //Linea de comando para la base de datos
 //const db = require('../util/database');
 
-module.exports = class usuario{
+module.exports = class Usuario{
         constructor(nombre,apellidos,user,mail,direccion,pais,estado,cp){
             this.nombre = nombre;
             this.apellidos = apellidos;
@@ -17,9 +17,7 @@ module.exports = class usuario{
         //Inserta un nuevo elemento en la tabla
         save(){
             return db.execute(
-                'INSERT INTO usuario (nombre, apellidos, usuario,mail,direccion,pais,estado,cp) VALUES (?, ?, ?, ?)',
+                'INSERT INTO usuario (nombre, apellidos, usuario,mail,direccion,pais,estado,cp) VALUES (?, ?, ?, ?,?, ?, ?, ?)',
                 [this.nombre, this.apellidos,this.user,this.mail,this.direccion,this.pais,this.estado,this.cp]);
-            
         }
-
 }

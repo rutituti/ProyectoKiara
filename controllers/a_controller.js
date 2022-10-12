@@ -1,9 +1,25 @@
 const path = require('path');
-const user = require('../models/user.model');
+const Usuario = require('../models/user.model.js');
+const user = require('../models/user.model.js');
+const db = require
 
-exports.action = (request, response, next) => {
-    response.render('view_file', { 
-        atribute_1: 'Data 1', 
-        atribute_2: 'Data 2'
+// obtener informacion de la sesion con base de datos
+exports.get_new = (request, response, next) => {
+    let info = request.session.info ? request.session.info : '';
+    request.session.info = '';
+    response.render(path.join('usuarios','new.ejs'),{
+        info : info,
     });
+};
+
+//nombre,apellidos,user,mail,direccion,pais,estado,c
+exports.post_new = (request, response, next) => {
+    const usario = new
+    Usuario(request.body.nombre, request.body.apellidos, request.body.user,request.body.mail, request.body.direccion, request.body.pais,request.body.estado,request.body.cp);
+
+    usuario.save()
+    .then(() => {
+        response.redirect('/user/login');
+    })
+    .catch(error => console.log(error));
 };
