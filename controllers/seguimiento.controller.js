@@ -14,7 +14,8 @@ exports.get_arrendar = (request, response, next) => {
 };
 
 exports.get_venta = (request, response, next) => {
-    response.send('Cronograma VENTA');
+    response.sendFile(path.join(__dirname,'..','views','html','crngrmVENTA.html'));
+    //response.send('Cronograma VENTA');
 };
 
 exports.get_profile = (request, response, next) => {
