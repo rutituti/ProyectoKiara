@@ -20,7 +20,7 @@ if(select_env === AlwaysData){
 }else if(select_env === XAMPP){
     host_env = 'localhost';
     user_env = 'root';
-    database_env = 'database_name';
+    database_env = 'kiara_dev';
     password_env = '';
 }
 

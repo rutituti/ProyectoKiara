@@ -8,6 +8,8 @@ const bcontroller = require("../controllers/b_controller");
 
 router.get('/QuienesSomos', inicioControllers.get_Infoempresa); //Muestra la informacion de la empresa
 
+router.get('/perfil', inicioControllers.getperfil); //Muestra la informacion de la empresa
+
 router.get('/propiedades/venta', inicioControllers.get_casas_venta); //Mostrar casas en venta
 
 router.get('/propiedades/renta', inicioControllers.get_casas_renta); //Mostrar casas en renta
@@ -17,7 +19,7 @@ router.get('/propiedades/renta', inicioControllers.get_casas_renta); //Mostrar c
 router.get('/propiedades/new', acontroller.getCliente); //Formulario registro de propiedad, obtner propiedades
 router.get('/propiedades/new', acontroller.post_new); //Formulario registro de propiedad
 
-router.get('/muestra/cliente',bcontroller.getClientes);  // muestra cliente prototipo hay que borrarla solo comprueba el fuc BD
+router.get('/muestra/cliente/:id',bcontroller.getClientes);  // muestra cliente prototipo hay que borrarla solo comprueba el fuc BD
 
 router.get('/propiedades', inicioControllers.get_casas); //Mostrar listado de propiedades totales
 

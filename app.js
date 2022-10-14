@@ -6,7 +6,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 
 const app = express();
-
+const session = require('express-session'); // Trabajar con sessiones
 // haciendo uso de EJS motor de templetes
 app.set('view engine','ejs');
 app.set('views','views');
@@ -22,6 +22,12 @@ app.use('/inicio',misRutas); // Modulo de pagina de Inicio
 app.use('/seguimiento',operacionRutas); // Modulo de Seguimiento en Linea
 // Agregar las cookies
 app.use(cookieParser());
+
+app.use(session({
+    secret: 'sxskccbdfberberbtbrtberevsdccsxaxsa',
+    resave: false,
+    saveUninitialized: false,
+}));
 // Como funciona esta funcion porque si no esta definido avanza a la siguiente, el otro cosa el con un if-else
 // Si estoy en lo correcto esto es un middleware
 app.use((request, response, next) => {
