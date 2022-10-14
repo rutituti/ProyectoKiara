@@ -14,7 +14,7 @@ exports.get_casas_renta = (request, response, next) => {
 };
 
 exports.get_new = (request, response, next) => {
-    response.sendFile(path.join(__dirname,'..','views','html','formulario.html'));
+    response.render(path.join('..','views','includes','usuarios','new.ejs'));
 };
 
 exports.get_casas = (request, response, next) => {
@@ -23,4 +23,7 @@ exports.get_casas = (request, response, next) => {
 
 exports.get_root = (request, response, next) => {
     response.sendFile(path.join(__dirname,'..','views','html','pagina_inicio.html'));
+};
+exports.get_sesion = (request, response, next) => {
+    response.sendFile(path.join(__dirname,'..','views','html','iniciar_Sesion.html'));
 };
