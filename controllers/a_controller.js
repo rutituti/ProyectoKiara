@@ -1,25 +1,21 @@
 const path = require('path');
-const Usuario = require('../models/user.model.js');
-const user = require('../models/user.model.js');
-const db = require
+const Cliente = require('../models/user.model.js');
 
-// obtener informacion de la sesion con base de datos
-exports.get_new = (request, response, next) => {
-    let info = request.session.info ? request.session.info : '';
-    request.session.info = '';
-    response.render(path.join('usuarios','new.ejs'),{
-        info : info,
+// Obtener informacion de la sesion con base de datos
+exports.getCliente = (request, response, next) => {
+    response.render(path.join('..','views','includes','usuarios','new.ejs'),{
+        info : '',
     });
 };
 
-//nombre,apellidos,user,mail,direccion,pais,estado,c
+// Insertar un elemento a la base de datos
 exports.post_new = (request, response, next) => {
-    const usario = new
-    Usuario(request.body.nombre, request.body.apellidos, request.body.user,request.body.mail, request.body.direccion, request.body.pais,request.body.estado,request.body.cp);
+    const cliente = new
+    Cliente(request.body.Name,request.body.primer_apellido,request.body.segundo_apellido,request.body.id_cliente,request.body.mail,request.body.telefono,request.body.ocupacion,estado_civil);
 
-    usuario.save()
+    cliente.save()
     .then(() => {
-        response.redirect('/user/login');
+        response.redirect('/inicio');
     })
     .catch(error => console.log(error));
 };
