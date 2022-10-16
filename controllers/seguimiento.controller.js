@@ -1,6 +1,8 @@
 const { info } = require('console');
 const path = require('path');
 
+const Proceso_V = require('../models/proceso_CV');
+
 exports.get_config = (request, response, next) => {
     response.sendFile(path.join(__dirname,'..','views','html','temp.html'));
 };
@@ -14,8 +16,19 @@ exports.get_arrendar = (request, response, next) => {
 };
 
 exports.get_venta = (request, response, next) => {
-    response.sendFile(path.join(__dirname,'..','views','html','crngrmVENTA.html'));
-    //response.send('Cronograma VENTA');
+    //response.sendFile(path.join(__dirname,'..','views','html','crngrmVENTA.html'));
+    
+    Proceso_V.fetchProceso(6,3)
+    .then(([rows, fieldData]) => {
+        //console.log(rows);
+        response.render(path.join('..','views','op_venta','segVenta.ejs'), {
+            seg_V: rows[0],
+            //user: request.session.user ? request.session.user : 1,
+        }); 
+    })
+    .catch( error => { 
+        console.log(error)
+    });
 };
 
 exports.get_profile = (request, response, next) => {

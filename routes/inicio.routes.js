@@ -20,12 +20,7 @@ router.get('/propiedades/venta', inicioControllers.get_casas_venta); //Mostrar c
 
 router.get('/propiedades/renta', inicioControllers.get_casas_renta); //Mostrar casas en renta
 
-//router.get('/propiedades/new', inicioControllers.get_new); //Formulario registro de propiedad
-
-router.get('/propiedades/new', acontroller.getCliente); //Formulario registro de propiedad, obtner propiedades
-router.get('/propiedades/new', acontroller.post_new); //Formulario registro de propiedad
-
-router.get('/muestra/cliente/:id',bcontroller.getClientes);  // muestra cliente prototipo hay que borrarla solo comprueba el fuc BD
+router.get('/propiedades/new', inicioControllers.get_new); //Formulario registro de propiedad
 
 router.get('/propiedades', inicioControllers.get_casas); //Mostrar listado de propiedades totales
 

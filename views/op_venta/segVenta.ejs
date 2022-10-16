@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <header>
+            <!--Titulo de página -->
+            <title>Kiara</title>
+            <link rel="stylesheet" href ="/css/bootstrap.min.css"/>
+            <link rel="stylesheet" type= "text/css" href ="/css/interfaz.css"/>
+            <link rel="stylesheet" href="/css/sidenav.css">
+            <link rel="stylesheet" href ="/css/cronograma_renta.css">
+
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+            <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        </header>
+    </head>
+
+    <body>
+
+        <%- include('../includes/navbar.ejs') %>
+
+        <div class="container">
+        
+            <%- include('../includes/sidebar.ejs') %>
+
+            
+
+            <section class="home-section ">
+                <div class="w-100">
+
+                    <%- include('tabs.ejs') %>
+
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+
+
+                            <br>
+                            <br>
+                            <br>
+
+                            <% if (seg_V.length > 0) { %>
+                                <%console.log(seg_V);%>
+                                <%- include('cronograma.ejs',{
+                                    seg_V: seg_V,
+    
+                                }) %>
+
+                            <% } else { %>
+                                <h3>NO SE HA INICIADO PROCESO</h3>
+                            <% } %>
+
+
+
+                        </div>
+                        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                        
+                        </div>
+                        <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div>
+                        <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
+                    </div>
+                </div>
+            </section>
+        
+
+        <script src="/js/bootstrap.bundle.min.js"> </script>
+        <script src="/js/sidenav.js"></script>
+    </body>
+    
+    
+    </html>
