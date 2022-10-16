@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const segControllers = require("../controllers/seguimiento.controller");
+const segControllers = require("../controllers/operacion.controller");
 
 //Rutas de seguimiento 
 
@@ -12,7 +12,9 @@ router.get('/arrendamiento/alquilar', segControllers.get_alquilar); //Mostrar pe
 
 router.get('/arrendamiento/arrendar', segControllers.get_arrendar); //Mostrar pestañas Cronograma Renta - Expediente - Mis propiedades
 
-router.get('/venta', segControllers.get_venta); //Mostrar pestañas Cronograma Venta - Expediente - Mis propiedades
+router.get('/venta/:id_c/:id_p', segControllers.get_segV);
+
+router.get('/venta/:id_c', segControllers.get_venta); //Mostrar pestañas Cronograma Venta - Expediente - Mis propiedades
 
 router.get('/perfil', segControllers.get_profile); //Mostrar perfil de usuario
 

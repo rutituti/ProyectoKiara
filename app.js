@@ -15,11 +15,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended: false}));
 
 const misRutas = require('./routes/inicio.routes');
-const operacionRutas = require('./routes/seguimiento.routes');
+const operacionRutas = require('./routes/operacion.routes');
 
 
 app.use('/inicio',misRutas); // Modulo de pagina de Inicio
-app.use('/seguimiento',operacionRutas); // Modulo de Seguimiento en Linea
+app.use('/operacion',operacionRutas); // Modulo de Seguimiento en Linea
 // Agregar las cookies
 app.use(cookieParser());
 
