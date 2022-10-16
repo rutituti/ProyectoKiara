@@ -4,7 +4,7 @@
   margin-bottom: 30px;
 }
 .timeline-centered.timeline-sm .timeline-entry {
-  margin-bottom: 20px !important;
+  margin-bottom: 30px !important;
 }
 .timeline-centered.timeline-sm .timeline-entry .timeline-entry-inner .timeline-label {
   padding: 1em;
@@ -24,8 +24,8 @@
   width: 3px;
   background: #AFABAB;
   left: 50%;
-  top: 20px;
-  bottom: 30px;
+  top: 0px;
+  bottom: 0px;
   margin-left: -4px;
 }
 .timeline-centered .timeline-entry {
@@ -90,8 +90,8 @@
 }
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-time {
   position: absolute;
-  left: -115px;
-  text-align: right;
+  left: -250px; /*MOVE ESTIQUETA DE FECHA*/
+  text-align: left;
   padding: 10px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -102,10 +102,12 @@
 }
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-time > span:first-child {
   font-size: 18px;
+  color: #70AD47;
   font-weight: bold;
 }
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-time > span:last-child {
-  font-size: 12px;
+  font-size: 18px;
+  font-weight: bold;
 }
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon {
   background: #fff;
