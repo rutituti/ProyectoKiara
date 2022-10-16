@@ -27,8 +27,8 @@ exports.get_casas = (request, response, next) => {
 };
 
 exports.get_root = (request, response, next) => {
-    response.render(path.join('..','views','includes','pagina_inicio','new.ejs'));
+    response.render(path.join('..','views','pagina_inicio','new.ejs'));
 };
 exports.get_sesion = (request, response, next) => {
-    response.sendFile(path.join(__dirname,'..','views','includes','usuarios','new.ejs'));
+    response.sendFile(path.join(__dirname,'..','views','usuarios','new.ejs'));
 };
