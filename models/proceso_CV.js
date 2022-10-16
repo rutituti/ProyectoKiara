@@ -1,6 +1,6 @@
 const db = require('../util/database');
 
-module.exports = class Proceso_CV {
+module.exports = class Proceso_V {
 
     //Constructor de la clase. Sirve para crear un nuevo objeto, y en él se definen las propiedades del modelo
     constructor(num_etapa, estado, propiedad, Fecha_end) {
@@ -20,7 +20,7 @@ module.exports = class Proceso_CV {
 
     //Este método servirá para devolver los objetos del almacenamiento persistente.
     static fetchProceso(id_cliente, id_propiedad) {
-        return db.execute('CALL proceso_CV(?,?);',[id_cliente,id_propiedad]);
+        return db.execute('CALL proceso_V(?,?);',[id_cliente,id_propiedad]);
     }
 
 

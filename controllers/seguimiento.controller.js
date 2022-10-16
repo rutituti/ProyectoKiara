@@ -18,7 +18,7 @@ exports.get_arrendar = (request, response, next) => {
 exports.get_venta = (request, response, next) => {
     //response.sendFile(path.join(__dirname,'..','views','html','crngrmVENTA.html'));
     
-    Proceso_V.fetchProceso(5,3)
+    Proceso_V.fetchProceso(6,3)
     .then(([rows, fieldData]) => {
         //console.log(rows);
         response.render(path.join('..','views','op_venta','segVenta.ejs'), {
