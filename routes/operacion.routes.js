@@ -14,7 +14,7 @@ router.get('/arrendamiento/arrendar', segControllers.get_arrendar); //Mostrar pe
 
 router.get('/venta/:id_c/:id_p', segControllers.get_segV);
 
-router.get('/venta/:id_c', segControllers.get_venta); //Mostrar pestañas Cronograma Venta - Expediente - Mis propiedades
+router.get('/:operacion/:id_c', segControllers.get_venta); //Mostrar pestañas Cronograma Venta - Expediente - Mis propiedades
 
 router.get('/perfil', segControllers.get_profile); //Mostrar perfil de usuario
 

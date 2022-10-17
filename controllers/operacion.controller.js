@@ -32,7 +32,7 @@ exports.get_segV = (request, response, next) => {
 };
 
 exports.get_venta = (request, response, next) => {
-    Proceso_CV.fetch_casasV_idC(request.params.id_c,'Venta')
+    Proceso_CV.fetch_casasV_idC(request.params.id_c,request.params.operacion)
     .then(([rows, fieldData]) => {
         console.log(rows);
         response.render(path.join('..','views','op_venta','casasV.ejs'), {
