@@ -20,7 +20,7 @@ module.exports = class Usuario {
   }
   //Este método servirá para guardar de manera persitente el nuevo objeto
         //Inserta un nuevo elemento en la tabla
-        save(){
+      saveCliente(){
           /*return db.execute(
                 'INSERT INTO Clientes (Nombres, Primer_apellido, Segundo_apellido, Telefono_cliente, Email_cliente, Ocupacion, Estado_civil, contraseña) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
                 [this.Nombres,this.primerApellido,this.segundoApellido,this.telefono,this.email,this.ocupacion,this.estado, this.contraseña]);*/
@@ -31,22 +31,23 @@ module.exports = class Usuario {
               'INSERT INTO Clientes (Nombres, Primer_apellido, Segundo_apellido, Telefono_cliente, Email_cliente, Ocupacion, Estado_civil) VALUES (?, ?, ?, ?, ?, ?, ?)',
               [this.Nombres,this.primerApellido,this.segundoApellido,this.telefono,this.email,this.ocupacion,this.estado]);
               
-          })
-          .catch(error =>{
-            console.log(error);
-          });
-        }
+            })
+            .catch(error =>{
+              console.log(error);
+            });
+      }
+
       saveUsuario(){
         return bcrypt.hash(this.contraseña,12)
           .then((password_cifrado) => {
           return db.execute(
           'INSERT INTO Usuario (Username, Contraseña) VALUES (?, ?)',
           [this.username,password_cifrado]);
-      })
-      .catch(error =>{
-        console.log(error);
-      });
-    }
+          })
+          .catch(error =>{
+            console.log(error);
+          });
+      }
     static getUser(email){
       return db.execute(
           'SELECT * FROM Clientes WHERE email = ?',[this.email]
