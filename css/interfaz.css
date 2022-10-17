@@ -1,0 +1,46 @@
+#background{
+   width: 100%;
+   height: 50%;
+   position: fixed; 
+   left: 0px;
+   top: 0x;
+   z-index: -1;
+}
+.stretch{
+    width: 100%;
+    height: 10%;
+}
+.box{
+  display: flex;
+  flex-direction: row;
+  width: 1300px;
+  height: 350px;
+  text-align: center;
+  background: rgba(5, 7, 12, 0.60);
+  border-radius: 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+img {
+  height: auto;
+  max-height: 100%;
+ }
+ .house{
+  height: 550px;
+  width: 1450px;
+ }
+ .buscador{
+  margin-top: 20px;
+  width: 800px;
+  text-align: center;
+  border-radius: 20px;
+  padding: 50px 50px 50px 50px;
+  background-color: rgba(5, 7, 12, 0.60)
+ }
+ .margen{
+  padding: 1px 1px;
+ }
+ .p-3 {
+  padding: $spacer !important;
+}
+ 

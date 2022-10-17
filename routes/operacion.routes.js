@@ -1,3 +1,4 @@
+
 const express = require('express');
 
 const router = express.Router();
@@ -19,5 +20,6 @@ router.get('/:operacion/:id_c', segControllers.get_venta); //Mostrar pestañas C
 router.get('/perfil', segControllers.get_profile); //Mostrar perfil de usuario
 
 router.get('/', segControllers.get_root ); // ¿Que mostraremos en la raiz?
+
 
 module.exports = router;

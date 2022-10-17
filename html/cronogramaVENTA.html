@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <header>
+            <!--Titulo de página -->
+            <title>Kiara</title>
+            <link rel="stylesheet" href ="../css/bootstrap.min.css"/>
+            <link rel="stylesheet" type= "text/css" href ="../css/interfaz.css"/>
+            <link rel="stylesheet" href ="../css/cronograma_renta.css"/>
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        </header>
+    </head>
+
+    <body>
+
+        
+        <div class="row ">
+                <!-- SIDE BAR (Inicio, Perfil, Venta,etc)-->
+            <nav class="nav">
+                <div class="col-sm-6 col-md-6 col-lg-6 fixed-top">
+                    <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 350px;">
+                        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                            <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+                            <span class="fs-4">Seguimiento en Linea</span>
+                        </a>
+    
+                        <hr>
+    
+                        <ul class="nav nav-pills flex-column mb-auto">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link link-dark" aria-current="page">
+                                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+                                    Inicio
+                                </a>
+                            </li>
+    
+                            <li class="nav-item">
+                                <a href="#" class="nav-link link-dark" aria-current="page">
+                                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+                                    Perfil
+                                </a>
+                            </li>
+    
+                            <li>
+                                <a href="#" class="nav-link active">
+                                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+                                    Venta
+                                </a>
+                            </li>
+    
+                            <li>
+                                <a href="#" class="nav-link link-dark">
+                                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+                                    Renta
+                                </a>
+                            </li>
+    
+                            <li>
+                                <a href="#" class="nav-link link-dark">
+                                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+                                    Compra
+                                </a>
+                            </li>
+                        </ul>
+
+                        <hr>
+    
+                        <div class="dropdown">
+                            <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                                <strong>Usuario</strong>
+                            </a>
+                            <ul class="dropdown-menu text-small shadow">
+                    
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Sign out</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+                <!-- HEADER BAR & TIMELINE-->
+            <div class="col-sm-6 col-md-6 col-lg-6 ">
+                    <!-- NAVIGATION HEADER (Expediente, Mis propiedades, Cronograma)-->
+                    <div class="container-fluid fixed-top">
+                        <header class="d-flex justify-content-center py-3 ">
+                            <ul class="nav nav-pills">
+                            <li class="nav-item"><a href="#" class="nav-link ">Expedientes</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link">Mis propiedades</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Cronograma</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link">Mi Asesor</a></li>
+                            </ul>
+                        </header>
+                    </div>
+            </div>
+
+        </div>
+        
+        <!--TMELINE-->
+        <div class="container">
+            
+            <div class="row">
+                <div  class="col-sm-2 col-md-2 col-lg-2"></div>
+
+                <div class="col-sm-8 col-md-8 col-lg-8"> 
+                    <br><br>
+                <!-- Section: Timeline -->
+                <div class="container bootstrap snippets bootdeys">
+                        <div class="timeline-centered timeline-sm">
+                            <article class="timeline-entry">
+                                <div class="timeline-entry-inner">
+                                    <time datetime="2014-01-10T03:45" class="timeline-time"><span>28/09/22</span><span>Completado</span></time>
+                                    <div class="timeline-icon bg-green"><i class="fa fa-check "></i></div>
+                                    <div class="timeline-label"><h5 class="fw-bold">Recepcion de apartado</h5>
+                                        <p class="text-muted mb-2 fw-bold">1 dia</p>
+                                        <p class="text-muted ">
+                                            Orci varius natoque penatibus et magnis dis parturient montes,
+                                            nascetur ridiculus mus. Nulla ullamcorper arcu lacus
+                                        </p>
+                                    </div>
+                                    
+                                </div>
+                            </article>
+            
+                            <article class="timeline-entry">
+                                <div class="timeline-entry-inner">
+                                    <time datetime="2014-01-10T03:45" class="timeline-time"><span>28/09/22</span><span>Pendiente</span></time>
+                                    <div class="timeline-icon bg-yellow"><i class="fa fa-clock-o "></i></div>
+                                    <div class="timeline-label"><h5 class="fw-bold">Recepcion de Documentacion</h5>
+                                        <p class="text-muted mb-2 fw-bold">1 dia</p>
+                                        <p class="text-muted ">
+                                            Orci varius natoque penatibus et magnis dis parturient montes,
+                                            nascetur ridiculus mus. Nulla ullamcorper arcu lacus
+                                        </p>
+                                    </div>
+                                    
+                                </div>
+                            </article>
+            
+                            <article class="timeline-entry">
+                                <div class="timeline-entry-inner">
+                                    <time datetime="2014-01-10T03:45" class="timeline-time"><span>28/09/22</span><span>No Aprobado</span></time>
+                                    <div class="timeline-icon bg-red"><i class="fa fa-exclamation-circle"></i></div>
+                                    <div class="timeline-label"><h5 class="fw-bold">Elaboracion de contrato de compraventa</h5>
+                                        <p class="text-muted mb-2 fw-bold">1 dia</p>
+                                        <p class="text-muted ">
+                                            Orci varius natoque penatibus et magnis dis parturient montes,
+                                            nascetur ridiculus mus. Nulla ullamcorper arcu lacus
+                                        </p>
+            
+                                    </div>
+                                </div>
+                            </article>
+            
+                            <article class="timeline-entry">
+                                <div class="timeline-entry-inner">
+                                    <time datetime="2014-01-10T03:45" class="timeline-time"><span>28/09/22</span><span>No Iniciado</span></time>
+                                    <div class="timeline-icon bg-light"></div>
+                                    <div class="timeline-label"><h5 class="fw-bold">Firma de contrato</h5></div>
+                                </div>
+                            </article>
+                            
+                        </div>
+                    
+                </div>
+                
+                </div>
+            </div>
+        -->
+        </div>
+
+       
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+    </body>
+</html>
