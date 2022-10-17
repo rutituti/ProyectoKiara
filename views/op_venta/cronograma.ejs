@@ -23,7 +23,7 @@
                                                             <time datetime="<%= pv.Fecha_EndV  %>" class="timeline-time">
                                                                 <% if (pv.Estado == completado){ %>
                                                                     <span>
-                                                                        Finalizado - <%= pv.Fecha_StartV.getDate()+"/"+(pv.Fecha_StartV.getMonth()+1)+ "/"+pv.Fecha_StartV.getFullYear() %>
+                                                                        Finalizado - <%= pv.Fecha_EndV.getDate()+"/"+(pv.Fecha_EndV.getMonth()+1)+ "/"+pv.Fecha_EndV.getFullYear() %>
                                                                     </span>
                                                                 <% } else { %>
                                                                     <span></span>
