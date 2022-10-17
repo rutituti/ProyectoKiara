@@ -3,7 +3,7 @@ const db = require('../util/database');
 const bcrypt = require('bcryptjs')
 module.exports = class Usuario {
 
-  constructor(Nombres,primerApellido,segundoApellido,telefono,email,ocupacion,estado,contraseña){
+  constructor(Nombres,primerApellido,segundoApellido,telefono,email,ocupacion,estado,contraseña,username){
     this.Nombres = Nombres;
     this.primerApellido = primerApellido;
     this.segundoApellido = segundoApellido;
@@ -11,6 +11,7 @@ module.exports = class Usuario {
     this.email = email;
     this.ocupacion = ocupacion;
     this.estado = estado;
+    this.username = username;
     this.contraseña = contraseña;
 }
 
@@ -27,11 +28,28 @@ module.exports = class Usuario {
           return bcrypt.hash(this.contraseña,12)
           .then((password_cifrado) => {
             return db.execute(
-              'INSERT INTO Clientes (Nombres, Primer_apellido, Segundo_apellido, Telefono_cliente, Email_cliente, Ocupacion, Estado_civil, contraseña) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-              [this.Nombres,this.primerApellido,this.segundoApellido,this.telefono,this.email,this.ocupacion,this.estado,password_cifrado]);
+              'INSERT INTO Clientes (Nombres, Primer_apellido, Segundo_apellido, Telefono_cliente, Email_cliente, Ocupacion, Estado_civil) VALUES (?, ?, ?, ?, ?, ?, ?)',
+              [this.Nombres,this.primerApellido,this.segundoApellido,this.telefono,this.email,this.ocupacion,this.estado]);
+              
           })
           .catch(error =>{
             console.log(error);
           });
         }
+      saveUsuario(){
+        return bcrypt.hash(this.contraseña,12)
+          .then((password_cifrado) => {
+          return db.execute(
+          'INSERT INTO Usuario (Username, Contraseña) VALUES (?, ?)',
+          [this.username,password_cifrado]);
+      })
+      .catch(error =>{
+        console.log(error);
+      });
+    }
+    static getUser(email){
+      return db.execute(
+          'SELECT * FROM Clientes WHERE email = ?',[this.email]
+      );
+    }
 }

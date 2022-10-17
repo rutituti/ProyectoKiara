@@ -22,7 +22,8 @@ router.get('/propiedades/new', inicioControllers.get_new); //Formulario registro
 
 router.get('/propiedades', inicioControllers.get_casas); //Mostrar listado de propiedades totales
 
-router.get('/sesion', inicioControllers.getSesion) //Mostrar Inicio de Sesion
+router.get('/sesion', sesionController.getSesion) //Mostrar Inicio de Sesion
+router.get('/sesion',sesionController.login)
 
 // Mandar pagina de inicio
 router.get('/', inicioControllers.get_root );

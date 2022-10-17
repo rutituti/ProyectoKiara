@@ -28,6 +28,13 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
 }));
+app.use((request, response, next) => {
+    response.locals.sesion = request.session.user ? request.session.user : '';
+    response.locals.data = request.session.data ? request.session.data : '';    
+    response.locals.IdUser = request.session.IdUser ? request.session.IdUser : '';
+    response.locals.IdRol = request.session.IdRol ? request.session.IdRol : '';
+    next();
+});
 // Como funciona esta funcion porque si no esta definido avanza a la siguiente, el otro cosa el con un if-else
 // Si estoy en lo correcto esto es un middleware
 app.use((request, response, next) => {
