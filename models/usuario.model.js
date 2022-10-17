@@ -13,31 +13,30 @@ module.exports = class Usuario {
     this.estado = estado;
     this.username = username;
     this.contraseña = contraseña;
-}
+  }
 
   static fetchAll() {
       return db.execute('SELECT * FROM Clientes');
   }
   //Este método servirá para guardar de manera persitente el nuevo objeto
         //Inserta un nuevo elemento en la tabla
-      saveCliente(){
+  saveCliente() {
           /*return db.execute(
                 'INSERT INTO Clientes (Nombres, Primer_apellido, Segundo_apellido, Telefono_cliente, Email_cliente, Ocupacion, Estado_civil, contraseña) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
                 [this.Nombres,this.primerApellido,this.segundoApellido,this.telefono,this.email,this.ocupacion,this.estado, this.contraseña]);*/
           
-          return bcrypt.hash(this.contraseña,12)
+      return bcrypt.hash(this.contraseña,12)
           .then((password_cifrado) => {
-            return db.execute(
-              'INSERT INTO Clientes (Nombres, Primer_apellido, Segundo_apellido, Telefono_cliente, Email_cliente, Ocupacion, Estado_civil) VALUES (?, ?, ?, ?, ?, ?, ?)',
-              [this.Nombres,this.primerApellido,this.segundoApellido,this.telefono,this.email,this.ocupacion,this.estado]);
-              
-            })
-            .catch(error =>{
+              return db.execute(
+                  'INSERT INTO Clientes (Nombres, Primer_apellido, Segundo_apellido, Telefono_cliente, Email_cliente, Ocupacion, Estado_civil) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                  [this.Nombres,this.primerApellido,this.segundoApellido,this.telefono,this.email,this.ocupacion,this.estado]);
+          })
+          .catch(error =>{
               console.log(error);
-            });
-      }
+          });
+  }
 
-      saveUsuario(){
+  saveUsuario() {
         return bcrypt.hash(this.contraseña,12)
           .then((password_cifrado) => {
           return db.execute(
@@ -47,10 +46,12 @@ module.exports = class Usuario {
           .catch(error =>{
             console.log(error);
           });
-      }
-    static getUser(email){
+  }
+
+  static getUser(username) {
       return db.execute(
-          'SELECT * FROM Clientes WHERE email = ?',[this.email]
+          'SELECT * FROM Usuario WHERE Username = ?',
+          [username]
       );
-    }
+  }
 }
