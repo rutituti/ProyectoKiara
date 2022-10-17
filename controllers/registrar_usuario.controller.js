@@ -9,7 +9,7 @@ exports.inicio = (request, response, next) => {
     response.render('form');
 }
 exports.postNew = (request,response,next) => {
-    const usuario = new Usuario(request.body.Nombres,request.body.primerApellido,request.body.segundoApellido,request.body.email,request.body.telefono,request.body.ocupacion,request.body.estado)
+    const usuario = new Usuario(request.body.Nombres,request.body.primerApellido,request.body.segundoApellido,request.body.telefono,request.body.email,request.body.ocupacion,request.body.estado,request.body.contra)
     console.log(usuario);
     usuario.save()
     .then(() => {

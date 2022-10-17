@@ -1,6 +1,6 @@
 <%- include('includes/head.ejs') %>
 <div>
-<form action="/inicio/sesion" method="POST">
+<form action="/inicio/registrarse" method="POST">
 <div class="container">
     <main>
     <div class="py-5 text-center">
@@ -41,21 +41,18 @@
             </div>
 
             <div class="col-12">
-                <label for="id_usuario" class="form-label">Nombre de usuario</label>
-                <div class="input-group has-validation">
-                <span class="input-group-text">@</span>
-                <input type="text" class="form-control" id="nombre" name="id_usuario" placeholder="usuario" required>
-                <div class="invalid-feedback">
-                    Nombre de usuario requerido
-                </div>
-                </div>
-            </div>
-
-            <div class="col-12">
                 <label for="email" class="form-label">Correo</label>
                 <input type="email" class="form-control" id="nombre" name="email" placeholder="you@example.com">
                 <div class="invalid-feedback">
                 Por favor ingresa un correo válido.
+                </div>
+            </div>
+
+            <div class="col-6">
+                <label for="contra" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="nombre" name="contra" required>
+                <div class="invalid-feedback">
+                    Contraseña requerido
                 </div>
             </div>
 
@@ -81,9 +78,11 @@
                 Por favor ingrese su ocupacion
                 </div>
             </div>
-            <input type="submit" id="nombre" name="enviar" value="Registrar">
+            <input type="submit" id="nombre" button class="w-100 btn btn-lg btn-primary" name="enviar" value="Registrar">
             </div>
         </div>
     </form>
 </div>
 <%- include('includes/foot.ejs') %>
+
+

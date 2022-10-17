@@ -31,8 +31,7 @@ app.use(session({
 // Como funciona esta funcion porque si no esta definido avanza a la siguiente, el otro cosa el con un if-else
 // Si estoy en lo correcto esto es un middleware
 app.use((request, response, next) => {
-    //response.status(404).send('<h1>Error 404 </h1>');
-    //response.status(404);
-    response.sendFile(path.join(__dirname,'views','error.html'));
+    response.status(404);
+    response.render('error');
 });
 app.listen(3000);
