@@ -5,7 +5,7 @@ module.exports = class Usuario {
 
   constructor(contraseña,username){  
     this.username = username;
-    this.contraseña = contraseña;
+    this.password = contraseña;
   }
 
   static fetchAll() {
@@ -13,10 +13,10 @@ module.exports = class Usuario {
   }
  
       save(){
-        return bcrypt.hash(this.contraseña,12)
+        return bcrypt.hash(this.password,12)
           .then((password_cifrado) => {
           return db.execute(
-          'INSERT INTO Usuario (Username, Contraseña) VALUES (?, ?)',
+          'INSERT INTO Usuario (username, password) VALUES (?, ?)',
           [this.username,password_cifrado]);
           })
           .catch(error =>{
@@ -26,7 +26,7 @@ module.exports = class Usuario {
 
   static getUser(username) {
       return db.execute(
-          'SELECT * FROM Usuario WHERE Username = ?',
+          'SELECT * FROM Usuario WHERE username = ?',
           [username]
       );
   }

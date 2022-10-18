@@ -14,11 +14,11 @@ exports.get_new_admin = (request, response, next) => {
 
 exports.post_new_admin = (request,response,next) => {
     const usuario = new Usuario(request.body.contra,request.body.username)
-    
     usuario.save()
     .then(() => {
-        request.session = usuario.username;
+        //request.session = usuario.username;
         console.log('Registro de CLiente exitoso');
+        response.redirect('/user/login');
         
     })
     .catch((error) => {
@@ -76,18 +76,18 @@ exports.get_login = (request, response, next) => {
 
 
 exports.post_login = (request, response, next) => {
-    const usuario = new Usuario(request.body.contra,request.body.username)
-    console.log(request.body.username)
+   
     Usuario.getUser(request.body.username)
     
     .then(([username, fieldData]) => {
+        
         if(username.length < 1){
             
             request.session.info = 'El usuario y/o contraseña son incorrectos';
             response.redirect('/user/login');
         }else{
-            console.log("bcrypt");
-            bcrypt.compare(request.body.contra, username[0].contra)
+            
+            bcrypt.compare(request.body.contra, username[0].password)
             .then(doMatch =>{
                 if(doMatch){
                     request.session.isLoggedIN = true;
@@ -96,10 +96,12 @@ exports.post_login = (request, response, next) => {
                         response.redirect('/inicio');
                     });
                 }else{
+                    
                     request.session.info = 'El usuarion y/o contraseña son incorrectos';
                     response.redirect('/user/login')
                 }
             }).catch(err => {
+                
                 response.redirect('/user/login');
             });
         }
