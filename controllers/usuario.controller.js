@@ -92,8 +92,8 @@ exports.post_new_cliente = (request,response,next) => {
 
 exports.get_login = (request, response, next) => {
     let info = request.session.info ? request.session.info : '';
-    request.session.info = '';
     console.log(info);
+    request.session.info = '';
     response.render(path.join('usuarios','login.ejs'), {
         info: info,
     });
@@ -101,23 +101,22 @@ exports.get_login = (request, response, next) => {
 
 
 exports.post_login = (request, response, next) => {
-    console.log(request.body.email);
+    const usuario = new Usuario(request.body.Nombres,request.body.primerApellido,request.body.segundoApellido,request.body.telefono,request.body.email,request.body.ocupacion,request.body.estado,request.body.contra,request.body.username)
+    console.log(request.body.username)
+    Usuario.getUser(request.body.username)
     
-    Usuario.getUser(request.body.email)
-    
-    .then(([usuario, fieldData]) => {
-        console.log(usuario[0]);
-        if(usuario.length < 1){
+    .then(([username, fieldData]) => {
+        if(username.length < 1){
             
             request.session.info = 'El usuario y/o contraseña son incorrectos';
             response.redirect('/user/login');
         }else{
             console.log("bcrypt");
-            bcrypt.compare(request.body.contra, usuario[0].contra)
+            bcrypt.compare(request.body.contra, username[0].contra)
             .then(doMatch =>{
                 if(doMatch){
                     request.session.isLoggedIN = true;
-                    request.session.user = usuario[0].nombre;
+                    request.session.user = username[0].nombre;
                     return request.session.save(err => {
                         response.redirect('/inicio');
                     });

@@ -6,7 +6,7 @@ module.exports = class Usuario {
   constructor(contraseña,username){  
     this.username = username;
     this.contraseña = contraseña;
-}
+  }
 
   static fetchAll() {
       return db.execute('SELECT * FROM Clientes');
@@ -22,10 +22,12 @@ module.exports = class Usuario {
           .catch(error =>{
             console.log(error);
           });
-      }
-    static getUser(email){
+  }
+
+  static getUser(username) {
       return db.execute(
-          'SELECT * FROM Clientes WHERE email = ?',[this.email]
+          'SELECT * FROM Usuario WHERE Username = ?',
+          [username]
       );
-    }
+  }
 }

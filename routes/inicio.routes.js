@@ -25,6 +25,8 @@ router.get('/propiedades', inicioControllers.get_casas); //Mostrar listado de pr
 
 router.get('/propiedades', inicioControllers.get_casas); //Mostrar listado de propiedades totales
 
+router.get('/login', sesionController.get_new);
+
 
 /*
 router.get('/sesion', sesionController.getSesion) //Mostrar Inicio de Sesion

@@ -21,8 +21,12 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
 }));
-
-
+app.use((request, response, next) => {
+    response.locals.sesion = request.session.info ? request.session.info : '';
+    response.locals.user = request.session.user ? request.session.user : '';    
+    response.locals.isLoggedIN = request.session.isLoggedIN ? request.session.isLoggedIN : '';
+    next();
+});
 const rutas_inicio = require('./routes/inicio.routes');
 app.use('/inicio',rutas_inicio); // Modulo de pagina de Inicio
 
@@ -32,13 +36,6 @@ app.use('/operacion',operacionRutas); // Modulo de Seguimiento en Linea
 const rutaUsuarios = require('./routes/usuario.routes');
 app.use('/user', rutaUsuarios);
 // Agregar las cookies
-
-app.use((request, response, next) => {
-    response.locals.sesion = request.session.info ? request.session.info : '';
-    response.locals.user = request.session.user ? request.session.user : '';    
-    response.locals.isLoggedIN = request.session.isLoggedIN ? request.session.isLoggedIN : '';
-    next();
-});
 
 // Como funciona esta funcion porque si no esta definido avanza a la siguiente, el otro cosa el con un if-else
 // Si estoy en lo correcto esto es un middleware
