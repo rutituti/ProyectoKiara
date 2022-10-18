@@ -23,7 +23,7 @@ exports.post_new_admin = (request,response,next) => {
     })
     .catch((error) => {
         console.log(error);
-        response.redirect('/inicio/fail')
+        
     });
 }
 
@@ -59,36 +59,11 @@ exports.post_new_cliente = (request,response,next) => {
     })
     .catch((error) => {
         console.log(error);
-        response.redirect('/inicio/fail')
+        
     });
 }
 
-exports.post_new_cliente = (request,response,next) => {
-    const usuario = new Usuario(request.body.Nombres,request.body.primerApellido,request.body.segundoApellido,request.body.telefono,request.body.email,request.body.ocupacion,request.body.estado,request.body.contra,request.body.username)
-    
-    
-    usuario.saveCliente()
-    .then(() => {
-        console.log('Registro de CLiente exitoso');
-        response.redirect('/inicio');
-        
-        
-    })
-    .catch((error) => {
-        console.log(error);
-        
-    });
-    usuario.saveUsuario()
-    .then(() => {
-        request.session = usuario.username;
-        console.log('Registro de CLiente exitoso');
-        
-    })
-    .catch((error) => {
-        console.log(error);
-        response.redirect('/inicio/fail')
-    });
-}
+
 
 exports.get_login = (request, response, next) => {
     let info = request.session.info ? request.session.info : '';
@@ -101,7 +76,7 @@ exports.get_login = (request, response, next) => {
 
 
 exports.post_login = (request, response, next) => {
-    const usuario = new Usuario(request.body.Nombres,request.body.primerApellido,request.body.segundoApellido,request.body.telefono,request.body.email,request.body.ocupacion,request.body.estado,request.body.contra,request.body.username)
+    const usuario = new Usuario(request.body.contra,request.body.username)
     console.log(request.body.username)
     Usuario.getUser(request.body.username)
     
