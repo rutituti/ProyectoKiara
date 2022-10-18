@@ -4,9 +4,13 @@ const router = express.Router();
 
 const userController = require("../controllers/usuario.controller");
 
-router.post('/registrarse',userController.post_new);
+router.post('/new/admin',userController.post_new_admin);
 
-router.get('/registrarse', userController.get_new);
+router.get('/new/admin', userController.get_new_admin);
+
+router.post('/new/cliente',userController.post_new_cliente);
+
+router.get('/new/cliente', userController.get_new_cliente);
 
 router.get('/login', userController.get_login);
 

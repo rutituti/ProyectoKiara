@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql-kiara.alwaysdata.net
--- Generation Time: Oct 17, 2022 at 03:07 PM
+-- Generation Time: Oct 18, 2022 at 05:22 PM
 -- Server version: 10.6.7-MariaDB
 -- PHP Version: 7.4.19
 
@@ -26,9 +26,9 @@ DELIMITER $$
 -- Procedures
 --
 CREATE DEFINER=`kiara`@`%` PROCEDURE `get_casas_idC` (IN `U_ID_Cliente` INT, IN `U_Operacion` VARCHAR(20) CHARSET utf8mb4)   SELECT PP.ID_Cliente, PP.ID_Propiedad,P.Calle,P.Numero,P.Colonia,P.Codigo_postal,P.Municipio,P.Estado,Paises.Pais ,TI.tipoInmueble
-	   ,ORE.Niveles,ORE.Recamaras,ORE.Cocina,ORE.Sala_Comedor,ORE.Baños,ORE.Cajon_estacionamiento,ORE.Gas, P.Operacion
-FROM Propiedad_propietario PP, Clientes C, Propiedades P, Tipo_inmueble TI,Paises, Op_Residencial ORE
-WHERE PP.ID_Propiedad=P.ID AND PP.ID_Cliente=C.ID AND TI.ID=P.ID_tipoInmueble AND P.ID_pais=Paises.ID AND ORE.ID_Propiedad=P.ID AND PP.ID_Cliente=U_ID_Cliente
+	   ,P.Niveles,P.Habitaciones,P.Baños,P.Cocina,P.Sala_Comedor,P.Estacionamiento,P.Gas, P.Operacion
+FROM Propiedad_propietario PP, Clientes C, Propiedades P, Tipo_inmueble TI,Paises
+WHERE PP.ID_Propiedad=P.ID AND PP.ID_Cliente=C.ID AND TI.ID=P.ID_tipoInmueble AND P.ID_pais=Paises.ID AND PP.ID_Cliente=U_ID_Cliente
       AND P.Operacion=U_Operacion$$
 
 CREATE DEFINER=`kiara`@`%` PROCEDURE `get_proceso` (IN `U_ID_Cliente` INT, IN `U_ID_Propiedad` INT, IN `U_TipoCliente` INT(15))   SELECT PV.Numero_etapa, CV.Nombre, PV.Estado, PV.Fecha_StartV, PV.Fecha_EndV, CV.Tiempo_estimado
@@ -123,10 +123,8 @@ INSERT INTO `Clientes` (`ID`, `Nombres`, `Primer_apellido`, `Segundo_apellido`, 
 (10, 'Arturo', 'Valencia', 'Acosta', '7721251188', '', 'estudiante', 'soltero'),
 (11, 'Genaro', 'Ambia', 'Martinez', '7771792963', '', 'estudiante', 'soltero'),
 (22, 'Brandon', 'Flowers', 'Newman', '4426689472', 'brad0976@gmail.com', 'Singer', 'Casado'),
-(23, 'Brandon', 'Flowers', 'Newman', '4426689472', 'brad0976@gmail.com', 'Singer', 'Casado'),
-(24, 'Rodrigo', 'REYES', 'Reyes', '4426853456', 'roy.reyes3099@outlook.com', 'estudiante', 'soltero'),
-(25, 'Enrique', 'Peña', 'Nieto', '4235432534', 'Enr435@gmail.com', 'Ingeniero', 'soltero'),
-(26, 'Enrique', 'Peña', 'Nieto', '4235432534', 'Enr435@gmail.com', 'Ingeniero', 'soltero');
+(34, 'Ruth', 'Solis', 'Velasco', '1442612638', 'A01703206@itesm.mx', 'estudiante', 'soltero'),
+(35, 'Guillermo Fidel', 'Navarro', 'Vega', '7714206969', 'memotektips@tips.com', 'Full Stack Developer', 'Poli-matrimonio');
 
 -- --------------------------------------------------------
 
@@ -596,18 +594,35 @@ CREATE TABLE `Propiedades` (
   `Uso_suelo` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `Construccion` float NOT NULL,
   `Descripcion` varchar(400) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `Imagen` varchar(400) COLLATE utf8mb4_spanish2_ci NOT NULL
+  `Imagen` varchar(400) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `Niveles` int(11) NOT NULL,
+  `Habitaciones` int(11) NOT NULL,
+  `Baños` float NOT NULL,
+  `Sala_Comedor` tinyint(1) NOT NULL,
+  `Cocina` tinyint(1) NOT NULL,
+  `Estacionamiento` int(11) NOT NULL,
+  `Gas` varchar(20) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `Servicio_Agua` tinyint(1) NOT NULL,
+  `Servicio_Luz` tinyint(1) NOT NULL,
+  `Servicio_Drenaje` tinyint(1) NOT NULL,
+  `Tipo_desnivel` varchar(20) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `Forma_terreno` varchar(20) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `Medidas_frente` float NOT NULL,
+  `Medidas_fondo` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Dumping data for table `Propiedades`
 --
 
-INSERT INTO `Propiedades` (`ID`, `ID_tipoInmueble`, `Calle`, `Numero`, `Colonia`, `Codigo_postal`, `Municipio`, `Estado`, `ID_pais`, `Longitud`, `Latitud`, `Operacion`, `Terreno`, `Privada_calle`, `Precio`, `Uso_suelo`, `Construccion`, `Descripcion`, `Imagen`) VALUES
-(1, 1, 'Sendero del Silencio', '39', 'Milenio III', 76060, 'Queretaro', 'Queretaro', 115, 0, 0, 'Renta', 144, 'Calle', 13900, 'habitacional', 167, 'Frente a area verde', ''),
-(2, 5, 'Torneros', '102', 'Peñuelas', 76148, 'Queretaro', 'Queretaro', 115, 0, 0, 'Renta', 120, 'Calle', 12000, 'comercial', 120, '', ''),
-(3, 1, 'Callejon de Los Mendoza', '13', 'Hacienda San Gabriel', 76904, 'Corregidora', 'Queretaro', 115, 0, 0, 'Venta', 161, 'Privada', 2470000, 'habitacional', 178, '', ''),
-(4, 3, 'Datil', '39', 'Real del Bosque', 76922, 'Corregidora', 'Queretaro', 115, 0, 0, 'Venta', 223, 'Privada', 1475000, 'habitacional', 0, '', '');
+INSERT INTO `Propiedades` (`ID`, `ID_tipoInmueble`, `Calle`, `Numero`, `Colonia`, `Codigo_postal`, `Municipio`, `Estado`, `ID_pais`, `Longitud`, `Latitud`, `Operacion`, `Terreno`, `Privada_calle`, `Precio`, `Uso_suelo`, `Construccion`, `Descripcion`, `Imagen`, `Niveles`, `Habitaciones`, `Baños`, `Sala_Comedor`, `Cocina`, `Estacionamiento`, `Gas`, `Servicio_Agua`, `Servicio_Luz`, `Servicio_Drenaje`, `Tipo_desnivel`, `Forma_terreno`, `Medidas_frente`, `Medidas_fondo`) VALUES
+(1, 1, 'Sendero del Silencio', '39', 'Milenio III', 76060, 'Queretaro', 'Queretaro', 115, 0, 0, 'Renta', 144, 'Calle', 13900, 'habitacional', 167, 'Frente a area verde', '', 2, 3, 2.5, 1, 1, 1, 'estacionario', 0, 0, 0, '', '', 0, 0),
+(2, 5, 'Torneros', '102', 'Peñuelas', 76148, 'Queretaro', 'Queretaro', 115, 0, 0, 'Renta', 120, 'Calle', 12000, 'comercial', 120, '', '', 1, 2, 1, 0, 0, 0, '', 0, 0, 0, '', '', 0, 0),
+(3, 1, 'Callejon de Los Mendoza', '13', 'Hacienda San Gabriel', 76904, 'Corregidora', 'Queretaro', 115, 0, 0, 'Venta', 161, 'Privada', 2470000, 'habitacional', 178, '', '', 2, 3, 2.5, 1, 1, 2, 'estacionario', 0, 0, 0, '', '', 0, 0),
+(4, 3, 'Datil', '39', 'Real del Bosque', 76922, 'Corregidora', 'Queretaro', 115, 0, 0, 'Venta', 223, 'Privada', 1475000, 'habitacional', 0, '', '', 0, 0, 0, 0, 0, 0, '', 1, 1, 1, 'Plano', 'Regular', 10, 28),
+(41, 1, 'Sendero de las Misiones', '27', 'Milenio III', 76060, 'Queretaro', 'Queretaro', 115, 0, 0, 'Renta', 300, 'Calle', 1000, 'Habitacional', 200, '', '', 2, 3, 2.5, 1, 1, 3, 'estacionario', 0, 0, 0, '', '', 0, 0),
+(42, 2, 'Florencio Rosas', '4 Int 101', 'Cimatario', 76030, 'Queretaro', 'Queretaro', 115, 0, 0, 'Renta', 300, 'Calle', 1000, 'Habitacional', 200, '', '', 1, 2, 1, 1, 1, 1, 'estacionario', 0, 0, 0, '', '', 0, 0),
+(43, 1, 'Marques de Jelves', '115', 'Lomas del Marques', 76010, 'Queretaro', 'Queretaro', 115, 0, 0, 'Renta', 300, 'Calle', 1000, 'Habitacional', 200, '', '', 1, 2, 1, 1, 1, 2, 'estacionario', 0, 0, 0, '', '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -629,7 +644,10 @@ INSERT INTO `Propiedad_propietario` (`ID_Propiedad`, `ID_Cliente`, `Fecha`) VALU
 (1, 3, '2022-09-13 22:00:00'),
 (2, 4, '2022-09-15 22:00:00'),
 (3, 6, '2022-09-08 22:00:00'),
-(4, 7, '2022-09-05 22:00:00');
+(4, 7, '2022-09-05 22:00:00'),
+(41, 8, '2022-10-17 15:45:04'),
+(42, 8, '2022-10-17 15:45:04'),
+(43, 8, '2022-10-17 15:45:04');
 
 -- --------------------------------------------------------
 
@@ -837,6 +855,30 @@ INSERT INTO `Tipo_inmueble` (`ID`, `tipoInmueble`) VALUES
 (10, 'Consultorio'),
 (11, 'Local');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Usuario`
+--
+
+CREATE TABLE `Usuario` (
+  `Username` varchar(40) NOT NULL,
+  `Contraseña` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `Usuario`
+--
+
+INSERT INTO `Usuario` (`Username`, `Contraseña`) VALUES
+('Ingeniero', '$2a$12$jIP43/qJzwMbFZ2dYXZuWe9irOOxRhP2J'),
+('Amg0011', '$2a$12$rxksatmOQ9XBocDUf44VAOnF1KTl7TeD6'),
+('Amg0011', '$2a$12$C89lpUgl6dXABUGK/ldrOeAcDRGqDmoKL'),
+('Amg0011', '$2a$12$Mu4.ebyk3OZazvoTykaQcuhQTp4.QY7G3'),
+('Amg0011', '$2a$12$jYX5YPqU8qvAHlAfe3Ryp.WHzsJVK8toA'),
+('tuti', '$2a$12$lDLoryb0GqmGZ3CuVcObL.baMrGCxw6L1'),
+('memorias', '$2a$12$RHvgoIhMnZSFgUoiTbwHdudUZuXJHXDyQ');
+
 --
 -- Indexes for dumped tables
 --
@@ -997,7 +1039,7 @@ ALTER TABLE `Tipo_inmueble`
 -- AUTO_INCREMENT for table `Clientes`
 --
 ALTER TABLE `Clientes`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `Cronograma_renta`
@@ -1027,7 +1069,7 @@ ALTER TABLE `Paises`
 -- AUTO_INCREMENT for table `Propiedades`
 --
 ALTER TABLE `Propiedades`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `Tipo_docCliente`
@@ -1087,24 +1129,6 @@ ALTER TABLE `Expediente_Propiedad`
   ADD CONSTRAINT `Expediente_Propiedad_ibfk_3` FOREIGN KEY (`ID_TipoDoc`) REFERENCES `Tipo_docPropiedad` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `Op_comercial`
---
-ALTER TABLE `Op_comercial`
-  ADD CONSTRAINT `Op_comercial_ibfk_1` FOREIGN KEY (`ID_Propiedad`) REFERENCES `Propiedades` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `Op_Residencial`
---
-ALTER TABLE `Op_Residencial`
-  ADD CONSTRAINT `Op_Residencial_ibfk_1` FOREIGN KEY (`ID_Propiedad`) REFERENCES `Propiedades` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `Op_terreno`
---
-ALTER TABLE `Op_terreno`
-  ADD CONSTRAINT `Op_terreno_ibfk_1` FOREIGN KEY (`ID_Propiedad`) REFERENCES `Propiedades` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `Proceso_CompraVenta`
 --
 ALTER TABLE `Proceso_CompraVenta`
@@ -1125,14 +1149,14 @@ ALTER TABLE `Proceso_renta`
 --
 ALTER TABLE `Propiedades`
   ADD CONSTRAINT `Propiedades_ibfk_1` FOREIGN KEY (`ID_tipoInmueble`) REFERENCES `Tipo_inmueble` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Propiedades_ibfk_2` FOREIGN KEY (`ID`) REFERENCES `Propiedad_propietario` (`ID_Propiedad`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `Propiedades_ibfk_3` FOREIGN KEY (`ID_pais`) REFERENCES `Paises` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Propiedad_propietario`
 --
 ALTER TABLE `Propiedad_propietario`
-  ADD CONSTRAINT `Propiedad_propietario_ibfk_1` FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Propiedad_propietario_ibfk_1` FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Propiedad_propietario_ibfk_2` FOREIGN KEY (`ID_Propiedad`) REFERENCES `Propiedades` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Restriccion_TED_cliente`

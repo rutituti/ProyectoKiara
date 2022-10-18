@@ -1,0 +1,42 @@
+
+<div>
+<form action="/user/new/admin" method="POST">
+<div class="container">
+    <main>
+    <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="/images/usuario.png" alt="" width="72" height="57">
+        <h2>Nuevo administrador</h2>
+        <p class="lead">Ingrese sus datos para la creación de nuevo usuario administrador</p>
+    </div>
+
+    <div class="row g-5">
+        <div class="col-md-4 col-lg-2 text-center">
+        </div>
+        <div class="col-md-7 col-lg-8">
+        <h4 class="mb-3">Cuenta</h4>
+        <form class="needs-validation" novalidate>
+            <div class="row g-3">
+
+                <div class="col-12">
+                    <label for="username" class="form-label">Nombre de Usuario (maximo 8 caracteres)</label>
+                    <input type="text" class="form-control" id="nombre" name="username">
+                    <div class="invalid-feedback">
+                    Por favor ingresa un Nombre de usuario
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <label for="contra" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password" name="contra" required>
+                    <div class="invalid-feedback">
+                        Contraseña requerida
+                    </div>
+                </div>
+
+            <input type="submit" id="nombre" button class="w-100 btn btn-lg btn-primary" name="enviar" value="Registrar">
+            </div>
+        </div>
+    </form>
+</div>
+
+

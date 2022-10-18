@@ -3,14 +3,7 @@ const db = require('../util/database');
 const bcrypt = require('bcryptjs')
 module.exports = class Usuario {
 
-  constructor(Nombres,primerApellido,segundoApellido,telefono,email,ocupacion,estado,contraseña,username){
-    this.Nombres = Nombres;
-    this.primerApellido = primerApellido;
-    this.segundoApellido = segundoApellido;
-    this.telefono = telefono;
-    this.email = email;
-    this.ocupacion = ocupacion;
-    this.estado = estado;
+  constructor(contraseña,username){  
     this.username = username;
     this.contraseña = contraseña;
 }
@@ -18,26 +11,8 @@ module.exports = class Usuario {
   static fetchAll() {
       return db.execute('SELECT * FROM Clientes');
   }
-  //Este método servirá para guardar de manera persitente el nuevo objeto
-        //Inserta un nuevo elemento en la tabla
-      saveCliente(){
-          /*return db.execute(
-                'INSERT INTO Clientes (Nombres, Primer_apellido, Segundo_apellido, Telefono_cliente, Email_cliente, Ocupacion, Estado_civil, contraseña) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-                [this.Nombres,this.primerApellido,this.segundoApellido,this.telefono,this.email,this.ocupacion,this.estado, this.contraseña]);*/
-          
-          return bcrypt.hash(this.contraseña,12)
-          .then((password_cifrado) => {
-            return db.execute(
-              'INSERT INTO Clientes (Nombres, Primer_apellido, Segundo_apellido, Telefono_cliente, Email_cliente, Ocupacion, Estado_civil) VALUES (?, ?, ?, ?, ?, ?, ?)',
-              [this.Nombres,this.primerApellido,this.segundoApellido,this.telefono,this.email,this.ocupacion,this.estado]);
-              
-            })
-            .catch(error =>{
-              console.log(error);
-            });
-      }
-
-      saveUsuario(){
+ 
+      save(){
         return bcrypt.hash(this.contraseña,12)
           .then((password_cifrado) => {
           return db.execute(
