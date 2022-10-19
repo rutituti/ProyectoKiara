@@ -9,6 +9,8 @@ exports.get_new_admin = (request, response, next) => {
         request.session.info = '';
         response.render(path.join('usuarios','new_admin.ejs'), {
             info: info,
+            isLoggedIN: request.session.isLoggedIN ? request.session.isLoggedIN: false,
+            user: request.session.user ? request.session.user: '',
          });
 };
 
@@ -71,6 +73,8 @@ exports.get_login = (request, response, next) => {
     request.session.info = '';
     response.render(path.join('usuarios','login.ejs'), {
         info: info,
+        isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
+        user: request.session.user ? request.session.user : '',
     });
 };
 
