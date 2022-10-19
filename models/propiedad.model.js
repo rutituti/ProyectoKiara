@@ -83,4 +83,6 @@ module.exports = class Propiedad{
     static find(valor_busqueda) {
         return db.execute('SELECT * FROM Propiedades WHERE Colonia LIKE ? OR Municipio LIKE ? OR Calle LIKE ?', ['%'+valor_busqueda+'%', '%'+valor_busqueda+'%', '%'+valor_busqueda+'%']);
     }
+
+    
 }
