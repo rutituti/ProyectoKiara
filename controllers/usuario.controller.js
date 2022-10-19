@@ -100,7 +100,8 @@ exports.post_login = (request, response, next) => {
                 if(doMatch){
                     request.session.isLoggedIN = true;
                    
-                    request.session.user = username[0].nombre;
+                    request.session.user = username[0].username;
+                    console.log(request.session.user);
                     return request.session.save(err => {
                         response.redirect('/inicio');
                     });

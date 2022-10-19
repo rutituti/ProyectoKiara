@@ -24,11 +24,23 @@
           <a class="nav-link" href="#">¿Quienes somos?</a>
           <a class="nav-link" href="#">Favoritos</a>
           <!--add button-->
-          <% console.log(isLoggedIn) %>
+          
           <% if (!isLoggedIn) { %>
           <button type="button" class="btn btn-secondary"><a href="/user/login">Iniciar sesión</a></button>
           <% } else { %>
-          <button type="button" class="btn btn-danger"><a href="/user/logout">Salir</a></button>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Usuario: <%= user %>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/user/logout">Salir</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-danger"><a href="/user/logout">Salir</a></button>
+      
           <% } %>
         </div>
       </div>
