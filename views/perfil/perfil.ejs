@@ -1,10 +1,42 @@
-<%- include('../includes/head.ejs') %>
-    <div class="container">
-        <%- include('sidebar.ejs') %>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <header>
+            <!--Titulo de página -->
+            <title>Kiara</title>
+            <link rel="stylesheet" href ="/css/bootstrap.min.css"/>
+            <link rel="stylesheet" type= "text/css" href ="/css/interfaz.css"/>
+            <link rel="stylesheet" href="/css/sidenav.css">
+            <link rel="stylesheet" href ="/css/cronograma_renta.css">
+
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+            <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        </header>
+    </head>
+
+    <body>
+
+        <%- include('../includes/navbar.ejs', {
+            isLoggedIn: isLoggedIn,
+            user: user,
+        }) %>
+
+        <div class="container">
+        
+            <%- include('../includes/sidebar.ejs', {
+                ubicacion: ubicacion,
+            }) %>
+
+            
             <section class="home-section ">
                 <div class="w-100">
                     <div>                    
-                    <%- include('../includes/sidebar.ejs') %>
+                    
                         <% if (profile_C.length > 0) { %>
                             <% for (let c of profile_C) { %>
                                 <div row="col-sm-2 col-md-2 col-lg-2">

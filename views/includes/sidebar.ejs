@@ -7,6 +7,7 @@
             </div>
 
             <ul class="nav-list">
+              <% let active = '' %>
               <li>
                   <i class='bx bx-search' ></i>
                   <input type="text" placeholder="Search...">
@@ -14,47 +15,83 @@
               </li>
 
               <li>
-                  <a class="" href="/inicio">
+                <% if (ubicacion == 'perfil') {
+                  active = 'active';
+                } else {
+                  active = '';
+                }
+                  %>
+
+                  <a class="<%= active %>" href="/user/perfil">
                   <i class='bx bx-user' ></i>
                   <span class="links_name">Perfil</span>
                   </a>
                   <span class="tooltip">Perfil</span>
               </li>
 
+              <% if (ubicacion == 'venta') {
+                active = 'active';
+              } else {
+                active = '';
+              }
+                %>
+
               <li>
-                  <a class="active" href="#">
+                  <a class="<%= active %>" href="/operacion/venta">
                   <i class='bx bx-cart ' ></i>
                   <span class="links_name ">Venta</span>
                   </a>
                   <span class="tooltip">Venta</span>
               </li>
-
+              <% if (ubicacion == 'compra') {
+                active = 'active';
+              } else {
+                active = '';
+              }
+                %>
               <li>
-                <a href="#">
+                <a class="<%= active %>" href="#">
                 <i class='bx bx-cart' ></i>
                 <span class="links_name">Compra</span>
                 </a>
                 <span class="tooltip">Compra</span>
             </li>
 
+            <% if (ubicacion == 'renta') {
+              active = 'active';
+            } else {
+              active = '';
+            }
+              %>
+
               <li>
-                  <a href="#">
+                  <a class="<%= active %>" href="/operacion/renta">
                   <i class='bx bx-cart' ></i>
                   <span class="links_name">Renta</span>
                   </a>
                   <span class="tooltip">Renta</span>
               </li>
-
+              <% if (ubicacion == 'alquilar') {
+                active = 'active';
+              } else {
+                active = '';
+              }
+                %>
               <li>
-                  <a href="#">
+                  <a class="<%= active %>" href="#">
                   <i class='bx bx-cart' ></i>
                   <span class="links_name">Alquilar</span>
                   </a>
                   <span class="tooltip">Alquilar</span>
               </li>
-
+              <% if (ubicacion == 'config') {
+                active = 'active';
+              } else {
+                active = '';
+              }
+                %>
               <li>
-               <a href="#">
+               <a class="<%= active %>" href="#">
                  <i class='bx bx-cog' ></i>
                  <span class="links_name">Configuracion</span>
                </a>

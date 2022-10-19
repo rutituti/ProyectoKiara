@@ -126,5 +126,25 @@ exports.logout = (request, response, next) => {
         response.redirect('/inicio'); //Este código se ejecuta cuando la sesión se elimina.
     });
 };
-    
+   
+// Obtener perfil de usuario
+exports.get_profile = (request, response, next) => {
+    request.session.ubicacion = 'perfil';
+    console.log(request.session);
+    Cliente.fetch_profile_id(request.session.user)
+    .then(([rows, fieldData]) => {
+        console.log("GET Perfil usuario");
+        console.log(rows);
+        response.render(path.join('..','views','perfil','perfil.ejs'), {
+            profile_C: rows[0],
+            isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+            user: request.session.user ? request.session.user : '',
+            ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+
+        }); 
+    })
+    .catch( error => { 
+        console.log(error)
+    });
+};
 

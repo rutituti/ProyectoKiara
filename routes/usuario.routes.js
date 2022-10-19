@@ -20,4 +20,6 @@ router.post('/login', userController.post_login);
 
 router.get('/logout', userController.logout);
 
+router.get('/perfil',isAuth, userController.get_profile); //Mostrar perfil de usuario
+
 module.exports = router;

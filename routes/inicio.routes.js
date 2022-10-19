@@ -14,8 +14,6 @@ router.use('/success',sesionController.exito);
 */
 router.get('/QuienesSomos', inicioControllers.get_Infoempresa); //Muestra la informacion de la empresa
 
-router.get('/perfil/:user', operacionController.get_profile); //Muestra la informacion del cliente
-
 router.get('/propiedades/venta', inicioControllers.get_casas_venta); //Mostrar casas en venta
 
 router.get('/propiedades/renta', inicioControllers.get_casas_renta); //Mostrar casas en renta
