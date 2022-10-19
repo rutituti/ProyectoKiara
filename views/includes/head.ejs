@@ -9,10 +9,33 @@
             <link rel="stylesheet" type= "text/css" href ="/css/interfaz.css"/>
             <link rel="stylesheet" href="/images/usuario.png"/>
             <title>Kiara Bienes Raices</title>
+            
+            <link rel="stylesheet" href="/css/sidenav.css">
+            <link rel="stylesheet" href ="/css/cronograma_renta.css">
+
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+            <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         </header>
     </head>
 <body class="bg-light">
-  <%- include('../includes/navbar.ejs', {
-    isLoggedIn: isLoggedIn,
-    user: user,
-}) %>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/inicio"><strong>Kiara</strong></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ms-auto">
+              <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+              <a class="nav-link" href="#">¿Quienes somos?</a>
+              <a class="nav-link" href="#">Favoritos</a>
+              <a class="nav-link" href="/inicio/perfil">Perfil</a>
+              <!--add button-->
+              <button type="button" class="btn btn-secondary"><a href="/user/login">Iniciar sesión</a></button>
+            </div>
+          </div>
+        </div>
+      </nav>

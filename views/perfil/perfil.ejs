@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,36 +33,25 @@
             }) %>
 
             
-
             <section class="home-section ">
                 <div class="w-100">
-
-                            <br>
-                            
-                              
-                           
-                            <div>
-                                <% if (profile_C.length > 0) { %>
-                                    <div class="row">
-                                        <% for (let c of profile_C) { %>
-                                            <div class="col-sm-6 col-md-4 col-lg-8">
-                                                <%- include('perfil.form.ejs', {profile_C: c}) %>
-                                            </div>
-                                        <% } %>
-                                    </div>
-                                <% } else { %>
-                                    <h3>No hay usuarios registradas</h3>
-                                <% } %>
-                        </div>
-
-                      
+                    <div>                    
+                    
+                        <% if (profile_C.length > 0) { %>
+                            <% for (let c of profile_C) { %>
+                                <div row="col-sm-2 col-md-2 col-lg-2">
+                                    <%- include('perfil.form.ejs', {profile_C: c}) %>
+                                </div>
+                            <% } %>
+                        <% } else { %>
+                            <h3>No hay usuarios registradas</h3>
+                        <% } %>
+                    </div>
                 </div>
             </section>
-        
+    </div>
 
         <script src="/js/bootstrap.bundle.min.js"> </script>
         <script src="/js/sidenav.js"></script>
     </body>
-    
-    
-    </html>
+</html>
