@@ -9,6 +9,8 @@ exports.get_new_admin = (request, response, next) => {
         request.session.info = '';
         response.render(path.join('usuarios','new_admin.ejs'), {
             info: info,
+            isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+            user: request.session.user ? request.session.user : '',
          });
 };
 
@@ -33,6 +35,9 @@ exports.get_new_cliente = (request, response, next) => {
         request.session.info = '';
         response.render(path.join('usuarios','new_cliente.ejs'), {
             info: info,
+            isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+            user: request.session.user ? request.session.user : '',
+            
          });
 };
 
@@ -67,12 +72,15 @@ exports.post_new_cliente = (request,response,next) => {
 
 exports.get_login = (request, response, next) => {
     let info = request.session.info ? request.session.info : '';
-    console.log(info);
+    console.log(request.session.isLoggedIn);
     request.session.info = '';
     response.render(path.join('usuarios','login.ejs'), {
         info: info,
+        isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+        user: request.session.user ? request.session.user : '',
     });
 };
+
 
 
 exports.post_login = (request, response, next) => {
@@ -91,7 +99,9 @@ exports.post_login = (request, response, next) => {
             .then(doMatch =>{
                 if(doMatch){
                     request.session.isLoggedIN = true;
-                    request.session.user = username[0].nombre;
+                   
+                    request.session.user = username[0].username;
+                    console.log(request.session.user);
                     return request.session.save(err => {
                         response.redirect('/inicio');
                     });
@@ -118,19 +128,3 @@ exports.logout = (request, response, next) => {
 };
     
 
-//MENSAJE DE DEBUG
-/*
-exports.fail = (request, response, next) => {
-    response.render('fail');
-}
-exports.exito = (request, response,next) => {
-    response.render('exito')
-}
-exports.Validar = (request, response, next) => {
-    response.render(path.join('..','views','includes','inicio_sesion','sesion.ejs'),{
-        info: '',
-    });
-    
-    //response.setHeader('Set-Cookie', 'Cookie de chocolate','1');  //Enviar una cookie
-};
-*/

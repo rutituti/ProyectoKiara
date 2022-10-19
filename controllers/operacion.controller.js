@@ -19,12 +19,15 @@ exports.get_arrendar = (request, response, next) => {
 exports.get_segV = (request, response, next) => {
     //response.sendFile(path.join(__dirname,'..','views','html','crngrmVENTA.html'));
     
-    Proceso_CV.fetchProceso(request.params.id_c,request.params.id_p,'Vendedor')
+
+    Proceso_CV.fetchProceso(request.session.user,request.params.id_p,'Vendedor')
     .then(([rows, fieldData]) => {
         //console.log(rows);
         response.render(path.join('..','views','op_venta','segVenta.ejs'), {
             seg_V: rows[0],
-            //user: request.session.user ? request.session.user : 1,
+            info: info,
+            isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+            user: request.session.user ? request.session.user : '',
         }); 
     })
     .catch( error => { 
@@ -33,14 +36,18 @@ exports.get_segV = (request, response, next) => {
 };
 
 exports.get_venta = (request, response, next) => {
-    console.log(request.params.id_c);
-    Proceso_CV.fetch_casasV_idC(request.params.id_c,request.params.operacion)
+    
+    Proceso_CV.fetch_casasV_idC(request.session.user,request.params.operacion)
+    
     .then(([rows, fieldData]) => {
+        //console.log(request.session.info);
         console.log("GET CASA EN VENTA");
-        console.log(rows);
+        //console.log(rows);
         response.render(path.join('..','views','op_venta','casasV.ejs'), {
             casas_V: rows[0],
-            //user: request.session.user ? request.session.user : 1,
+            info: info,
+            isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+            user: request.session.user ? request.session.user : '',
         }); 
     })
     .catch( error => { 
@@ -64,7 +71,9 @@ exports.get_profile = (request, response, next) => {
         console.log(error)
     });
 };
-
+/*
 exports.get_root = (request, response, next) => {
+    
     response.send('SEGUIMIENTO EN LINEA');
 };
+*/
