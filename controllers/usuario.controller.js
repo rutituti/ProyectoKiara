@@ -18,7 +18,7 @@ exports.post_new_admin = (request,response,next) => {
     .then(() => {
         //request.session = usuario.username;
         console.log('Registro de CLiente exitoso');
-        response.redirect('/user/login');
+        response.redirect('/user/new/admin');
         
     })
     .catch((error) => {

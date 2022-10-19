@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql-kiara.alwaysdata.net
--- Generation Time: Oct 18, 2022 at 05:22 PM
+-- Generation Time: Oct 19, 2022 at 03:24 AM
 -- Server version: 10.6.7-MariaDB
 -- PHP Version: 7.4.19
 
@@ -25,13 +25,13 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`kiara`@`%` PROCEDURE `get_casas_idC` (IN `U_ID_Cliente` INT, IN `U_Operacion` VARCHAR(20) CHARSET utf8mb4)   SELECT PP.ID_Cliente, PP.ID_Propiedad,P.Calle,P.Numero,P.Colonia,P.Codigo_postal,P.Municipio,P.Estado,Paises.Pais ,TI.tipoInmueble
+CREATE DEFINER=`kiara`@`%` PROCEDURE `get_casas_idC` (IN `U_ID_Cliente` VARCHAR(18) CHARSET utf8mb4, IN `U_Operacion` VARCHAR(20) CHARSET utf8mb4)   SELECT PP.ID_Cliente, PP.ID_Propiedad,P.Calle,P.Numero,P.Colonia,P.Codigo_postal,P.Municipio,P.Estado,Paises.Pais ,TI.tipoInmueble
 	   ,P.Niveles,P.Habitaciones,P.Baños,P.Cocina,P.Sala_Comedor,P.Estacionamiento,P.Gas, P.Operacion
 FROM Propiedad_propietario PP, Clientes C, Propiedades P, Tipo_inmueble TI,Paises
-WHERE PP.ID_Propiedad=P.ID AND PP.ID_Cliente=C.ID AND TI.ID=P.ID_tipoInmueble AND P.ID_pais=Paises.ID AND PP.ID_Cliente=U_ID_Cliente
+WHERE PP.ID_Propiedad=P.ID AND PP.ID_Cliente=C.username AND TI.ID=P.ID_tipoInmueble AND P.ID_pais=Paises.ID AND PP.ID_Cliente=U_ID_Cliente
       AND P.Operacion=U_Operacion$$
 
-CREATE DEFINER=`kiara`@`%` PROCEDURE `get_proceso` (IN `U_ID_Cliente` INT, IN `U_ID_Propiedad` INT, IN `U_TipoCliente` INT(15))   SELECT PV.Numero_etapa, CV.Nombre, PV.Estado, PV.Fecha_StartV, PV.Fecha_EndV, CV.Tiempo_estimado
+CREATE DEFINER=`kiara`@`%` PROCEDURE `get_proceso` (IN `U_ID_Cliente` VARCHAR(18), IN `U_ID_Propiedad` INT, IN `U_TipoCliente` INT(15))   SELECT PV.Numero_etapa, CV.Nombre, PV.Estado, PV.Fecha_StartV, PV.Fecha_EndV, CV.Tiempo_estimado
 FROM Proceso_CompraVenta PV, Cronograma_venta CV
 WHERE PV.Numero_etapa=CV.Numero AND PV.ID_Cliente=U_ID_Cliente AND PV.ID_Propiedad=U_ID_Propiedad AND PV.tipoCliente=U_TipoCliente$$
 
@@ -44,7 +44,7 @@ DELIMITER ;
 --
 
 CREATE TABLE `Asesores` (
-  `CURP` varchar(18) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `CURP` varchar(18) CHARACTER SET utf8mb4 NOT NULL,
   `Nombre_asesor` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `Primer_apellido` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `Segundo_apellido` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
@@ -71,8 +71,8 @@ INSERT INTO `Asesores` (`CURP`, `Nombre_asesor`, `Primer_apellido`, `Segundo_ape
 --
 
 CREATE TABLE `Asesor_cliente` (
-  `ID_Asesor` varchar(18) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `ID_Cliente` int(11) NOT NULL,
+  `ID_Asesor` varchar(18) CHARACTER SET utf8mb4 NOT NULL,
+  `ID_Cliente` varchar(18) CHARACTER SET utf8mb4 NOT NULL,
   `Fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
@@ -81,13 +81,13 @@ CREATE TABLE `Asesor_cliente` (
 --
 
 INSERT INTO `Asesor_cliente` (`ID_Asesor`, `ID_Cliente`, `Fecha`) VALUES
-('AIVT700616MDFTLR09', 1, '2022-10-14 23:33:00'),
-('AIVT700616MDFTLR09', 2, '2022-10-14 23:33:00'),
-('AIVT700616MDFTLR09', 5, '2022-10-14 23:33:00'),
-('AIVT700616MDFTLR09', 6, '2022-10-14 23:33:00'),
-('BAHV691210MDFZRR10', 3, '2022-10-14 23:32:32'),
-('BAHV691210MDFZRR10', 4, '2022-10-14 23:32:32'),
-('GUME791116MDFTRS05', 7, '2022-10-14 23:33:14');
+('AIVT700616MDFTLR09', 'c01', '2022-10-18 23:56:27'),
+('AIVT700616MDFTLR09', 'c02', '2022-10-18 23:56:27'),
+('AIVT700616MDFTLR09', 'c05', '2022-10-18 23:56:27'),
+('AIVT700616MDFTLR09', 'c06', '2022-10-18 23:56:27'),
+('BAHV691210MDFZRR10', 'c03', '2022-10-18 23:56:27'),
+('BAHV691210MDFZRR10', 'c04', '2022-10-18 23:56:27'),
+('GUME791116MDFTRS05', 'c07', '2022-10-18 23:56:27');
 
 -- --------------------------------------------------------
 
@@ -96,7 +96,7 @@ INSERT INTO `Asesor_cliente` (`ID_Asesor`, `ID_Cliente`, `Fecha`) VALUES
 --
 
 CREATE TABLE `Clientes` (
-  `ID` int(11) NOT NULL,
+  `username` varchar(18) CHARACTER SET utf8mb4 NOT NULL,
   `Nombres` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `Primer_apellido` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `Segundo_apellido` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
@@ -110,21 +110,20 @@ CREATE TABLE `Clientes` (
 -- Dumping data for table `Clientes`
 --
 
-INSERT INTO `Clientes` (`ID`, `Nombres`, `Primer_apellido`, `Segundo_apellido`, `Telefono_cliente`, `Email_cliente`, `Ocupacion`, `Estado_civil`) VALUES
-(1, 'Hector Román', 'Calderón', 'Cibrian', '4421815772', 'hrcalderon@live.com.mx', 'empleado', 'n/a'),
-(2, 'Hugo Alexis', 'Trujillo', 'Sánchez', '4426582959', 'alexiscryowelding@gmail.com', 'socio', 'n/a'),
-(3, 'Rosalía', 'Pérez', 'Bravo', '8184681966', 'rosaliapb@gmail.com', 'empleado', 'n/a'),
-(4, 'Jose Antonio', 'García', 'Martínez', '4421528031', 'tono.martinez415@gmail.com', 'empleado', 'n/a'),
-(5, 'Marco Antonio', 'Zavala', 'Orlanzzini', '5512293496', 'zavalamarcoa@gmail.com', 'psicologo', 'casado'),
-(6, 'Fernando', 'Vera', 'Álvarez', '', '', 'doctor', 'casado'),
-(7, 'Silvia Paola', 'Navarro', 'Rojas', '4422728644', 'cocinavistareal@gmail.com', 'ama de casa', 'soltero'),
-(8, 'Ruth', 'Solis', 'Velasco', '4426126384', 'a01703206@tec.mx', 'estudiante', 'soltero'),
-(9, 'Rodigro', 'Reyes', 'Castro', '4426689472', '', 'estudiante', 'soltero'),
-(10, 'Arturo', 'Valencia', 'Acosta', '7721251188', '', 'estudiante', 'soltero'),
-(11, 'Genaro', 'Ambia', 'Martinez', '7771792963', '', 'estudiante', 'soltero'),
-(22, 'Brandon', 'Flowers', 'Newman', '4426689472', 'brad0976@gmail.com', 'Singer', 'Casado'),
-(34, 'Ruth', 'Solis', 'Velasco', '1442612638', 'A01703206@itesm.mx', 'estudiante', 'soltero'),
-(35, 'Guillermo Fidel', 'Navarro', 'Vega', '7714206969', 'memotektips@tips.com', 'Full Stack Developer', 'Poli-matrimonio');
+INSERT INTO `Clientes` (`username`, `Nombres`, `Primer_apellido`, `Segundo_apellido`, `Telefono_cliente`, `Email_cliente`, `Ocupacion`, `Estado_civil`) VALUES
+('c01', 'Hector Román', 'Calderón', 'Cibrian', '4421815772', 'hrcalderon@live.com.mx', 'empleado', 'n/a'),
+('c02', 'Hugo Alexis', 'Trujillo', 'Sánchez', '4426582959', 'alexiscryowelding@gmail.com', 'socio', 'n/a'),
+('c03', 'Rosalía', 'Pérez', 'Bravo', '8184681966', 'rosaliapb@gmail.com', 'empleado', 'n/a'),
+('c04', 'Jose Antonio', 'García', 'Martínez', '4421528031', 'tono.martinez415@gmail.com', 'empleado', 'n/a'),
+('c05', 'Marco Antonio', 'Zavala', 'Orlanzzini', '5512293496', 'zavalamarcoa@gmail.com', 'psicologo', 'casado'),
+('c06', 'Fernando', 'Vera', 'Álvarez', '', '', 'doctor', 'casado'),
+('c07', 'Silvia Paola', 'Navarro', 'Rojas', '4422728644', 'cocinavistareal@gmail.com', 'ama de casa', 'soltero'),
+('c08', 'Ruth', 'Solis', 'Velasco', '4426126384', 'a01703206@tec.mx', 'estudiante', 'soltero'),
+('c09', 'Rodigro', 'Reyes', 'Castro', '4426689472', '', 'estudiante', 'soltero'),
+('c10', 'Arturo', 'Valencia', 'Acosta', '7721251188', '', 'estudiante', 'soltero'),
+('c11', 'Genaro', 'Ambia', 'Martinez', '7771792963', '', 'estudiante', 'soltero'),
+('c12', 'Brandon', 'Flowers', 'Newman', '4426689472', 'brad0976@gmail.com', 'Singer', 'Casado'),
+('c13', 'Guillermo Fidel', 'Navarro', 'Vega', '7714206969', 'memotektips@tips.com', 'Full Stack Developer', 'Poli-matrimonio');
 
 -- --------------------------------------------------------
 
@@ -187,7 +186,7 @@ INSERT INTO `Cronograma_venta` (`Numero`, `Nombre`, `Tiempo_estimado`) VALUES
 
 CREATE TABLE `Expediente_Cliente` (
   `ID` int(11) NOT NULL,
-  `ID_Cliente` int(11) NOT NULL,
+  `ID_Cliente` varchar(18) CHARACTER SET utf8mb4 NOT NULL,
   `ID_TipoDoc` int(11) NOT NULL,
   `ID_TipoExp` int(11) NOT NULL,
   `Fecha` date NOT NULL,
@@ -484,7 +483,7 @@ INSERT INTO `Paises` (`ID`, `Pais`) VALUES
 --
 
 CREATE TABLE `Proceso_CompraVenta` (
-  `ID_Cliente` int(11) NOT NULL,
+  `ID_Cliente` varchar(18) CHARACTER SET utf8mb4 NOT NULL,
   `Numero_etapa` int(11) NOT NULL,
   `ID_Propiedad` int(11) NOT NULL,
   `tipoCliente` varchar(15) COLLATE utf8mb4_spanish2_ci NOT NULL,
@@ -498,36 +497,36 @@ CREATE TABLE `Proceso_CompraVenta` (
 --
 
 INSERT INTO `Proceso_CompraVenta` (`ID_Cliente`, `Numero_etapa`, `ID_Propiedad`, `tipoCliente`, `Estado`, `Fecha_StartV`, `Fecha_EndV`) VALUES
-(5, 1, 3, 'Comprador', 'Completado', '2022-09-08 22:00:00', '2022-09-08 22:00:00'),
-(5, 2, 3, 'Comprador', 'En proceso', '2022-09-05 22:00:00', '0000-00-00 00:00:00'),
-(5, 3, 3, 'Comprador', 'Completado', '2022-09-11 22:00:00', '2022-09-13 22:00:00'),
-(5, 4, 3, 'Comprador', 'Completado', '2022-09-14 22:00:00', '2022-09-14 22:00:00'),
-(5, 5, 3, 'Comprador', 'Completado', '2022-09-18 22:00:00', '2022-09-18 22:00:00'),
-(5, 7, 3, 'Comprador', 'Completado', '2022-09-18 22:00:00', '2022-09-18 22:00:00'),
-(5, 8, 3, 'Comprador', 'Completado', '2022-09-25 22:00:00', '2022-09-25 22:00:00'),
-(5, 9, 3, 'Comprador', 'En proceso', '2022-09-06 22:00:00', '0000-00-00 00:00:00'),
-(5, 10, 3, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(5, 11, 3, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(6, 1, 3, 'Vendedor', 'Completado', '2022-09-08 22:00:00', '2022-09-08 22:00:00'),
-(6, 2, 3, 'Vendedor', 'En proceso', '2022-09-05 22:00:00', '0000-00-00 00:00:00'),
-(6, 3, 3, 'Vendedor', 'Completado', '2022-09-11 22:00:00', '2022-09-13 22:00:00'),
-(6, 4, 3, 'Vendedor', 'Completado', '2022-09-14 22:00:00', '2022-09-14 22:00:00'),
-(6, 5, 3, 'Vendedor', 'Completado', '2022-09-18 22:00:00', '2022-09-18 22:00:00'),
-(6, 7, 3, 'Vendedor', 'Completado', '2022-09-18 22:00:00', '2022-09-18 22:00:00'),
-(6, 8, 3, 'Vendedor', 'Completado', '2022-09-25 22:00:00', '2022-09-25 22:00:00'),
-(6, 9, 3, 'Vendedor', 'En proceso', '2022-09-06 22:00:00', '0000-00-00 00:00:00'),
-(6, 10, 3, 'Vendedor', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(6, 11, 3, 'Vendedor', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(7, 1, 4, 'Vendedor', 'Completado', '2022-09-05 22:00:00', '2022-09-05 22:00:00'),
-(7, 2, 4, 'Vendedor', 'En proceso', '2022-09-07 22:00:00', '0000-00-00 00:00:00'),
-(7, 3, 4, 'Vendedor', 'Completado', '2022-09-07 22:00:00', '2022-09-07 22:00:00'),
-(7, 4, 4, 'Vendedor', 'Completado', '2022-09-08 22:00:00', '2022-09-08 22:00:00'),
-(7, 5, 4, 'Vendedor', 'Completado', '2022-09-08 22:00:00', '2022-09-08 22:00:00'),
-(7, 7, 4, 'Vendedor', 'Completado', '2022-09-26 22:00:00', '2022-09-26 22:00:00'),
-(7, 8, 4, 'Vendedor', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(7, 9, 4, 'Vendedor', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(7, 10, 4, 'Vendedor', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(7, 11, 4, 'Vendedor', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+('c05', 1, 3, 'Comprador', 'Completado', '2022-10-19 00:42:47', '2022-09-08 22:00:00'),
+('c05', 2, 3, 'Comprador', 'En proceso', '2022-10-19 00:42:47', '0000-00-00 00:00:00'),
+('c05', 3, 3, 'Comprador', 'Completado', '2022-10-19 00:42:47', '2022-09-13 22:00:00'),
+('c05', 4, 3, 'Comprador', 'Completado', '2022-10-19 00:42:47', '2022-09-14 22:00:00'),
+('c05', 5, 3, 'Comprador', 'Completado', '2022-10-19 00:42:47', '2022-09-18 22:00:00'),
+('c05', 7, 3, 'Comprador', 'Completado', '2022-10-19 00:42:47', '2022-09-18 22:00:00'),
+('c05', 8, 3, 'Comprador', 'Completado', '2022-10-19 00:42:47', '2022-09-25 22:00:00'),
+('c05', 9, 3, 'Comprador', 'En proceso', '2022-10-19 00:42:47', '0000-00-00 00:00:00'),
+('c05', 10, 3, 'Comprador', 'No iniciado', '2022-10-19 00:42:47', '0000-00-00 00:00:00'),
+('c05', 11, 3, 'Comprador', 'No iniciado', '2022-10-19 00:42:47', '0000-00-00 00:00:00'),
+('c06', 1, 3, 'Vendedor', 'Completado', '2022-10-19 00:42:47', '2022-09-08 22:00:00'),
+('c06', 2, 3, 'Vendedor', 'En proceso', '2022-10-19 00:42:47', '0000-00-00 00:00:00'),
+('c06', 3, 3, 'Vendedor', 'Completado', '2022-10-19 00:42:47', '2022-09-13 22:00:00'),
+('c06', 4, 3, 'Vendedor', 'Completado', '2022-10-19 00:42:47', '2022-09-14 22:00:00'),
+('c06', 5, 3, 'Vendedor', 'Completado', '2022-10-19 00:42:47', '2022-09-18 22:00:00'),
+('c06', 7, 3, 'Vendedor', 'Completado', '2022-10-19 00:42:47', '2022-09-18 22:00:00'),
+('c06', 8, 3, 'Vendedor', 'Completado', '2022-10-19 00:42:47', '2022-09-25 22:00:00'),
+('c06', 9, 3, 'Vendedor', 'En proceso', '2022-10-19 00:42:47', '0000-00-00 00:00:00'),
+('c06', 10, 3, 'Vendedor', 'No iniciado', '2022-10-19 00:42:47', '0000-00-00 00:00:00'),
+('c06', 11, 3, 'Vendedor', 'No iniciado', '2022-10-19 00:42:47', '0000-00-00 00:00:00'),
+('c07', 1, 4, 'Vendedor', 'Completado', '2022-10-19 00:42:47', '2022-09-05 22:00:00'),
+('c07', 2, 4, 'Vendedor', 'En proceso', '2022-10-19 00:42:47', '0000-00-00 00:00:00'),
+('c07', 3, 4, 'Vendedor', 'Completado', '2022-10-19 00:42:47', '2022-09-07 22:00:00'),
+('c07', 4, 4, 'Vendedor', 'Completado', '2022-10-19 00:42:47', '2022-09-08 22:00:00'),
+('c07', 5, 4, 'Vendedor', 'Completado', '2022-10-19 00:42:47', '2022-09-08 22:00:00'),
+('c07', 7, 4, 'Vendedor', 'Completado', '2022-10-19 00:43:16', '2022-09-26 22:00:00'),
+('c07', 8, 4, 'Vendedor', 'No iniciado', '2022-10-19 00:43:16', '0000-00-00 00:00:00'),
+('c07', 9, 4, 'Vendedor', 'No iniciado', '2022-10-19 00:43:16', '0000-00-00 00:00:00'),
+('c07', 10, 4, 'Vendedor', 'No iniciado', '2022-10-19 00:43:16', '0000-00-00 00:00:00'),
+('c07', 11, 4, 'Vendedor', 'No iniciado', '2022-10-19 00:43:16', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -536,7 +535,7 @@ INSERT INTO `Proceso_CompraVenta` (`ID_Cliente`, `Numero_etapa`, `ID_Propiedad`,
 --
 
 CREATE TABLE `Proceso_renta` (
-  `ID_Cliente` int(11) NOT NULL,
+  `ID_Cliente` varchar(18) CHARACTER SET utf8mb4 NOT NULL,
   `Numero_etapa` int(11) NOT NULL,
   `ID_Propiedad` int(11) NOT NULL,
   `tipoCliente` varchar(15) COLLATE utf8mb4_spanish2_ci NOT NULL,
@@ -550,24 +549,24 @@ CREATE TABLE `Proceso_renta` (
 --
 
 INSERT INTO `Proceso_renta` (`ID_Cliente`, `Numero_etapa`, `ID_Propiedad`, `tipoCliente`, `Estado`, `Fecha_StartR`, `Fecha_EndR`) VALUES
-(1, 1, 1, 'Arrendatario', 'Completado', '2022-09-13 22:00:00', '2022-09-13 22:00:00'),
-(1, 2, 1, 'Arrendatario', 'Completado', '2022-09-18 22:00:00', '2022-09-18 22:00:00'),
-(1, 3, 1, 'Arrendatario', 'Completado', '2022-09-18 22:00:00', '2022-09-18 22:00:00'),
-(1, 4, 1, 'Arrendatario', 'Completado', '2022-09-20 22:00:00', '2022-09-20 22:00:00'),
-(1, 5, 1, 'Arrendatario', 'Completado', '2022-09-23 22:00:00', '2022-09-25 22:00:00'),
-(1, 6, 1, 'Arrendatario', 'Completado', '2022-09-27 22:00:00', '2022-09-27 22:00:00'),
-(3, 1, 1, 'Arrendador', 'Completado', '2022-09-13 22:00:00', '2022-09-13 22:00:00'),
-(3, 2, 1, 'Arrendador', 'Completado', '2022-09-18 22:00:00', '2022-09-18 22:00:00'),
-(3, 3, 1, 'Arrendador', 'Completado', '2022-09-18 22:00:00', '2022-09-18 22:00:00'),
-(3, 4, 1, 'Arrendador', 'Completado', '2022-09-20 22:00:00', '2022-09-20 22:00:00'),
-(3, 5, 1, 'Arrendador', 'Completado', '2022-09-23 22:00:00', '2022-09-25 22:00:00'),
-(3, 6, 1, 'Arrendador', 'Completado', '2022-09-27 22:00:00', '2022-09-27 22:00:00'),
-(4, 1, 1, 'Arrendatario', 'Completado', '2022-09-15 22:00:00', '2022-09-15 22:00:00'),
-(4, 2, 1, 'Arrendatario', 'Completado', '2022-09-19 22:00:00', '2022-09-21 22:00:00'),
-(4, 3, 1, 'Arrendatario', 'Completado', '2022-09-19 22:00:00', '2022-09-22 22:00:00'),
-(4, 4, 1, 'Arrendatario', 'Completado', '2022-09-22 22:00:00', '2022-09-22 22:00:00'),
-(4, 5, 1, 'Arrendatario', 'Completado', '2022-09-23 22:00:00', '2022-09-25 22:00:00'),
-(4, 6, 1, 'Arrendatario', 'Completado', '2022-09-26 22:00:00', '2022-09-26 22:00:00');
+('c01', 1, 1, 'Arrendatario', 'Completado', '2022-10-19 00:45:43', '2022-09-13 22:00:00'),
+('c01', 2, 1, 'Arrendatario', 'Completado', '2022-10-19 00:45:43', '2022-09-18 22:00:00'),
+('c01', 3, 1, 'Arrendatario', 'Completado', '2022-10-19 00:45:43', '2022-09-18 22:00:00'),
+('c01', 4, 1, 'Arrendatario', 'Completado', '2022-10-19 00:45:43', '2022-09-20 22:00:00'),
+('c01', 5, 1, 'Arrendatario', 'Completado', '2022-10-19 00:45:43', '2022-09-25 22:00:00'),
+('c01', 6, 1, 'Arrendatario', 'Completado', '2022-10-19 00:45:43', '2022-09-27 22:00:00'),
+('c03', 1, 1, 'Arrendador', 'Completado', '2022-10-19 00:45:43', '2022-09-13 22:00:00'),
+('c03', 2, 1, 'Arrendador', 'Completado', '2022-10-19 00:45:43', '2022-09-18 22:00:00'),
+('c03', 3, 1, 'Arrendador', 'Completado', '2022-10-19 00:45:43', '2022-09-18 22:00:00'),
+('c03', 4, 1, 'Arrendador', 'Completado', '2022-10-19 00:45:43', '2022-09-20 22:00:00'),
+('c03', 5, 1, 'Arrendador', 'Completado', '2022-10-19 00:45:43', '2022-09-25 22:00:00'),
+('c03', 6, 1, 'Arrendador', 'Completado', '2022-10-19 00:45:43', '2022-09-27 22:00:00'),
+('c04', 1, 1, 'Arrendatario', 'Completado', '2022-10-19 00:45:43', '2022-09-15 22:00:00'),
+('c04', 2, 1, 'Arrendatario', 'Completado', '2022-10-19 00:45:43', '2022-09-21 22:00:00'),
+('c04', 3, 1, 'Arrendatario', 'Completado', '2022-10-19 00:45:43', '2022-09-22 22:00:00'),
+('c04', 4, 1, 'Arrendatario', 'Completado', '2022-10-19 00:45:43', '2022-09-22 22:00:00'),
+('c04', 5, 1, 'Arrendatario', 'Completado', '2022-10-19 00:45:43', '2022-09-25 22:00:00'),
+('c04', 6, 1, 'Arrendatario', 'Completado', '2022-10-19 00:45:43', '2022-09-26 22:00:00');
 
 -- --------------------------------------------------------
 
@@ -632,7 +631,7 @@ INSERT INTO `Propiedades` (`ID`, `ID_tipoInmueble`, `Calle`, `Numero`, `Colonia`
 
 CREATE TABLE `Propiedad_propietario` (
   `ID_Propiedad` int(11) NOT NULL,
-  `ID_Cliente` int(11) NOT NULL,
+  `ID_Cliente` varchar(18) CHARACTER SET utf8mb4 NOT NULL,
   `Fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
@@ -641,13 +640,13 @@ CREATE TABLE `Propiedad_propietario` (
 --
 
 INSERT INTO `Propiedad_propietario` (`ID_Propiedad`, `ID_Cliente`, `Fecha`) VALUES
-(1, 3, '2022-09-13 22:00:00'),
-(2, 4, '2022-09-15 22:00:00'),
-(3, 6, '2022-09-08 22:00:00'),
-(4, 7, '2022-09-05 22:00:00'),
-(41, 8, '2022-10-17 15:45:04'),
-(42, 8, '2022-10-17 15:45:04'),
-(43, 8, '2022-10-17 15:45:04');
+(1, 'c03', '2022-10-19 00:38:10'),
+(2, 'c04', '2022-10-19 00:38:10'),
+(3, 'c06', '2022-10-19 00:38:10'),
+(4, 'c07', '2022-10-19 00:38:10'),
+(41, 'c08', '2022-10-19 00:38:10'),
+(42, 'c08', '2022-10-19 00:38:10'),
+(43, 'c08', '2022-10-19 00:38:10');
 
 -- --------------------------------------------------------
 
@@ -862,22 +861,34 @@ INSERT INTO `Tipo_inmueble` (`ID`, `tipoInmueble`) VALUES
 --
 
 CREATE TABLE `Usuario` (
-  `Username` varchar(40) NOT NULL,
-  `Contraseña` varchar(40) NOT NULL
+  `username` varchar(18) NOT NULL,
+  `password` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `Usuario`
 --
 
-INSERT INTO `Usuario` (`Username`, `Contraseña`) VALUES
-('Ingeniero', '$2a$12$jIP43/qJzwMbFZ2dYXZuWe9irOOxRhP2J'),
-('Amg0011', '$2a$12$rxksatmOQ9XBocDUf44VAOnF1KTl7TeD6'),
-('Amg0011', '$2a$12$C89lpUgl6dXABUGK/ldrOeAcDRGqDmoKL'),
-('Amg0011', '$2a$12$Mu4.ebyk3OZazvoTykaQcuhQTp4.QY7G3'),
-('Amg0011', '$2a$12$jYX5YPqU8qvAHlAfe3Ryp.WHzsJVK8toA'),
-('tuti', '$2a$12$lDLoryb0GqmGZ3CuVcObL.baMrGCxw6L1'),
-('memorias', '$2a$12$RHvgoIhMnZSFgUoiTbwHdudUZuXJHXDyQ');
+INSERT INTO `Usuario` (`username`, `password`) VALUES
+('AIVT700616MDFTLR09', '$2a$12$AuUZ5GOvcayx9ygPcLlPdO4DWdXVHALa9br/GEL41KxibHEmjsMnm'),
+('BAHV691210MDFZRR10', '$2a$12$fb3aBuwrZe0wtywLNy9kTOJe3k/UzK3e4mK3LgYeoTbp.QEBl3AT.'),
+('c01', '$2a$12$iuIb.GEeD3VhtZPH9ECs8u8YwirkpoabI3dUUJ0oW1GBH11.bkpE6'),
+('c02', '$2a$12$4eHzEuJK901aKsFVgnyIueX9i3icEi727kJBWBKBeJPoEpe/4eEoG'),
+('c03', '$2a$12$GihSOU78/TLssi3N9Cc9BuKtd/Bml.kLcDNpKVC0kcNNSGLRQsfEq'),
+('c04', '$2a$12$wttVi1AhMDEhHjiSfuT/xept0zZykzFcGXfAIU6F52ThB58jDUw2K'),
+('c05', '$2a$12$C6Wr855QaJaTfpMbvfDpc.nfjEirzSOyc4.lJy.zWyxJ6mfgrUkpG'),
+('c06', '$2a$12$RcvIf4SX2/btrtP8nZSyoeZ32Yl8oOug1OyiPCUjuiJCDfrPeKMMi'),
+('c07', '$2a$12$kQmWqCyG68ZLpEkb20Lq8uLf2KdtsWpAkemNlupcciphU8Jwtm48C'),
+('c08', '$2a$12$X177FEhq.E3QDISJlHKQ1OwhmrnpCar04nPRSa96VFgGcVwckFzuy'),
+('c09', '$2a$12$ViRVYmLPWnOCwBCLdPYwEO6pYof6K5ZHU9yGRdRmNvPcqqTVXTg4.'),
+('c10', '$2a$12$r89r6BW4LdeCT1X5Bl7Amufz.Qr3x5S8AurrQSU06cW91ZwiHtZq6'),
+('c11', '$2a$12$2pl4khR7CY9udkW6hVfMF.cMzrbHbrlzN7MEN3XGxiXZUWWkJ/W0G'),
+('c12', '$2a$12$bxaOz0Y8yVGXapXNznoCmep6tTC6IJ7tjk9zJO5VM/tBQp4Wqsd2K'),
+('c13', '$2a$12$FwGPmtMEmmJXjYZ2tkllJ.vQc01G.GIlbBY65ZWMztsHlN4/4u1f6'),
+('COCP550116MDFTSL01', '$2a$12$dLuWSJEfwR7DalgVTdLSYuWxn4N09v.AH30dihgLxHG7JwNp7edZO'),
+('GUME791116MDFTRS05', '$2a$12$GT0NAb.mKHB2Z4MSkFSpuerVtMcgS4N3.MA.mdYJx0de7kqctRKOm'),
+('MASJ711117HDFRLM01', '$2a$12$peXrFbdn6EdHMTtHmq7FeufIvvngVnWmlGSi0qg46707rRiFgHIyK'),
+('YURB771212MDFZGL05', '$2a$12$s2NMNHJRP6.GK5bb5p/qUe/HoPwlj/1yxhkMHmQhLfj.D8AxS6LcG');
 
 --
 -- Indexes for dumped tables
@@ -893,14 +904,14 @@ ALTER TABLE `Asesores`
 -- Indexes for table `Asesor_cliente`
 --
 ALTER TABLE `Asesor_cliente`
-  ADD PRIMARY KEY (`ID_Asesor`,`ID_Cliente`,`Fecha`),
+  ADD PRIMARY KEY (`ID_Asesor`,`ID_Cliente`),
   ADD KEY `ID_Cliente` (`ID_Cliente`);
 
 --
 -- Indexes for table `Clientes`
 --
 ALTER TABLE `Clientes`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`username`);
 
 --
 -- Indexes for table `Cronograma_renta`
@@ -919,9 +930,9 @@ ALTER TABLE `Cronograma_venta`
 --
 ALTER TABLE `Expediente_Cliente`
   ADD PRIMARY KEY (`ID`,`ID_Cliente`,`ID_TipoDoc`,`ID_TipoExp`,`Fecha`),
-  ADD KEY `ID_Cliente` (`ID_Cliente`),
   ADD KEY `ID_TipoExp` (`ID_TipoExp`),
-  ADD KEY `ID_TipoDoc` (`ID_TipoDoc`);
+  ADD KEY `ID_TipoDoc` (`ID_TipoDoc`),
+  ADD KEY `ID_Cliente` (`ID_Cliente`);
 
 --
 -- Indexes for table `Expediente_Propiedad`
@@ -1032,14 +1043,14 @@ ALTER TABLE `Tipo_inmueble`
   ADD PRIMARY KEY (`ID`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Indexes for table `Usuario`
 --
+ALTER TABLE `Usuario`
+  ADD PRIMARY KEY (`username`);
 
 --
--- AUTO_INCREMENT for table `Clientes`
+-- AUTO_INCREMENT for dumped tables
 --
-ALTER TABLE `Clientes`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `Cronograma_renta`
@@ -1106,19 +1117,31 @@ ALTER TABLE `Tipo_inmueble`
 --
 
 --
+-- Constraints for table `Asesores`
+--
+ALTER TABLE `Asesores`
+  ADD CONSTRAINT `Asesores_ibfk_1` FOREIGN KEY (`CURP`) REFERENCES `Usuario` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `Asesor_cliente`
 --
 ALTER TABLE `Asesor_cliente`
   ADD CONSTRAINT `Asesor_cliente_ibfk_1` FOREIGN KEY (`ID_Asesor`) REFERENCES `Asesores` (`CURP`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Asesor_cliente_ibfk_2` FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Asesor_cliente_ibfk_2` FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `Clientes`
+--
+ALTER TABLE `Clientes`
+  ADD CONSTRAINT `Clientes_ibfk_1` FOREIGN KEY (`username`) REFERENCES `Usuario` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Expediente_Cliente`
 --
 ALTER TABLE `Expediente_Cliente`
-  ADD CONSTRAINT `Expediente_Cliente_ibfk_1` FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `Expediente_Cliente_ibfk_2` FOREIGN KEY (`ID_TipoExp`) REFERENCES `Tipo_ExpCliente` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Expediente_Cliente_ibfk_3` FOREIGN KEY (`ID_TipoDoc`) REFERENCES `Tipo_docCliente` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Expediente_Cliente_ibfk_3` FOREIGN KEY (`ID_TipoDoc`) REFERENCES `Tipo_docCliente` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Expediente_Cliente_ibfk_4` FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Expediente_Propiedad`
@@ -1132,17 +1155,17 @@ ALTER TABLE `Expediente_Propiedad`
 -- Constraints for table `Proceso_CompraVenta`
 --
 ALTER TABLE `Proceso_CompraVenta`
-  ADD CONSTRAINT `Proceso_CompraVenta_ibfk_1` FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `Proceso_CompraVenta_ibfk_2` FOREIGN KEY (`Numero_etapa`) REFERENCES `Cronograma_venta` (`Numero`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Proceso_CompraVenta_ibfk_3` FOREIGN KEY (`ID_Propiedad`) REFERENCES `Propiedades` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Proceso_CompraVenta_ibfk_3` FOREIGN KEY (`ID_Propiedad`) REFERENCES `Propiedades` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Proceso_CompraVenta_ibfk_4` FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Proceso_renta`
 --
 ALTER TABLE `Proceso_renta`
   ADD CONSTRAINT `Proceso_renta_ibfk_1` FOREIGN KEY (`Numero_etapa`) REFERENCES `Cronograma_renta` (`Numero`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Proceso_renta_ibfk_2` FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Proceso_renta_ibfk_3` FOREIGN KEY (`ID_Propiedad`) REFERENCES `Propiedades` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Proceso_renta_ibfk_3` FOREIGN KEY (`ID_Propiedad`) REFERENCES `Propiedades` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Proceso_renta_ibfk_4` FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Propiedades`
@@ -1155,8 +1178,8 @@ ALTER TABLE `Propiedades`
 -- Constraints for table `Propiedad_propietario`
 --
 ALTER TABLE `Propiedad_propietario`
-  ADD CONSTRAINT `Propiedad_propietario_ibfk_1` FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Propiedad_propietario_ibfk_2` FOREIGN KEY (`ID_Propiedad`) REFERENCES `Propiedades` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Propiedad_propietario_ibfk_2` FOREIGN KEY (`ID_Propiedad`) REFERENCES `Propiedades` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Propiedad_propietario_ibfk_3` FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Restriccion_TED_cliente`
