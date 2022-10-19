@@ -1,6 +1,7 @@
 const db = require('../util/database');
 
 module.exports = class Propiedad{
+    //constructor
     constructor(ID,ID_tipoInmueble,Calle,Numero,Colonia,Codigo_postal,Municipio,Estado,ID_Pais,Longitud,Latitud,Operacion,Terreno,Privada_calle,Precio,Uso_suelo,Construccion,Descripcion,Imagen,Niveles,Habitaciones,Baños,Sala_comedor,Cocina,Estacionamiento,Gas,Servicio_agua,Servicio_luz,Servicio_Drenaje,Tipo_desnivel,Forma_terreno,Medidas_frente,Medidas_fondo){
         this.ID=ID;
         this.ID_tipoInmueble=ID_tipoInmueble;
@@ -36,6 +37,7 @@ module.exports = class Propiedad{
         this.Medidas_fondo=Medidas_fondo
         this.Medidas_frente=Medidas_frente;
     }
+    //Método para salvar propiedades
     save() {
         return db.execute(
             'INSERT INTO Propiedades (ID, ID_tipoInmueble, Calle, Numero, Colonia, Codigo_postal, Municipio, Estado, ID_Pais, Longitud, Latitud, Operacion, Terreno, Privada_calle, Precio, Uso_suelo, Construccion, Descripcion, Imagen, Niveles, Habitaciones, Baños, Sala_comedor, Cocina, Estacionamiento, Gas, Servicio_agua, Servicio_luz, Servicio_Drenaje, Tipo_desnivel, Forma_terreno, Medidas_frente, Medidas_fondo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, )', 
@@ -72,17 +74,23 @@ module.exports = class Propiedad{
                 this.Medidas_fondo,
                 this.Medidas_frente]);  
     }
+    //Instruccion SQL para recuperar todas las propiedades
     static fetchAll() {
         return db.execute('SELECT * FROM Propiedades');
     }
-
+    //Instruccion SQL para recuperar propiedad por ID
     static fetchPropiedad(){
         return db.execute('SELECT * FROM Propiedades WHERE ID = ?', [ID]);
     }
-
+    //Instruccion SQL para buscar propiedad
     static find(valor_busqueda) {
         return db.execute('SELECT * FROM Propiedades WHERE Colonia LIKE ? OR Municipio LIKE ? OR Calle LIKE ?', ['%'+valor_busqueda+'%', '%'+valor_busqueda+'%', '%'+valor_busqueda+'%']);
     }
-
-    
+    //Instruccion SQL para editar propiedad
+    static edit(id, nombre, descripcion) {
+        return db.execute(
+            'UPDATE robots SET nombre = ?, descripcion = ? WHERE id = ?', 
+            [nombre, descripcion, id]);
+            
+    }
 }
