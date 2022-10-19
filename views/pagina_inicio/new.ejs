@@ -1,3 +1,7 @@
-<%- include('../includes/head.ejs') %>
+<%- include('../includes/head.ejs', {
+    isLoggedIn: isLoggedIn,
+    user: user,
+}) %>
+
 <%- include('pagina_inicio.form.ejs') %>
 <%- include('../includes/foot.ejs') %>
