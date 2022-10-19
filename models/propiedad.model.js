@@ -92,7 +92,7 @@ module.exports = class Propiedad{
    
     
     //Instruccion SQL para recuperar propiedad por ID
-    static fetchPropiedad(){
+    static fetchPropiedad(ID){
         return db.execute('SELECT * FROM Propiedades WHERE ID = ?', [ID]);
     }
     //Instruccion SQL para buscar propiedad
