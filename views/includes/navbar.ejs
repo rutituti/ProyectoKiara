@@ -1,35 +1,40 @@
+
 <div>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/inicio"><strong>Kiara</strong></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-expand-lg bg-dark ">
+    <div class="container-fluid ">
+      <a class="navbar-brand active" href="/inicio">Kiara</a>
+      <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ms-auto">
-          <a class="nav-link active" aria-current="page" href="#">Inicio</a>
-          <a class="nav-link" href="#">¿Quienes somos?</a>
-          <a class="nav-link" href="#">Favoritos</a>
-          <!--add button-->
-          
-          <% if (!isLoggedIn) { %>
-          <button type="button" class="btn btn-secondary"><a href="/user/login">Iniciar sesión</a></button>
-          <% } else { %>
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Usuario: <%= user %>
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="/user/logout">Salir</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </div>
-
-            <button type="button" class="btn btn-danger"><a href="/user/logout">Salir</a></button>
-      
-          <% } %>
-        </div>
+      <div class="collapse navbar-collapse " id="navbarScroll">
+        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll justify-content-end" style="--bs-scroll-height: 100px;">
+          <li class="nav-item">
+            <a class="nav-link "  href="/inicio">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">¿Quienes Somos?</a>
+          </li>
+          <% if(isLoggedIn) {%> 
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-light"  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="/images/usuario.png" class="img-fluid rounded-circle avatar mr-2"
+                      alt="Usuario" width="30" />
+                      Usuario <%= user%> 
+            </a>
+            <ul class="dropdown-menu text-dark">
+              <li><a class="dropdown-item text-dark" href="/operacion/venta">Perfil</a></li>
+              <li><a class="dropdown-item text-dark" href="/user/logout">Cerrar sesion</a></li>
+              
+            </ul>
+          </li>
+          <% } else {%> 
+            <li class="nav-item">
+              <a class="nav-link" href="/user/login">Iniciar Sesion</a>
+            </li>
+          <% }%> 
+         
+        </ul>
+       
       </div>
     </div>
   </nav>
