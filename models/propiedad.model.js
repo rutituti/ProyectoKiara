@@ -79,4 +79,8 @@ module.exports = class Propiedad{
     static fetchPropiedad(){
         return db.execute('SELECT * FROM Propiedades WHERE ID = ?', [ID]);
     }
+
+    static find(valor_busqueda) {
+        return db.execute('SELECT * FROM Propiedades WHERE Colonia LIKE ? OR Municipio LIKE ? OR Calle LIKE ?', ['%'+valor_busqueda+'%', '%'+valor_busqueda+'%', '%'+valor_busqueda+'%']);
+    }
 }
