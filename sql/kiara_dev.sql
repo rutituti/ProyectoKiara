@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql-kiara.alwaysdata.net
--- Generation Time: Oct 18, 2022 at 05:22 PM
+-- Generation Time: Oct 19, 2022 at 01:13 AM
 -- Server version: 10.6.7-MariaDB
 -- PHP Version: 7.4.19
 
@@ -862,22 +862,16 @@ INSERT INTO `Tipo_inmueble` (`ID`, `tipoInmueble`) VALUES
 --
 
 CREATE TABLE `Usuario` (
-  `Username` varchar(40) NOT NULL,
-  `Contraseña` varchar(40) NOT NULL
+  `username` varchar(8) NOT NULL,
+  `password` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `Usuario`
 --
 
-INSERT INTO `Usuario` (`Username`, `Contraseña`) VALUES
-('Ingeniero', '$2a$12$jIP43/qJzwMbFZ2dYXZuWe9irOOxRhP2J'),
-('Amg0011', '$2a$12$rxksatmOQ9XBocDUf44VAOnF1KTl7TeD6'),
-('Amg0011', '$2a$12$C89lpUgl6dXABUGK/ldrOeAcDRGqDmoKL'),
-('Amg0011', '$2a$12$Mu4.ebyk3OZazvoTykaQcuhQTp4.QY7G3'),
-('Amg0011', '$2a$12$jYX5YPqU8qvAHlAfe3Ryp.WHzsJVK8toA'),
-('tuti', '$2a$12$lDLoryb0GqmGZ3CuVcObL.baMrGCxw6L1'),
-('memorias', '$2a$12$RHvgoIhMnZSFgUoiTbwHdudUZuXJHXDyQ');
+INSERT INTO `Usuario` (`username`, `password`) VALUES
+('admin', '$2a$12$XSO5p6hrIyzFNsrz5L0ZzOxZyF3HAt/n3RbvKgVj1916UBG7LottC');
 
 --
 -- Indexes for dumped tables
@@ -1030,6 +1024,12 @@ ALTER TABLE `Tipo_ExpPropiedad`
 --
 ALTER TABLE `Tipo_inmueble`
   ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `Usuario`
+--
+ALTER TABLE `Usuario`
+  ADD PRIMARY KEY (`username`);
 
 --
 -- AUTO_INCREMENT for dumped tables
