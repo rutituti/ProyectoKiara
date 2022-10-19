@@ -13,7 +13,7 @@ router.get('/arrendamiento/alquilar',isAuth, segControllers.get_alquilar); //Mos
 
 router.get('/arrendamiento/arrendar',isAuth, segControllers.get_arrendar); //Mostrar pestañas Cronograma Renta - Expediente - Mis propiedades
 
-router.get('/venta/:id_c/:id_p',isAuth, segControllers.get_segV);
+router.get('/venta/seguimiento/:id_p',isAuth, segControllers.get_segV);
 
 router.get('/:operacion/',isAuth, segControllers.get_venta); //Mostrar pestañas Cronograma Venta - Expediente - Mis propiedades
 

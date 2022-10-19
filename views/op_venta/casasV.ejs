@@ -44,7 +44,10 @@
                                     <div class="row">
                                         <% for (let c of casas_V) { %>
                                             <div class="col-sm-6 col-md-4 col-lg-43">
-                                                <%- include('card.ejs', {casas_V: c}) %>
+                                                <%- include('card.ejs', 
+                                                {
+                                                    casas_V: c
+                                                }) %>
                                             </div>
                                         <% } %>
                                     </div>

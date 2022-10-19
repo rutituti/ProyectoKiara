@@ -19,7 +19,7 @@ exports.get_segV = (request, response, next) => {
     //response.sendFile(path.join(__dirname,'..','views','html','crngrmVENTA.html'));
     
 
-    Proceso_CV.fetchProceso(request.params.id_c,request.params.id_p,'Vendedor')
+    Proceso_CV.fetchProceso(request.session.user,request.params.id_p,'Vendedor')
     .then(([rows, fieldData]) => {
         //console.log(rows);
         response.render(path.join('..','views','op_venta','segVenta.ejs'), {
