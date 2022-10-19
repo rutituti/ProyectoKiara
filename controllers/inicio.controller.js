@@ -11,9 +11,9 @@ exports.get_casas_venta = (request, response, next) => {
     const cookie = request.get('Cookie').split(';')[0].trim().split('=')[0]; // Leer una cookie
     console.log(cookie);
 };
-exports.getperfil = (request, response, next) => {
-    response.render(path.join('..','views','includes','perfil','new.ejs'));
-};
+/*exports.getperfil = (request, response, next) => {
+    response.render(path.join('..','views','perfil','perfil.ejs'));
+};*/
 exports.get_casas_renta = (request, response, next) => {
     response.send('Listado de casas en RENTA');
 };

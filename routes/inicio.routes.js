@@ -4,6 +4,7 @@ const router = express.Router();
 
 const inicioControllers = require("../controllers/inicio.controller");
 const sesionController = require("../controllers/usuario.controller");
+const operacionController = require("../controllers/operacion.controller");
 
 
 /*
@@ -13,7 +14,7 @@ router.use('/success',sesionController.exito);
 */
 router.get('/QuienesSomos', inicioControllers.get_Infoempresa); //Muestra la informacion de la empresa
 
-router.get('/perfil', inicioControllers.getperfil); //Muestra la informacion del usuario
+router.get('/perfil/:user', operacionController.get_profile); //Muestra la informacion del cliente
 
 router.get('/propiedades/venta', inicioControllers.get_casas_venta); //Mostrar casas en venta
 
