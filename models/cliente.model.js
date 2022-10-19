@@ -34,5 +34,8 @@ module.exports = class Cliente {
               console.log(error);
             });
       }
+      static fetch_profile_id(user){
+        return db.execute('CALL get_cliente(?);',[user]);
+      }
 
 }
