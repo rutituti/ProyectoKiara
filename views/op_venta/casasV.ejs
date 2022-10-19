@@ -20,7 +20,6 @@
 
     <body>
 
-
         <%- include('../includes/navbar.ejs', {
             isLoggedIn: isLoggedIn,
             user: user,
@@ -28,10 +27,11 @@
 
         <div class="container">
         
-            <%- include('sidebar.ejs') %>
+            <%- include('../includes/sidebar.ejs', {
+                ubicacion: ubicacion,
+            }) %>            
 
-            
-
+           
             <section class="home-section ">
                 <div class="w-100">
 
