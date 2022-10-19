@@ -20,7 +20,11 @@
 
     <body>
 
-        <%- include('../includes/navbar.ejs') %>
+
+        <%- include('../includes/navbar.ejs', {
+            isLoggedIn: isLoggedIn,
+            user: user,
+        }) %>
 
         <div class="container">
         

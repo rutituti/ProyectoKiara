@@ -12,21 +12,25 @@
         </header>
     </head>
 <body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/inicio"><strong>Kiara</strong></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav ms-auto">
-              <a class="nav-link active" aria-current="page" href="#">Inicio</a>
-              <a class="nav-link" href="#">¿Quienes somos?</a>
-              <a class="nav-link" href="#">Favoritos</a>
-              <!--add button-->
-              <button type="button" class="btn btn-secondary"><a href="/user/login">Iniciar sesión</a></button>
-            </div>
-          </div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/inicio"><strong>Kiara</strong></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ms-auto">
+          <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+          <a class="nav-link" href="#">¿Quienes somos?</a>
+          <a class="nav-link" href="#">Favoritos</a>
+          <!--add button-->
+          <% console.log(isLoggedIn) %>
+          <% if (!isLoggedIn) { %>
+          <button type="button" class="btn btn-secondary"><a href="/user/login">Iniciar sesión</a></button>
+          <% } else { %>
+          <button type="button" class="btn btn-danger"><a href="/user/logout">Salir</a></button>
+          <% } %>
         </div>
-      </nav>
-    
+      </div>
+    </div>
+  </nav>

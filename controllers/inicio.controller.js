@@ -27,8 +27,13 @@ exports.get_casas = (request, response, next) => {
 };
 
 exports.get_root = (request, response, next) => {
-    response.render(path.join('..','views','pagina_inicio','new.ejs'));
+    response.render(path.join('..','views','pagina_inicio','new.ejs'),{
+        info: info,
+        isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+        user: request.session.user ? request.session.user : '',
+    });
 };
+
 exports.getSesion = (request, response, next) => {
     response.render(path.join(__dirname,'..','views','inicio_sesion','sesion'));
 };
