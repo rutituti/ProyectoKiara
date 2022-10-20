@@ -11,6 +11,13 @@ module.exports = class Usuario {
   static fetchAll() {
       return db.execute('SELECT * FROM Clientes');
   }
+
+  static edit(id, nombre, descripcion) {
+        return db.execute(
+            'UPDATE robots SET nombre = ?, descripcion = ? WHERE id = ?', 
+            [nombre, descripcion, id]);
+            
+    }
  
       save(){
         return bcrypt.hash(this.password,12)
