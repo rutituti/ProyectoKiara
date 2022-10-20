@@ -42,30 +42,35 @@ exports.get_new_cliente = (request, response, next) => {
 };
 
 exports.post_new_cliente = (request,response,next) => {
-    const cliente = new Cliente(request.body.Nombres,request.body.primerApellido,request.body.segundoApellido,request.body.telefono,request.body.email,request.body.ocupacion,request.body.estado)
-    const usuario = new Usuario(request.body.contra,request.body.username)
-    
-    cliente.save()
-    .then(() => {
-        console.log('Registro de CLiente exitoso');
-        response.redirect('/inicio');
-        
-        
-    })
-    .catch((error) => {
-        console.log(error);
-        
-    });
+    const cliente = new Cliente(request.body.username, request.body.Nombres, request.body.primerApellido, request.body.segundoApellido, request.body.telefono, request.body.email, request.body.ocupacion, request.body.estado)
+    const usuario = new Usuario(request.body.contra, request.body.username)
+
+     //Guarda informacion en la tabla USUARIOS
     usuario.save()
     .then(() => {
-        request.session = usuario.username;
-        console.log('Registro de CLiente exitoso');
+        cliente.save()
+        .then(() => {
+            // Guarda informacion en la tabla CLIENTES
+            console.log('Registro de CLIENTE exitoso');
+            response.redirect('/inicio');
+                       
+        })
+        .catch((error) => {
+            console.log(error);
+            
+        });
+        
+        
+        
         
     })
     .catch((error) => {
         console.log(error);
         
     });
+   
+   
+    
 }
 
 
