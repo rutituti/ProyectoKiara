@@ -39,11 +39,11 @@
                             
                               
                            
-                            <div>
+                            
                                 <% if (casas_V.length > 0) { %>
                                     <div class="row">
                                         <% for (let c of casas_V) { %>
-                                            <div class="col-sm-6 col-md-4 col-lg-43">
+                                            <div class="col-sm-6 col-md-4 col-lg-4">
                                                 <%- include('card.ejs', 
                                                 {
                                                     casas_V: c
@@ -54,7 +54,7 @@
                                 <% } else { %>
                                     <h3>No hay casas registradas</h3>
                                 <% } %>
-                        </div>
+                       
 
                       
                 </div>
