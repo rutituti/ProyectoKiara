@@ -252,14 +252,14 @@
   background: #ffffff;
   
   top: 75px;
-  left: 40px;
-  width: calc(100% - 60px);
+  left: 120px;
+  width: calc(80% - 60px);
   transition: all 0.5s ease;
   z-index: 2;
 }
 .sidebar.open ~ .home-section{
-  left: 450px;
-  width: calc(70% - 100px);
+  left: 400px;
+  width: calc(80% - 30px);
 }
 
 .home-section .text{
