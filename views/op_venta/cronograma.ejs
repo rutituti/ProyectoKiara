@@ -1,0 +1,69 @@
+                        <!-- Section: Timeline -->
+                        <div class="container">
+                
+                            <div class="row">
+
+                                <div  class="col-sm-9 col-md-9 col-lg-9">
+
+                                        <div class="container-fluid bootstrap snippets bootdeys">
+                                            <div class="timeline-centered timeline-sm ">
+                                                <% 
+                                                let completado = 'Completado'
+                                                let en_proc = 'En proceso'
+                                                let no_aprob = 'No aprobado'
+                                                let no_ini = 'No iniciado'
+                                                
+                                                %>
+                                                    
+                                                
+                                                <!--   ETAPA -->
+                                                <% for (let pv of seg_V) { %>
+                                                    <article class="timeline-entry">
+                                                        <div class="timeline-entry-inner">
+                                                            <time datetime="<%= pv.Fecha_EndV  %>" class="timeline-time">
+                                                                <% if (pv.Estado == completado){ %>
+                                                                    <span>
+                                                                        Finalizado - <%= pv.Fecha_EndV.getDate()+"/"+(pv.Fecha_EndV.getMonth()+1)+ "/"+pv.Fecha_EndV.getFullYear() %>
+                                                                    </span>
+                                                                <% } else { %>
+                                                                    <span></span>
+                                                                    <% if (pv.Fecha_StartV != 'Invalid Date'){ %>
+                                                                        <span>
+                                                                            Iniciado - <%= pv.Fecha_StartV.getDate()+"/"+(pv.Fecha_StartV.getMonth()+1)+ "/"+pv.Fecha_StartV.getFullYear() %>
+                                                                        </span>
+                                                                    <% } %>
+
+                                                                <% } %>
+
+
+                                                                <span><%= pv.Estado  %></span></time>
+
+                                                            <% if (pv.Estado == completado){ %>
+                                                                <div class="timeline-icon bg-green"><i class="fa fa-check "></i></div>
+                                                            <% } else if (pv.Estado == en_proc){ %>
+                                                                <div class="timeline-icon  bg-yellow"><i class="fa fa-clock-o "></i></div>
+                                                            <% }  else { %>
+                                                                <div class="timeline-icon "></div>
+                                                            <% } %>
+                                                            
+
+                                                            <div class="timeline-label"><h5 class="fw-bold"><%= pv.Nombre  %></h5>
+                                                                <p class="text-muted mb-2 fw-bold"> Tiempo estimado: <%= pv.Tiempo_estimado%> <%= pv.Tiempo_estimado > 1 ? 'dias' : 'dia' %></p>
+                                                                <!--
+                                                                <p class="text-muted ">
+                                                                    Orci varius natoque penatibus et magnis dis parturient montes,
+                                                                    nascetur ridiculus mus. Nulla ullamcorper arcu lacus
+                                                                </p>
+                                                                -->
+                                                            </div>
+
+                                                        </div>
+                                                    </article>
+                                                <% } %>
+                            
+                                            </div>
+                                        
+                                        </div>
+                                </div>
+                            </div>
+                        </div>

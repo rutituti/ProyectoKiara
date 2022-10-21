@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <header>
+            <!--Titulo de página -->
+            <title>Kiara</title>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+            <link rel="stylesheet" href="/public/css/bootstrap.min.css" />
+            <link rel="stylesheet" href="/public/css/interfaz.css"/>
+            <link rel="stylesheet" href="/public/images" />
+        </header>
+    </head>
+    <body>
+        <!--Insertar NavBar barra de opciones-->
+         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#"><strong>Kiara</strong></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav ms-auto">
+                  <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                  <a class="nav-link" href="#">¿Quienes somos?</a>
+                  <a class="nav-link" href="#">Favoritos</a>
+                  <!--add button-->
+                  <button type="button" class="btn btn-success">Iniciar sesión</button>
+                </div>
+              </div>
+            </div>
+          </nav>
+ <!--Añdir carousel-->
+ <div id="carouselHome" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+       <div class="carousel-item active">
+          <div class="house">
+            <img src="../images/casaprincipal.jpg" alt="..." class="d-block w-100">
+          </div>
+       </div>
+       <div class="carousel-item">
+        <div class="house">
+            <img src="../images/casa1.jpg" alt="..." class="d-block w-100">
+          </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselHome" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselHome" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+<!--Linea de javascript-->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+</body>
+</html>

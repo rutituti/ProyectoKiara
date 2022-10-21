@@ -1,0 +1,50 @@
+<label name="usuario"></label>
+    <div class="d-flex flex-row bd-highlight mb-3">
+      <div class="p-1 bd-highlight"></div>
+      <div class="p-1 bd-highlight"></div>
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-lg-12 mb-4 mb-lg-0">
+            <div class="row g-0">
+              <div class="col-md-4 text-center text-warning"
+                style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                <img src="/images/perfil.png"
+                  alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+                <h5><label for="usuario" name="name"><%= profile_C.Nombres %> </label></h5>
+              </div>
+              <div class="col-md-8">
+                <div class="card-body p-4">
+                  <h1>Perfil</h1>
+                  <hr class="mt-0 mb-4">
+                  <div class="row pt-1">
+                    <h6>Datos Cuenta</h6>
+                    <div class="col-6 mb-3">
+                      <h6>Email:</h6>
+                      <p class="text-muted"><%= profile_C.Email_cliente %></p>
+                      <h6>Usuario:</h6>
+                      <p class="text-muted"><%= profile_C.username %></p>
+                    </div>
+                    
+                    
+                  </div>
+                  <h6>Datos Personales</h6>
+                  <hr class="mt-0 mb-4">
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>Ocupacion: </h6>
+                      <p class="text-muted"><%= profile_C.Ocupacion %></p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>Telefono:</h6>
+                      <p class="text-muted"><%= profile_C.Telefono_cliente %></p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <a href="/inicio/perfil/<%= profile_C.ID_Cliente %>" class="btn btn-primary">Editar</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
