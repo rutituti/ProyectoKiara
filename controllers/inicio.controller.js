@@ -2,7 +2,7 @@ const { info } = require('console');
 const path = require('path');
 
 exports.get_Infoempresa = (request, response, next) => {
-    response.sendFile(path.join(__dirname,'..','views','html','temp.html'));
+    response.sendFile(path.join(__dirname,'..','views','html','about.html'));
     response.setHeader('Set-Cookie', 'Cookie de chocolate','1');  //Enviar una cookie
 };
 
