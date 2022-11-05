@@ -1,26 +1,54 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <header>
-            <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">-->
-            <!--<link rel="stylesheet" href="/public/css/form-validation.css" />-->
-            <link rel="stylesheet" href ="/css/bootstrap.min.css"/>
-            <link rel="stylesheet" type= "text/css" href ="/css/interfaz.css"/>
-            <link rel="stylesheet" href="/images/usuario.png"/>
-            <title>Kiara Bienes Raices</title>
-            
-            <link rel="stylesheet" href="/css/sidenav.css">
-            <link rel="stylesheet" href ="/css/cronograma_renta.css">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    
+    <title>Kiara Bienes Raices</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
 
-            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-            <!-- Boxicons CDN Link -->
+    <!-- Favicons -->
+    <link href="/images/faviconK.png" rel="icon">
+    <link href="/images/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    
+    <!-- Vendor CSS Files -->
+    <link href="/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href ="/css/bootstrap.min.css"/>
+    <!--<link rel="stylesheet" type= "text/css" href ="/css/interfaz.css"/>-->
+    <link rel="stylesheet" href="/images/usuario.png"/>
+            
+    <link rel="stylesheet" href="/css/sidenav.css">
+    <link rel="stylesheet" href ="/css/cronograma_renta.css">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 
-        </header>
-    </head>
-<body class="bg-light">
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex align-items-center">
+      <div class="container d-flex align-items-center justify-content-between">
+  
+        <div class="logo">
+          <h1 class="text-light"><a href="/inicio">Kiara</a></h1>
+          <!-- Uncomment below if you prefer to use an image logo -->
+          <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+        </div>
   <%- include('../includes/navbar.ejs', {
     isLoggedIn: isLoggedIn,
     user: user,

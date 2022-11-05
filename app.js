@@ -38,10 +38,10 @@ app.use('/operacion',operacionRutas); // Modulo de Seguimiento en Linea
 
 const rutaUsuarios = require('./routes/usuario.routes');
 app.use('/user', rutaUsuarios);
-/*
+
 const rutaPropiedades = require('./routes/propiedades.routes');
 app.use('/propiedades', rutaPropiedades);
-*/
+
 // Agregar las cookies
 
 // Como funciona esta funcion porque si no esta definido avanza a la siguiente, el otro cosa el con un if-else
