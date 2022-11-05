@@ -18,13 +18,28 @@ module.exports = class Proceso_CV {
             
     }
 
-    //Este método servirá para devolver los objetos del almacenamiento persistente.
-    static fetchProceso(id_cliente, id_propiedad,tipo_cliente) {
-        return db.execute('CALL get_proceso(?,?,?);',[id_cliente,id_propiedad,tipo_cliente]);
+    //Recupera el cronograma de los procesos de venta y compra
+    static fetchProcesoCV(id_cliente, id_propiedad) {
+        return db.execute('CALL get_procesoCV(?,?);',[id_cliente,id_propiedad]);
     }
 
-    static fetch_casasV_idC(id_cliente,operacion) {
-        return db.execute('CALL get_casas_idC(?,?);',[id_cliente,operacion]);
+    static fetchProcesoRA(id_cliente, id_propiedad) {
+        return db.execute('CALL get_procesoRA(?,?);',[id_cliente,id_propiedad]);
+    }
+
+    //Recupera las casa en venta y renta
+    static fetch_casasVR_idC(id_cliente,operacion) {
+        return db.execute('CALL get_casasVR_idC(?,?);',[id_cliente,operacion]);
+    }
+
+    //Recupera las casas que el cliente esta comprando
+    static fetch_casasC_idC(id_cliente) {
+        return db.execute('CALL get_casasC_idC(?);',[id_cliente]);
+    }
+
+    //Recupera las casas que el cliente esta alquilando
+    static fetch_casasA_idC(id_cliente) {
+        return db.execute('CALL get_casasA_idC(?);',[id_cliente]);
     }
 
 

@@ -8,7 +8,7 @@ const isAuth = require('../util/is-auth');
 
 router.post('/new/admin',userController.post_new_admin);
 
-router.get('/new/admin', userController.get_new_admin);
+router.get('/new/admin',isAuth, userController.get_new_admin);
 
 router.post('/new/cliente',userController.post_new_cliente);
 

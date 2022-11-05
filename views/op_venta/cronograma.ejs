@@ -23,15 +23,15 @@
                                                             <time datetime="<%= pv.Fecha_EndV  %>" class="timeline-time">
                                                                 <% if (pv.Estado == completado){ %>
                                                                     <span>
-                                                                        Finalizado - <%= pv.Fecha_EndV.getDate()+"/"+(pv.Fecha_EndV.getMonth()+1)+ "/"+pv.Fecha_EndV.getFullYear() %>
+                                                                        Finalizado - <%= pv.Fecha_End.getDate()+"/"+(pv.Fecha_End.getMonth()+1)+ "/"+pv.Fecha_End.getFullYear() %>
                                                                     </span>
                                                                 <% } else { %>
                                                                     <span></span>
-                                                                    <% if (pv.Fecha_StartV != 'Invalid Date'){ %>
-                                                                        <span>
-                                                                            Iniciado - <%= pv.Fecha_StartV.getDate()+"/"+(pv.Fecha_StartV.getMonth()+1)+ "/"+pv.Fecha_StartV.getFullYear() %>
-                                                                        </span>
-                                                                    <% } %>
+                                                                <% if (pv.Fecha_StartV != 'Invalid Date'){ %>
+                                                                    <span>
+                                                                        Iniciado - <%= pv.Fecha_Start.getDate()+"/"+(pv.Fecha_Start.getMonth()+1)+ "/"+pv.Fecha_Start.getFullYear() %>
+                                                                    </span>
+                                                                <% } %>
 
                                                                 <% } %>
 
