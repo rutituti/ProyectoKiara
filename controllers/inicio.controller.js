@@ -3,7 +3,7 @@ const path = require('path');
 
 exports.get_Infoempresa = (request, response, next) => {
     response.sendFile(path.join(__dirname,'..','views','html','about.html'));
-    response.setHeader('Set-Cookie', 'Cookie de chocolate','1');  //Enviar una cookie
+    //response.setHeader('Set-Cookie', 'Cookie de chocolate','1');  //Enviar una cookie
 };
 
 exports.get_casas_venta = (request, response, next) => {
