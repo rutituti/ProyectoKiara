@@ -2,6 +2,7 @@ const { info } = require('console');
 const path = require('path');
 
 const Proceso_CV = require('../models/proceso_CV');
+const ExpedienteRenta = require('../models/expedienteRenta');
 
 
 exports.get_config = (request, response, next) => {
@@ -56,6 +57,19 @@ exports.get_seg = (request, response, next) => {
     }
 };
 
+
+exports.get_segexp = (request, response, next) => {
+    
+    ExpedienteRenta.fetchAll()
+    .then(([rows, fieldData]) => {
+        console.log(rows);
+ 
+    })
+    .catch( error => { 
+        console.log(error)
+    });
+    
+};
 exports.get_operacion = (request, response, next) => {
     request.session.ubicacion = request.params.operacion;
     if (request.session.ubicacion === 'renta' || request.session.ubicacion === 'venta')
