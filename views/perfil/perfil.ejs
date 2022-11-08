@@ -16,7 +16,10 @@
                         <% if (profile_C.length > 0) { %>
                             <% for (let c of profile_C) { %>
                                 <div row="col-sm-2 col-md-2 col-lg-2">
-                                    <%- include('perfil.form.ejs', {profile_C: c}) %>
+                                    <%- include('perfil.form.ejs', {
+                                        profile_C: c,
+                                        
+                                    }) %>
                                 </div>
                             <% } %>
                         <% } else { %>
