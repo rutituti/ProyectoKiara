@@ -17,7 +17,7 @@ router.get('/:operacion/seguimiento/:id_p',isAuth, segControllers.get_seg);
 
 router.get('/:operacion/',isAuth, segControllers.get_operacion); //Mostrar pestañas Cronograma Venta - Expediente - Mis propiedades
 
-
+router.get('/:operacion/expediente',isAuth, segControllers.get_segexp);
 
 //router.get('/',isAuth, segControllers.get_root ); // ¿Que mostraremos en la raiz?
 
