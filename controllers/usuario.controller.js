@@ -176,6 +176,7 @@ exports.logout = (request, response, next) => {
 exports.get_profile= (request, response, next) => {
     request.session.ubicacion = 'perfil';
 
+
         Usuario.getUser(request.session.user)
         .then(([rows, fieldData]) => {
             
@@ -193,10 +194,5 @@ exports.get_profile= (request, response, next) => {
             console.log(error)
         });
         
-    
-
-  
-
-
 };
 

@@ -1,0 +1,71 @@
+<%- include('../includes/head.ejs') %>
+    <body>
+
+        <%- include('../includes/navbar.ejs', {
+            isLoggedIn: isLoggedIn,
+            user: user,
+        }) %>
+
+        <div class="container">
+        
+            <%- include('../includes/sidebar.ejs', {
+                ubicacion: ubicacion,
+            
+            }) %>            
+
+           
+            <section class="home-section ">
+                <div class="w-100">
+                    
+                                    
+                           
+                            
+                            <% if (numdocs.length> 0) { %>
+                                <div class="row">
+                                    <div class="row " style="align-content: center">
+                                        <form action="/:operacion/expediente" method="POST" enctype="multipart/form-data">  
+                                        <div class="container-fluid  col-lg-10 bg-white border p-1"> 
+                                            <p class="text-center fixed-center" style="font-size:medium"><label for="banner">  </label>
+                                    <% for (let r of numdocs) { %>
+                                       
+                                        
+                                                    <div class=" fixed-center input-group">
+                                                        <label class=" fixed-center input-group-btn">
+                                                            <span class="text-center container-fluid btn btn-light btn-file" id="CURP_Personal">
+                                                             <%= r.Nombre%>
+                                                           <input accept=".jpg,.png,.jpeg,.gif" class="hidden fixed-center" name="banner" type="file" id="CURP_Personal">
+                                                            </span>
+                                                        </label></p>
+                                        
+                                                                <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+                                                                                              <div class="container-icono"> 
+                                                                    <p class="text-center text-warning">En revision                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" style="color:rgba(255, 208, 0, 0.959)" class="bi bi-clock-fill" viewBox="0 0 16 16">
+                                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                                                                      </svg></p>
+                                                                    </div></p>
+                                            <!-- <option value="1"><%= r.Nombre%> </option> -->
+                                       
+                                    <% } %>
+                                </div>
+                                    <input  type ="submit" id="enviar" name="enviar" value="Registrar">
+                                </form>
+            </div>
+                                </select>
+                                </div>
+                            
+                            <% } else { %>
+                                <h3>No hay documentos asociados con este expedeinte.</h3>
+                            <% } %>
+                       
+
+                      
+                </div>
+            </section>
+        
+
+        <script src="/js/bootstrap.bundle.min.js"> </script>
+        <script src="/js/sidenav.js"></script>
+    </body>
+    
+    
+    </html>
