@@ -63,12 +63,14 @@ exports.get_segexp = (request, response, next) => {
     ExpedienteRenta.fetchDocsArrendador()
     .then(([rows, fieldData]) => {
         console.log(rows[0]);
+      
         response.render(path.join('..','views','op_venta','expediente.ejs'), {
             numdocs : rows,
             info: info,
             isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
             user: request.session.user ? request.session.user : '',
             ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+           
 
         }); 
  
@@ -129,6 +131,7 @@ exports.get_operacion = (request, response, next) => {
                 isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                 user: request.session.user ? request.session.user : '',
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+             
 
             }); 
         })
