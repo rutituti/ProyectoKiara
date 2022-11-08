@@ -80,13 +80,13 @@ module.exports = class Propiedad{
     }
     //Instruccion SQL para ver solo propiedades en renta
     static fetchRenta(){
-        return db.execute('SELECT * FROM Propiedades WHERE operacion = Renta');
+        return db.execute('SELECT * FROM Propiedades WHERE Operacion = "Renta"');
     }
     
     //Instruccion SQL para ver solo propidades en venta
     
     static fetchVenta(){
-        return db.execute('SELECT * FROM Propiedades WHERE Operacion = Venta');
+        return db.execute('SELECT * FROM Propiedades WHERE Operacion = "Venta"');
     }
 
    

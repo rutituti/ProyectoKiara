@@ -147,6 +147,7 @@ exports.get_profile = (request, response, next) => {
             ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
 
         }); 
+        console.log( profile_C);
     })
     .catch( error => { 
         console.log(error)
