@@ -60,7 +60,7 @@ exports.get_seg = (request, response, next) => {
 
 exports.get_segexp = (request, response, next) => {
     
-    ExpedienteRenta.fetchAll()
+    ExpedienteRenta.fetchDocsVendedor()
     .then(([rows, fieldData]) => {
         console.log(rows);
  
