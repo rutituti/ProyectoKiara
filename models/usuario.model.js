@@ -3,19 +3,24 @@ const db = require('../util/database');
 const bcrypt = require('bcryptjs')
 module.exports = class Usuario {
 
-  constructor(contraseña,username){  
+  constructor(username,contraseña, nombres, primer_apellido, segundo_apellido, telefono, email){  
     this.username = username;
     this.password = contraseña;
+    this.nombres = nombres ? nombres : '' ;
+    this.primer_apellido = primer_apellido ? primer_apellido : '' ;
+    this.segundo_apellido = segundo_apellido ? segundo_apellido : '';
+    this.telefono = telefono ? telefono : '';
+    this.email = email ? email : '';
   }
 
   static fetchAll() {
-      return db.execute('SELECT * FROM Clientes');
+      return db.execute('SELECT * FROM Usuario');
   }
 
-  static edit(id, nombre, descripcion) {
+  static edit(username, nombre, primer_apellido) {
         return db.execute(
-            'UPDATE robots SET nombre = ?, descripcion = ? WHERE id = ?', 
-            [nombre, descripcion, id]);
+            'UPDATE Usuario SET Nombres = ?, Primer_Apellido = ? WHERE id = ?', 
+            [nombre, primer_apellido, username]);
             
     }
  
@@ -23,8 +28,8 @@ module.exports = class Usuario {
         return bcrypt.hash(this.password,12)
           .then((password_cifrado) => {
           return db.execute(
-          'INSERT INTO Usuario (username, password) VALUES (?, ?)',
-          [this.username,password_cifrado]);
+          'INSERT INTO Usuario (username, password, Nombres, Primer_apellido, Segundo_apellido, Telefono, Email) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          [this.username,password_cifrado, this.nombres, this.primer_apellido, this.segundo_apellido, this.telefono, this.email]);
           })
           .catch(error =>{
             console.log(error);
@@ -37,4 +42,24 @@ module.exports = class Usuario {
           [username]
       );
   }
+
+
+  static getPermisos(username) {
+    return db.execute(
+        'CALL get_permisos(?)',
+        [username]);
+  }
+
+  static getRol(username) {
+    return db.execute(
+        'CALL get_rol(?)',
+        [username]);
+  }
+
+  
+
+
+
 }
+
+  

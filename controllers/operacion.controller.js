@@ -1,21 +1,9 @@
 const { info } = require('console');
 const path = require('path');
 
-const Proceso_CV = require('../models/proceso_CV');
+
+const Proceso_CV = require('../models/proceso_CV.model');
 const ExpedienteRenta = require('../models/expedienteRenta');
-
-
-exports.get_config = (request, response, next) => {
-    response.sendFile(path.join(__dirname,'..','views','html','temp.html'));
-};
-
-exports.get_alquilar = (request, response, next) => {
-    response.send('Cronograma RENTA Arrendatario');
-};
-
-exports.get_arrendar = (request, response, next) => {
-    response.send('Cronograma RENTA Propietario');
-};
 
 exports.get_seg = (request, response, next) => {
     
@@ -31,6 +19,7 @@ exports.get_seg = (request, response, next) => {
                 isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                 user: request.session.user ? request.session.user : '',
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                nombre: request.session.nombre ? request.session.nombre : '',
 
             }); 
         })
@@ -48,6 +37,7 @@ exports.get_seg = (request, response, next) => {
                 isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                 user: request.session.user ? request.session.user : '',
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                nombre: request.session.nombre ? request.session.nombre : '',
 
             }); 
         })
@@ -95,6 +85,7 @@ exports.get_operacion = (request, response, next) => {
                 isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                 user: request.session.user ? request.session.user : '',
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                nombre: request.session.nombre ? request.session.nombre : '',
 
             }); 
         })
@@ -113,6 +104,7 @@ exports.get_operacion = (request, response, next) => {
                 isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                 user: request.session.user ? request.session.user : '',
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                nombre: request.session.nombre ? request.session.nombre : '',
 
             }); 
         })
@@ -131,7 +123,9 @@ exports.get_operacion = (request, response, next) => {
                 isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                 user: request.session.user ? request.session.user : '',
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-             
+
+                nombre: request.session.nombre ? request.session.nombre : '',
+
 
             }); 
         })
