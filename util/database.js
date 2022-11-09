@@ -23,7 +23,7 @@ if(select_env === AlwaysData){
     database_env = 'kiara_dev';
     password_env = '';
 }
-
+console.log (user_env);
 const pool = mysql.createPool({
     host: host_env,
     user: user_env,

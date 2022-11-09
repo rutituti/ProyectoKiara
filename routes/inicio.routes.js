@@ -5,6 +5,7 @@ const router = express.Router();
 const inicioControllers = require("../controllers/inicio.controller");
 const sesionController = require("../controllers/usuario.controller");
 const operacionController = require("../controllers/operacion.controller");
+const propiedadController = require("../controllers/propiedad.controller");
 
 
 /*
@@ -17,6 +18,10 @@ router.get('/QuienesSomos', inicioControllers.get_Infoempresa); //Muestra la inf
 router.get('/propiedades/venta', inicioControllers.get_casas_venta); //Mostrar casas en venta
 
 router.get('/propiedades/renta', inicioControllers.get_casas_renta); //Mostrar casas en renta
+
+router.get('/propiedades/venta', inicioControllers.get_casas_venta); //Mostrar casas en renta
+
+router.get('/propiedades/renta/:valor_busqueda', propiedadController.get_buscar); //buscar propiedades con ajax
 
 router.get('/propiedades/new', inicioControllers.get_new); //Formulario registro de propiedad
 
