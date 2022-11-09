@@ -202,7 +202,6 @@ exports.get_operacion = (request, response, next) => {
                 isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                 user: request.session.user ? request.session.user : '',
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-
                 nombre: request.session.nombre ? request.session.nombre : '',
 
 
