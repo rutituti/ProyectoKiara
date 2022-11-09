@@ -56,13 +56,6 @@ module.exports = class Usuario {
         [username]);
   }
 
-
-  //Stored procedure para eliminar cliente
-  static deleteUser(username){
-    return db.execute(
-      'CALL delete_user(?)',
-      [username]);
-  }
 }
 
   
