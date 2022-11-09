@@ -3,12 +3,13 @@ const path = require('path');
 const Propiedad = require('../models/propiedad.model');
 
 exports.get_Infoempresa = (request, response, next) => {
+    let registro = '';
     response.render(path.join('..','views','pagina_inicio','about_new.ejs'),{
-        info: info,
+        registro: registro,
         isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
         user: request.session.user ? request.session.user : '',
         nombre: request.session.nombre ? request.session.nombre : '',
-    //response.setHeader('Set-Cookie', 'Cookie de chocolate','1');  //Enviar una cookie
+
     });
 };
 
@@ -32,15 +33,18 @@ exports.get_casas_venta = (request, response, next) => {
     response.render(path.join('..','views','perfil','perfil.ejs'));
 };*/
 exports.get_casas_renta = (request, response, next) => {
+    let registro = '';
     Propiedad.fetchRenta()
     .then(([rows, fieldData]) => {
         console.log('GET propiedades');
         console.log(rows);
         response.render(path.join('..','views','propiedad','propiedad_renta.ejs'),{
+        registro: registro,
         propiedades: rows,
         isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
         nombre: request.session.nombre ? request.session.nombre : '',
         user: request.session.user ? request.session.user : '',
+        nombre: request.session.nombre ? request.session.nombre : '',
         });
     })
     .catch(error => {
@@ -57,9 +61,9 @@ exports.get_casas = (request, response, next) => {
 };
 
 exports.get_root = (request, response, next) => {
-    
+    let registro = '';
     response.render(path.join('..','views','pagina_inicio','new.ejs'),{
-        info: info,
+        registro: registro,
         isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
         user: request.session.user ? request.session.user : '',
         nombre: request.session.nombre ? request.session.nombre : '',

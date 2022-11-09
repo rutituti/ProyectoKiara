@@ -3,9 +3,9 @@ const db = require('../util/database');
 const bcrypt = require('bcryptjs')
 module.exports = class Usuario {
 
-  constructor(username,contraseña, nombres, primer_apellido, segundo_apellido, telefono, email){  
+  constructor(username,password, nombres, primer_apellido, segundo_apellido, telefono, email){  
     this.username = username;
-    this.password = contraseña;
+    this.password = password;
     this.nombres = nombres ? nombres : '' ;
     this.primer_apellido = primer_apellido ? primer_apellido : '' ;
     this.segundo_apellido = segundo_apellido ? segundo_apellido : '';

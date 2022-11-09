@@ -33,10 +33,10 @@ exports.post_new_admin = (request,response,next) => {
 
 
 exports.get_new_cliente = (request, response, next) => {
-    let info = request.session.info ? request.session.info : '';
+    let registro = request.session.info ? request.session.info : '';
         request.session.info = '';
         response.render(path.join('usuarios','new_cliente.ejs'), {
-            info: info,
+            registro: registro,
             isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
             user: request.session.user ? request.session.user : '',
             nombre: request.session.nombre ? request.session.nombre : '',
@@ -45,7 +45,7 @@ exports.get_new_cliente = (request, response, next) => {
 };
 
 exports.post_new_cliente = (request,response,next) => {
-    const cliente = new Cliente(request.body.ocupacion, request.body.estado)
+    const cliente = new Cliente(request.body.username,request.body.ocupacion, request.body.estado)
     const usuario = new Usuario(request.body.username,request.body.contra,request.body.Nombres, request.body.primerApellido, request.body.segundoApellido, request.body.telefono, request.body.email,)
 
      //Guarda informacion en la tabla USUARIOS
@@ -53,9 +53,7 @@ exports.post_new_cliente = (request,response,next) => {
     .then(() => {
         cliente.save()
         .then(() => {
-            // Guarda informacion en la tabla CLIENTES
-            console.log('Registro de CLIENTE exitoso');
-            response.redirect('/inicio');                       
+                            
         })
         .catch((error) => {
             console.log(error);
@@ -66,7 +64,10 @@ exports.post_new_cliente = (request,response,next) => {
         console.log(error);
         
     });
-   
+
+    request.session.registro = "El Cliente " + usuario.nombres + " fue registrado exitosamente";
+    
+    response.redirect('/user/login'); 
    
     
 }
@@ -74,11 +75,16 @@ exports.post_new_cliente = (request,response,next) => {
 
 
 exports.get_login = (request, response, next) => {
-    let info = request.session.info ? request.session.info : '';
-    console.log(request.session.isLoggedIn);
+    let registro = request.session.registro ? request.session.registro : '';
     request.session.info = '';
+
+    let info = request.session.info ? request.session.info : '';
+    request.session.info = '';
+    console.log(request.session.info);
+
     response.render(path.join('usuarios','login.ejs'), {
-        info: info,
+        registro: registro,
+        info : info,
         isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
         user: request.session.user ? request.session.user : '',
         nombre: request.session.nombre ? request.session.nombre : '',
@@ -107,8 +113,7 @@ exports.post_login = (request, response, next) => {
                     request.session.user = username[0].username;
                     request.session.nombre = username[0].Nombres+' ' + username[0].Primer_apellido;
                     request.session.roles = new Array();
-                    //console.log(username[0].username);
-                   //Obtener los roles del usuario
+                   
                     Usuario.getRol(username[0].username).then(([rol, fieldData]) => {
 
                         for (let r of rol[0]) {
@@ -118,8 +123,7 @@ exports.post_login = (request, response, next) => {
                     })
                     .catch( error => { 
                         console.log(error)
-                    });
-                    
+                    });               
                     
                     
                     //Obtener los permisos del usuario
