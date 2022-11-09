@@ -23,4 +23,10 @@ module.exports = class Asesor {
         return db.execute('CALL get_asesor(?);',[user]);
     }
 
+    //Stored procedure para instruccion SQL de borrar asesor
+
+    static delete_Asesor(user){
+        return db.execute('CALL delete_asesor(?);',[user]);
+    }
+
 }

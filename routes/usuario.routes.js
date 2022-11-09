@@ -22,4 +22,6 @@ router.get('/logout', userController.logout);
 
 router.get('/perfil',isAuth, userController.get_profile); //Mostrar perfil de usuario
 
+router.post('/deleteA', userController.post_deleteAsesor); //Ruta borrar asesor
+
 module.exports = router;

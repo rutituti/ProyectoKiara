@@ -222,3 +222,28 @@ exports.get_profile= (request, response, next) => {
         
 };
 
+//Controlador borrar asesor
+
+exports.post_deleteAsesor = (request, response, next) => {
+    Asesor.delete_Asesor(request.body.username)
+        .then(()=>{
+            Asesor.fetchAll().then(([rows, fieldData])=>{
+                response.status(200).json({
+                    mensaje: "El Colaborador" + request.body.username + "ha sido eliminado",
+                    asesores: rows,
+                });
+            }).catch(error => {console.log(error)});
+        }).catch(error => {console.log(error)});
+};
+
+exports.post_deleteCliente = (request, response, next) => {
+    Cliente.delete_cliente(request.body.username)
+        .then(()=>{
+            Cliente.fetchAll().then(([rows, fieldData])=>{
+                response.status(200).json({
+                    mensaje: "El Cliente" + request.body.username + "ha sido eliminado",
+                    asesores: rows,
+                });
+            }).catch(error => {console.log(error)});
+        }).catch(error => {console.log(error)});
+};
