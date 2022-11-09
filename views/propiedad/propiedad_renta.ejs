@@ -2,9 +2,20 @@
                 <br>
                 <br>
                 <br>
+                <br> 
+            <div class="row p-3">
+              <div class="col-sm-12 col-md-3 col-lg-2"></div>
+              <div class="col-sm-12 col-md-7 col-xl-8">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Ingresa ubicación o caracteristica">
+                  <button class="btn btn-primary" type="button" id="Buscar">Buscar</button>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-7 col-xl-2"></div>
+            </div>
                 <div class="w-100">
+                    <div id="resultado">
                     <div>                    
-                    
                         <% if (propiedades.length > 0) { %>
                             <% for (let c of propiedades) { %>
                                 <div row="col-sm-2 col-md-2 col-lg-2">
@@ -16,4 +27,79 @@
                         <% } %>
                     </div>
                 </div>
- <%- include('../includes/foot.ejs') %>
+            </div>
+
+<script>
+    busqueda_ajax = () => {
+        let search_val = document.getElementById('Buscar').value;
+        
+        fetch('/inicio/propiedades/renta/' + search_val, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+            }
+        }).then(result => {
+            return result.json();
+        }).then(data => {
+            console.log(data);
+                let html = "";
+                for(let propiedades of data){
+                    if(data.length > 0){
+                html += '<div class="card">';
+                    html += '<div class="row ">';
+                        html += '<div class="col-md-7 px-3">';
+                            html += '<div class="card-block px-6">';
+                                html += '<h4 class="card-title"><h3><strong><%= propiedades.Operacion%> en <%= propiedades.Calle %> (<%= propiedades.Uso_suelo %>) </h3></strong>';
+                                    html += '<h4 class="card-text">';
+                                html += '<%= propiedades.Municipio %>, <%= propiedades.Calle %>, <%= propiedades.Colonia %>, <%= propiedades.Numero%>';
+                                html += '</h4>';
+                                html += '<p class="opacity-100">DESDE</p>';
+                                html += '<p class="card-text"><strong>MNX $<%= propiedades.Precio %></strong></p>';
+                                html += '<br>';
+                                html += '<a href="#" class="mt-auto btn btn-primary  ">Read More</a>';
+                                html += '</div>';
+                                html += '</div>';
+                                html += '<div class="col-md-5">';
+                                    html += '<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">';
+                                        html += '<div class="carousel-indicators">';
+                                            html += '<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>';
+                                            html += '<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>';
+                                            html += '<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>';
+
+                                            html += '</div>';
+                                            html += '<div class="carousel-inner">';
+                                                html += '<div class="carousel-item active" data-bs-interval="10000">';
+                                                    html += '<img width="550" height="280" src="/images/casa.jpg" class="d-block" alt="">';
+                                                    html += '<div class="carousel-caption d-none d-md-block">';
+                                                        html += '</div>';
+                                                        html += '</div>';
+                                                        html += '<div class="carousel-item active" data-bs-interval="20000">';
+                                                            html += '<img class="d-block" src="/images/casaprincipal.jpg" width="550" height="280" alt="">';
+                                                            html += '</div>';
+                                                            html += '<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">';
+                                                                html += '<span class="carousel-control-prev-icon" aria-hidden="true"></span>';
+                                                                html += '<span class="visually-hidden">Previous</span>';
+                                                                html += '</button>';
+                                                                html += '<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">';
+                                                                    html += '<span class="carousel-control-next-icon" aria-hidden="true"></span>';
+                                                                    html += '<span class="visually-hidden">Next</span>'
+                                                                    html += '</button>';
+                            
+                                                                    html += '</div>';
+                                                                    html += '</div>';
+                                                                    html += '</div>';
+                                                                    html += '</div>';
+                                                                    html += '</div>';
+            } else{
+                let html='';
+                html += '<h3>No hay casas registradas</h3>'
+            }
+        }
+            document.getElementById('resultado').innerHTML = html;
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+    document.getElementById('Buscar').onkeyup = busqueda_ajax;
+</script>
+<%- include('../includes/foot.ejs') %>

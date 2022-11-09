@@ -7,14 +7,26 @@ exports.get_Infoempresa = (request, response, next) => {
         info: info,
         isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
         user: request.session.user ? request.session.user : '',
+        nombre: request.session.nombre ? request.session.nombre : '',
     //response.setHeader('Set-Cookie', 'Cookie de chocolate','1');  //Enviar una cookie
     });
 };
 
 exports.get_casas_venta = (request, response, next) => {
-    response.send('Listado de casas en RENTA');
-    const cookie = request.get('Cookie').split(';')[0].trim().split('=')[0]; // Leer una cookie
-    console.log(cookie);
+    Propiedad.fetchVenta()
+    .then(([rows, fieldData]) => {
+        console.log('GET propiedades Venta');
+        console.log(rows);
+        response.render(path.join('..','views','propiedad','propiedad_renta.ejs'),{
+        propiedades: rows,
+        isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+        nombre: request.session.nombre ? request.session.nombre : '',
+        user: request.session.user ? request.session.user : '',
+        });
+    })
+    .catch(error => {
+        console.log(error);
+    });  
 };
 /*exports.getperfil = (request, response, next) => {
     response.render(path.join('..','views','perfil','perfil.ejs'));
@@ -27,6 +39,7 @@ exports.get_casas_renta = (request, response, next) => {
         response.render(path.join('..','views','propiedad','propiedad_renta.ejs'),{
         propiedades: rows,
         isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+        nombre: request.session.nombre ? request.session.nombre : '',
         user: request.session.user ? request.session.user : '',
         });
     })
