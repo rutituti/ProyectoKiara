@@ -25,7 +25,7 @@ module.exports = class Cliente {
       }
 
       //Stored procedure para eliminar cliente
-  static deleteCliente(username){
+  static delete_cliente(username){
       return db.execute(
       'CALL delete_cliente(?)',
       [username]);
