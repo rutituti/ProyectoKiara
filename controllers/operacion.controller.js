@@ -55,7 +55,7 @@ exports.get_segexp = (request, response, next) => {
     if (request.session.ubicacion === 'alquilar')
     {
             //  <h5> Expediente Arrendatario </h5>
-            request.session.tex='Arrendatario'; 
+  //          request.session.tex='Arrendatario'; 
             ExpedienteRenta.fetchDocsVendedor(5)
             .then(([rows, fieldData]) => {
      //        console.log(rows[0]);
@@ -67,7 +67,7 @@ exports.get_segexp = (request, response, next) => {
                     user: request.session.user ? request.session.user : '',
                     ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                     nombre: request.session.nombre ? request.session.nombre : '',
-                    tex: request.session.tex ?  request.session.tex: '',
+                
 
                 }); 
         
@@ -90,7 +90,7 @@ exports.get_segexp = (request, response, next) => {
                                 user: request.session.user ? request.session.user : '',
                                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                                 nombre: request.session.nombre ? request.session.nombre : '',
-                                tex: request.session.tex ?  request.session.tex: '',
+                       
             
                             }); 
                     
@@ -113,7 +113,7 @@ exports.get_segexp = (request, response, next) => {
                                 user: request.session.user ? request.session.user : '',
                                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                                 nombre: request.session.nombre ? request.session.nombre : '',
-                                tex: request.session.tex ?  request.session.tex: '',
+              
             
                             }); 
                     
@@ -138,7 +138,7 @@ exports.get_segexp = (request, response, next) => {
                                 user: request.session.user ? request.session.user : '',
                                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                                 nombre: request.session.nombre ? request.session.nombre : '',
-                                tex: request.session.tex ?  request.session.tex: '',
+                           
             
                             }); 
                     
