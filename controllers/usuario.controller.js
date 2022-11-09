@@ -106,36 +106,22 @@ exports.post_login = (request, response, next) => {
                    
                     request.session.user = username[0].username;
                     request.session.nombre = username[0].Nombres+' ' + username[0].Primer_apellido;
+                    request.session.roles = new Array();
                     //console.log(username[0].username);
                    //Obtener los roles del usuario
                     Usuario.getRol(username[0].username).then(([rol, fieldData]) => {
-                        request.session.roles = new Array();
-                        console.log('ROL '+rol);
+
                         for (let r of rol[0]) {
                             request.session.roles.push(r.Nombre);                        
-                        }
+                        }                      
                         
                     })
                     .catch( error => { 
                         console.log(error)
                     });
-
-                    /*
-                    //Obternet informacion personal segun el rol
-                    if (request.session.roles.indexOf('Cliente') != -1)
-                    {
-                        Cliente.get_personalInfo(username[0].username).then(([personal_info, fieldData]) => {
-                            request.session.personal_info =  personal_info;
-                                                    
-                        })
-                        .catch( error => { 
-                            console.log(error)
-                        });
-                        
-                    }
-                    */
-                     
-
+                    
+                    
+                    
                     //Obtener los permisos del usuario
                     Usuario.getPermisos(request.body.username)
                     .then( ([permisos, fieldData]) => {
@@ -174,25 +160,65 @@ exports.logout = (request, response, next) => {
    
 // Obtener perfil de usuario
 exports.get_profile= (request, response, next) => {
-    request.session.ubicacion = 'perfil';
-
-
-        Usuario.getUser(request.session.user)
-        .then(([rows, fieldData]) => {
+    request.session.ubicacion = 'perfil';    
+    
+    if (request.session.roles.indexOf('Cliente') != -1)
+    {               
+        Cliente.get_personalInfo(request.session.user).then(([personal_info, fieldData]) => {
+            request.session.personal_info =  personal_info[0];
             
+            Usuario.getUser(request.session.user)
+            .then(([rows, fieldData]) => {
+        
                 response.render(path.join('..','views','perfil','perfil.ejs'), {
-                profile_C: rows,
+                profile: rows,
                 isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                 user: request.session.user ? request.session.user : '',
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
-
-
+                personal_info : request.session.personal_info[0] ? request.session.personal_info[0] : '',
+                rol : request.session.roles ? request.session.roles : '',
+            
+                }); 
+            })
+                .catch( error => { 
+                console.log(error)
             }); 
+                                                                               
         })
         .catch( error => { 
             console.log(error)
-        });
+        });               
+    }else if (request.session.roles.indexOf('Asesor') != -1)
+    {
+        Asesor.get_personalInfo(request.session.user).then(([personal_info, fieldData]) => {
+            request.session.personal_info =  personal_info[0];
+            Usuario.getUser(request.session.user)
+            .then(([rows, fieldData]) => {
+        
+                response.render(path.join('..','views','perfil','perfil.ejs'), {
+                profile: rows,
+                isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+                user: request.session.user ? request.session.user : '',
+                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                nombre: request.session.nombre ? request.session.nombre : '',
+                personal_info : request.session.personal_info[0] ? request.session.personal_info[0] : '',
+                rol : request.session.roles ? request.session.roles : '',
+            
+                }); 
+            })
+                .catch( error => { 
+                console.log(error)
+            }); 
+                                                                        
+        })
+        .catch( error => { 
+            console.log(error)
+        });  
+    }    
+
+    
+   
         
 };
 
