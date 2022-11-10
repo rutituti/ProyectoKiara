@@ -22,9 +22,9 @@ exports.post_new_admin = (request,response,next) => {
     usuario.save()
     .then(() => {
         //request.session = usuario.username;
-        console.log('Registro de ADMIN exitoso');
-        response.redirect('/user/login');
-        
+        request.session.registro = "El adminsitrador " + usuario.nombres + " fue registrado exitosamente";
+    
+        response.redirect('/user/login'); 
     })
     .catch((error) => {
         console.log(error);
@@ -49,15 +49,17 @@ exports.get_new_asesor = (request, response, next) => {
 // Controlador POST nuevo asesor
 
 exports.post_new_asesor = (request,response,next) => {
-    const asesor = new Asesor(request.body.curp)
+    const asesor = new Asesor(request.body.username,request.body.curp)
     const usuario = new Usuario(request.body.username,request.body.contra,request.body.Nombres, request.body.primerApellido, request.body.segundoApellido, request.body.telefono, request.body.email,)
 
      //Guarda informacion en la tabla USUARIOS
     usuario.save()
     .then(() => {
-        cliente.save()
+        asesor.save()
         .then(() => {
-                            
+            request.session.registro = "El asesor " + usuario.nombres + " fue registrado exitosamente";
+    
+            response.redirect('/user/login');            
         })
         .catch((error) => {
             console.log(error);
@@ -69,9 +71,7 @@ exports.post_new_asesor = (request,response,next) => {
         
     });
 
-    request.session.registro = "El asesor " + usuario.nombres + " fue registrado exitosamente";
-    
-    response.redirect('/user/login'); 
+   
    
     
 }
@@ -98,6 +98,9 @@ exports.post_new_cliente = (request,response,next) => {
         cliente.save()
         .then(() => {
             user_rol.save().then(() => {
+                request.session.registro = "El Cliente " + usuario.nombres + " fue registrado exitosamente";
+    
+                response.redirect('/user/login'); 
 
             }).catch((error) => {
                 console.log(error);
@@ -114,9 +117,7 @@ exports.post_new_cliente = (request,response,next) => {
         
     });
 
-    request.session.registro = "El Cliente " + usuario.nombres + " fue registrado exitosamente";
     
-    response.redirect('/user/login'); 
    
     
 }
