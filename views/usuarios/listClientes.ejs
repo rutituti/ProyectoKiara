@@ -3,6 +3,26 @@
     user: user,
 }) %>
 
-<h1>hola</h1>
+<h1>Listado de clientes</h1>
+<div id="Clientes">
+    <% if (clientes.length > 0) { %>
+        <div class="row">
+            <% for (let c of clientes) { %>
+                <div class="col s12 m4 l3">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="..." alt="Card image cap">
+                        <div class="card-body">
+                          <h5 class="card-title"><%= cliente.nombre %></h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    <% } else { %>
+        <h3>No hay clientes registrados.</h3>
+    <% } %>
+</div>
 
 <%- include('../includes/foot.ejs') %>
