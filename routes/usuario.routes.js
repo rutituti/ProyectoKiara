@@ -35,5 +35,9 @@ router.get('/perfil/propiedad', propiedadController.get_newProperty); //El perfi
 
 router.post('/deleteA', userController.post_deleteAsesor); //Ruta borrar asesor
 
+router.post('/deleteC', userController.post_deleteCliente); //Ruta borrar cliente
+
+router.post('/deleteU', userController.post_deleteUsuario); //Ruta borrar usuario
+
 
 module.exports = router;
