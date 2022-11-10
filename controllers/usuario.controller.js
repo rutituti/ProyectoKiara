@@ -342,7 +342,7 @@ exports.post_deleteUsuario = (request, response, next) => {
             Usuario.fetchAll().then(([rows, fieldData])=>{
                 response.status(200).json({
                     mensaje: "El Usuario" + request.body.username + "ha sido eliminado",
-                    asesores: rows,
+                    usuarios: rows,
                 });
             }).catch(error => {console.log(error)});
         }).catch(error => {console.log(error)});
