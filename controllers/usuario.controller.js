@@ -115,6 +115,12 @@ exports.post_new_cliente = (request,response,next) => {
     
 }
 
+//Controlador para lista de asesores
+
+exports.get_listAsesor = (request, response, next) => {
+    let info = request.session.info ? request.session.info : '';
+    request.session.info = '';
+}
 
 
 exports.get_login = (request, response, next) => {
@@ -133,7 +139,6 @@ exports.get_login = (request, response, next) => {
         nombre: request.session.nombre ? request.session.nombre : '',
     });
 };
-
 
 
 exports.post_login = (request, response, next) => {
@@ -282,6 +287,8 @@ exports.post_deleteAsesor = (request, response, next) => {
             }).catch(error => {console.log(error)});
         }).catch(error => {console.log(error)});
 };
+
+//Controlador borrar cliente
 
 exports.post_deleteCliente = (request, response, next) => {
     Cliente.delete_cliente(request.body.username)
