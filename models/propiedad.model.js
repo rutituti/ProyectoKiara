@@ -97,7 +97,7 @@ module.exports = class Propiedad{
     }
     //Instruccion SQL para buscar propiedad
     static find(valor_busqueda) {
-        return db.execute('SELECT * FROM Propiedades WHERE Colonia LIKE ? OR Municipio LIKE ? OR Calle LIKE ?', ['%'+valor_busqueda+'%', '%'+valor_busqueda+'%', '%'+valor_busqueda+'%']);
+        return db.execute('SELECT * FROM Propiedades WHERE Colonia LIKE ? OR Municipio LIKE ? OR Calle LIKE ? AND Operacion = "Renta" OR Operacion = "Venta"', ['%'+valor_busqueda+'%', '%'+valor_busqueda+'%', '%'+valor_busqueda+'%']);
     }
     //Instruccion SQL para editar propiedad
     static edit(id, nombre, descripcion) {
