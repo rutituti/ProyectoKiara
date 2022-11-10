@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const userController = require("../controllers/usuario.controller");
+const propiedadController = require("../controllers/propiedad.controller")
 
 const isAuth = require('../util/is-auth');
 
@@ -21,5 +22,7 @@ router.post('/login', userController.post_login);
 router.get('/logout', userController.logout);
 
 router.get('/perfil',isAuth, userController.get_profile); //Mostrar perfil de usuario
+
+router.get('/perfil/propiedad', propiedadController.get_newProperty); //El perfil principal crea nuevas propiedades (Asesores)
 
 module.exports = router;
