@@ -60,8 +60,12 @@ exports.get_segexp = (request, response, next) => {
             .then(([rows, fieldData]) => {
      //        console.log(rows[0]);
        //         console.log(request.session.tex)
+       ExpedienteRenta.fetchDocsVendedor(4)
+       .then(([rows2, fieldData]) => {
+       console.log(rows2[0])
                 response.render(path.join('..','views','op_venta','expediente.ejs'), {
                     numdocs : rows[0],
+                    numdocs2 : rows2[0],
                     info: info,
                     isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                     user: request.session.user ? request.session.user : '',
@@ -72,6 +76,7 @@ exports.get_segexp = (request, response, next) => {
                 }); 
         
             })
+        })
             .catch( error => { 
                 console.log(error)
             });
