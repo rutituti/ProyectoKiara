@@ -1,6 +1,7 @@
 const path = require('path');
 const Cliente = require('../models/cliente.model');
 const Asesor = require('../models/asesor.model');
+const User_Rol = require('../models/user_rol.model');
 const Usuario = require('../models/usuario.model');
 const bcrypt = require('bcryptjs');
 
@@ -47,12 +48,17 @@ exports.get_new_cliente = (request, response, next) => {
 exports.post_new_cliente = (request,response,next) => {
     const cliente = new Cliente(request.body.username,request.body.ocupacion, request.body.estado)
     const usuario = new Usuario(request.body.username,request.body.contra,request.body.Nombres, request.body.primerApellido, request.body.segundoApellido, request.body.telefono, request.body.email,)
-
+    const user_rol = new User_Rol(request.body.username,3);
      //Guarda informacion en la tabla USUARIOS
     usuario.save()
     .then(() => {
         cliente.save()
         .then(() => {
+            user_rol.save().then(() => {
+
+            }).catch((error) => {
+                console.log(error);
+            });
                             
         })
         .catch((error) => {
@@ -76,11 +82,12 @@ exports.post_new_cliente = (request,response,next) => {
 
 exports.get_login = (request, response, next) => {
     let registro = request.session.registro ? request.session.registro : '';
-    request.session.info = '';
-
+    request.session.registro = '';
+    console.log(registro);
     let info = request.session.info ? request.session.info : '';
-    request.session.info = '';
     console.log(request.session.info);
+    request.session.info = '';
+    
 
     response.render(path.join('usuarios','login.ejs'), {
         registro: registro,
@@ -100,13 +107,14 @@ exports.post_login = (request, response, next) => {
     .then(([username, fieldData]) => {
         
         if(username.length < 1){
-            
+            console.log('CONTRASEÑA INCORRECTA');
             request.session.info = 'El usuario y/o contraseña son incorrectos';
             response.redirect('/user/login');
         }else{
             
             bcrypt.compare(request.body.contra, username[0].password)
             .then(doMatch =>{
+                console.log(doMatch);
                 if(doMatch){
                     request.session.isLoggedIN = true;
                    
@@ -141,9 +149,9 @@ exports.post_login = (request, response, next) => {
                         });
                     }).catch(err => console.log(err));
                 }else{
-                    
+                    console.log('CONTRASEÑA INCORRECTA');
                     request.session.info = 'El usuarion y/o contraseña son incorrectos';
-                    response.redirect('/user/login')
+                    response.redirect('/user/login');
                 }
             }).catch(err => {
                 
@@ -164,10 +172,15 @@ exports.logout = (request, response, next) => {
    
 // Obtener perfil de usuario
 exports.get_profile= (request, response, next) => {
-    request.session.ubicacion = 'perfil';    
+    request.session.ubicacion = 'perfil'; 
+    
+    let registro = request.session.registro ? request.session.registro : '';
+    request.session.registro = '';
+    
     
     if (request.session.roles.indexOf('Cliente') != -1)
-    {               
+    {            
+        console.log('SOY UN CLIENTE');   
         Cliente.get_personalInfo(request.session.user).then(([personal_info, fieldData]) => {
             request.session.personal_info =  personal_info[0];
             
@@ -182,6 +195,7 @@ exports.get_profile= (request, response, next) => {
                 nombre: request.session.nombre ? request.session.nombre : '',
                 personal_info : request.session.personal_info[0] ? request.session.personal_info[0] : '',
                 rol : request.session.roles ? request.session.roles : '',
+                registro: registro,
             
                 }); 
             })
@@ -208,6 +222,7 @@ exports.get_profile= (request, response, next) => {
                 nombre: request.session.nombre ? request.session.nombre : '',
                 personal_info : request.session.personal_info[0] ? request.session.personal_info[0] : '',
                 rol : request.session.roles ? request.session.roles : '',
+                registro: registro,
             
                 }); 
             })
