@@ -29,6 +29,7 @@ const pool = mysql.createPool({
     user: user_env,
     database: database_env,
     password: password_env,
+    connectionLimit: 1,
 });
 
 module.exports = pool.promise();
