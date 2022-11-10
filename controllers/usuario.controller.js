@@ -124,7 +124,7 @@ exports.get_listAsesor = (request, response, next) => {
 
     Asesor.fetchAll()
         .then(([rows, fieldData])=>{
-            response.render(path.join('asesores','listAsesores.ejs'),{
+            response.render(path.join('usuarios','listAsesores.ejs'),{
                 asesores: rows,
                 info: info,
                 isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
@@ -143,7 +143,7 @@ exports.get_listCliente = (request, response, next) => {
 
     Cliente.fetchAll()
         .then(([rows, fieldData])=>{
-            response.render(path.join('clientes','listClientes.ejs'),{
+            response.render(path.join('usuarios','listClientes.ejs'),{
                 clientes: rows,
                 info: info,
                 isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
