@@ -3,6 +3,7 @@ const Cliente = require('../models/cliente.model');
 const Asesor = require('../models/asesor.model');
 const Usuario = require('../models/usuario.model');
 const bcrypt = require('bcryptjs');
+const { response } = require('express');
 
 
 exports.get_new_admin = (request, response, next) => {
@@ -120,7 +121,38 @@ exports.post_new_cliente = (request,response,next) => {
 exports.get_listAsesor = (request, response, next) => {
     let info = request.session.info ? request.session.info : '';
     request.session.info = '';
-}
+
+    Asesor.fetchAll()
+        .then(([rows, fieldData])=>{
+            response.render(path.join('asesores','list.ejs'),{
+                asesores: rows,
+                info: info,
+                isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
+                user: request.session.user ? request.session.user : '',
+            }).catch((error)=>{
+                console.log(error);
+            });
+        })
+};
+
+//Controlador para lista de clientes
+
+exports.get_listCliente = (request, response, next) => {
+    let info = request.session.info ? request.session.info : '';
+    request.session.info = '';
+
+    Cliente.fetchAll()
+        .then(([rows, fieldData])=>{
+            response.render(path.join('clientes','list.ejs'),{
+                clientes: rows,
+                info: info,
+                isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
+                user: request.session.user ? request.session.user : '',
+            }).catch((error)=>{
+                console.log(error);
+            });
+        })
+};
 
 
 exports.get_login = (request, response, next) => {
