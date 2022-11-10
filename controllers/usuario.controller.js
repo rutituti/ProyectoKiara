@@ -33,10 +33,10 @@ exports.post_new_admin = (request,response,next) => {
 
 
 exports.get_new_cliente = (request, response, next) => {
-    let info = request.session.info ? request.session.info : '';
+    let registro = request.session.info ? request.session.info : '';
         request.session.info = '';
         response.render(path.join('usuarios','new_cliente.ejs'), {
-            info: info,
+            registro: registro,
             isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
             user: request.session.user ? request.session.user : '',
             nombre: request.session.nombre ? request.session.nombre : '',
@@ -45,7 +45,7 @@ exports.get_new_cliente = (request, response, next) => {
 };
 
 exports.post_new_cliente = (request,response,next) => {
-    const cliente = new Cliente(request.body.ocupacion, request.body.estado)
+    const cliente = new Cliente(request.body.username,request.body.ocupacion, request.body.estado)
     const usuario = new Usuario(request.body.username,request.body.contra,request.body.Nombres, request.body.primerApellido, request.body.segundoApellido, request.body.telefono, request.body.email,)
 
      //Guarda informacion en la tabla USUARIOS
@@ -53,9 +53,7 @@ exports.post_new_cliente = (request,response,next) => {
     .then(() => {
         cliente.save()
         .then(() => {
-            // Guarda informacion en la tabla CLIENTES
-            console.log('Registro de CLIENTE exitoso');
-            response.redirect('/inicio');                       
+                            
         })
         .catch((error) => {
             console.log(error);
@@ -66,7 +64,10 @@ exports.post_new_cliente = (request,response,next) => {
         console.log(error);
         
     });
-   
+
+    request.session.registro = "El Cliente " + usuario.nombres + " fue registrado exitosamente";
+    
+    response.redirect('/user/login'); 
    
     
 }
@@ -74,11 +75,16 @@ exports.post_new_cliente = (request,response,next) => {
 
 
 exports.get_login = (request, response, next) => {
-    let info = request.session.info ? request.session.info : '';
-    console.log(request.session.isLoggedIn);
+    let registro = request.session.registro ? request.session.registro : '';
     request.session.info = '';
+
+    let info = request.session.info ? request.session.info : '';
+    request.session.info = '';
+    console.log(request.session.info);
+
     response.render(path.join('usuarios','login.ejs'), {
-        info: info,
+        registro: registro,
+        info : info,
         isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
         user: request.session.user ? request.session.user : '',
         nombre: request.session.nombre ? request.session.nombre : '',
@@ -106,36 +112,20 @@ exports.post_login = (request, response, next) => {
                    
                     request.session.user = username[0].username;
                     request.session.nombre = username[0].Nombres+' ' + username[0].Primer_apellido;
-                    //console.log(username[0].username);
-                   //Obtener los roles del usuario
+                    request.session.roles = new Array();
+                   
                     Usuario.getRol(username[0].username).then(([rol, fieldData]) => {
-                        request.session.roles = new Array();
-                        console.log('ROL '+rol);
+
                         for (let r of rol[0]) {
                             request.session.roles.push(r.Nombre);                        
-                        }
+                        }                      
                         
                     })
                     .catch( error => { 
                         console.log(error)
-                    });
-
-                    /*
-                    //Obternet informacion personal segun el rol
-                    if (request.session.roles.indexOf('Cliente') != -1)
-                    {
-                        Cliente.get_personalInfo(username[0].username).then(([personal_info, fieldData]) => {
-                            request.session.personal_info =  personal_info;
-                                                    
-                        })
-                        .catch( error => { 
-                            console.log(error)
-                        });
-                        
-                    }
-                    */
-                     
-
+                    });               
+                    
+                    
                     //Obtener los permisos del usuario
                     Usuario.getPermisos(request.body.username)
                     .then( ([permisos, fieldData]) => {
@@ -174,25 +164,90 @@ exports.logout = (request, response, next) => {
    
 // Obtener perfil de usuario
 exports.get_profile= (request, response, next) => {
-    request.session.ubicacion = 'perfil';
-
-
-        Usuario.getUser(request.session.user)
-        .then(([rows, fieldData]) => {
+    request.session.ubicacion = 'perfil';    
+    
+    if (request.session.roles.indexOf('Cliente') != -1)
+    {               
+        Cliente.get_personalInfo(request.session.user).then(([personal_info, fieldData]) => {
+            request.session.personal_info =  personal_info[0];
             
+            Usuario.getUser(request.session.user)
+            .then(([rows, fieldData]) => {
+        
                 response.render(path.join('..','views','perfil','perfil.ejs'), {
-                profile_C: rows,
+                profile: rows,
                 isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                 user: request.session.user ? request.session.user : '',
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
-
-
+                personal_info : request.session.personal_info[0] ? request.session.personal_info[0] : '',
+                rol : request.session.roles ? request.session.roles : '',
+            
+                }); 
+            })
+                .catch( error => { 
+                console.log(error)
             }); 
+                                                                               
         })
         .catch( error => { 
             console.log(error)
-        });
+        });               
+    }else if (request.session.roles.indexOf('Asesor') != -1)
+    {
+        Asesor.get_personalInfo(request.session.user).then(([personal_info, fieldData]) => {
+            request.session.personal_info =  personal_info[0];
+            Usuario.getUser(request.session.user)
+            .then(([rows, fieldData]) => {
+        
+                response.render(path.join('..','views','perfil','perfil.ejs'), {
+                profile: rows,
+                isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+                user: request.session.user ? request.session.user : '',
+                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                nombre: request.session.nombre ? request.session.nombre : '',
+                personal_info : request.session.personal_info[0] ? request.session.personal_info[0] : '',
+                rol : request.session.roles ? request.session.roles : '',
+            
+                }); 
+            })
+                .catch( error => { 
+                console.log(error)
+            }); 
+                                                                        
+        })
+        .catch( error => { 
+            console.log(error)
+        });  
+    }    
+
+    
+   
         
 };
 
+//Controlador borrar asesor
+
+exports.post_deleteAsesor = (request, response, next) => {
+    Asesor.delete_Asesor(request.body.username)
+        .then(()=>{
+            Asesor.fetchAll().then(([rows, fieldData])=>{
+                response.status(200).json({
+                    mensaje: "El Colaborador" + request.body.username + "ha sido eliminado",
+                    asesores: rows,
+                });
+            }).catch(error => {console.log(error)});
+        }).catch(error => {console.log(error)});
+};
+
+exports.post_deleteCliente = (request, response, next) => {
+    Cliente.delete_cliente(request.body.username)
+        .then(()=>{
+            Cliente.fetchAll().then(([rows, fieldData])=>{
+                response.status(200).json({
+                    mensaje: "El Cliente" + request.body.username + "ha sido eliminado",
+                    asesores: rows,
+                });
+            }).catch(error => {console.log(error)});
+        }).catch(error => {console.log(error)});
+};

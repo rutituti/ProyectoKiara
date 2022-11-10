@@ -24,4 +24,10 @@ module.exports = class Cliente {
         return db.execute('CALL get_cliente(?);',[user]);
       }
 
+      //Stored procedure para eliminar cliente
+  static delete_cliente(username){
+      return db.execute(
+      'CALL delete_cliente(?)',
+      [username]);
+  }
 }

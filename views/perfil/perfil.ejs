@@ -13,11 +13,13 @@
                 <div class="w-100">
                     <div>                    
                     
-                        <% if (profile_C.length > 0) { %>
-                            <% for (let c of profile_C) { %>
+                        <% if (profile.length > 0) { %>
+                            <% for (let c of profile) { %>
                                 <div row="col-sm-2 col-md-2 col-lg-2">
                                     <%- include('perfil.form.ejs', {
-                                        profile_C: c,
+                                        profile: c,
+                                        rol: rol,
+                                        personal_info: personal_info,
                                         
                                     }) %>
                                 </div>

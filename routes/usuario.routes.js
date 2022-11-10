@@ -25,4 +25,7 @@ router.get('/perfil',isAuth, userController.get_profile); //Mostrar perfil de us
 
 router.get('/perfil/propiedad', propiedadController.get_newProperty); //El perfil principal crea nuevas propiedades (Asesores)
 
+router.post('/deleteA', userController.post_deleteAsesor); //Ruta borrar asesor
+
+
 module.exports = router;
