@@ -143,6 +143,7 @@ exports.get_listCliente = (request, response, next) => {
 
     Cliente.fetchAll()
         .then(([rows, fieldData])=>{
+            console.log(rows);
             response.render(path.join('usuarios','listClientes.ejs'),{
                 clientes: rows,
                 info: info,

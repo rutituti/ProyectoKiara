@@ -58,7 +58,7 @@ module.exports = class Usuario {
 
   //Stored procedure para borrar un usuario
 
-  static deleteUser(username){
+  static delete_usuario(username){
     return db.execute(
       'CALL delete_usuario(?)',
       [username]

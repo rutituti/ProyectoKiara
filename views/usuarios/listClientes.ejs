@@ -9,12 +9,15 @@
         <div class="row">
             <% for (let c of clientes) { %>
                 <div class="col s12 m4 l3">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="card" style="width: 21rem;">
+                        <img class="card-img-top" src="/images/casaprincipal.jpg" alt="Card image cap">
                         <div class="card-body">
-                          <h5 class="card-title"><%= cliente.nombre %></h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="#" class="btn btn-primary">Go somewhere</a>
+                          <h4 class="card-title"><%= clientes.nombre %></h4>
+                          <h5 class="card-title"><%= casas_V.Colonia %> CP <%= casas_V.Codigo_postal %></h5>
+                          <h6 class="card-title"><%= casas_V.Municipio %>, <%= casas_V.Estado %> <%= casas_V.Pais %></h6>
+                          
+                          <p class="card-text"><%= casas_V.tipoInmueble %> con <%= casas_V.Habitaciones %> recamaras y 3 baños</p>
+                          <a href="/operacion/<%= ubicacion%>/seguimiento/<%= casas_V.ID_Propiedad %>" class="btn btn-primary">Seguimiento</a>
                         </div>
                     </div>
                 </div>
