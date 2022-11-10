@@ -333,3 +333,17 @@ exports.post_deleteCliente = (request, response, next) => {
             }).catch(error => {console.log(error)});
         }).catch(error => {console.log(error)});
 };
+
+//Controlador borrar usuario
+
+exports.post_deleteUsuario = (request, response, next) => {
+    Usuario.delete_usuario(request.body.username)
+        .then(()=>{
+            Usuario.fetchAll().then(([rows, fieldData])=>{
+                response.status(200).json({
+                    mensaje: "El Usuario" + request.body.username + "ha sido eliminado",
+                    asesores: rows,
+                });
+            }).catch(error => {console.log(error)});
+        }).catch(error => {console.log(error)});
+};
