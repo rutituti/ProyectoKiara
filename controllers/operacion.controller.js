@@ -57,26 +57,26 @@ exports.get_segexp = (request, response, next) => {
 
             ExpedienteRenta.fetchDocsVendedor(5)
             .then(([rows, fieldData]) => {
-       ExpedienteRenta.fetchDocsVendedor(6)
-       .then(([rows2, fieldData]) => {
-       console.log(rows2[0])
-                response.render(path.join('..','views','op_venta','expediente.ejs'), {
-                    numdocs : rows[0],
-                    numdocs2 : rows2[0],
-                    info: info,
-                    isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
-                    user: request.session.user ? request.session.user : '',
-                    ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-                    nombre: request.session.nombre ? request.session.nombre : '',
-                
+                ExpedienteRenta.fetchDocsVendedor(6)
+                .then(([rows2, fieldData]) => {
+                console.log(rows2[0])
+                            response.render(path.join('..','views','op_venta','expediente.ejs'), {
+                                numdocs : rows[0],
+                                numdocs2 : rows2[0],
+                                info: info,
+                                isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+                                user: request.session.user ? request.session.user : '',
+                                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                                nombre: request.session.nombre ? request.session.nombre : '',
+                            
 
-                }); 
-        
-            })
-        })
-            .catch( error => { 
-                console.log(error)
-            });
+                            }); 
+                    
+                        })
+                    })
+                        .catch( error => { 
+                            console.log(error)
+                        });
     }else if(request.session.ubicacion === 'renta')
     {
         request.session.numdocs2=0;
@@ -131,29 +131,35 @@ exports.get_segexp = (request, response, next) => {
     {
                 ExpedienteRenta.fetchDocsVendedor(3)
                 .then(([rows, fieldData]) => {
-                ExpedienteRenta.fetchDocsVendedor(4)
-                .then(([rows2, fieldData]) => {
-                console.log(rows2[0])
-                            response.render(path.join('..','views','op_venta','expediente.ejs'), {
-                                numdocs : rows[0],
-                                numdocs2 : rows2[0],
-                                info: info,
-                                isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
-                                user: request.session.user ? request.session.user : '',
-                                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-                                nombre: request.session.nombre ? request.session.nombre : '',
-                            
+                        ExpedienteRenta.fetchDocsVendedor(4)
+                        .then(([rows2, fieldData]) => {
+                        console.log(rows2[0])
+                                    response.render(path.join('..','views','op_venta','expediente.ejs'), {
+                                        numdocs : rows[0],
+                                        numdocs2 : rows2[0],
+                                        info: info,
+                                        isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+                                        user: request.session.user ? request.session.user : '',
+                                        ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                                        nombre: request.session.nombre ? request.session.nombre : '',
+                                    
 
-                            }); 
-                    
-                        })
-                    })
-                        .catch( error => { 
-                            console.log(error)
-                        });
+                                    }); 
+                            
+                                })
+                            })
+                                .catch( error => { 
+                                    console.log(error)
+                                });
     }
 
 };
+
+exports.post_exp = (request, response, next) => {
+       response.redirect('/inicio');
+};
+
+
 exports.get_operacion = (request, response, next) => {
     request.session.ubicacion = request.params.operacion;
     if (request.session.ubicacion === 'renta' || request.session.ubicacion === 'venta')
