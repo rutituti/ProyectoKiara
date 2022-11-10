@@ -15,6 +15,10 @@ router.post('/new/cliente',userController.post_new_cliente);
 
 router.get('/new/cliente', userController.get_new_cliente);
 
+router.post('/new/asesor',userController.post_new_asesor);
+
+router.get('/new/asesor', userController.get_new_asesor); //ruta nuevo asesor
+
 router.get('/login', userController.get_login);
 
 router.post('/login', userController.post_login);

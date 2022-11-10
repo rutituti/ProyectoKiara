@@ -31,6 +31,49 @@ exports.post_new_admin = (request,response,next) => {
     });
 }
 
+//Controlador GET nuevo asesor
+
+exports.get_new_asesor = (request, response, next) => {
+    let registro = request.session.info ? request.session.info : '';
+        request.session.info = '';
+        response.render(path.join('usuarios','new_asesor.ejs'), {
+            registro: registro,
+            isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+            user: request.session.user ? request.session.user : '',
+            nombre: request.session.nombre ? request.session.nombre : '',
+            
+         });
+};
+
+// Controlador POST nuevo asesor
+
+exports.post_new_asesor = (request,response,next) => {
+    const asesor = new Asesor(request.body.curp)
+    const usuario = new Usuario(request.body.username,request.body.contra,request.body.Nombres, request.body.primerApellido, request.body.segundoApellido, request.body.telefono, request.body.email,)
+
+     //Guarda informacion en la tabla USUARIOS
+    usuario.save()
+    .then(() => {
+        cliente.save()
+        .then(() => {
+                            
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+        
+    })
+    .catch((error) => {
+        console.log(error);
+        
+    });
+
+    request.session.registro = "El asesor " + usuario.nombres + " fue registrado exitosamente";
+    
+    response.redirect('/user/login'); 
+   
+    
+}
 
 exports.get_new_cliente = (request, response, next) => {
     let registro = request.session.info ? request.session.info : '';
