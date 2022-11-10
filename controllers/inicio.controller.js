@@ -9,11 +9,13 @@ exports.get_Infoempresa = (request, response, next) => {
         isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
         user: request.session.user ? request.session.user : '',
         nombre: request.session.nombre ? request.session.nombre : '',
+        registro: registro,
 
     });
 };
 
 exports.get_casas_venta = (request, response, next) => {
+    let registro = '';
     Propiedad.fetchVenta()
     .then(([rows, fieldData]) => {
         console.log('GET propiedades Venta');
@@ -23,6 +25,7 @@ exports.get_casas_venta = (request, response, next) => {
         isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
         nombre: request.session.nombre ? request.session.nombre : '',
         user: request.session.user ? request.session.user : '',
+        registro: registro,
         });
     })
     .catch(error => {
