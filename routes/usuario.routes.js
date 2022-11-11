@@ -29,6 +29,8 @@ router.get('/listAsesor', userController.get_listAsesor); //Lista de asesores
 
 router.get('/listCliente', userController.get_listCliente); //Lista de clientes
 
+router.get('/listUser', userController.get_listUsuario); //Lista de usuarios
+
 router.get('/perfil',isAuth, userController.get_profile); //Mostrar perfil de usuario
 
 router.get('/perfil/propiedad', propiedadController.get_newProperty); //El perfil principal crea nuevas propiedades (Asesores)
