@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cookieParser = require('cookie-parser');// uso de cookies
 const session = require('express-session'); // Trabajar con sessiones
+const csrf = require('csurf');
 
 const multer = require('multer'); // archivos 
 
@@ -64,6 +65,14 @@ app.use('/user', rutaUsuarios);
 
 const rutaPropiedades = require('./routes/propiedades.routes');
 app.use('/propiedades', rutaPropiedades);
+
+const csrfProtection = csrf();
+app.use(csrfProtection); 
+
+app.use((request, response, next) => {
+    response.locals.csrfToken = request.csrfToken();
+    next();
+});
 
 // Agregar las cookies
 
