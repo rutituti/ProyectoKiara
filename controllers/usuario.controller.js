@@ -4,6 +4,7 @@ const Asesor = require('../models/asesor.model');
 const User_Rol = require('../models/user_rol.model');
 const Usuario = require('../models/usuario.model');
 const bcrypt = require('bcryptjs');
+const { response } = require('express');
 
 
 exports.get_new_admin = (request, response, next) => {
@@ -122,6 +123,72 @@ exports.post_new_cliente = (request,response,next) => {
     
 }
 
+//Controlador para lista de asesores
+
+exports.get_listAsesor = (request, response, next) => {
+    let info = request.session.info ? request.session.info : '';
+    request.session.info = '';
+
+    Asesor.fetchAll()
+        .then(([rows, fieldData])=>{
+            response.render(path.join('usuarios','listAsesores.ejs'),{
+                asesores: rows,
+                info: info,
+                isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
+                user: request.session.user ? request.session.user : '',
+            });
+            
+        }).catch(()=>{
+            console.log(error);
+        });
+        
+};
+
+//Controlador lista usuarios
+
+exports.get_listUsuario = (request, response, next) => {
+    let info = request.session.info ? request.session.info : '';
+    request.session.info = '';
+
+    Usuario.fetchAll()
+        .then(([rows, fieldData])=>{
+            console.log(rows);
+            response.render(path.join('usuarios','listUsuarios.ejs'),{
+                usuarios: rows,
+                info: info,
+                isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
+                user: request.session.user ? request.session.user : '',
+                nombre: request.session.nombre ? request.session.nombre : '',
+            });
+            
+        }).catch((error)=>{
+                console.log(error);
+        });
+        
+};
+
+//Controlador para lista de clientes
+
+exports.get_listCliente = (request, response, next) => {
+    let info = request.session.info ? request.session.info : '';
+    request.session.info = '';
+
+    Cliente.fetchAll()
+        .then(([rows, fieldData])=>{
+            console.log(rows);
+            response.render(path.join('usuarios','listClientes.ejs'),{
+                clientes: rows,
+                info: info,
+                isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
+                user: request.session.user ? request.session.user : '',
+                nombre: request.session.nombre ? request.session.nombre : '',
+            });
+            
+        }).catch((error)=>{
+                console.log(error);
+        });
+        
+};
 
 
 exports.get_login = (request, response, next) => {
@@ -141,7 +208,6 @@ exports.get_login = (request, response, next) => {
         nombre: request.session.nombre ? request.session.nombre : '',
     });
 };
-
 
 
 exports.post_login = (request, response, next) => {
@@ -299,6 +365,8 @@ exports.post_deleteAsesor = (request, response, next) => {
         }).catch(error => {console.log(error)});
 };
 
+//Controlador borrar cliente
+
 exports.post_deleteCliente = (request, response, next) => {
     Cliente.delete_cliente(request.body.username)
         .then(()=>{
@@ -306,6 +374,20 @@ exports.post_deleteCliente = (request, response, next) => {
                 response.status(200).json({
                     mensaje: "El Cliente" + request.body.username + "ha sido eliminado",
                     asesores: rows,
+                });
+            }).catch(error => {console.log(error)});
+        }).catch(error => {console.log(error)});
+};
+
+//Controlador borrar usuario
+
+exports.post_deleteUsuario = (request, response, next) => {
+    Usuario.delete_usuario(request.body.username)
+        .then(()=>{
+            Usuario.fetchAll().then(([rows, fieldData])=>{
+                response.status(200).json({
+                    mensaje: "El Usuario" + request.body.username + "ha sido eliminado",
+                    usuarios: rows,
                 });
             }).catch(error => {console.log(error)});
         }).catch(error => {console.log(error)});

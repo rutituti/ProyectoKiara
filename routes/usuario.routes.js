@@ -25,11 +25,20 @@ router.post('/login', userController.post_login);
 
 router.get('/logout', userController.logout);
 
+router.get('/listAsesor', userController.get_listAsesor); //Lista de asesores
+
+router.get('/listCliente', userController.get_listCliente); //Lista de clientes
+
+router.get('/listUser', userController.get_listUsuario); //Lista de usuarios
+
 router.get('/perfil',isAuth, userController.get_profile); //Mostrar perfil de usuario
 
 router.get('/perfil/propiedad', propiedadController.get_newProperty); //El perfil principal crea nuevas propiedades (Asesores)
 
 router.post('/deleteA', userController.post_deleteAsesor); //Ruta borrar asesor
 
+router.post('/deleteC', userController.post_deleteCliente); //Ruta borrar cliente
+
+router.post('/deleteU', userController.post_deleteUsuario); //Ruta borrar usuario
 
 module.exports = router;
