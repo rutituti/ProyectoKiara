@@ -137,6 +137,29 @@ exports.get_listAsesor = (request, response, next) => {
         
 };
 
+//Controlador lista usuarios
+
+exports.get_listUsuario = (request, response, next) => {
+    let info = request.session.info ? request.session.info : '';
+    request.session.info = '';
+
+    Usuario.fetchAll()
+        .then(([rows, fieldData])=>{
+            console.log(rows);
+            response.render(path.join('usuarios','listUsuarios.ejs'),{
+                clientes: rows,
+                info: info,
+                isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
+                user: request.session.user ? request.session.user : '',
+                nombre: request.session.nombre ? request.session.nombre : '',
+            });
+            
+        }).catch((error)=>{
+                console.log(error);
+        });
+        
+};
+
 //Controlador para lista de clientes
 
 exports.get_listCliente = (request, response, next) => {
