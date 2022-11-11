@@ -5,6 +5,14 @@ const path = require('path');
 const Proceso_CV = require('../models/proceso_CV.model');
 const ExpedienteRenta = require('../models/expedienteRenta');
 
+const nombre1 = 'hola';
+const nombre2 = 'hola';
+const nombre3 = 'hola';
+const nombre4 = 'hola';
+const nombre5 = 'hola';
+const nombre6 = 'hola';
+const nombre7 = 'hola';
+
 exports.get_seg = (request, response, next) => {
     
     request.session.ubicacion = request.params.operacion;

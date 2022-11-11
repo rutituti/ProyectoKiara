@@ -8,6 +8,7 @@ const session = require('express-session'); // Trabajar con sessiones
 
 const multer = require('multer'); // archivos 
 
+var cont=0; 
 
 // haciendo uso de EJS motor de templetes
 app.set('view engine','ejs');
@@ -28,14 +29,14 @@ const fileStorage = multer.diskStorage({
         callback(null, 'public/uploads');
     },
     filename: (request, file, callback) => {
-        //aquí configuramos el nombre que queremos que tenga el archivo en el servidor, 
+        //aquí configuramos el nombre que queremos que tenga el archivo en el servidor, image.png
         //para que no haya problema si se suben 2 archivos con el mismo nombre concatenamos el timestamp
-        callback(null, new Date().getSeconds() +'' +new Date().getMinutes() +'' + file.originalname);
+        callback(null,new Date().getDay() +'' + new Date().getMonth() +'' +new Date().getFullYear() +'' +new Date().getHours() +'' +new Date().getMinutes() +'' +  new Date().getSeconds() +''  + file.originalname);
     },
 });
 
 
-app.use(multer({ storage: fileStorage }).single('doc')); 
+app.use(multer({ storage: fileStorage }).any('doc')); 
 
 app.use(cookieParser());
 
