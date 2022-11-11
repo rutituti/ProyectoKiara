@@ -151,6 +151,7 @@ exports.get_listCliente = (request, response, next) => {
                 info: info,
                 isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
                 user: request.session.user ? request.session.user : '',
+                nombre: request.session.nombre ? request.session.nombre : '',
             });
             
         }).catch((error)=>{
