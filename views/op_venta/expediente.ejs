@@ -18,17 +18,19 @@
                             
                               
                            
-                            <div class=" row fixed-center container-fluid col-12 col-m-6 col-lg-10 bg-white border p-3 text-center"> 
-                                <h5 class="fixed-center"> EXPEDIENTE:  <%= tex%>  </h5>
-                                <div class="row fixed-center">                            
-                                <% if (numdocs.length> 0) { %>
-
+                        
+                                <% if (numdocs.length>  0 || numdocs > 0) { %>
+                                    <div class=" row fixed-center container-fluid col-12 col-m-6 col-lg-10 bg-white border p-3 text-center"> 
+                                       
+                                        <form action="/operacion/:operacion/expediente" method="POST" enctype="multipart/form-data"> 
+                                        <h5 class="fixed-center"> EXPEDIENTE:  <%=numdocs[0].tipoExpCliente%>  </h5>
+                                        <div class="row fixed-center">    
                                         <% for (let r of numdocs) { %>
                                             <p></p>
                                             <label class=" fixed-center input-group-btn">
-                                                <span class="text-center container-fluid btn btn-light btn-file" id="CURP_Personal">
+                                                <span class="text-center container-fluid btn btn-light btn-file" id="doc">
                                                     <%= r.Nombre%>   dando click en Examinar
-                                               <input accept=".jpg,.png,.jpeg,.gif" class="hidden fixed-center" name="banner" type="file" id="CURP_Personal">
+                                               <input accept=".jpg,.png,.jpeg,.gif" class="hidden fixed-center" name="doc" type="file" id="doc">
                                                 </span>
                                             </label>
                                            </p>
@@ -38,9 +40,35 @@
                                     <h3>No hay casas registradas</h3>
                                 <% } %>
                        
-
+                                <input  type ="submit" id="enviar" name="enviar" value="Registrar">
+                            </form>
                             </div>
                         </div>
+
+
+                         
+                            <% if (numdocs2.length> 0 || numdocs2 >0) { %>
+                                <div class=" row fixed-center container-fluid col-12 col-m-6 col-lg-10 bg-white border p-3 text-center"> 
+                                    <h5 class="fixed-center"> EXPEDIENTE:  <%=numdocs2[0].tipoExpCliente%>  </h5>
+                                    <div class="row fixed-center">   
+                                    <% for (let r of numdocs2) { %>
+                                        <p></p>
+                                        <label class=" fixed-center input-group-btn">
+                                            <span class="text-center container-fluid btn btn-light btn-file" id="CURP_Personal">
+                                                <%= r.Nombre%>   dando click en Examinar
+                                           <input accept=".jpg,.png,.jpeg,.gif" class="hidden fixed-center" name="banner" type="file" id="CURP_Personal">
+                                            </span>
+                                        </label>
+                                       </p>
+                                    <% } %>
+                               
+                            <% } else { %>
+                               
+                            <% } %>
+                   
+
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>

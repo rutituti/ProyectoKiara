@@ -20,6 +20,7 @@ exports.get_seg = (request, response, next) => {
                 user: request.session.user ? request.session.user : '',
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
+                registro: request.session. registro ? request.session. registro : '',
 
             }); 
         })
@@ -38,6 +39,7 @@ exports.get_seg = (request, response, next) => {
                 user: request.session.user ? request.session.user : '',
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
+                registro: request.session. registro ? request.session. registro : '',
 
             }); 
         })
@@ -47,108 +49,128 @@ exports.get_seg = (request, response, next) => {
     }
 };
 
-
 exports.get_segexp = (request, response, next) => {
     request.session.ubicacion = request.params.operacion;
  //   console.log(request.session.ID_tipoExpArrendatario);
 //  console.log(request.session.ubicacion);
     if (request.session.ubicacion === 'alquilar')
     {
-            //  <h5> Expediente Arrendatario </h5>
-            request.session.tex='Arrendatario'; 
+
             ExpedienteRenta.fetchDocsVendedor(5)
             .then(([rows, fieldData]) => {
-     //        console.log(rows[0]);
-       //         console.log(request.session.tex)
-                response.render(path.join('..','views','op_venta','expediente.ejs'), {
-                    numdocs : rows[0],
-                    info: info,
-                    isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
-                    user: request.session.user ? request.session.user : '',
-                    ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-                    nombre: request.session.nombre ? request.session.nombre : '',
-                    tex: request.session.tex ?  request.session.tex: '',
+                ExpedienteRenta.fetchDocsVendedor(6)
+                .then(([rows2, fieldData]) => {
+                console.log(rows2[0])
+                            response.render(path.join('..','views','op_venta','expediente.ejs'), {
+                                numdocs : rows[0],
+                                numdocs2 : rows2[0],
+                                info: info,
+                                isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+                                user: request.session.user ? request.session.user : '',
+                                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                                nombre: request.session.nombre ? request.session.nombre : '',
+                                registro: request.session. registro ? request.session. registro : '',
+                            
 
-                }); 
-        
-            })
-            .catch( error => { 
-                console.log(error)
-            });
+                            }); 
+                    
+                        })
+                    })
+                        .catch( error => { 
+                            console.log(error)
+                        });
     }else if(request.session.ubicacion === 'renta')
     {
-                        //  <h5> Expediente Arrendatario </h5>
-                        request.session.tex='Arrendador'; 
-                        ExpedienteRenta.fetchDocsVendedor(7)
-                        .then(([rows, fieldData]) => {
-                            console.log(rows[0]);
-                        
-                            response.render(path.join('..','views','op_venta','expediente.ejs'), {
-                                numdocs : rows[0],
-                                info: info,
-                                isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
-                                user: request.session.user ? request.session.user : '',
-                                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-                                nombre: request.session.nombre ? request.session.nombre : '',
-                                tex: request.session.tex ?  request.session.tex: '',
+        request.session.numdocs2=0;
+   ExpedienteRenta.fetchDocsVendedor(7)
+   .then(([rows, fieldData]) => {
+   console.log(rows[0])
+            response.render(path.join('..','views','op_venta','expediente.ejs'), {
+                numdocs : rows[0],
+                info: info,
+                isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+                user: request.session.user ? request.session.user : '',
+                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                nombre: request.session.nombre ? request.session.nombre : '',
+                numdocs2 : request.session.numdocs2 ? request.session.numdocs2: 0,
+                registro: request.session. registro ? request.session. registro : '',
             
-                            }); 
-                    
-                        })
-                        .catch( error => { 
-                            console.log(error)
-                        });
+
+            }); 
+    
+       
+    })
+        .catch( error => { 
+            console.log(error)
+        });
     } else if(request.session.ubicacion === 'venta')
     {
-                        //  <h5> Expediente Arrendatario </h5>
-                        request.session.tex='Vendedor'; 
-                        ExpedienteRenta.fetchDocsVendedor(1)
-                        .then(([rows, fieldData]) => {
-                            console.log(rows[0]);
+        //falta agregar exp propiedad
+        ExpedienteRenta.fetchDocsVendedor(1)
+         .then(([rows, fieldData]) => {
+            ExpedienteRenta.fetchDocsVendedor(2)
+            .then(([rows2, fieldData]) => {
+            console.log(rows2[0])
+                        response.render(path.join('..','views','op_venta','expediente.ejs'), {
+                            numdocs : rows[0],
+                            numdocs2 : rows2[0],
+                            info: info,
+                            isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+                            user: request.session.user ? request.session.user : '',
+                            ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                            nombre: request.session.nombre ? request.session.nombre : '',
+                            registro: request.session. registro ? request.session. registro : '',
                         
-                            response.render(path.join('..','views','op_venta','expediente.ejs'), {
-                                numdocs : rows[0],
-                                info: info,
-                                isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
-                                user: request.session.user ? request.session.user : '',
-                                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-                                nombre: request.session.nombre ? request.session.nombre : '',
-                                tex: request.session.tex ?  request.session.tex: '',
-            
-                            }); 
-                    
-                        })
-                        .catch( error => { 
-                            console.log(error)
-                        });
+
+                        }); 
+                
+                    })
+                })
+                    .catch( error => { 
+                        console.log(error)
+                    });           
     }
    
     else if(request.session.ubicacion === 'compra')
     {
-                        //  <h5> Expediente Arrendatario </h5>
-                        request.session.tex='Comprador'; 
-                        ExpedienteRenta.fetchDocsVendedor(3)
-                        .then(([rows, fieldData]) => {
-                            console.log(rows[0]);
-                        
-                            response.render(path.join('..','views','op_venta','expediente.ejs'), {
-                                numdocs : rows[0],
-                                info: info,
-                                isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
-                                user: request.session.user ? request.session.user : '',
-                                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-                                nombre: request.session.nombre ? request.session.nombre : '',
-                                tex: request.session.tex ?  request.session.tex: '',
-            
-                            }); 
-                    
-                        })
-                        .catch( error => { 
-                            console.log(error)
-                        });
+                ExpedienteRenta.fetchDocsVendedor(3)
+                .then(([rows, fieldData]) => {
+                        ExpedienteRenta.fetchDocsVendedor(4)
+                        .then(([rows2, fieldData]) => {
+                        console.log(rows2[0])
+                                    response.render(path.join('..','views','op_venta','expediente.ejs'), {
+                                        numdocs : rows[0],
+                                        numdocs2 : rows2[0],
+                                        info: info,
+                                        isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+                                        user: request.session.user ? request.session.user : '',
+                                        ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                                        nombre: request.session.nombre ? request.session.nombre : '',
+                                        registro: request.session. registro ? request.session. registro : '',
+                                        
+                                    
+
+                                    }); 
+                            
+                                })
+                            })
+                                .catch( error => { 
+                                    console.log(error)
+                                });
     }
 
 };
+
+exports.post_exp = (request, response, next) => {
+       response.redirect('/inicio');
+     
+     
+     console.log(request.files);
+     
+
+};
+
+
 exports.get_operacion = (request, response, next) => {
     request.session.ubicacion = request.params.operacion;
     if (request.session.ubicacion === 'renta' || request.session.ubicacion === 'venta')
@@ -165,6 +187,7 @@ exports.get_operacion = (request, response, next) => {
                 user: request.session.user ? request.session.user : '',
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
+                registro: request.session. registro ? request.session. registro : '',
 
             }); 
         })
@@ -184,6 +207,7 @@ exports.get_operacion = (request, response, next) => {
                 user: request.session.user ? request.session.user : '',
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
+                registro: request.session. registro ? request.session. registro : '',
 
             }); 
         })
@@ -203,6 +227,7 @@ exports.get_operacion = (request, response, next) => {
                 user: request.session.user ? request.session.user : '',
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
+                registro: request.session. registro ? request.session. registro : '',
 
 
             }); 
