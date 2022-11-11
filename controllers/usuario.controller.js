@@ -129,10 +129,12 @@ exports.get_listAsesor = (request, response, next) => {
                 info: info,
                 isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
                 user: request.session.user ? request.session.user : '',
-            }).catch((error)=>{
-                console.log(error);
             });
-        })
+            
+        }).catch(()=>{
+            console.log(error);
+        });
+        
 };
 
 //Controlador para lista de clientes
@@ -149,10 +151,12 @@ exports.get_listCliente = (request, response, next) => {
                 info: info,
                 isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
                 user: request.session.user ? request.session.user : '',
-            }).catch((error)=>{
-                console.log(error);
             });
-        })
+            
+        }).catch((error)=>{
+                console.log(error);
+        });
+        
 };
 
 
