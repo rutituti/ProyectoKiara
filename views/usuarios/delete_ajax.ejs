@@ -1,0 +1,22 @@
+<input type="hidden" id="_csrf" value="<%= csrfToken %>">
+<script>
+    const eliminar = (id) => {
+        const csrf = document.getElementById('_csrf').value;
+        fetch('/user/deleteU/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: id,
+                _csrf: csrf,
+            }),
+        }).then(result => {
+            return result.json();
+        }).then(data => {
+            console.log(data);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+</script>
