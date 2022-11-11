@@ -3,19 +3,19 @@
     user: user,
 }) %>
 
-<h1>Listado de clientes</h1>
-<div id="Clientes">
-    <% if (clientes.length > 0) { %>
+<h1>Listado de usuarios</h1>
+<div id="Usuarios">
+    <% if (usuarios.length > 0) { %>
         <div class="row">
-            <% for (let c of clientes) { %>
+            <% for (let u of usuarios) { %>
                 <div class="col s12 m4 l3">
                     <div class="card" style="width: 21rem;">
                         <img class="card-img-top" src="/images/casaprincipal.jpg" alt="Card image cap">
                         <div class="card-body">
-                          <h4 class="card-title"><%= clientes.username %></h4>
+                          <h4 class="card-title"><%= usuario.nombre %></h4>
                           
                           
-                          <p class="card-text">XXX + <%= clientes.username %></p>
+                          <p class="card-text">XXX + <%= usuario.nombre %><</p>
                           <a href="fffff" class="btn btn-primary">Seguimiento</a>
                         </div>
                     </div>
