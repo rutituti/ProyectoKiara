@@ -148,6 +148,7 @@ exports.get_listAsesor = (request, response, next) => {
 
 exports.get_listUsuario = (request, response, next) => {
     let info = request.session.info ? request.session.info : '';
+    let registro = '';
     request.session.info = '';
 
     Usuario.fetchAll()
@@ -156,6 +157,7 @@ exports.get_listUsuario = (request, response, next) => {
             response.render(path.join('usuarios','listUsuarios.ejs'),{
                 usuarios: rows,
                 info: info,
+                registro: registro,
                 isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
                 user: request.session.user ? request.session.user : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
