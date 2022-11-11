@@ -33,6 +33,8 @@ const fileStorage = multer.diskStorage({
         callback(null, new Date().getSeconds() +'' +new Date().getMinutes() +'' + file.originalname);
     },
 });
+
+
 app.use(multer({ storage: fileStorage }).single('doc')); 
 
 app.use(cookieParser());

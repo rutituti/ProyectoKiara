@@ -157,7 +157,8 @@ exports.get_segexp = (request, response, next) => {
 
 exports.post_exp = (request, response, next) => {
        response.redirect('/inicio');
-      console.log(request.file.fieldData);
+      console.log(request.file);
+     
 
 };
 
