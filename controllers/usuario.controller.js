@@ -147,7 +147,7 @@ exports.get_listUsuario = (request, response, next) => {
         .then(([rows, fieldData])=>{
             console.log(rows);
             response.render(path.join('usuarios','listUsuarios.ejs'),{
-                clientes: rows,
+                usuarios: rows,
                 info: info,
                 isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
                 user: request.session.user ? request.session.user : '',
