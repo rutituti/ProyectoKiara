@@ -4,6 +4,13 @@ const path = require('path');
 
 const Proceso_CV = require('../models/proceso_CV.model');
 const ExpedienteRenta = require('../models/expedienteRenta');
+var cont=0;
+var idtipdoc =[]; 
+var aux1 =[];
+var idtipexp=[]; 
+var aux2 =[];
+const estado=[];
+const url=[]; 
 
 exports.get_seg = (request, response, next) => {
     
@@ -53,16 +60,34 @@ exports.get_segexp = (request, response, next) => {
     request.session.ubicacion = request.params.operacion;
  //   console.log(request.session.ID_tipoExpArrendatario);
 //  console.log(request.session.ubicacion);
+
+    
     if (request.session.ubicacion === 'alquilar')
     {
 
             ExpedienteRenta.fetchDocsVendedor(5)
             .then(([rows, fieldData]) => {
+                console.log(rows[0])  
+      
+                for(let r of rows[0])
+                {
+                   idtipdoc=idtipdoc+ r. IDtipoDocCliente+',';
+                   idtipexp=idtipexp+r.IDtipoExpCliente+',';
+                }
+                
+                
+                aux1= idtipdoc.split(',');
+                aux2= idtipexp.split(',');
+               
+            
+
                 ExpedienteRenta.fetchDocsVendedor(6)
                 .then(([rows2, fieldData]) => {
-                console.log(rows2[0])
+             //   console.log(rows2[0])
+                
                             response.render(path.join('..','views','op_venta','expediente.ejs'), {
                                 numdocs : rows[0],
+                                
                                 numdocs2 : rows2[0],
                                 info: info,
                                 isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
@@ -162,11 +187,27 @@ exports.get_segexp = (request, response, next) => {
 };
 
 exports.post_exp = (request, response, next) => {
-       response.redirect('/inicio');
+      
+       console.log(request.session.user);
+       
+       console.log(request.files[0].filename);
+
+
      
-     
-     console.log(request.files);
-     
+    
+     console.log(aux1[0]);
+     console.log(aux2[0]);
+
+     console.log(aux1[1]);
+     console.log(aux2[1]);
+
+     for(let i=0; i<aux1.length-1;i++)
+     {
+       var expediente = new ExpedienteRenta(request.session.user,aux1[i],aux2[i],'En Revision',request.files[i].filename);
+
+       expediente.save(request.session.user,aux1[i],aux2[i],'En Revision',request.files[i].filename);
+     }
+     response.redirect('/inicio');
 
 };
 
