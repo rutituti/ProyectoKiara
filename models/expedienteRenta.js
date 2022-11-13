@@ -17,15 +17,15 @@ static fetchDocsVendedor(ID_TiEC) {
     return db.execute('CALL get_docs(?);',[ID_TiEC]);
 }
 
-save(ID_Cliente,ID_TipoDoc,ID_TipoExp,Estado,URL){
+save(ID_Cliente,ID_TipoDoc,ID_TipoExp,Fecha,Estado,URL){
 
   console.log('HOLA');
-  console.log(ID_Cliente,ID_TipoDoc,ID_TipoExp,Estado,URL);
+  console.log(ID_Cliente,ID_TipoDoc,ID_TipoExp,Fecha,Estado,URL);
 
  
     return db.execute(
-    'INSERT INTO Expediente_Cliente(ID,ID_Cliente, ID_TipoDoc, ID_TipoExp,Fecha, Estado, URL ) VALUES (?,?,?,?,?,?,?)',
-    ['',ID_Cliente,ID_TipoDoc,ID_TipoExp,'',Estado,URL]);
+    'INSERT INTO Expediente_Cliente(ID_Cliente, ID_TipoDoc, ID_TipoExp, Estado, URL ) VALUES (?,?,?,?,?)',
+    [ID_Cliente,ID_TipoDoc,ID_TipoExp,Estado,URL]);
 
 
 }

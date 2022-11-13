@@ -188,27 +188,27 @@ exports.get_segexp = (request, response, next) => {
 
 exports.post_exp = (request, response, next) => {
       
-       console.log(request.session.user);
+    console.log(request.session.user);
        
-       console.log(request.files[0].filename);
+    console.log(request.files[0].filename);
 
 
-     
-    
-     console.log(aux1[0]);
-     console.log(aux2[0]);
+  
+ 
+  console.log(aux1[0]);
+  console.log(aux2[0]);
 
-     console.log(aux1[1]);
-     console.log(aux2[1]);
+  console.log(aux1[1]);
+  console.log(aux2[1]);
 
-     for(let i=0; i<aux1.length-1;i++)
-     {
-       var expediente = new ExpedienteRenta(request.session.user,aux1[i],aux2[i],'En Revision',request.files[i].filename);
+  for(let i=0; i<aux1.length-1;i++)
+  {
+    var hora = new Date().getFullYear() + '-'+new Date().getMonth(4) + '-'+new Date().getDay(2) + ' '+new Date().getHours(2) + ':'+new Date().getMinutes(2) + ':'+new Date().getSeconds(2);
+    var expediente = new ExpedienteRenta(request.session.user,aux1[i],aux2[i],hora,'En Revision',request.files[i].filename);
 
-       expediente.save(request.session.user,aux1[i],aux2[i],'En Revision',request.files[i].filename);
-     }
-     response.redirect('/inicio');
-
+    expediente.save(request.session.user,aux1[i],aux2[i],' ','En Revision',request.files[i].filename);
+  }
+   response.redirect('/inicio');
 };
 
 
