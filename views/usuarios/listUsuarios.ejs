@@ -13,11 +13,12 @@
                         <img class="card-img-top" src="/images/casaprincipal.jpg" alt="Card image cap">
                         <div class="card-body">
                           <h4 class="card-title"><%= u.nombre %></h4>
-                          <% console.log(u) %>
+                          
                           
                           
                           <p class="card-text"><%= u.Nombres + u.Primer_apellido%> </p>
-                          <a href="fffff" class="btn btn-primary">BORRAR</a>
+                          <a href="#" class="btn btn-primary">Editar</a>
+                          <a href="#" onclick="eliminar('<%= u.username %>')" class="btn btn-danger">BORRAR</a>
                         </div>
                     </div>
                 </div>
@@ -27,4 +28,5 @@
         <h3>No hay clientes registrados.</h3>
     <% } %>
 </div>
+<%- include('delete_ajax.ejs') %>
 
