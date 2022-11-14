@@ -1,7 +1,9 @@
 //Linea de comando para la base de datos
 const db = require('../util/database');
-const bcrypt = require('bcryptjs')
+
 module.exports = class Expediente {
+
+  static EXPEDIENTE_ARRENDATARIO = 5;
 
   constructor(ID_Cliente,ID_TipoDoc,ID_TipoExp,Estado,URLP){
     this.ID_Cliente = ID_Cliente;
@@ -19,8 +21,8 @@ static fetchDocsVendedor(ID_TiEC) {
 
 save(ID_Cliente,ID_TipoDoc,ID_TipoExp,Estado,URL){
 
- /*  console.log('HOLA');
-  console.log(ID_Cliente,ID_TipoDoc,ID_TipoExp,Estado,URL); */
+
+  console.log(ID_Cliente,ID_TipoDoc,ID_TipoExp,Estado,URL); 
 
  
     return db.execute(

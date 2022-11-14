@@ -49,52 +49,56 @@ exports.get_seg = (request, response, next) => {
 
 exports.get_segexp = (request, response, next) => {
     request.session.ubicacion = request.params.operacion;
-
     
     if (request.session.ubicacion === 'alquilar')
     {
-            ExpedienteRenta.fetchDocsVendedor(5)
-               .then(([rows, fieldData]) => {
+        let idtipdoc = [];
+        let idtipexp = []; 
 
-
-                    for(let r of rows[0])
-                    {
-                        idtipdoc = idtipdoc + r.IDtipoDocCliente + ',';
-                        idtipexp = idtipexp + r.IDtipoExpCliente + ',';
-                    }
-
-                    aux1= idtipdoc.split(',');
-                    aux2= idtipexp.split(',');
-
-            ExpedienteRenta.fetchDocsVendedor(6)
-                .then(([rows2, fieldData]) => {
-                    //   console.log(rows2[0])
-                            for(let r of rows2[0])
-                            {
-                                idtipdoc2 = idtipdoc2 + r. IDtipoDocCliente +',';
-                                idtipexp2 = idtipexp2 + r.IDtipoExpCliente +',';
-                            }
-                                aux12= idtipdoc2.split(',');
-                                aux22= idtipexp2.split(',');
-
-                                response.render(path.join('..','views','op_venta','expediente.ejs'), {
-                                    numdocs: rows[0],
-                                    numdocs2: rows2[0],
-                                    info: request.session.info ? request.session.info : '',
-                                    isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
-                                    user: request.session.user ? request.session.user : '',
-                                    ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-                                    nombre: request.session.nombre ? request.session.nombre : '',
-                                    registro: request.session. registro ? request.session. registro : '',
-                                    temp: request.session.temp ? request.session.temp : 0,
-                                    
-
-                                }); 
+        ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDATARIO)
+            .then(([rows, fieldData]) => {
                     
-                })
-                }).catch( error => { 
-                            console.log(error);
-                });
+                console.log(rows[0]);    
+
+                for(let r of rows[0])
+                {
+                    idtipdoc.push(r.IDtipoDocCliente);
+                    idtipexp.push(r.IDtipoExpCliente);
+                }
+
+                ExpedienteRenta.fetchDocsVendedor(6)
+                    .then(([rows2, fieldData]) => {
+                    //   console.log(rows2[0])
+
+                        for(let r of rows2[0])
+                        {
+                            idtipdoc.push(r.IDtipoDocCliente);
+                            idtipexp.push(r.IDtipoExpCliente);
+                            
+                        }
+
+                        request.session.arraydocs = idtipdoc;
+                        request.session.arrayexp  = idtipexp;
+
+                        response.render(path.join('..','views','op_venta','expediente.ejs'), {
+                            numdocs: rows[0],
+                            numdocs2: rows2[0],
+                            info: request.session.info ? request.session.info : '',
+                            isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+                            user: request.session.user ? request.session.user : '',
+                            ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                            nombre: request.session.nombre ? request.session.nombre : '',
+                            registro: request.session. registro ? request.session. registro : '',
+                            temp: request.session.temp ? request.session.temp : 0,
+                        }); 
+                    
+                    }).catch(error => { 
+                        console.log(error);
+                    });
+
+            }).catch( error => { 
+                console.log(error);
+            });
 
     } else if (request.session.ubicacion === 'renta')
     {
@@ -181,16 +185,16 @@ exports.get_segexp = (request, response, next) => {
 };
 
 exports.post_exp = (request, response, next) => {
-    console.log(aux1);
-    console.log(aux2);
-    console.log(request.files);
+ //   console.log(aux1);
+ //   console.log(aux2);
+  //  console.log(request.files);
+    console.log( request.session.arraydocs);
 
-        temp = request.session.temp;
-            for(var i=0; i<aux1.length-1;i++)
-            {
-                var expediente = new ExpedienteRenta(request.session.user, aux1[i],aux2[i], 'En Revision', request.files[i].filename);
-                expediente.save (request.session.user, aux1[i],aux2[i], 'En Revision', request.files[i].filename);   
-            }
+    for(let r of request.session.arraydocs)
+    {
+        var expediente = new ExpedienteRenta(request.session.user, r.request.session.arraydocs, r.request.session.arrayexp, 'En Revision', r.request.files.filename);
+        expediente.save (request.session.user, r.request.session.arraydocs,r.request.session.arrayexp, 'En Revision', r.request.files.filename);   
+    }
             response.redirect('/inicio');
 };
 
@@ -256,7 +260,7 @@ exports.get_operacion = (request, response, next) => {
             }).catch( error => { 
               console.log(error)
             });
-            
+
     }
   
 };
