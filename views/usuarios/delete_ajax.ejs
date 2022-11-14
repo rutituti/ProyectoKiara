@@ -1,15 +1,12 @@
-<input type="hidden" id="_csrf" value="<%= csrfToken %>">
 <script>
-    const eliminar = (id) => {
-        const csrf = document.getElementById('_csrf').value;
+    const eliminar = (username) => {
         fetch('/user/deleteU/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                id: id,
-                _csrf: csrf,
+                username: username
             }),
         }).then(result => {
             return result.json();
