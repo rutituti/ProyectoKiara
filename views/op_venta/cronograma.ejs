@@ -27,11 +27,13 @@
                                                                     </span>
                                                                 <% } else { %>
                                                                     <span></span>
-                                                                <% if (pv.Fecha_StartV != 'Invalid Date'){ %>
-                                                                    <span>
-                                                                        Iniciado - <%= pv.Fecha_Start.getDate()+"/"+(pv.Fecha_Start.getMonth()+1)+ "/"+pv.Fecha_Start.getFullYear() %>
-                                                                    </span>
-                                                                <% } %>
+                                                                    <% if (pv.Fecha_Start != 'Invalid Date'){ %>
+                                                                        <span>
+                                                                            
+                                                                                Iniciado - <%= pv.Fecha_Start.getDate()+"/"+(pv.Fecha_Start.getMonth()+1)+ "/"+pv.Fecha_Start.getFullYear() %>
+                                                                            
+                                                                        </span>
+                                                                    <% } %>
 
                                                                 <% } %>
 
