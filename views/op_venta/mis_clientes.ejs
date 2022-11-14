@@ -18,23 +18,21 @@
                               
                            
                             
-                                <% if (casas_V.length > 0) { %>
+                                <% if (clientes.length > 0) { %>
                                     <div class="row">
-                                        <% for (let c of casas_V) { %>
+                                        <% for (let c of clientes) { %>
                                             <div class="col-sm-6 col-md-4 col-lg-4">
-                                                <%- include('card.ejs', 
+                                                <%- include('card_cliente.ejs', 
                                                 {
-                                                    casas_V: c,
+                                                    clientes: c,
                                                     ubicacion: ubicacion,
-                                                    permisos:permisos,
-                                                    cliente: cliente,
                                                     
                                                 }) %>
                                             </div>
                                         <% } %>
                                     </div>
                                 <% } else { %>
-                                    <h3>No hay casas registradas</h3>
+                                    <h3>No se encontraron clientes</h3>
                                 <% } %>
                        
 

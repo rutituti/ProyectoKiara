@@ -52,15 +52,21 @@ exports.get_new_asesor = (request, response, next) => {
 exports.post_new_asesor = (request,response,next) => {
     const asesor = new Asesor(request.body.username,request.body.curp)
     const usuario = new Usuario(request.body.username,request.body.contra,request.body.Nombres, request.body.primerApellido, request.body.segundoApellido, request.body.telefono, request.body.email,)
-
+    const user_rol = new User_Rol(request.body.username,1);
      //Guarda informacion en la tabla USUARIOS
     usuario.save()
     .then(() => {
         asesor.save()
         .then(() => {
-            request.session.registro = "El asesor " + usuario.nombres + " fue registrado exitosamente";
+            user_rol.save().then(() => {
+                request.session.registro = "El asesor " + usuario.nombres + " fue registrado exitosamente";
     
-            response.redirect('/user/login');            
+                response.redirect('/user/login'); 
+
+            }).catch((error) => {
+                console.log(error);
+            });
+                       
         })
         .catch((error) => {
             console.log(error);

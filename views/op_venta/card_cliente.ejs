@@ -1,0 +1,25 @@
+
+        <div class="container p-4">
+        <div class="card" style="width: 24rem; ">
+          <img class="card-img-top" src="/images/perfil.png" alt="Card image cap"  height="200">
+          <div class="card-body">
+            
+            <h4 class="card-title"><%= clientes.Nombres %> <%= clientes.Primer_apellido %> <%= clientes.Segundo_apellido %></h4>
+            <h6 class="card-title"><strong>Tel:</strong>  <%= clientes.Telefono %> </h5>
+            <h6 class="card-title"><strong>email:</strong>  <%= clientes.email %>, </h6>
+            
+            <p class="card-text"><strong>Ocupacion:</strong> <%= clientes.Ocupacion %>  </p>
+
+            <p class="card-text"><strong>Estado Civil:</strong>  <%= clientes.Estado_civil %> </p>
+
+            <p><strong>Operaciones</strong></p>
+            <a href="/operacion/venta/<%= clientes.ID_Cliente %>" class="btn btn-primary">Venta</a>
+            <a href="/operacion/comprar/<%= clientes.ID_Cliente %>" class="btn btn-primary">Compra</a>
+            <a href="/operacion/renta/<%= clientes.ID_Cliente %>" class="btn btn-primary">Renta</a>
+            <a href="/operacion/alquilar/<%= clientes.ID_Cliente %>" class="btn btn-primary">Alquilar</a>
+          
+          </div>
+      </div>
+    </div>
+
+

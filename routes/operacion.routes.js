@@ -11,12 +11,18 @@ const router = express.Router();
 
 router.get('/:operacion/seguimiento/:id_p',isAuth, segControllers.get_seg);
 
+router.get('/:operacion/seguimiento/:cliente/:id_p',isAuth, segControllers.get_seg);
+
 router.get('/:operacion/',isAuth, segControllers.get_operacion); //Mostrar pestañas Cronograma Venta - Expediente - Mis propiedades
 
 router.get('/:operacion/expediente',isAuth, segControllers.get_segexp);
+
 router.post('/:operacion/expediente',isAuth, segControllers.post_exp);
 
-//router.get('/',isAuth, segControllers.get_root ); // ¿Que mostraremos en la raiz?
+//router.get('/misclientes',isAuth, segControllers.get_mis_clientes);
+router.get('/:operacion/:cliente',isAuth, segControllers.get_operacion)
+
+router.get('/',isAuth, segControllers.get_mis_clientes ); // ¿Que mostraremos en la raiz?
 
 
 module.exports = router;
