@@ -73,6 +73,5 @@ app.use((request, response, next) => {
     response.status(404);
     response.render('error');
 });
-var hora = new Date().getFullYear() + '-'+new Date().getMonth(4) + '-'+new Date().getDay(2) + ' '+new Date().getHours(2) + ':'+new Date().getMinutes(2) + ':'+new Date().getSeconds(2);
-console.log(hora);
+
 app.listen(3000);
