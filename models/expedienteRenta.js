@@ -3,7 +3,14 @@ const db = require('../util/database');
 
 module.exports = class Expediente {
 
-    static EXPEDIENTE_ARRENDATARIO = 5;
+    static EXPEDIENTE_VENDEDOR        = 1;
+    static EXPEDIENTE_COPROPVENDEDOR  = 2;
+    static EXPEDIENTE_COMPRADOR       = 3;
+    static EXPEDIENTE_COPROPCOMPRADOR = 4;
+    static EXPEDIENTE_ARRENDATARIO    = 5;
+    static EXPEDIENTE_OBLIGADOSOLID   = 6;
+    static EXPEDIENTE_ARRENDADOR      = 7;
+
 
     constructor(ID_Cliente, ID_TipoDoc, ID_TipoExp, Estado, URL){
         this.ID_Cliente = ID_Cliente;

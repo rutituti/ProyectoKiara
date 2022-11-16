@@ -60,7 +60,7 @@ exports.get_segexp = (request, response, next) => {
    
         ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDATARIO)
             .then(([rows, fieldData]) => {
-                ExpedienteRenta.fetchDocsVendedor(6)
+                ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_OBLIGADOSOLID)
                     .then(([rows2, fieldData]) => {
                         response.render(path.join('..','views','op_venta','expediente.ejs'), {
                             numdocs: rows[0],
@@ -86,7 +86,7 @@ exports.get_segexp = (request, response, next) => {
     {
         request.session.numdocs2=0;
         
-            ExpedienteRenta.fetchDocsVendedor(7)
+            ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDADOR)
                  .then(([rows, fieldData]) => {
 
                         response.render(path.join('..','views','op_venta','expediente.ejs'), {
@@ -110,10 +110,10 @@ exports.get_segexp = (request, response, next) => {
     } else if (request.session.ubicacion === 'venta')
     {
         //falta agregar exp propiedad
-        ExpedienteRenta.fetchDocsVendedor(1)
+        ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_VENDEDOR)
             .then(([rows, fieldData]) => {
 
-        ExpedienteRenta.fetchDocsVendedor(2)
+        ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COPROPVENDEDOR)
             .then(([rows2, fieldData]) => {
 
                         console.log(rows2[0])
@@ -138,10 +138,10 @@ exports.get_segexp = (request, response, next) => {
    
     else if (request.session.ubicacion === 'compra')
     {
-                ExpedienteRenta.fetchDocsVendedor(3)
+                ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COMPRADOR)
                 .then(([rows, fieldData]) => {
 
-                ExpedienteRenta.fetchDocsVendedor(4)
+                ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COPROPCOMPRADOR)
                 .then(([rows2, fieldData]) => {
                         console.log(rows2[0])
                                     response.render(path.join('..','views','op_venta','expediente.ejs'), {
@@ -316,6 +316,11 @@ exports.get_vistasdocs = (request, response, next) => {
 };
 
 exports.post_docs = (request, response, next) => {
+    let numero_caracteres =0;
+
+    numero_caracteres = request.file.filename.length;
+    console.log(numero_caracteres);
+
 //    request.session.docs = request.params.nombre_doc;
   //  console.log(request.session.user,request.params.nombre_doc,request.file.filename,request.session.id_tip_expC,request.session.id_tip_DdocC);
     const expediente = new ExpedienteRenta(request.session.user, request.params.nombre_doc, request.params.tipo_exp , 'En Revision', request.file.filename); 
