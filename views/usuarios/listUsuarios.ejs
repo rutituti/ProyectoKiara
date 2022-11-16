@@ -7,18 +7,15 @@
 <div id="Usuarios">
     <% if (usuarios.length > 0) { %>
         <div class="row">
-            <% for (let u of usuarios) { %>
+            <% for (let usuario of usuarios) { %>
                 <div class="col s12 m4 l3">
                     <div class="card" style="width: 21rem;">
                         <img class="card-img-top" src="/images/casaprincipal.jpg" alt="Card image cap">
                         <div class="card-body">
-                          <h4 class="card-title"><%= u.nombre %></h4>
-                          
-                          
-                          
-                          <p class="card-text"><%= u.Nombres + u.Primer_apellido%> </p>
+                          <h4 class="card-title"><%= usuario.nombre %></h4>
+                          <p class="card-text"><%= usuario.Nombres + usuario.Primer_apellido%> </p>
                           <a href="#" class="btn btn-primary">Editar</a>
-                          <a href="#" onclick="eliminar('<%= u.username %>')" class="btn btn-danger">BORRAR</a>
+                          <a href="#" onclick="if(confirm('¿Desea eliminar un usuario?')) eliminar('<%= usuario.username %>')" class="btn btn-danger">BORRAR</a>
                         </div>
                     </div>
                 </div>
