@@ -16,7 +16,7 @@ module.exports = class Expediente {
     }
 
     //Documentos necesarios por el Vendedor
-    static fetchDocsVendedor(ID_TiEP) {
+    static fetchDocsProp(ID_TiEP) {
         return db.execute('CALL get_docs_propiedades(?);',[ID_TiEP]);
     }
 /* 
