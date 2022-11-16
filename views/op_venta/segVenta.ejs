@@ -26,11 +26,18 @@
 
                             <% if (seg_V.length > 0) { %>
                                 <%console.log(seg_V);%>
+
+                                
+
                                 <%- include('cronograma.ejs',{
                                     seg_V: seg_V,
                                     ubicacion:ubicacion,
+                                    permisos:permisos,
+                                    cliente:cliente,
     
                                 }) %>
+
+
 
                             <% } else { %>
                                 <h3>NO SE HA INICIADO PROCESO</h3>

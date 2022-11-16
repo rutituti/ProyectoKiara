@@ -31,6 +31,8 @@ exports.get_seg = (request, response, next) => {
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
                 registro: request.session. registro ? request.session. registro : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
+                cliente: usuario ? usuario : '',
 
             }); 
         })
@@ -50,6 +52,9 @@ exports.get_seg = (request, response, next) => {
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
                 registro: request.session. registro ? request.session. registro : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
+                cliente: usuario ? usuario : '',
+
 
             }); 
         })
@@ -58,6 +63,80 @@ exports.get_seg = (request, response, next) => {
         });
     }
 };
+
+exports.update_seg = (request, response, next) => {
+   
+   // DAR FORMATO A FECHA RECUPERADA ACTUAL
+    let date = new Date(Date.now());
+    let year = date.getFullYear();
+    let month = ("0" + (date.getMonth() + 1));
+    let day = ("0" + date.getDate());
+    let hour = ("0" + date.getHours());
+    let minutes = ("0" + date.getMinutes());
+    let seconds = ("0" + date.getSeconds());
+
+    let d = year + "-" + month + "-" + day + " ";
+    let t = hour + ":" + minutes + ":" + seconds;
+
+    console.log(request.body);
+    // ACTUALIZAR CRONOGRAMA DE RENTA
+    if(request.body.tipoC == 'Arrendador' || request.body.tipoC == 'Arrendatario'){
+        console.log('Soy un '+request.body.tipoC+' para el proceso de Renta/Alquilar');
+        Proceso_CV.get_fechaValida(request.body.id_proc).then(([rows, fieldData]) => {
+            console.log(rows[0].Fecha_Start);
+            if(rows[0].Fecha_Start == 'Invalid Date'){
+                Proceso_CV.edit_RA(request.body.id_proc,request.body.estado_act,d+t).then(([rows, fieldData]) => {
+                    console.log('ACTUALIZADO EXITOSAMENTE');
+                    
+                   
+                })
+                .catch( error => { 
+                    console.log(error)
+                });
+            }else{
+                Proceso_CV.edit_RA(request.body.id_proc,request.body.estado_act,'').then(([rows, fieldData]) => {
+                    console.log('ACTUALIZADO EXITOSAMENTE');
+                    
+                })
+                .catch( error => { 
+                    console.log(error)
+                });
+            }
+
+        })
+        .catch( error => { 
+            console.log(error)
+        });
+    }
+    //ACTUALIZAR CRONOGRAMA DE VENTA
+    if(request.body.tipoC == 'Comprador' || request.body.tipoC == 'Vendedor'){
+        console.log('Soy un '+request.body.tipoC+' para el proceso de Compra/Venta');
+        Proceso_CV.get_fechaValida(request.body.id_proc).then(([rows, fieldData]) => {
+            console.log(rows[0].Fecha_Start);
+            if(rows[0].Fecha_Start == 'Invalid Date'){
+                Proceso_CV.edit_CV(request.body.id_proc,request.body.estado_act,d+t).then(([rows, fieldData]) => {
+                    console.log('ACTUALIZADO EXITOSAMENTE');
+                })
+                .catch( error => { 
+                    console.log(error)
+                });
+            }else{
+                Proceso_CV.edit_CV(request.body.id_proc,request.body.estado_act,'').then(([rows, fieldData]) => {
+                    console.log('ACTUALIZADO EXITOSAMENTE');
+                })
+                .catch( error => { 
+                    console.log(error)
+                });
+            }
+
+        })
+        .catch( error => { 
+            console.log(error)
+        });
+    }
+    
+    
+}
 
 exports.get_mis_clientes = (request, response, next) => {
    
@@ -82,10 +161,6 @@ exports.get_mis_clientes = (request, response, next) => {
         
 };
 
-
-exports.actualizar_seg = (request, response, next) => {
-
-};
 
 exports.get_segexp = (request, response, next) => {
     request.session.ubicacion = request.params.operacion;
