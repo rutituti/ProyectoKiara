@@ -106,4 +106,10 @@ module.exports = class Propiedad{
             [nombre, descripcion, id]);
             
     }
+    static delete_propiedad(ID){
+        return db.execute(
+          'CALL delete_usuario(?)',
+          [ID]
+        );
+      }
 }
