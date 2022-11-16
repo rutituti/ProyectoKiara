@@ -82,6 +82,40 @@
     
                             </div>
                         </div>
+
+                        <% if (numdocs3.length>  0 || numdocs3 > 0) { %>
+                            <div class=" row fixed-center container-fluid col-12 col-m-6 col-lg-10 bg-white border p-3 text-center"> 
+                                   
+                                  
+                              <h5 class="fixed-center"> EXPEDIENTE PROPIEDAD:  <%=numdocs3[0].tipoExpPropiedad%>  </h5>
+                                <div class="row fixed-center">    
+                                    <% for (let r of numdocs3) { %>
+                                      
+                                        <label class=" fixed-center input-group-btn">
+                                            <span class="text-center   border p-1  container-fluid  col-12 col-m-6 col-lg-10 btn btn-light btn-file" id="doc">
+                                            Agregue <%= r.tipoDocPropiedad%> dando click en el boton
+                                            
+                                            </span>
+                                            <a href="#" class="btn btn-secondary btn-lg " style="font-size: 10px;" role="button" aria-disabled="true">Subir archivo</a>
+                                        </label>
+                                        
+                                      
+                                    <% } %>
+                               
+                            <% } else { %>
+                            <!--  <h3>No hay casas registradas</h3> -->
+                            <% } %>
+                   
+        
+                    
+                                      
+                                   
+                                
+                                      
+                               
+        
+                                </div>
+                            </div>
                 </div>   
             </section>
         </div>
