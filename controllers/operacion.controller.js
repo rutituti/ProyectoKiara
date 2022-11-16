@@ -57,28 +57,11 @@ exports.get_segexp = (request, response, next) => {
     
     if (request.session.ubicacion === 'alquilar')
     {
-        let idtipdoc = []; 
-
+   
         ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDATARIO)
             .then(([rows, fieldData]) => {
-                for(let r of rows[0])
-                {
-                    
-                    request.session.id_tip_expC=r.IDtipoExpCliente;
-                    request.session.id_tip_DdocC=r.IDtipoDocCliente;
-                    
-                }
-                   
-             //   request.session.documento = rows[0].Nombre;
-                //console.log( rows[0].Nombre);
-               // console.log(rows[0]);   
-
-            
                 ExpedienteRenta.fetchDocsVendedor(6)
                     .then(([rows2, fieldData]) => {
-                    //   console.log(rows2[0])
-
-      
                         response.render(path.join('..','views','op_venta','expediente.ejs'), {
                             numdocs: rows[0],
                             numdocs2: rows2[0],
@@ -335,7 +318,6 @@ exports.get_vistasdocs = (request, response, next) => {
 exports.post_docs = (request, response, next) => {
 //    request.session.docs = request.params.nombre_doc;
   //  console.log(request.session.user,request.params.nombre_doc,request.file.filename,request.session.id_tip_expC,request.session.id_tip_DdocC);
-  console.log('Hola'+request.params.nombre_doc,request.params.operacion,request.params.tipo_exp);
     const expediente = new ExpedienteRenta(request.session.user, request.params.nombre_doc, request.params.tipo_exp , 'En Revision', request.file.filename); 
     expediente.save(); 
 
