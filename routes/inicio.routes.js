@@ -23,6 +23,8 @@ router.get('/propiedades/venta', inicioControllers.get_casas_venta); //Mostrar c
 
 router.get('/propiedades/renta/buscar/:valor_busqueda', propiedadController.get_buscar); //buscar propiedades con ajax
 
+router.get('/propiedades/venta/buscar/:valor_busqueda', propiedadController.get_buscar); //buscar propiedades con AJAX
+
 router.get('/propiedades/new', inicioControllers.get_new); //Formulario registro de propiedad -- borrar
 
 router.get('/propiedades', inicioControllers.get_casas); //Mostrar listado de propiedades totales
