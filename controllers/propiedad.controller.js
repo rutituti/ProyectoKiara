@@ -43,5 +43,15 @@ exports.post_newProperty = (request, response, next) => {
         })
         .catch(error => console.log(error));
 }*/
-
+exports.post_deletePropiedad = (request, response, next) => {
+    Propiedad.delete_propiedad(request.body.ID)
+        .then(()=>{
+            Propiedad.fetchAll().then(([rows, fieldData])=>{
+                response.status(200).json({
+                    mensaje: "La propiedad" + request.body.ID + "ha sido eliminada",
+                    propiedades: rows,
+                });
+            }).catch(error => {console.log(error)});
+        }).catch(error => {console.log(error)});
+};
 
