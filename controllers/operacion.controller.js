@@ -65,7 +65,7 @@ exports.get_segexp = (request, response, next) => {
                     .then(([rows2, fieldData]) => {
                         ExpedientePropiedad.fetchDocsProp(ExpedientePropiedad.EXPEDIENTE_RENTA)
                              .then(([rows3, fieldData]) => {
-                                console.log(rows[3]);
+                                //console.log(rows[3]);
                                 response.render(path.join('..','views','op_venta','expediente.ejs'), {
                                     numdocs: rows[0],
                                     numdocs2: rows2[0],
@@ -105,6 +105,7 @@ exports.get_segexp = (request, response, next) => {
                             ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                             nombre: request.session.nombre ? request.session.nombre : '',
                             numdocs2 : request.session.numdocs2 ? request.session.numdocs2: 0,
+                            numdocs3 : request.session.numdocs3 ? request.session.numdocs3: 0,
                             registro: request.session. registro ? request.session. registro : '',
                             temp: request.session.temp ? request.session.temp : 0,
 
@@ -124,8 +125,9 @@ exports.get_segexp = (request, response, next) => {
                 ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COPROPVENDEDOR)
                     .then(([rows2, fieldData]) => {
                          
-                        ExpedientePropiedad.fetchDocsVendedor(ExpedientePropiedad.EXPEDIENTE_VENTA)
-                          .then(([rows3, fieldData]) => {
+                        ExpedientePropiedad.fetchDocsProp(ExpedientePropiedad.EXPEDIENTE_VENTA)
+                             .then(([rows3, fieldData]) => {
+                                //console.log(rows[3]);
                             console.log(rows3[0]);
                                     response.render(path.join('..','views','op_venta','expediente.ejs'), {
                                         numdocs : rows[0],
@@ -153,6 +155,8 @@ exports.get_segexp = (request, response, next) => {
    
     else if (request.session.ubicacion === 'compra')
     {
+        request.session.numdocs2=0;
+        request.session.numdocs3=0;
                 ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COMPRADOR)
                 .then(([rows, fieldData]) => {
 
@@ -162,6 +166,7 @@ exports.get_segexp = (request, response, next) => {
                                     response.render(path.join('..','views','op_venta','expediente.ejs'), {
                                         numdocs : rows[0],
                                         numdocs2 : rows2[0],
+                                        numdocs3 : request.session.numdocs3 ? request.session.numdocs3: 0,
                                         info: request.session.info ? request.session.info : '',
                                         isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                                         user: request.session.user ? request.session.user : '',
