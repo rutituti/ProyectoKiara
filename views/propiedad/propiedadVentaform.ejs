@@ -1,0 +1,55 @@
+<div class="container py-2">
+    <!-- Card Start -->
+    <div class="card">
+      <div class="row ">
+  
+        <div class="col-md-7 px-3">
+          <div class="card-block px-6">
+            <h4 class="card-title"><h3><strong><%= propiedades.Operacion%> en <%= propiedades.Calle %> (<%= propiedades.Uso_suelo %>) </h3></strong>
+            <h4 class="card-text">
+              <%= propiedades.Municipio %>, <%= propiedades.Calle %>, <%= propiedades.Colonia %>, <%= propiedades.Numero%>  
+            </h4>
+            <p class="opacity-100">DESDE</p>
+            <p class="card-text"><strong>MNX $<%= propiedades.Precio %></strong></p>
+            <br>
+            <a href="#" class="mt-auto btn btn-primary  ">Read More</a>
+            <a href="#" onclick="if(confirm('¿Desea eliminar esta propiedad?')) eliminar('<%= propiedades.ID %>')"class="mt-auto btn btn-danger  ">BORRAR</a>
+          </div>
+        </div>
+        <!-- Carousel start -->
+        <div class="col-md-5">
+          <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active" data-bs-interval="10000">
+                <img width="550" height="280" src="/images/casa.jpg" class="d-block" alt="">
+                <div class="carousel-caption d-none d-md-block">
+                </div>
+              </div>
+              <div class="carousel-item active" data-bs-interval="20000">
+                <img class="d-block" src="/images/casaprincipal.jpg" width="550" height="280" alt="">
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+               
+            </div>
+          </div>
+        </div>
+        <!-- End of carousel -->
+      </div>
+    </div>
+    <!-- End of card -->
+  
+  </div>
+  
