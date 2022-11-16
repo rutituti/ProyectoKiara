@@ -70,19 +70,21 @@
                                             <div class="timeline-icon bg-green"><i class="fa fa-check "></i></div>
                                         <% } else if (pv.Estado == en_proc){ %>
                                             <div class="timeline-icon  bg-yellow"><i class="fa fa-clock-o "></i></div>
-                                        <% }  else { %>
+                                        <% } else if (pv.Estado == no_aprob){ %>
+                                            <div class="timeline-icon  bg-danger"><i class="fa fa-exclamation-circle "></i></div>
+                                        <% } else { %>
                                             <div class="timeline-icon "></div>
                                         <% } %>
                                                             
 
                                         <div class="timeline-label"><h5 class="fw-bold"><%= pv.Nombre  %></h5>
                                             <p class="text-muted mb-2 fw-bold"> Tiempo estimado: <%= pv.Tiempo_estimado%> <%= pv.Tiempo_estimado > 1 ? 'dias' : 'dia' %></p>
-                                            <!--
-                                            <p class="text-muted ">
-                                                Orci varius natoque penatibus et magnis dis parturient montes,
-                                                nascetur ridiculus mus. Nulla ullamcorper arcu lacus
-                                            </p>
-                                            -->
+                                            
+                                            <% if (pv.Estado == no_aprob){ %>
+                                                <p class="text-muted ">
+                                                    Consulte con su asesor para mas informacion.
+                                                </p>
+                                            <% } %>
                                         </div>
 
                                 </div>
