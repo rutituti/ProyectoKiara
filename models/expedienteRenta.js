@@ -1,33 +1,34 @@
 //Linea de comando para la base de datos
 const db = require('../util/database');
-const bcrypt = require('bcryptjs')
+
 module.exports = class Expediente {
 
-  constructor(ID_Cliente,ID_TipoDoc,ID_TipoExp,Estado,URLP){
-    this.ID_Cliente = ID_Cliente;
-    this.ID_TipoDoc = ID_TipoDoc;
-    this.ID_TipoExp = ID_TipoExp;
-    this.Estado = Estado;
-    this.URLP= URLP;
- 
-}
+    static EXPEDIENTE_VENDEDOR        = 1;
+    static EXPEDIENTE_COPROPVENDEDOR  = 2;
+    static EXPEDIENTE_COMPRADOR       = 3;
+    static EXPEDIENTE_COPROPCOMPRADOR = 4;
+    static EXPEDIENTE_ARRENDATARIO    = 5;
+    static EXPEDIENTE_OBLIGADOSOLID   = 6;
+    static EXPEDIENTE_ARRENDADOR      = 7;
 
-//Documentos necesarios por el Vendedor
-static fetchDocsVendedor(ID_TiEC) {
-    return db.execute('CALL get_docs(?);',[ID_TiEC]);
-}
 
-  //Este método servirá para guardar de manera persitente el nuevo objeto
-        //Inserta un nuevo elemento en la tabla
-  /*    save(){   
-           return db.execute(
-              'INSERT INTO Clientes (username, Nombres, Primer_apellido, Segundo_apellido, Telefono_cliente, Email_cliente, Ocupacion, Estado_civil) VALUES (?,?, ?, ?, ?, ?, ?, ?)',
-              [this.username,this.Nombres,this.primerApellido,this.segundoApellido,this.telefono,this.email,this.ocupacion,this.estado]);          
-      }
+    constructor(ID_Cliente, ID_TipoDoc, ID_TipoExp, Estado, URL){
+        this.ID_Cliente = ID_Cliente;
+        this.ID_TipoDoc = ID_TipoDoc;
+        this.ID_TipoExp = ID_TipoExp;
+        this.estado = Estado;
+        this.url = URL;
+    }
 
-      static fetch_profile_id(user){
-        return db.execute('CALL get_cliente(?);',[user]);
-      }
-*/
+    //Documentos necesarios por el Vendedor
+    static fetchDocsVendedor(ID_TiEC) {
+        return db.execute('CALL get_docs(?);',[ID_TiEC]);
+    }
+
+    save(){ 
+        return db.execute(
+            'INSERT INTO Expediente_Cliente(ID_Cliente, ID_TipoDoc, ID_TipoExp, Estado, URL) VALUES (?,?,?,?,?)',
+            [this.ID_Cliente, this.ID_TipoDoc, this.ID_TipoExp, this.estado, this.url]);
+    }
 
 }

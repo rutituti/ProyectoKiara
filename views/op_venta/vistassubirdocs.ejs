@@ -1,0 +1,44 @@
+<%- include('../includes/head.ejs') %>
+    <body>
+
+       
+
+    <div class="container-fluid">
+        
+            <%- include('../includes/sidebar.ejs', {
+                ubicacion: ubicacion,
+            }) %>            
+
+           
+            <section class="home-section ">
+                <div class="w-100">
+                    <div class=" row fixed-center container-fluid col-12 col-m-6 col-lg-10 bg-white border p-3 text-center"> 
+                        <form action="/operacion/<%=ubicacion%>/expediente/<%=idexp%>/<%=idocs%>" method="POST" enctype="multipart/form-data">
+                            <h5 class="fixed-center">   <%=nombredocumento%>  </h5>
+                                <div class="row fixed-center">
+                                    <p>
+                                            <label class=" fixed-center input-group-btn">
+                                                <span class="text-center container-fluid btn btn-light btn-file" id="doc">
+                                                    Agregue <%=nombredocumento%>  dando click en Examinar
+                                                   <input accept=".pdf" class="hidden fixed-center" name="doc" type="file" id="doc">
+                                                </span>
+                                            </label>
+                                    </p>    
+
+                        
+                                
+                                    <input  type ="submit" id="enviar" name="enviar" value="Registrar">
+                                </div>
+                        </form>
+                    </div>
+                </div>
+             
+        </section>
+    </div>
+        
+
+        <script src="/js/bootstrap.bundle.min.js"> </script>
+        <script src="/js/sidenav.js"></script>
+   
+    </body>    
+</html>

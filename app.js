@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cookieParser = require('cookie-parser');// uso de cookies
 const session = require('express-session'); // Trabajar con sessiones
+const csrf = require('csurf');
 
 const multer = require('multer'); // archivos 
 
@@ -36,7 +37,7 @@ const fileStorage = multer.diskStorage({
 });
 
 
-app.use(multer({ storage: fileStorage }).any('doc')); 
+app.use(multer({ storage: fileStorage }).single('doc')); 
 
 app.use(cookieParser());
 
@@ -65,6 +66,14 @@ app.use('/user', rutaUsuarios);
 const rutaPropiedades = require('./routes/propiedades.routes');
 app.use('/propiedades', rutaPropiedades);
 
+const csrfProtection = csrf();
+app.use(csrfProtection); 
+
+app.use((request, response, next) => {
+    response.locals.csrfToken = request.csrfToken();
+    next();
+});
+
 // Agregar las cookies
 
 // Como funciona esta funcion porque si no esta definido avanza a la siguiente, el otro cosa el con un if-else
@@ -73,4 +82,5 @@ app.use((request, response, next) => {
     response.status(404);
     response.render('error');
 });
+
 app.listen(3000);

@@ -52,20 +52,107 @@
                             <br>
                             <br>
                             <br>
+                            <% if (numdocs.length>  0 || numdocs > 0) { %>
+                                <div class=" row fixed-center container-fluid col-12 col-m-6 col-lg-10 bg-white border p-3 text-center"> 
+                                       
+                                      
+                                  <h5 class="fixed-center"> EXPEDIENTE:  <%=numdocs[0].tipoExpCliente%>  </h5>
+                                    <div class="row fixed-center">    
+                                        <% for (let r of numdocs) { %>
+                                          
+                                            <label class=" fixed-center input-group-btn">
+                                                <span class="text-center   border p-1  container-fluid  col-12 col-m-6 col-lg-10 btn btn-light btn-file" id="doc">
+                                                Agregue <%= r.Nombre%> dando click en el boton
+                                                
+                                                </span>
+                                                <a href="/operacion/<%=ubicacion%>/expediente/<%= r.IDtipoExpCliente%>/<%= r.IDtipoDocCliente%>" class="btn btn-secondary btn-lg " style="font-size: 10px;" role="button" aria-disabled="true">Subir archivo</a>
+                                            </label>
+                                            
+                                          
+                                        <% } %>
+                                   
+                                <% } else { %>
+                                    <h3>No hay casas registradas</h3>
+                                <% } %>
+                       
+            
+                        
+                                          
+                                       
+                                    
+                                          
+                                   
+            
+                                    </div>
+                                </div>
+            
+                                <% if (numdocs2.length>  0 || numdocs2 > 0) { %>
+                                    <div class=" row fixed-center container-fluid col-12 col-m-6 col-lg-10 bg-white border p-3 text-center"> 
+                                           
+                                          
+                                      <h5 class="fixed-center"> EXPEDIENTE:  <%=numdocs2[0].tipoExpCliente%>  </h5>
+                                        <div class="row fixed-center">    
+                                            <% for (let r of numdocs2) { %>
+                                              
+                                                <label class=" fixed-center input-group-btn">
+                                                    <span class="text-center   border p-1  container-fluid  col-12 col-m-6 col-lg-10 btn btn-light btn-file" id="doc">
+                                                    Agregue <%= r.Nombre%> dando click en el boton
+                                                    
+                                                    </span>
+                                                    <a href="/operacion/<%=ubicacion%>/expediente/<%= r.IDtipoExpCliente%>/<%= r.IDtipoDocCliente%>" class="btn btn-secondary btn-lg " style="font-size: 10px;" role="button" aria-disabled="true">Subir archivo</a>
+                                                </label>
+                                                
+                                              
+                                            <% } %>
+                                       
+                                    <% } else { %>
+                                    <!--  <h3>No hay casas registradas</h3> -->
+                                    <% } %>
+                           
+                
                             
-                            <% if (seg_V.length > 0) { %>
-                                <%console.log(seg_V);%>
-                                <%- include('registra_expediente.ejs',{
-                                    seg_V: seg_V,
-    
-                                }) %>
-
-                            <% } else { %>
-                                <%- include('registra_expediente.ejs',{
-                                    seg_V: seg_V,
-    
-                                }) %>
-                            <% } %>
+                                              
+                                           
+                                        
+                                              
+                                       
+                
+                                        </div>
+                                    </div>
+            
+                                    <% if (numdocs3.length>  0 || numdocs3 > 0) { %>
+                                        <div class=" row fixed-center container-fluid col-12 col-m-6 col-lg-10 bg-white border p-3 text-center"> 
+                                               
+                                              
+                                          <h5 class="fixed-center"> EXPEDIENTE PROPIEDAD:  <%=numdocs3[0].tipoExpPropiedad%>  </h5>
+                                            <div class="row fixed-center">    
+                                                <% for (let r of numdocs3) { %>
+                                                  
+                                                    <label class=" fixed-center input-group-btn">
+                                                        <span class="text-center   border p-1  container-fluid  col-12 col-m-6 col-lg-10 btn btn-light btn-file" id="doc">
+                                                        Agregue <%= r.tipoDocPropiedad%> dando click en el boton
+                                                        
+                                                        </span>
+                                                        <a href="/operacion/<%=ubicacion%>/expedienteprop/<%= r.IDtipoExpProp%>/<%= r.IDtipoDocProp%>" class="btn btn-secondary btn-lg " style="font-size: 10px;" role="button" aria-disabled="true">Subir archivo</a>
+                                                    </label>
+                                                    
+                                                  
+                                                <% } %>
+                                           
+                                        <% } else { %>
+                                        <!--  <h3>No hay casas registradas</h3> -->
+                                        <% } %>
+                               
+                    
+                                
+                                                  
+                                               
+                                            
+                                                  
+                                           
+                    
+                                            </div>
+                                        </div>
 
 
 

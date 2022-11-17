@@ -1,0 +1,39 @@
+<script>
+    const eliminar = (username) => {
+        fetch('/user/deleteU/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: username
+            }),
+        }).then(result => {
+            return result.json();
+        }).then(data => {
+            console.log(data);
+            let html = '';
+            if (data.usuarios.length > 0) { 
+                html += '<div class="row">';
+                    for (let usuario of data.usuarios) { 
+                        html += '<div class="col s12 m4 l3">';
+                        html += '<div class="card" style="width: 21rem;">';
+                        html += '<img class="card-img-top" src="/images/casaprincipal.jpg" alt="Card image cap">';
+                        html += '<div class="card-body">';
+                        html += '<p class="card-text">' + usuario.Nombres + ' ' + usuario.Primer_apellido + '</p>';
+                        html += '<a href="#" class="btn btn-primary">Editar</a>';
+                        html += '<a href="#" onclick=if(confirm(¿Desea eliminar un usuario?))"eliminar(' +  usuario.username  + ')" class="btn btn-danger">BORRAR</a>';
+                        html += '</div>';
+                        html += '</div>';
+                        html += '</div>';
+                    } 
+                html += '</div>';
+            } else { 
+                html += '<h3>No hay usuarios registrados.</h3>';
+            } 
+            document.getElementById('Usuarios').innerHTML = html;
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+</script>
