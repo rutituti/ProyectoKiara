@@ -515,6 +515,8 @@ exports.get_vistasdocs = (request, response, next) => {
         registro: request.session. registro ? request.session. registro : '',
         idocs: request.session.docs ? request.session.docs : '',
         idexp: request.session.idexp ? request.session.idexp : '',
+        permisos: request.session.permisos ? request.session.permisos : '',
+        rol : request.session.roles ? request.session.roles : '',
     });
 };
 
@@ -563,15 +565,17 @@ exports.get_vistasdocsProp = (request, response, next) => {
         }
         
        response.render(path.join('..','views','op_venta','vistassubirdocsprop.ejs'), {
-           nombredocumento: request.session.documento ? request.session.documento : '',
-           info: request.session.info ? request.session.info : '',
-           isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
-           user: request.session.user ? request.session.user : '',
-           ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-           nombre: request.session.nombre ? request.session.nombre : '',
-           registro: request.session. registro ? request.session. registro : '',
-           idocs: request.session.docs ? request.session.docs : '',
-           idexp: request.session.idexp ? request.session.idexp : '',
+            nombredocumento: request.session.documento ? request.session.documento : '',
+            info: request.session.info ? request.session.info : '',
+            isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+            user: request.session.user ? request.session.user : '',
+            ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+            nombre: request.session.nombre ? request.session.nombre : '',
+            registro: request.session. registro ? request.session. registro : '',
+            idocs: request.session.docs ? request.session.docs : '',
+            idexp: request.session.idexp ? request.session.idexp : '',
+            permisos: request.session.permisos ? request.session.permisos : '',
+            rol : request.session.roles ? request.session.roles : '',
        });
    };
 
