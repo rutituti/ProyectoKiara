@@ -47,5 +47,42 @@ exports.post_newProperty = (request, response, next) => {
         })
         .catch(error => console.log(error));
 }*/
+exports.post_deletePropiedad = (request, response, next) => {
+    Propiedad.delete_propiedad(request.body.ID)
+        .then(()=>{
+            Propiedad.fetchAll().then(([rows, fieldData])=>{
+                response.status(200).json({
+                    mensaje: "La propiedad" + request.body.ID + "ha sido eliminada",
+                    propiedades: rows,
+                });
+            }).catch(error => {console.log(error)});
+        }).catch(error => {console.log(error)});
+};
 
+//Controlador actualizar propiedad Venta => Renta
 
+exports.post_updateVenRen = (request, response, next) => {
+    Propiedad.update_VR(request.body.ID,request.body.Precio)
+        .then(()=>{
+            Propiedad.fetchAll().then(([rows, fieldData])=>{
+                response.status(200).json({
+                    mensaje: "La propiedad" + request.body.ID + "ha sido actualizada",
+                    propiedades: rows,
+                });
+            }).catch(error => {console.log(error)});
+        }).catch(error => {console.log(error)});
+};
+
+//Controlador actualizar propiedad Renta => Venta
+
+exports.post_updateRenVen = (request, response, next) => {
+    Propiedad.update_RV(request.body.ID,request.body.Precio)
+        .then(()=>{
+            Propiedad.fetchAll().then(([rows, fieldData])=>{
+                response.status(200).json({
+                    mensaje: "La propiedad" + request.body.ID + "ha sido actualizada",
+                    propiedades: rows,
+                });
+            }).catch(error => {console.log(error)});
+        }).catch(error => {console.log(error)});
+};

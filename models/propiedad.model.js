@@ -106,4 +106,22 @@ module.exports = class Propiedad{
             [nombre, descripcion, id]);
             
     }
+    static delete_propiedad(ID){
+        return db.execute(
+          'CALL delete_usuario(?)',
+          [ID]
+        );
+    }
+    static update_VR(ID,Precio){
+        return db.execute(
+            'CALL update_VenRen(?,?)',
+            [ID,Precio]
+        );
+    }
+    static update_RV(ID,Precio){
+        return db.execute(
+            'CALL update_RenVen(?,?)',
+            [ID,Precio]
+        );
+    }
 }
