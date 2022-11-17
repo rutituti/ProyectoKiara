@@ -2,7 +2,8 @@ const path = require('path');
 const Proceso_CV = require('../models/proceso_CV.model');
 const ExpedienteRenta = require('../models/expedienteRenta');
 const ExpedientePropiedad = require('../models/expedientePropiedad');
-
+const ExpedienteProp = require('../models/expedientePropiedad');
+/*
 exports.get_seg = (request, response, next) => {
     
     request.session.ubicacion = request.params.operacion;
@@ -11,16 +12,17 @@ exports.get_seg = (request, response, next) => {
     {
         Proceso_CV.fetchProcesoCV(request.session.user, request.params.id_p)
             .then(([rows, fieldData]) => {
-                //console.log(rows);
-                response.render(path.join('..', 'views', 'op_venta', 'segVenta.ejs'), {
-                    seg_V: rows[0],
-                    info: request.session.info ? request.session.info : '',
-                    isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
-                    user: request.session.user ? request.session.user : '',
-                    ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-                    nombre: request.session.nombre ? request.session.nombre : '',
-                    registro: request.session. registro ? request.session. registro : '',
-                }); 
+                 
+                        //console.log(rows);
+                        response.render(path.join('..', 'views', 'op_venta', 'segVenta.ejs'), {
+                            seg_V: rows[0],
+                            info: request.session.info ? request.session.info : '',
+                            isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+                            user: request.session.user ? request.session.user : '',
+                            ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                            nombre: request.session.nombre ? request.session.nombre : '',
+                            registro: request.session. registro ? request.session. registro : '',
+                        }); 
             
             }).catch( error => { 
                 console.log(error);
@@ -46,19 +48,20 @@ exports.get_seg = (request, response, next) => {
             });
     }
 
-};
+    
 
-exports.get_segexp = (request, response, next) => {
+};
+*/
+
+exports.get_seg = (request, response, next) => {
     request.session.ubicacion = request.params.operacion;
    // console.log(request.session.ubicacion_documento);
     request.session.ubicacion_documento = request.params.IDtipoDocCliente;
  //   console.log(request.session.ubicacion);
- 
-
-    
     if (request.session.ubicacion === 'alquilar')
     {
-   
+    Proceso_CV.fetchProcesoRA(request.session.user, request.params.id_p)
+      .then(([rows4, fieldData]) => {
         ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDATARIO)
             .then(([rows, fieldData]) => {
                 ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_OBLIGADOSOLID)
@@ -70,6 +73,7 @@ exports.get_segexp = (request, response, next) => {
                                     numdocs: rows[0],
                                     numdocs2: rows2[0],
                                     numdocs3: rows3[0],
+                                    seg_V: rows4[0],
                                     info: request.session.info ? request.session.info : '',
                                     isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                                     user: request.session.user ? request.session.user : '',
@@ -88,17 +92,22 @@ exports.get_segexp = (request, response, next) => {
             }).catch( error => { 
                 console.log(error);
             });
+        }).catch( error => { 
+            console.log(error);
+        });
 
     } else if (request.session.ubicacion === 'renta')
     {
         request.session.numdocs2=0;
         request.session.numdocs3=0;
-        
+        Proceso_CV.fetchProcesoRA(request.session.user, request.params.id_p)
+          .then(([rows4, fieldData]) => {
             ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDADOR)
                  .then(([rows, fieldData]) => {
 
-                        response.render(path.join('..','views','op_venta','expediente.ejs'), {
+                        response.render(path.join('..','views','op_venta','segVenta.ejs'), {
                             numdocs : rows[0],
+                            seg_V: rows4[0],
                             info: request.session.info ? request.session.info : '',
                             isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                             user: request.session.user ? request.session.user : '',
@@ -115,6 +124,9 @@ exports.get_segexp = (request, response, next) => {
                 }).catch( error => { 
                         console.log(error);
                 });
+        }).catch( error => { 
+            console.log(error);
+        });
 
     } else if (request.session.ubicacion === 'venta')
     {
@@ -186,26 +198,7 @@ exports.get_segexp = (request, response, next) => {
 
 };
 
-exports.post_exp = (request, response, next) => {
-    let cont =0;
-    //   console.log(aux1);
-    //   console.log(aux2);
-    //  console.log(request.files);
-   // console.log('rs'+request.session.arraydocs);
-    //console.log('rf'+request.files);
-    console.log(request.files[0].filename)
-    for(let r of request.session.arraydocs)
-    {
-        console.log(r);
-        console.log(request.files[cont].filename);
 
-        let expediente = new ExpedienteRenta(request.session.user, r.tipoDoc, r.tipoExpCliente, 'En Revision', request.files[cont].filename);
-        expediente.save().then().catch(err => console.log(err));   
-        
-    }
-
-    response.redirect('/inicio');
-};
 
 exports.get_operacion = (request, response, next) => {
     request.session.ubicacion = request.params.operacion;
@@ -281,10 +274,9 @@ exports.get_vistasdocs = (request, response, next) => {
     request.session.docs = request.params.nombre_doc;
     request.session.ubicacion = request.params.operacion;
     request.session.idexp = request.params.tipo_exp;
-  //  console.log(request.params.nombre_doc,request.params.operacion,request.params.tipo_exp);
+ //  console.log( request.session.docs, request.session.idexp, request.session.ubicacion);
      if (request.session.docs == '1')
      {
-
         request.session.documento='CURP';
      }else if (request.session.docs == '2')
      {
@@ -328,23 +320,89 @@ exports.get_vistasdocs = (request, response, next) => {
         registro: request.session. registro ? request.session. registro : '',
         idocs: request.session.docs ? request.session.docs : '',
         idexp: request.session.idexp ? request.session.idexp : '',
-        
-
     });
-
-  
 };
+
+exports.get_vistasdocsProp = (request, response, next) => {
+    //   request.session.ubicacion = request.params.operacion;
+       request.session.docs = request.params.nombre_docProp;
+       request.session.ubicacion = request.params.operacion;
+       request.session.idexp = request.params.tipo_expProp;
+     // console.log(request.params.nombre_doc,request.params.operacion,request.params.tipo_exp);
+        if (request.session.docs == '1')
+        {
+           request.session.documento='Constancia de inscripcion al registro publico de escrituras';
+        }else if (request.session.docs == '2')
+        {
+           request.session.documento='Escrituras'; 
+        }else if (request.session.docs  == '3')
+        {
+           request.session.documento='Predial'; 
+        }else if (request.session.docs == '4')
+        {
+           request.session.documento='Recibo de Luz'; 
+        }else if (request.session.docs == '5')
+        {
+           request.session.documento='Recibo de Agua'; 
+        }else if (request.session.docs == '6')
+        {
+           request.session.documento='Recibo de gas'; 
+        }else if (request.session.docs == '7')
+        {
+           request.session.documento='CFDI'; 
+        }else if (request.session.docs == '8')
+        {
+           request.session.documento='Terminacion de obra'; 
+        }else if (request.session.docs == '9')
+        {
+           request.session.documento='Constancia de numero oficial'; 
+        }else if (request.session.docs== '10')
+        {
+           request.session.documento='Planos arquitectonicos'; 
+        }else if (request.session.docs == '11')
+        {
+           request.session.documento='Carta de no adeudo de mantenimiento y cuotas especiales'; 
+        }else if (request.session.docs == '12')
+        {
+           request.session.documento='Documento cancelacion de hipoteca'; 
+        }
+        
+       response.render(path.join('..','views','op_venta','vistassubirdocsprop.ejs'), {
+           nombredocumento: request.session.documento ? request.session.documento : '',
+           info: request.session.info ? request.session.info : '',
+           isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+           user: request.session.user ? request.session.user : '',
+           ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+           nombre: request.session.nombre ? request.session.nombre : '',
+           registro: request.session. registro ? request.session. registro : '',
+           idocs: request.session.docs ? request.session.docs : '',
+           idexp: request.session.idexp ? request.session.idexp : '',
+       });
+   };
 
 exports.post_docs = (request, response, next) => {
-    let numero_caracteres =0;
-
-    numero_caracteres = request.file.filename.length;
-    console.log(numero_caracteres);
-
-//    request.session.docs = request.params.nombre_doc;
-  //  console.log(request.session.user,request.params.nombre_doc,request.file.filename,request.session.id_tip_expC,request.session.id_tip_DdocC);
-    const expediente = new ExpedienteRenta(request.session.user, request.params.nombre_doc, request.params.tipo_exp , 'En Revision', request.file.filename); 
+    request.session.docs = request.params.nombre_doc;
+    request.session.ubicacion = request.params.operacion;
+    request.session.idexp = request.params.tipo_exp;
+ 
+      console.log( request.session.user, request.session.docs, request.session.idexp, 'En revision', request.file.filename );
+      const expediente = new ExpedienteRenta( request.session.user, request.session.docs, request.session.idexp, 'En revision', request.file.filename );
     expediente.save(); 
 
-     response.redirect('/user/perfil');
+     response.redirect('/user/perfil'); 
 };
+
+exports.post_docsProp = (request, response, next) => {
+    request.session.docs = request.params.nombre_docProp;
+    request.session.ubicacion = request.params.operacion;
+    request.session.idexp = request.params.tipo_expProp;
+
+ 
+    // console.log(request.session.user, request.session.docs, request.session.idexp, 'En Revision', request.file.filename);
+//    request.session.docs = request.params.nombre_doc;
+   //  console.log(request.session.user,request.params.nombre_doc,request.file.filename,request.session.id_tip_expC,request.session.id_tip_DdocC);
+     const expediente2 = new ExpedientePropiedad(request.session.user, request.session.docs, request.session.idexp, 'En Revision', request.file.filename);
+     expediente2.save();  
+ 
+      response.redirect('/user/perfil'); 
+ };

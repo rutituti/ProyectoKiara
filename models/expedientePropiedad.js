@@ -1,7 +1,7 @@
 //Linea de comando para la base de datos
 const db = require('../util/database');
 
-module.exports = class Expediente {
+module.exports = class ExpedienteProp {
 
     static EXPEDIENTE_VENTA  = 1;
     static EXPEDIENTE_RENTA  = 2;
@@ -19,11 +19,11 @@ module.exports = class Expediente {
     static fetchDocsProp(ID_TiEP) {
         return db.execute('CALL get_docs_propiedades(?);',[ID_TiEP]);
     }
-/* 
+
     save(){ 
         return db.execute(
-            'INSERT INTO Expediente_Cliente(ID_Cliente, ID_TipoDoc, ID_TipoExp, Estado, URL) VALUES (?,?,?,?,?)',
+            'INSERT INTO Expediente_Propiedad(ID_Propiedad, ID_TipoDoc, ID_TipoExp, Estado, URL) VALUES (?,?,?,?,?)',
             [this.ID_Cliente, this.ID_TipoDoc, this.ID_TipoExp, this.estado, this.url]);
-    } */
+    } 
 
 }
