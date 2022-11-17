@@ -33,7 +33,9 @@ router.get('/propiedades', inicioControllers.get_casas); //Mostrar listado de pr
 
 router.post('/propiedades/deleteP', propiedadController.post_deletePropiedad); //Ruta eliminar propiedad
 
+router.post('/propiedades/updateVR', propiedadController.post_updateVenRen); //Ruta acuatlizar Ven=>Ren
 
+router.post('/propiedades/updateRV', propiedadController.post_updateRenVen); //Ruta actualizar Ren=>Ven
 
 
 /*
