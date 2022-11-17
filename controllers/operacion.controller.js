@@ -175,7 +175,7 @@ exports.get_mis_clientes = (request, response, next) => {
             console.log(rows[0]);
             response.render(path.join('..','views','op_venta','mis_clientes.ejs'), {
                 clientes: rows[0],
-                info: info,
+                info: request.session.info ? request.session.info : '',
                 isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                 user: request.session.user ? request.session.user : '',
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
@@ -210,7 +210,7 @@ exports.get_seg = (request, response, next) => {
  //   console.log(request.session.ubicacion);
     if (request.session.ubicacion === 'alquilar')
     {
-    Proceso_CV.fetchProcesoRA(request.session.user, request.params.id_p)
+    Proceso_CV.fetchProcesoRA(usuario, request.params.id_p)
       .then(([rows4, fieldData]) => {
         ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDATARIO)
             .then(([rows, fieldData]) => {
@@ -254,7 +254,7 @@ exports.get_seg = (request, response, next) => {
     {
         request.session.numdocs2=0;
         request.session.numdocs3=0;
-        Proceso_CV.fetchProcesoRA(request.session.user, request.params.id_p)
+        Proceso_CV.fetchProcesoRA(usuario, request.params.id_p)
           .then(([rows4, fieldData]) => {
             ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDADOR)
                  .then(([rows, fieldData]) => {
@@ -289,7 +289,7 @@ exports.get_seg = (request, response, next) => {
 
     } else if (request.session.ubicacion === 'venta')
     {
-     Proceso_CV.fetchProcesoCV(request.session.user, request.params.id_p)
+     Proceso_CV.fetchProcesoCV(usuario, request.params.id_p)
       .then(([rows4, fieldData]) => {
         ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_VENDEDOR)
             .then(([rows, fieldData]) => {
@@ -337,7 +337,7 @@ exports.get_seg = (request, response, next) => {
     {
         request.session.numdocs2=0;
         request.session.numdocs3=0;
-        Proceso_CV.fetchProcesoCV(request.session.user, request.params.id_p)
+        Proceso_CV.fetchProcesoCV(usuario, request.params.id_p)
         .then(([rows4, fieldData]) => {
                 ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COMPRADOR)
                 .then(([rows, fieldData]) => {
