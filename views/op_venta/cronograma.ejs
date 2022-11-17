@@ -54,7 +54,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-2 col-md-2 col-lg-2" onclick="actualizar(<%= pv.Numero_etapa  %>,<%= pv.ID  %>,'_idTC')"  ><i class='bx bxs-save bx-md'></i></div>
+                                                <div class="col-sm-2 col-md-2 col-lg-2" onclick="actualizar(<%= pv.Numero_etapa  %>,'<%= pv.Nombre  %>',<%= pv.ID  %>,'_idTC','<%= cliente  %>',<%= propiedad  %>)"  ><i class='bx bxs-save bx-md'></i></div>
                                             </div>
                                        
                                         
@@ -100,7 +100,7 @@
 
 <script>
 
-    const actualizar = (num_etapa, id_PR,_idTC) => {
+    const actualizar = (num_etapa,nombre_etapa, id_PR,_idTC,cliente,propiedad) => {
         //const csrf = document.getElementById('_csrf').value;
 
         fetch('/operacion/seguimiento/update', {
@@ -109,17 +109,20 @@
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                id_proc : id_PR ,
+                id_proc : id_PR,
+                nombre_etapa: nombre_etapa,
                 tipoC : document.getElementById(_idTC).value,
                 num_etapa: num_etapa,                
                 estado_act: document.getElementById(num_etapa).value,
-                
+                cliente:cliente,       
+                propiedad:propiedad,         
                 //_csrf: csrf,
             }),
         }).then(result => {
             return result.json(); //Regresa otra promesa
         }).then(data => {
-            console.log(data);
+            
+            document.location.reload();
 
             
         }).catch(err => {

@@ -21,6 +21,8 @@ exports.new_propiety = (request, response, next) => {
         isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
         user: request.session.user ? request.session.user : '',
         nombre: request.session.nombre ? request.session.nombre : '',
+        permisos: request.session.permisos ? request.session.permisos : '',
+        rol : request.session.roles ? request.session.roles : '',
     });
 };
 
@@ -31,6 +33,8 @@ exports.get_newProperty = (request, response, next) => {
         info: info,
         isLoggedIN: request.session.isLoggedIN ? request.session.isLoggedIN: false,
         user: request.session.user ? request.session.user: '',
+        permisos: request.session.permisos ? request.session.permisos : '',
+        rol : request.session.roles ? request.session.roles : '',
     });
 }
 /*

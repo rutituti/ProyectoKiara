@@ -32,7 +32,10 @@ exports.get_seg = (request, response, next) => {
                 nombre: request.session.nombre ? request.session.nombre : '',
                 registro: request.session. registro ? request.session. registro : '',
                 permisos: request.session.permisos ? request.session.permisos : '',
+                rol : request.session.roles ? request.session.roles : '',
                 cliente: usuario ? usuario : '',
+                propiedad: request.params.id_p ? request.params.id_p : '',
+                
 
             }); 
         })
@@ -53,7 +56,9 @@ exports.get_seg = (request, response, next) => {
                 nombre: request.session.nombre ? request.session.nombre : '',
                 registro: request.session. registro ? request.session. registro : '',
                 permisos: request.session.permisos ? request.session.permisos : '',
+                rol : request.session.roles ? request.session.roles : '',
                 cliente: usuario ? usuario : '',
+                propiedad: request.params.id_p ? request.params.id_p : '',
 
 
             }); 
@@ -82,25 +87,33 @@ exports.update_seg = (request, response, next) => {
     // ACTUALIZAR CRONOGRAMA DE RENTA
     if(request.body.tipoC == 'Arrendador' || request.body.tipoC == 'Arrendatario'){
         console.log('Soy un '+request.body.tipoC+' para el proceso de Renta/Alquilar');
-        Proceso_CV.get_fechaValida(request.body.id_proc).then(([rows, fieldData]) => {
+        Proceso_CV.get_fechaValidaRA(request.body.id_proc).then(([rows, fieldData]) => {
             console.log(rows[0].Fecha_Start);
             if(rows[0].Fecha_Start == 'Invalid Date'){
                 Proceso_CV.edit_RA(request.body.id_proc,request.body.estado_act,d+t).then(([rows, fieldData]) => {
+                
                     console.log('ACTUALIZADO EXITOSAMENTE');
-                    
-                   
+                    response.status(200).json({                        
+                        mensaje: "El estado de la Etapa"+ request.body.nombre_etapa + " se modifico a "+request.body.estado_act,
+                        proceso: rows,
+                    });
+            
                 })
                 .catch( error => { 
                     console.log(error)
                 });
             }else{
                 Proceso_CV.edit_RA(request.body.id_proc,request.body.estado_act,'').then(([rows, fieldData]) => {
-                    console.log('ACTUALIZADO EXITOSAMENTE');
+                        console.log('ACTUALIZADO EXITOSAMENTE');
+                        response.status(200).json({
+                            
+                            mensaje: "El estado de la Etapa"+ request.body.nombre_etapa + " se modifico a "+request.body.estado_act,
+                            proceso: rows,
+                        });
+                
+                }).catch( error => { console.log(error)});
                     
-                })
-                .catch( error => { 
-                    console.log(error)
-                });
+                
             }
 
         })
@@ -111,18 +124,31 @@ exports.update_seg = (request, response, next) => {
     //ACTUALIZAR CRONOGRAMA DE VENTA
     if(request.body.tipoC == 'Comprador' || request.body.tipoC == 'Vendedor'){
         console.log('Soy un '+request.body.tipoC+' para el proceso de Compra/Venta');
-        Proceso_CV.get_fechaValida(request.body.id_proc).then(([rows, fieldData]) => {
-            console.log(rows[0].Fecha_Start);
+        Proceso_CV.get_fechaValidaCV(request.body.id_proc).then(([rows, fieldData]) => {
+            console.log(rows[0]);
             if(rows[0].Fecha_Start == 'Invalid Date'){
                 Proceso_CV.edit_CV(request.body.id_proc,request.body.estado_act,d+t).then(([rows, fieldData]) => {
-                    console.log('ACTUALIZADO EXITOSAMENTE');
+                        console.log('ACTUALIZADO EXITOSAMENTE');
+                        response.status(200).json({
+                        
+                        mensaje: "El estado de la Etapa"+ request.body.nombre_etapa + " se modifico a "+request.body.estado_act,
+                        proceso: rows,
+                        });
                 })
                 .catch( error => { 
                     console.log(error)
                 });
             }else{
                 Proceso_CV.edit_CV(request.body.id_proc,request.body.estado_act,'').then(([rows, fieldData]) => {
-                    console.log('ACTUALIZADO EXITOSAMENTE');
+
+                        console.log('ACTUALIZADO EXITOSAMENTE');
+                        response.status(200).json({
+                        
+                        mensaje: "El estado de la Etapa"+ request.body.nombre_etapa + " se modifico a "+request.body.estado_act,
+                        proceso: rows,
+                        });
+            
+                   
                 })
                 .catch( error => { 
                     console.log(error)
@@ -152,6 +178,8 @@ exports.get_mis_clientes = (request, response, next) => {
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
                 registro: request.session. registro ? request.session. registro : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
+                rol : request.session.roles ? request.session.roles : '',
 
             }); 
         })
@@ -183,6 +211,8 @@ exports.get_segexp = (request, response, next) => {
                                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                                 nombre: request.session.nombre ? request.session.nombre : '',
                                 registro: request.session. registro ? request.session. registro : '',
+                                permisos: request.session.permisos ? request.session.permisos : '',
+                                rol : request.session.roles ? request.session.roles : '',
                             
 
                             }); 
@@ -207,6 +237,8 @@ exports.get_segexp = (request, response, next) => {
                 nombre: request.session.nombre ? request.session.nombre : '',
                 numdocs2 : request.session.numdocs2 ? request.session.numdocs2: 0,
                 registro: request.session. registro ? request.session. registro : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
+                rol : request.session.roles ? request.session.roles : '',
             
 
             }); 
@@ -233,6 +265,8 @@ exports.get_segexp = (request, response, next) => {
                             ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                             nombre: request.session.nombre ? request.session.nombre : '',
                             registro: request.session. registro ? request.session. registro : '',
+                            permisos: request.session.permisos ? request.session.permisos : '',
+                            rol : request.session.roles ? request.session.roles : '',
                         
 
                         }); 
@@ -260,7 +294,8 @@ exports.get_segexp = (request, response, next) => {
                                         ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                                         nombre: request.session.nombre ? request.session.nombre : '',
                                         registro: request.session. registro ? request.session. registro : '',
-                                        
+                                        permisos: request.session.permisos ? request.session.permisos : '',
+                                        rol : request.session.roles ? request.session.roles : '',
                                     
 
                                     }); 
@@ -293,8 +328,6 @@ exports.get_operacion = (request, response, next) => {
         usuario = request.params.cliente;
     }
 
-    
-
     if (request.session.ubicacion === 'renta' || request.session.ubicacion === 'venta')
     {
         Proceso_CV.fetch_casasVR_idC(usuario,request.params.operacion)
@@ -312,6 +345,7 @@ exports.get_operacion = (request, response, next) => {
                 registro: request.session. registro ? request.session. registro : '',
                 cliente: usuario ? usuario : '',
                 permisos: request.session.permisos ? request.session.permisos : '',
+                rol : request.session.roles ? request.session.roles : '',
 
             }); 
         })
@@ -333,6 +367,8 @@ exports.get_operacion = (request, response, next) => {
                 nombre: request.session.nombre ? request.session.nombre : '',
                 registro: request.session. registro ? request.session. registro : '',
                 cliente: usuario ? usuario : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
+                rol : request.session.roles ? request.session.roles : '',
 
             }); 
         })
@@ -354,6 +390,8 @@ exports.get_operacion = (request, response, next) => {
                 nombre: request.session.nombre ? request.session.nombre : '',
                 registro: request.session. registro ? request.session. registro : '',
                 cliente: usuario ? usuario : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
+                rol : request.session.roles ? request.session.roles : '',
 
 
             }); 

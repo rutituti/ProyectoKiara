@@ -15,6 +15,8 @@ exports.get_new_admin = (request, response, next) => {
             isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
             user: request.session.user ? request.session.user : '',
             nombre: request.session.nombre ? request.session.nombre : '',
+            permisos: request.session.permisos ? request.session.permisos : '',
+            rol : request.session.roles ? request.session.roles : '',
          });
 };
 
@@ -43,6 +45,8 @@ exports.get_new_asesor = (request, response, next) => {
             isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
             user: request.session.user ? request.session.user : '',
             nombre: request.session.nombre ? request.session.nombre : '',
+            permisos: request.session.permisos ? request.session.permisos : '',
+            rol : request.session.roles ? request.session.roles : '',
             
          });
 };
@@ -91,6 +95,8 @@ exports.get_new_cliente = (request, response, next) => {
             isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
             user: request.session.user ? request.session.user : '',
             nombre: request.session.nombre ? request.session.nombre : '',
+            permisos: request.session.permisos ? request.session.permisos : '',
+            rol : request.session.roles ? request.session.roles : '',
             
          });
 };
@@ -142,6 +148,8 @@ exports.get_listAsesor = (request, response, next) => {
                 info: info,
                 isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
                 user: request.session.user ? request.session.user : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
+                rol : request.session.roles ? request.session.roles : '',
             });
             
         }).catch(()=>{
@@ -167,6 +175,8 @@ exports.get_listUsuario = (request, response, next) => {
                 isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
                 user: request.session.user ? request.session.user : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
+                rol : request.session.roles ? request.session.roles : '',
             });
             
         }).catch((error)=>{
@@ -190,6 +200,8 @@ exports.get_listCliente = (request, response, next) => {
                 isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
                 user: request.session.user ? request.session.user : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
+                rol : request.session.roles ? request.session.roles : '',
             });
             
         }).catch((error)=>{
@@ -214,6 +226,8 @@ exports.get_login = (request, response, next) => {
         isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
         user: request.session.user ? request.session.user : '',
         nombre: request.session.nombre ? request.session.nombre : '',
+        permisos: request.session.permisos ? request.session.permisos : '',
+        rol : request.session.roles ? request.session.roles : '',
     });
 };
 
@@ -312,6 +326,7 @@ exports.get_profile= (request, response, next) => {
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
                 personal_info : request.session.personal_info[0] ? request.session.personal_info[0] : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
                 rol : request.session.roles ? request.session.roles : '',
                 registro: registro,
             
@@ -339,6 +354,7 @@ exports.get_profile= (request, response, next) => {
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
                 personal_info : request.session.personal_info[0] ? request.session.personal_info[0] : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
                 rol : request.session.roles ? request.session.roles : '',
                 registro: registro,
             

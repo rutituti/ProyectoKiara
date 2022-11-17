@@ -32,7 +32,7 @@ module.exports = class Proceso_CV {
 
     }
 
-    static edit_CV(){
+    static edit_CV(id_poc,estado,fecha_start){
         if(fecha_start == ''){
             return db.execute(
                 'UPDATE Proceso_CompraVenta SET Estado = ? WHERE ID = ?', 
@@ -70,10 +70,17 @@ module.exports = class Proceso_CV {
         return db.execute('CALL get_casasA_idC(?);',[id_cliente]);
     }
 
-    static get_fechaValida(id_proceso)
+    static get_fechaValidaRA(id_proceso)
     {
         return db.execute('SELECT Fecha_Start FROM Proceso_renta WHERE ID=?',[id_proceso]);
     }
+
+    static get_fechaValidaCV(id_proceso)
+    {
+        return db.execute('SELECT Fecha_Start FROM Proceso_CompraVenta WHERE ID=?',[id_proceso]);
+    }
+
+ 
 
 
 }
