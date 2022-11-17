@@ -18,6 +18,34 @@ module.exports = class Proceso_CV {
             
     }
 
+    static edit_RA(id_poc,estado,fecha_start){
+        if(fecha_start == ''){
+            return db.execute(
+                'UPDATE Proceso_renta SET Estado = ? WHERE id = ?', 
+            [estado,id_poc]);
+        }else{
+            return db.execute(
+                'UPDATE Proceso_renta SET Estado = ?, Fecha_Start=? WHERE id = ?', 
+            [estado,fecha_start,id_poc]);
+            
+        }
+
+    }
+
+    static edit_CV(id_poc,estado,fecha_start){
+        if(fecha_start == ''){
+            return db.execute(
+                'UPDATE Proceso_CompraVenta SET Estado = ? WHERE ID = ?', 
+            [estado,id_poc]);
+        }else{
+            return db.execute(
+                'UPDATE Proceso_CompraVenta SET Estado = ?, Fecha_Start=? WHERE ID = ?', 
+            [estado,fecha_start,id_poc]);
+            
+        }
+        
+    }
+
     //Recupera el cronograma de los procesos de venta y compra
     static fetchProcesoCV(id_cliente, id_propiedad) {
         return db.execute('CALL get_procesoCV(?,?);',[id_cliente,id_propiedad]);
@@ -41,6 +69,18 @@ module.exports = class Proceso_CV {
     static fetch_casasA_idC(id_cliente) {
         return db.execute('CALL get_casasA_idC(?);',[id_cliente]);
     }
+
+    static get_fechaValidaRA(id_proceso)
+    {
+        return db.execute('SELECT Fecha_Start FROM Proceso_renta WHERE ID=?',[id_proceso]);
+    }
+
+    static get_fechaValidaCV(id_proceso)
+    {
+        return db.execute('SELECT Fecha_Start FROM Proceso_CompraVenta WHERE ID=?',[id_proceso]);
+    }
+
+ 
 
 
 }

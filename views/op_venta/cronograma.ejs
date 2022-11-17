@@ -1,69 +1,134 @@
-                        <!-- Section: Timeline -->
-                        <div class="container">
+<!-- Section: Timeline -->
+<div class="container">
                 
-                            <div class="row">
+    <div class="row">
 
-                                <div  class="col-sm-9 col-md-9 col-lg-9">
+        <div  class="col-sm-9 col-md-9 col-lg-9">
 
-                                        <div class="container-fluid bootstrap snippets bootdeys">
-                                            <div class="timeline-centered timeline-sm ">
-                                                <% 
-                                                let completado = 'Completado'
-                                                let en_proc = 'En proceso'
-                                                let no_aprob = 'No aprobado'
-                                                let no_ini = 'No iniciado'
-                                                
-                                                %>
+            <div class="container-fluid bootstrap snippets bootdeys">
+                <div class="timeline-centered timeline-sm ">
+                    <% 
+                    let completado = 'Completado'
+                    let en_proc = 'En proceso'
+                    let no_aprob = 'No aprobado'
+                    let no_ini = 'No iniciado'
+                    
+                    %>
                                                     
                                                 
-                                                <!--   ETAPA -->
-                                                <% for (let pv of seg_V) { %>
-                                                    <article class="timeline-entry">
-                                                        <div class="timeline-entry-inner">
-                                                            <time datetime="<%= pv.Fecha_EndV  %>" class="timeline-time">
-                                                                <% if (pv.Estado == completado){ %>
-                                                                    <span>
-                                                                        Finalizado - <%= pv.Fecha_End.getDate()+"/"+(pv.Fecha_End.getMonth()+1)+ "/"+pv.Fecha_End.getFullYear() %>
-                                                                    </span>
-                                                                <% } else { %>
-                                                                    <span></span>
-                                                                <% if (pv.Fecha_StartV != 'Invalid Date'){ %>
-                                                                    <span>
-                                                                        Iniciado - <%= pv.Fecha_Start.getDate()+"/"+(pv.Fecha_Start.getMonth()+1)+ "/"+pv.Fecha_Start.getFullYear() %>
-                                                                    </span>
-                                                                <% } %>
+                        <!--   ETAPA -->
+                        <% for (let pv of seg_V) { %>
+                            <article class="timeline-entry">
+                                <div class="timeline-entry-inner">
+                                    <time datetime="<%= pv.Fecha_EndV  %>" class="timeline-time">
+                                        <% if (pv.Estado == completado){ %>
+                                            <span>
+                                                Finalizado - <%= pv.Fecha_End.getDate()+"/"+(pv.Fecha_End.getMonth()+1)+ "/"+pv.Fecha_End.getFullYear() %>
+                                            </span>
+                                        <% } else { %>
+                                            <span></span>
+                                            <% if (pv.Fecha_Start != 'Invalid Date'){ %>
+                                                <span>
+                                                    
+                                                        Iniciado - <%= pv.Fecha_Start.getDate()+"/"+(pv.Fecha_Start.getMonth()+1)+ "/"+pv.Fecha_Start.getFullYear() %>
+                                                    
+                                                </span>
+                                            <% } %>
 
-                                                                <% } %>
+                                        <% } %>
 
+                                        <% if (permisos.indexOf('actualizar_cronograma') != -1) { %>
+                                            
+                                            <input type="hidden" id="_idTC" value="<%= pv.tipoCliente  %>">
+                                            
+                                            <div class="row">
+                                                <div class="col-sm-10 col-md-10 col-lg-10">
+                                                    <div class="form-group">   
+                                                        <select class="form-control" id="<%= pv.Numero_etapa  %>" >
+                                                            <option value="<%= pv.Estado  %>" selected><%= pv.Estado  %></option>
+                                                            <option value="Completado" >Completado</option>
+                                                            <option value="En proceso">En proceso</option>
+                                                            <option value="No aprobado">No aprobado</option>
+                                                            
+                                                        </select>
+                                                    </div>
+                                                </div>
 
-                                                                <span><%= pv.Estado  %></span></time>
+                                                <div class="col-sm-2 col-md-2 col-lg-2" onclick="actualizar(<%= pv.Numero_etapa  %>,'<%= pv.Nombre  %>',<%= pv.ID  %>,'_idTC','<%= cliente  %>',<%= propiedad  %>)"  ><i class='bx bxs-save bx-md'></i></div>
+                                            </div>
+                                       
+                                        
+                                        
+                                        <% } %>
 
-                                                            <% if (pv.Estado == completado){ %>
-                                                                <div class="timeline-icon bg-green"><i class="fa fa-check "></i></div>
-                                                            <% } else if (pv.Estado == en_proc){ %>
-                                                                <div class="timeline-icon  bg-yellow"><i class="fa fa-clock-o "></i></div>
-                                                            <% }  else { %>
-                                                                <div class="timeline-icon "></div>
-                                                            <% } %>
+                                        <% if (permisos.indexOf('consultar_cronograma') != -1) { %>
+                                             <span><%= pv.Estado  %></span>
+                                        <% } %>
+                                    </time>
+
+                                        <% if (pv.Estado == completado){ %>
+                                            <div class="timeline-icon bg-green"><i class="fa fa-check "></i></div>
+                                        <% } else if (pv.Estado == en_proc){ %>
+                                            <div class="timeline-icon  bg-yellow"><i class="fa fa-clock-o "></i></div>
+                                        <% } else if (pv.Estado == no_aprob){ %>
+                                            <div class="timeline-icon  bg-danger"><i class="fa fa-exclamation-circle "></i></div>
+                                        <% } else { %>
+                                            <div class="timeline-icon "></div>
+                                        <% } %>
                                                             
 
-                                                            <div class="timeline-label"><h5 class="fw-bold"><%= pv.Nombre  %></h5>
-                                                                <p class="text-muted mb-2 fw-bold"> Tiempo estimado: <%= pv.Tiempo_estimado%> <%= pv.Tiempo_estimado > 1 ? 'dias' : 'dia' %></p>
-                                                                <!--
-                                                                <p class="text-muted ">
-                                                                    Orci varius natoque penatibus et magnis dis parturient montes,
-                                                                    nascetur ridiculus mus. Nulla ullamcorper arcu lacus
-                                                                </p>
-                                                                -->
-                                                            </div>
-
-                                                        </div>
-                                                    </article>
-                                                <% } %>
-                            
-                                            </div>
-                                        
+                                        <div class="timeline-label"><h5 class="fw-bold"><%= pv.Nombre  %></h5>
+                                            <p class="text-muted mb-2 fw-bold"> Tiempo estimado: <%= pv.Tiempo_estimado%> <%= pv.Tiempo_estimado > 1 ? 'dias' : 'dia' %></p>
+                                            
+                                            <% if (pv.Estado == no_aprob){ %>
+                                                <p class="text-muted ">
+                                                    Consulte con su asesor para mas informacion.
+                                                </p>
+                                            <% } %>
                                         </div>
+
                                 </div>
-                            </div>
-                        </div>
+                            </article>
+                        <% } %>
+                            
+                </div>
+                                        
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    const actualizar = (num_etapa,nombre_etapa, id_PR,_idTC,cliente,propiedad) => {
+        //const csrf = document.getElementById('_csrf').value;
+
+        fetch('/operacion/seguimiento/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id_proc : id_PR,
+                nombre_etapa: nombre_etapa,
+                tipoC : document.getElementById(_idTC).value,
+                num_etapa: num_etapa,                
+                estado_act: document.getElementById(num_etapa).value,
+                cliente:cliente,       
+                propiedad:propiedad,         
+                //_csrf: csrf,
+            }),
+        }).then(result => {
+            return result.json(); //Regresa otra promesa
+        }).then(data => {
+            
+            document.location.reload();
+
+            
+        }).catch(err => {
+            console.log(err);
+        });
+
+    }
+    
+</script>

@@ -1,114 +1,156 @@
         <!-- Side Bar -->
-        <div class="sidebar">
-            <div class="logo-details">
-                <i class='bx bxl-c-plus-plus icon'></i>
-                <div class="logo_name">Seguimiento en Linea</div>
-                <i class='bx bx-menu' id="btn" ></i>
-            </div>
+<div class="sidebar">
+  <div class="logo-details">
+    <i class='bx bxl-c-plus-plus icon'></i>
+    <div class="logo_name">Seguimiento en Linea</div>
+      <i class='bx bx-menu' id="btn" ></i>
+    </div>
 
-            <ul class="nav-list">
-              <% let active = '' %>
-              <li>
-                  <i class='bx bx-search' ></i>
-                  <input type="text" placeholder="Search...">
-                  <span class="tooltip">Search</span>
-              </li>
-
-              <li>
-                <% if (ubicacion == 'perfil') {
-                  active = 'active';
-                } else {
-                  active = '';
-                }
-                  %>
-
-                  <a class="<%= active %>" href="/user/perfil">
-                  <i class='bx bx-user' ></i>
-                  <span class="links_name">Perfil</span>
-                  </a>
-                  <span class="tooltip">Perfil</span>
-              </li>
-
-              <% if (ubicacion == 'venta') {
-                active = 'active';
-              } else {
-                active = '';
-              }
-                %>
-
-              <li>
-                  <a class="<%= active %>" href="/operacion/venta">
-                  <i class='bx bx-cart ' ></i>
-                  <span class="links_name ">Venta</span>
-                  </a>
-                  <span class="tooltip">Venta</span>
-              </li>
-              <% if (ubicacion == 'compra') {
-                active = 'active';
-              } else {
-                active = '';
-              }
-                %>
-              <li>
-                <a class="<%= active %>" href="/operacion/compra">
-                <i class='bx bx-cart' ></i>
-                <span class="links_name">Compra</span>
-                </a>
-                <span class="tooltip">Compra</span>
-            </li>
-
-            <% if (ubicacion == 'renta') {
+    <ul class="nav-list">
+      <% let active = '' %>
+      <!--
+      <li>
+        <i class='bx bx-search' ></i>
+        <input type="text" placeholder="Search...">
+        <span class="tooltip">Search</span>
+      </li>
+      -->     
+      
+          <li>
+            <% if (ubicacion == 'perfil') {
               active = 'active';
             } else {
               active = '';
-            }
-              %>
+            }%>
+          
+            <a class="<%= active %>" href="/user/perfil">
+              <i class='bx bx-user' ></i>
+              <span class="links_name">Perfil</span>
+            </a>
 
-              <li>
-                  <a class="<%= active %>" href="/operacion/renta">
-                  <i class='bx bx-cart' ></i>
-                  <span class="links_name">Renta</span>
-                  </a>
-                  <span class="tooltip">Renta</span>
-              </li>
-              <% if (ubicacion == 'alquilar') {
-                active = 'active';
-              } else {
-                active = '';
-              }
-                %>
-              <li>
-                  <a class="<%= active %>" href="/operacion/alquilar">
-                  <i class='bx bx-cart' ></i>
-                  <span class="links_name">Alquilar</span>
-                  </a>
-                  <span class="tooltip">Alquilar</span>
-              </li>
-              <% if (ubicacion == 'config') {
-                active = 'active';
-              } else {
-                active = '';
-              }
-                %>
-              <li>
-               <a class="<%= active %>" href="#">
-                 <i class='bx bx-cog' ></i>
-                 <span class="links_name">Configuracion</span>
-               </a>
-               <span class="tooltip">Configuracion</span>
-              </li>
+            <span class="tooltip">Perfil</span>
+          </li>
+          
+          <!-- PESTAÑAS DE CLIENTE -->
+          <% if (rol.indexOf('Cliente') != -1) { %>
 
-              <li class="profile">
-                 <div class="profile-details">
-                   <!--<img src="profile.jpg" alt="profileImg">-->
-                   <div class="name_job">
-                     <div class="name">Prem Shahi</div>
-                     <div class="job">Web designer</div>
-                   </div>
-                 </div>
-                 <i class='bx bx-log-out' id="log_out" ></i>
-              </li>
+          <% if (ubicacion == 'venta') {
+            active = 'active';
+          } else {
+            active = '';
+          }%>
 
-            </ul>
+          <li>
+            <a class="<%= active %>" href="/operacion/venta">
+              <i class='bx bx-cart ' ></i>
+              <span class="links_name ">Venta</span>
+            </a>
+            <span class="tooltip">Venta</span>
+          </li>
+              
+          <% if (ubicacion == 'compra') {
+            active = 'active';
+          } else {
+            active = '';
+          } %>
+
+          <li>
+            <a class="<%= active %>" href="/operacion/compra">
+              <i class='bx bx-cart' ></i>
+              <span class="links_name">Compra</span>
+            </a>
+            <span class="tooltip">Compra</span>
+          </li>
+
+          <% if (ubicacion == 'renta') {
+            active = 'active';
+          } else {
+            active = '';
+          }%>
+          
+          <li>
+            <a class="<%= active %>" href="/operacion/renta">
+              <i class='bx bx-cart' ></i>
+              <span class="links_name">Renta</span>
+            </a>
+            <span class="tooltip">Renta</span>
+          </li>
+              
+          <% if (ubicacion == 'alquilar') {
+              active = 'active';
+            } else {
+              active = '';
+          }%>
+
+          <li>
+            <a class="<%= active %>" href="/operacion/alquilar">
+              <i class='bx bx-cart' ></i>
+              <span class="links_name">Alquilar</span>
+            </a>
+            <span class="tooltip">Alquilar</span>
+          </li>
+          <% } %>
+      <!--FIN PESTAÑAS DE CLIENTE-->
+
+      <!--PESTAÑAS ASESOR-->
+      <% if (rol.indexOf('Asesor') != -1) { %>
+
+          <% if (ubicacion == 'misclientes') {
+            active = 'active';
+          } else {
+            active = '';
+          }%>
+    
+          <li>
+            <a class="<%= active %>" href="/operacion/misclientes">
+              <i class='bx bxs-contact'></i>
+              <span class="links_name">Mis Clientes</span>
+            </a>
+            <span class="tooltip">Mis Clientes</span>
+          </li>
+
+          <% if (ubicacion == 'mispropiedades') {
+            active = 'active';
+          } else {
+            active = '';
+          }%>
+    
+          <li>
+            <a class="<%= active %>" href="#">
+              <i class='bx bx-building-house' ></i>
+              <span class="links_name">Propiedades asignadas</span>
+            </a>
+            <span class="tooltip">Propiedades asignadas</span>
+          </li>
+      <% } %>
+      <!--FIN PESTAÑAS ASESOR-->
+
+      <% if (ubicacion == 'config') {
+          active = 'active';
+      } else {
+          active = '';
+      }%>
+      
+      <li>
+        <a class="<%= active %>" href="#">
+          <i class='bx bx-cog' ></i>
+          <span class="links_name">Configuracion</span>
+        </a>
+        <span class="tooltip">Configuracion</span>
+      </li>
+
+      <li class="profile">
+        <div class="profile-details">
+          <!--<img src="profile.jpg" alt="profileImg">-->
+          <div class="name_job">
+            <div class="name">Prem Shahi</div>
+            <div class="job">Web designer</div>
+          </div>
         </div>
-        <!-- Fin Side Bar -->
+        <i class='bx bx-log-out' id="log_out" ></i>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<!-- Fin Side Bar -->

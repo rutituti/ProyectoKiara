@@ -11,6 +11,9 @@ module.exports = class Asesor {
     static fetchAll() {
         return db.execute('SELECT * FROM Asesores');
     }
+    static get_clientes(user){
+        return db.execute('CALL get_clientes_idAsesor(?);',[user]);
+    }
     //Este método servirá para guardar de manera persitente el nuevo objeto
         //Inserta un nuevo elemento en la tabla
     save(){   

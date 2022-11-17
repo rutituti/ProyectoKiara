@@ -15,6 +15,8 @@ exports.get_new_admin = (request, response, next) => {
             isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
             user: request.session.user ? request.session.user : '',
             nombre: request.session.nombre ? request.session.nombre : '',
+            permisos: request.session.permisos ? request.session.permisos : '',
+            rol : request.session.roles ? request.session.roles : '',
          });
 };
 
@@ -43,6 +45,8 @@ exports.get_new_asesor = (request, response, next) => {
             isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
             user: request.session.user ? request.session.user : '',
             nombre: request.session.nombre ? request.session.nombre : '',
+            permisos: request.session.permisos ? request.session.permisos : '',
+            rol : request.session.roles ? request.session.roles : '',
             
          });
 };
@@ -52,15 +56,21 @@ exports.get_new_asesor = (request, response, next) => {
 exports.post_new_asesor = (request,response,next) => {
     const asesor = new Asesor(request.body.username,request.body.curp)
     const usuario = new Usuario(request.body.username,request.body.contra,request.body.Nombres, request.body.primerApellido, request.body.segundoApellido, request.body.telefono, request.body.email,)
-
+    const user_rol = new User_Rol(request.body.username,1);
      //Guarda informacion en la tabla USUARIOS
     usuario.save()
     .then(() => {
         asesor.save()
         .then(() => {
-            request.session.registro = "El asesor " + usuario.nombres + " fue registrado exitosamente";
+            user_rol.save().then(() => {
+                request.session.registro = "El asesor " + usuario.nombres + " fue registrado exitosamente";
     
-            response.redirect('/user/login');            
+                response.redirect('/user/login'); 
+
+            }).catch((error) => {
+                console.log(error);
+            });
+                       
         })
         .catch((error) => {
             console.log(error);
@@ -85,6 +95,8 @@ exports.get_new_cliente = (request, response, next) => {
             isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
             user: request.session.user ? request.session.user : '',
             nombre: request.session.nombre ? request.session.nombre : '',
+            permisos: request.session.permisos ? request.session.permisos : '',
+            rol : request.session.roles ? request.session.roles : '',
             
          });
 };
@@ -136,6 +148,8 @@ exports.get_listAsesor = (request, response, next) => {
                 info: info,
                 isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
                 user: request.session.user ? request.session.user : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
+                rol : request.session.roles ? request.session.roles : '',
             });
             
         }).catch(()=>{
@@ -161,6 +175,8 @@ exports.get_listUsuario = (request, response, next) => {
                 isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
                 user: request.session.user ? request.session.user : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
+                rol : request.session.roles ? request.session.roles : '',
             });
             
         }).catch((error)=>{
@@ -184,6 +200,8 @@ exports.get_listCliente = (request, response, next) => {
                 isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
                 user: request.session.user ? request.session.user : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
+                rol : request.session.roles ? request.session.roles : '',
             });
             
         }).catch((error)=>{
@@ -208,6 +226,8 @@ exports.get_login = (request, response, next) => {
         isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
         user: request.session.user ? request.session.user : '',
         nombre: request.session.nombre ? request.session.nombre : '',
+        permisos: request.session.permisos ? request.session.permisos : '',
+        rol : request.session.roles ? request.session.roles : '',
     });
 };
 
@@ -306,6 +326,7 @@ exports.get_profile= (request, response, next) => {
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
                 personal_info : request.session.personal_info[0] ? request.session.personal_info[0] : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
                 rol : request.session.roles ? request.session.roles : '',
                 registro: registro,
             
@@ -333,6 +354,7 @@ exports.get_profile= (request, response, next) => {
                 ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
                 personal_info : request.session.personal_info[0] ? request.session.personal_info[0] : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
                 rol : request.session.roles ? request.session.roles : '',
                 registro: registro,
             

@@ -10,6 +10,8 @@ exports.get_Infoempresa = (request, response, next) => {
         user: request.session.user ? request.session.user : '',
         nombre: request.session.nombre ? request.session.nombre : '',
         registro: registro,
+        permisos: request.session.permisos ? request.session.permisos : '',
+        rol : request.session.roles ? request.session.roles : '',
 
     });
 };
@@ -26,6 +28,8 @@ exports.get_casas_venta = (request, response, next) => {
         nombre: request.session.nombre ? request.session.nombre : '',
         user: request.session.user ? request.session.user : '',
         registro: registro,
+        permisos: request.session.permisos ? request.session.permisos : '',
+        rol : request.session.roles ? request.session.roles : '',
         });
     })
     .catch(error => {
@@ -47,7 +51,8 @@ exports.get_casas_renta = (request, response, next) => {
         isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
         nombre: request.session.nombre ? request.session.nombre : '',
         user: request.session.user ? request.session.user : '',
-        nombre: request.session.nombre ? request.session.nombre : '',
+        permisos: request.session.permisos ? request.session.permisos : '',
+        rol : request.session.roles ? request.session.roles : '',
         });
     })
     .catch(error => {
@@ -70,6 +75,8 @@ exports.get_root = (request, response, next) => {
         isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
         user: request.session.user ? request.session.user : '',
         nombre: request.session.nombre ? request.session.nombre : '',
+        permisos: request.session.permisos ? request.session.permisos : '',
+        rol : request.session.roles ? request.session.roles : '',
     });
 };
 

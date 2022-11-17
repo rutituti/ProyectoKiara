@@ -1,4 +1,11 @@
-
+/*Cambiar color de select*/
+select option {
+	color: black;
+}
+select option:first-child {
+	color: rgb(169, 169, 169);
+}
+/*--------------------------*/
 .timeline-centered {
   position: relative;
   margin-bottom: 30px;
