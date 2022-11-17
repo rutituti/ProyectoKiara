@@ -15,6 +15,7 @@ exports.get_new_admin = (request, response, next) => {
             isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
             user: request.session.user ? request.session.user : '',
             nombre: request.session.nombre ? request.session.nombre : '',
+            registro: request.session. registro ? request.session. registro : '',
             permisos: request.session.permisos ? request.session.permisos : '',
             rol : request.session.roles ? request.session.roles : '',
          });
@@ -45,6 +46,7 @@ exports.get_new_asesor = (request, response, next) => {
             isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
             user: request.session.user ? request.session.user : '',
             nombre: request.session.nombre ? request.session.nombre : '',
+            registro: request.session. registro ? request.session. registro : '',
             permisos: request.session.permisos ? request.session.permisos : '',
             rol : request.session.roles ? request.session.roles : '',
             
@@ -95,6 +97,7 @@ exports.get_new_cliente = (request, response, next) => {
             isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
             user: request.session.user ? request.session.user : '',
             nombre: request.session.nombre ? request.session.nombre : '',
+            registro: request.session. registro ? request.session. registro : '',
             permisos: request.session.permisos ? request.session.permisos : '',
             rol : request.session.roles ? request.session.roles : '',
             
@@ -148,6 +151,7 @@ exports.get_listAsesor = (request, response, next) => {
                 info: info,
                 isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
                 user: request.session.user ? request.session.user : '',
+                registro: request.session. registro ? request.session. registro : '',
                 permisos: request.session.permisos ? request.session.permisos : '',
                 rol : request.session.roles ? request.session.roles : '',
             });
@@ -174,6 +178,7 @@ exports.get_listUsuario = (request, response, next) => {
                 registro: registro,
                 isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
                 user: request.session.user ? request.session.user : '',
+                registro: request.session. registro ? request.session. registro : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
                 permisos: request.session.permisos ? request.session.permisos : '',
                 rol : request.session.roles ? request.session.roles : '',
@@ -200,6 +205,7 @@ exports.get_listCliente = (request, response, next) => {
                 isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
                 user: request.session.user ? request.session.user : '',
                 nombre: request.session.nombre ? request.session.nombre : '',
+                registro: request.session. registro ? request.session. registro : '',
                 permisos: request.session.permisos ? request.session.permisos : '',
                 rol : request.session.roles ? request.session.roles : '',
             });
@@ -226,6 +232,7 @@ exports.get_login = (request, response, next) => {
         isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
         user: request.session.user ? request.session.user : '',
         nombre: request.session.nombre ? request.session.nombre : '',
+        registro: request.session. registro ? request.session. registro : '',
         permisos: request.session.permisos ? request.session.permisos : '',
         rol : request.session.roles ? request.session.roles : '',
     });
