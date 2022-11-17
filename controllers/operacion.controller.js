@@ -130,7 +130,8 @@ exports.get_seg = (request, response, next) => {
 
     } else if (request.session.ubicacion === 'venta')
     {
-        //falta agregar exp propiedad
+     Proceso_CV.fetchProcesoCV(request.session.user, request.params.id_p)
+      .then(([rows4, fieldData]) => {
         ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_VENDEDOR)
             .then(([rows, fieldData]) => {
 
@@ -141,10 +142,11 @@ exports.get_seg = (request, response, next) => {
                              .then(([rows3, fieldData]) => {
                                 //console.log(rows[3]);
                             console.log(rows3[0]);
-                                    response.render(path.join('..','views','op_venta','expediente.ejs'), {
+                                    response.render(path.join('..','views','op_venta','segVenta.ejs'), {
                                         numdocs : rows[0],
                                         numdocs2 : rows2[0],
                                         numdocs3 : rows3[0],
+                                        seg_V: rows4[0],
                                         info: request.session.info ? request.session.info : '',
                                         isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                                         user: request.session.user ? request.session.user : '',
@@ -162,38 +164,48 @@ exports.get_seg = (request, response, next) => {
                 }); 
             }).catch( error => { 
                         console.log(error);
-            });           
+            });   
+        }).catch( error => { 
+            console.log(error);
+        });        
     }
    
     else if (request.session.ubicacion === 'compra')
     {
         request.session.numdocs2=0;
         request.session.numdocs3=0;
+        Proceso_CV.fetchProcesoCV(request.session.user, request.params.id_p)
+        .then(([rows4, fieldData]) => {
                 ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COMPRADOR)
                 .then(([rows, fieldData]) => {
 
-                ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COPROPCOMPRADOR)
-                .then(([rows2, fieldData]) => {
-                      //  console.log(rows2[0])
-                                    response.render(path.join('..','views','op_venta','expediente.ejs'), {
-                                        numdocs : rows[0],
-                                        numdocs2 : rows2[0],
-                                        numdocs3 : request.session.numdocs3 ? request.session.numdocs3: 0,
-                                        info: request.session.info ? request.session.info : '',
-                                        isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
-                                        user: request.session.user ? request.session.user : '',
-                                        ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-                                        nombre: request.session.nombre ? request.session.nombre : '',
-                                        registro: request.session. registro ? request.session. registro : '',
-                                        temp: request.session.temp ? request.session.temp : 0,
-                                    
+                    ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COPROPCOMPRADOR)
+                        .then(([rows2, fieldData]) => {
+                            //  console.log(rows2[0])
+                                            response.render(path.join('..','views','op_venta','expediente.ejs'), {
+                                                numdocs : rows[0],
+                                                numdocs2 : rows2[0],
+                                                numdocs3 : request.session.numdocs3 ? request.session.numdocs3: 0,
+                                                info: request.session.info ? request.session.info : '',
+                                                isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+                                                user: request.session.user ? request.session.user : '',
+                                                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                                                nombre: request.session.nombre ? request.session.nombre : '',
+                                                registro: request.session. registro ? request.session. registro : '',
+                                                temp: request.session.temp ? request.session.temp : 0,
+                                            
 
-                                    }); 
-                            
-                })
+                                            }); 
+                                    
+                        }).catch( error => { 
+                            console.log(error);
+                       });
                 }).catch( error => { 
                      console.log(error);
                 });
+            }).catch( error => { 
+                console.log(error);
+           });
     }
 
 };
