@@ -4,74 +4,7 @@ const ExpedienteRenta = require('../models/expedienteRenta');
 const Asesor = require('../models/asesor.model');
 const ExpedientePropiedad = require('../models/expedientePropiedad');
 const ExpedienteProp = require('../models/expedientePropiedad');
-/*
-exports.get_seg = (request, response, next) => {
-    
-    request.session.ubicacion = request.params.operacion;
-    let usuario = '';
-    if(request.session.roles.indexOf('Cliente') != -1){//Si Cliente
-        usuario = request.session.user;
-    }else if(request.session.roles.indexOf('Asesor') != -1){
-        usuario = request.params.cliente;
-    }
 
-    console.log('USUARIO '+usuario);
-
-    if (request.session.ubicacion === 'compra' || request.session.ubicacion === 'venta')
-    {
-        Proceso_CV.fetchProcesoCV(usuario,request.params.id_p)
-        .then(([rows, fieldData]) => {
-            //console.log(rows);
-            response.render(path.join('..','views','op_venta','segVenta.ejs'), {
-                seg_V: rows[0],
-                info: request.session.info ? request.session.info : '',,
-                isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
-                user: request.session.user ? request.session.user : '',
-                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-                nombre: request.session.nombre ? request.session.nombre : '',
-                registro: request.session. registro ? request.session. registro : '',
-                permisos: request.session.permisos ? request.session.permisos : '',
-                rol : request.session.roles ? request.session.roles : '',
-                cliente: usuario ? usuario : '',
-                propiedad: request.params.id_p ? request.params.id_p : '',
-                
-
-            }); 
-        })
-        .catch( error => { 
-            console.log(error)
-        });
-    }else if(request.session.ubicacion === 'alquilar' ||request.session.ubicacion === 'renta' )
-    {
-        Proceso_CV.fetchProcesoRA(usuario,request.params.id_p)
-        .then(([rows, fieldData]) => {
-            //console.log(rows);
-            response.render(path.join('..','views','op_venta','segVenta.ejs'), {
-                seg_V: rows[0],
-                info: info,
-                isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
-                user: request.session.user ? request.session.user : '',
-                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-                nombre: request.session.nombre ? request.session.nombre : '',
-                registro: request.session. registro ? request.session. registro : '',
-                permisos: request.session.permisos ? request.session.permisos : '',
-                rol : request.session.roles ? request.session.roles : '',
-                cliente: usuario ? usuario : '',
-                propiedad: request.params.id_p ? request.params.id_p : '',
-
-
-            }); 
-        })
-        .catch( error => { 
-            console.log(error)
-        });
-    }
-
-    
-
-};
-
-*/
 exports.update_seg = (request, response, next) => {
    
    // DAR FORMATO A FECHA RECUPERADA ACTUAL
@@ -210,7 +143,7 @@ exports.get_seg = (request, response, next) => {
     if (request.session.ubicacion === 'alquilar')
     {
 
-    Proceso_CV.fetchProcesoRA(request.session.user, request.params.id_p)
+    Proceso_CV.fetchProcesoRA(usuario, request.params.id_p)
       .then(([rows4, fieldData]) => {
         ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDATARIO)
             .then(([rows, fieldData]) => {
@@ -252,7 +185,7 @@ exports.get_seg = (request, response, next) => {
         request.session.numdocs3=0;
         console.log(request.session.ubicacion);
         console.log(request.session.idprop);
-        Proceso_CV.fetchProcesoRA(request.session.user, request.params.id_p)
+        Proceso_CV.fetchProcesoRA(usuario, request.params.id_p)
           .then(([rows4, fieldData]) => {
             ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDADOR)
                  .then(([rows, fieldData]) => {
@@ -287,7 +220,7 @@ exports.get_seg = (request, response, next) => {
     {
         console.log(request.session.ubicacion);
         console.log(request.session.idprop);
-     Proceso_CV.fetchProcesoCV(request.session.user, request.params.id_p)
+     Proceso_CV.fetchProcesoCV(usuario, request.params.id_p)
       .then(([rows4, fieldData]) => {
         ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_VENDEDOR)
             .then(([rows, fieldData]) => {
@@ -335,7 +268,7 @@ exports.get_seg = (request, response, next) => {
         request.session.numdocs3=0;
         console.log(request.session.ubicacion);
         console.log(request.session.idprop);
-        Proceso_CV.fetchProcesoCV(request.session.user, request.params.id_p)
+        Proceso_CV.fetchProcesoCV(usuario, request.params.id_p)
         .then(([rows4, fieldData]) => {
                 ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COMPRADOR)
                 .then(([rows, fieldData]) => {
