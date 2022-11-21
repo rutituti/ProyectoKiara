@@ -540,9 +540,10 @@ exports.get_vistasdocsProp = (request, response, next) => {
     request.session.idprop    = request.params.id_p;
     
     console.log(request.file.path);
-      console.log( request.session.user, request.session.docs, request.session.idexp, 'En revision', request.file.path );
-      const expediente = new ExpedienteRenta( request.session.user, request.session.docs, request.session.idexp, 'En revision',request.file.path );
+      console.log( request.session.user, request.session.docs, request.session.idexp, 'En revision', request.file.filename);
+      const expediente = new ExpedienteRenta( request.session.user, request.session.docs, request.session.idexp, 'En revision',request.file.filename);
     expediente.save(); 
+     
 
      response.redirect('/user/perfil'); 
 };
