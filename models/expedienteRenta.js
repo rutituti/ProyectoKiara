@@ -25,6 +25,10 @@ module.exports = class Expediente {
         return db.execute('CALL get_docs(?);',[ID_TiEC]);
     }
 
+    static fetchVerDocCliente(ID_TD,IDTE) {
+        return db.execute('CALL ver_documentos_expediente(?,?);',[ID_TD,IDTE]);
+    }
+
     save(){ 
         return db.execute(
             'INSERT INTO Expediente_Cliente(ID_Cliente, ID_TipoDoc, ID_TipoExp, Estado, URL) VALUES (?,?,?,?,?)',
