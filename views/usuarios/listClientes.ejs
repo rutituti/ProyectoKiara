@@ -13,7 +13,7 @@
                         <img class="card-img-top" src="/images/casaprincipal.jpg" alt="Card image cap">
                         <div class="card-body">
                           <h4 class="card-title"><%= usuario.nombre %></h4>
-                          <p class="card-text"><%= usuario.Nombres + usuario.Primer_apellido%> </p>
+                          <p class="card-text"><%= usuario.username%> </p>
                           <a href="#" class="btn btn-primary">Editar</a>
                           <a href="#" onclick="if(confirm('¿Desea eliminar un usuario?')) eliminar('<%= usuario.username %>')" class="btn btn-danger">BORRAR</a>
                         </div>
