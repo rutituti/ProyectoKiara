@@ -244,40 +244,53 @@ exports.get_seg = (request, response, next) => {
         console.log(request.session.idprop);
      Proceso_CV.fetchProcesoCV(usuario, request.params.id_p)
       .then(([rows4, fieldData]) => {
-        ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_VENDEDOR)
-            .then(([rows, fieldData]) => {
-                console.log(rows[0]);
-                ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COPROPVENDEDOR)
-                    .then(([rows2, fieldData]) => {
-                         
-                        ExpedientePropiedad.fetchDocsProp(ExpedientePropiedad.EXPEDIENTE_VENTA)
-                             .then(([rows3, fieldData]) => {
-                                //console.log(rows[3]);
-                            console.log(rows3[0]);
-                                    response.render(path.join('..','views','op_venta','segVenta.ejs'), {
-                                        numdocs : rows[0],
-                                        numdocs2 : rows2[0],
-                                        numdocs3 : rows3[0],
-                                        seg_V: rows4[0],
-                                        info: request.session.info ? request.session.info : '',
-                                        isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
-                                        user: request.session.user ? request.session.user : '',
-                                        ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-                                        nombre: request.session.nombre ? request.session.nombre : '',
-                                        registro: request.session. registro ? request.session. registro : '',
-                                        propiedad:   request.session.idprop  ? request.session.idprop : '',
-                                        permisos: request.session.permisos ? request.session.permisos : '',
-                                        rol : request.session.roles ? request.session.roles : '',
-                                        cliente: usuario ? usuario : '',
-                                    }); 
-                                }).catch( error => { 
-                                    console.log(error);
-                                });  
+        ExpedienteRenta.fetchDocsVendedor(usuario,ExpedienteRenta.EXPEDIENTE_VENDEDOR)
+          .then(([rows5, fieldData]) => {
+            ExpedienteRenta.fetchDocsVendedor(usuario,ExpedienteRenta.EXPEDIENTE_COPROPVENDEDOR)
+            .then(([rows6, fieldData]) => {
+                ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_VENDEDOR)
+                    .then(([rows, fieldData]) => {
+                        console.log('HolaS');
+                        console.log(rows[0]);
+                        ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COPROPVENDEDOR)
+                            .then(([rows2, fieldData]) => {
+                                
+                                ExpedientePropiedad.fetchDocsProp(ExpedientePropiedad.EXPEDIENTE_VENTA)
+                                    .then(([rows3, fieldData]) => {
+                                        //console.log(rows[3]);
+                                    console.log(rows3[0]);
+                                            response.render(path.join('..','views','op_venta','segVenta.ejs'), {
+                                                numdocs : rows[0],
+                                                numdocs2 : rows2[0],
+                                                numdocs3 : rows3[0],
+                                                seg_V: rows4[0],
+                                                desc_documentos_arre: rows5[0],
+                                                desc_documentos_arre2: rows6[0],
+                                                info: request.session.info ? request.session.info : '',
+                                                isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+                                                user: request.session.user ? request.session.user : '',
+                                                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                                                nombre: request.session.nombre ? request.session.nombre : '',
+                                                registro: request.session. registro ? request.session. registro : '',
+                                                propiedad:   request.session.idprop  ? request.session.idprop : '',
+                                                permisos: request.session.permisos ? request.session.permisos : '',
+                                                rol : request.session.roles ? request.session.roles : '',
+                                                cliente: usuario ? usuario : '',
+                                            }); 
+                                        }).catch( error => { 
+                                            console.log(error);
+                                        });  
+                        }).catch( error => { 
+                            console.log(error);
+                        }); 
+                    }).catch( error => { 
+                                console.log(error);
+                    }); 
                 }).catch( error => { 
                     console.log(error);
-                }); 
+                });  
             }).catch( error => { 
-                        console.log(error);
+                console.log(error);
             });   
         }).catch( error => { 
             console.log(error);
