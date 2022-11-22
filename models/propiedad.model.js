@@ -2,40 +2,40 @@ const db = require('../util/database');
 
 module.exports = class Propiedad{
     //constructor
-    constructor(ID,ID_tipoInmueble,Calle,Numero,Colonia,Codigo_postal,Municipio,Estado,ID_Pais,Longitud,Latitud,Operacion,Terreno,Privada_calle,Precio,Uso_suelo,Construccion,Descripcion,Imagen,Niveles,Habitaciones,Baños,Sala_comedor,Cocina,Estacionamiento,Gas,Servicio_agua,Servicio_luz,Servicio_Drenaje,Tipo_desnivel,Forma_terreno,Medidas_frente,Medidas_fondo){
-        this.ID=ID;
-        this.ID_tipoInmueble=ID_tipoInmueble;
-        this.Calle=Calle;
-        this.Numero=Numero;
-        this.Colonia=Colonia;
-        this.Codigo_postal=Codigo_postal;
-        this.Municipio=Municipio;
-        this.Estado=Estado;
-        this.ID_Pais=ID_Pais;
-        this.Longitud=Longitud;
-        this.Latitud=Latitud;
-        this.Operacion=Operacion;
-        this.Terreno=Terreno;
-        this.Privada_calle=Privada_calle;
-        this.Precio=Precio;
-        this.Uso_suelo=Uso_suelo;
-        this.Construccion=Construccion;
-        this.Descripcion=Descripcion;
-        this.Imagen=Imagen;
-        this.Niveles=Niveles;
-        this.Habitaciones=Habitaciones;
-        this.Baños=Baños;
-        this.Sala_comedor=Sala_comedor;
-        this.Cocina=Cocina;
-        this.Estacionamiento=Estacionamiento;
-        this.Gas=Gas;
-        this.Servicio_agua=Servicio_agua;
-        this.Servicio_luz=Servicio_luz;
-        this.Servicio_Drenaje=Servicio_Drenaje;
-        this.Tipo_desnivel=Tipo_desnivel;
-        this.Forma_terreno=Forma_terreno;
-        this.Medidas_fondo=Medidas_fondo
-        this.Medidas_frente=Medidas_frente;
+    constructor(atributos){
+        ID                              =   atributos.ID;
+        ID_tipoInmueble                 =   atributos.ID_tipoInmueble;
+        Calle                           =   atributos.Calle;
+        Numero                          =   atributos.Numero;
+        Colonia                         =   atributos.Colonia;
+        Codigo_postal                   =   atributos.Codigo_postal;
+        Municipio                       =   atributos.Municipio;
+        Estado                          =   atributos.Estado;
+        ID_Pais                         =   atributos.ID_Pais;
+        Longitud                        =   atributos.Longitud;
+        Latitud                         =   atributos.Latitud;
+        Operacion                       =   atributos.Operacion;
+        Terreno                         =   atributos.Terreno;
+        Privada_calle                   =   atributos.Privada_calle;
+        Precio                          =   atributos.Precio;
+        Uso_suelo                       =   atributos.Uso_suelo;
+        Construccion                    =   atributos.Construccion;
+        Descripcion                     =   atributos.Descripcion;
+        Imagen                          =   atributos.Imagen;
+        Niveles                         =   atributos.Niveles;
+        Habitaciones                    =   atributos.Habitaciones;
+        Baños                           =   atributos.Baños;
+        Sala_comedor                    =   atributos.Sala_comedor;
+        Cocina                          =   atributos.Cocina;
+        Estacionamiento                 =   atributos.Estacionamiento;
+        Gas                             =   atributos.Gas;
+        Servicio_agua                   =   atributos.Servicio_agua;
+        Servicio_luz                    =   atributos.Servicio_luz;
+        Servicio_Drenaje                =   atributos.Servicio_Drenaje;
+        Tipo_desnivel                   =   atributos.Tipo_desnivel;
+        Forma_terreno                   =   atributos.Forma_terreno;
+        Medidas_fondo                   =   atributos.Medidas_fondo
+        Medidas_frente                  =   atributos.Medidas_frente;
     }
     //Método para salvar propiedades
     save() {
