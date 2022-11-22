@@ -146,12 +146,14 @@ exports.get_seg = (request, response, next) => {
           .then(([rows5, fieldData]) => {
             ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_OBLIGADOSOLID)
               .then(([rows6, fieldData]) => {
+                
                         console.low(rows5[0]);
                         console.low(rows6[0]);
                         Proceso_CV.fetchProcesoRA(usuario, request.params.id_p)
                             .then(([rows4, fieldData]) => {
                                 ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDATARIO)
                                     .then(([rows, fieldData]) => {
+                                        console.log(rows[0]);
                                         ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_OBLIGADOSOLID)
                                             .then(([rows2, fieldData]) => {
                                                 ExpedientePropiedad.fetchDocsProp(ExpedientePropiedad.EXPEDIENTE_RENTA)
@@ -161,6 +163,8 @@ exports.get_seg = (request, response, next) => {
                                                             numdocs: rows[0],
                                                             numdocs2: rows2[0],
                                                             numdocs3: rows3[0],
+                                                            desc_documentos_arre: rows5[0],
+                                                            desc_documentos_arre2: rows6[0],
                                                             seg_V: rows4[0],
                                                             info: request.session.info ? request.session.info : '',
                                                             isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
@@ -200,11 +204,11 @@ exports.get_seg = (request, response, next) => {
           .then(([rows4, fieldData]) => {
             ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_ARRENDADOR)
             .then(([rows5, fieldData]) => {
-                   console.log(rows5[0]);
-                  
+                   
                     ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDADOR)
                         .then(([rows, fieldData]) => {
                             console.log(rows[0]);
+                            console.log(rows5[0]);
                                 response.render(path.join('..','views','op_venta','segVenta.ejs'), {
                                     numdocs : rows[0],
                                     seg_V: rows4[0],
@@ -242,7 +246,7 @@ exports.get_seg = (request, response, next) => {
       .then(([rows4, fieldData]) => {
         ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_VENDEDOR)
             .then(([rows, fieldData]) => {
-
+                console.log(rows[0]);
                 ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COPROPVENDEDOR)
                     .then(([rows2, fieldData]) => {
                          

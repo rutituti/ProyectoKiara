@@ -67,10 +67,13 @@
                                                 
                                                 </span>
                                                 <a href="/operacion/<%=ubicacion%>/seguimiento/<%=propiedad%>/expediente/<%= r.IDtipoExpCliente%>/<%= r.IDtipoDocCliente%>" class="btn btn-secondary btn-lg-4 " style="font-size: 10px;" role="button" aria-disabled="true">Subir archivo</a>
-                                                
-                                                   
                                                 <a  href="/uploads/<%=j.URL%>"  class="btn btn-secondary btn-lg-4 " style="font-size: 10px;" role="button" aria-disabled="true">descargar doc</a>
-                                                                  
+<!--                                                 <% if(r.IDtipoDocCliente == j.ID_TipoDoc) { %>   
+                                                <a  href="/uploads/<%=j.URL%>"  class="btn btn-secondary btn-lg-4 " style="font-size: 10px;" role="button" aria-disabled="true">descargar doc</a> -->
+                                       <!--          <a href="/uploads/<%=j.URL%>"aria-labelledby="profile-tab" tabindex="0"  type="button" class="btn btn-secondary btn-sm btn-lg-4">descargar doc</a> 
+                                                <% } else { %>
+                                                    <button aria-labelledby="profile-tab" tabindex="0"  type="button" class="btn btn-secondary btn-sm btn-lg-4" disabled>No ha subido doc</button>
+                                                    <% } %> --> 
                                                 <!--  
                                                 <a href="/operacion/<%=ubicacion%>/seguimiento/<%=propiedad%>/expediente/<%= r.IDtipoExpCliente%>/<%= r.IDtipoDocCliente%>" class="btn btn-secondary btn-lg " style="font-size: 10px;" role="button" aria-disabled="true">Subir archivo</a> -->
                                             </label>
@@ -107,7 +110,7 @@
                                                     
                                                     </span>
                                                     <a href="/operacion/<%=ubicacion%>/seguimiento/<%=propiedad%>/expediente/<%= r.IDtipoExpCliente%>/<%= r.IDtipoDocCliente%>" class="btn btn-secondary btn-lg " style="font-size: 10px;" role="button" aria-disabled="true">Subir archivo</a>
-                                                     
+                                                      <a  href="/uploads/<%=j.URL%>"  class="btn btn-secondary btn-lg-4 " style="font-size: 10px;" role="button" aria-disabled="true">descargar doc</a>
 
                                                 </label>
                                    
@@ -143,6 +146,7 @@
                                                         
                                                         </span>
                                                         <a href="/operacion/<%=ubicacion%>/seguimiento/<%=propiedad%>/expedienteprop/<%= r.IDtipoExpProp%>/<%= r.IDtipoDocProp%>" class="btn btn-secondary btn-lg " style="font-size: 10px;" role="button" aria-disabled="true">Subir archivo</a>
+                                                        <a  href="/uploads/<%=j.URL%>"  class="btn btn-secondary btn-lg-4 " style="font-size: 10px;" role="button" aria-disabled="true">descargar doc</a>
                                                     </label>
                                                     
                                                   
