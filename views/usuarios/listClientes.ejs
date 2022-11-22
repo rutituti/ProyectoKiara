@@ -4,19 +4,18 @@
 }) %>
 
 <h1>Listado de clientes</h1>
-<div id="Clientes">
-    <% if (clientes.length > 0) { %>
+<div id="Usuarios">
+    <% if (usuarios.length > 0) { %>
         <div class="row">
-            <% for (let c of clientes) { %>
+            <% for (let usuario of usuarios) { %>
                 <div class="col s12 m4 l3">
                     <div class="card" style="width: 21rem;">
                         <img class="card-img-top" src="/images/casaprincipal.jpg" alt="Card image cap">
                         <div class="card-body">
-                          <h4 class="card-title"><%= clientes.username %></h4>
-                          
-                          
-                          <p class="card-text">XXX + <%= clientes.username %></p>
-                          <a href="fffff" class="btn btn-primary">Seguimiento</a>
+                          <h4 class="card-title"><%= usuario.nombre %></h4>
+                          <p class="card-text"><%= usuario.Nombres + usuario.Primer_apellido%> </p>
+                          <a href="#" class="btn btn-primary">Editar</a>
+                          <a href="#" onclick="if(confirm('¿Desea eliminar un usuario?')) eliminar('<%= usuario.username %>')" class="btn btn-danger">BORRAR</a>
                         </div>
                     </div>
                 </div>
@@ -26,4 +25,5 @@
         <h3>No hay clientes registrados.</h3>
     <% } %>
 </div>
+<%- include('delete_ajax.ejs') %>
 
