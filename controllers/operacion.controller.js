@@ -315,6 +315,7 @@ exports.get_seg = (request, response, next) => {
                 ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COMPRADOR)
                 .then(([rows, fieldData]) => {
 
+
                                 ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COPROPCOMPRADOR)
                                     .then(([rows2, fieldData]) => {
                                         //  console.log(rows2[0])
