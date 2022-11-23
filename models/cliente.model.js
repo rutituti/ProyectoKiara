@@ -10,7 +10,7 @@ module.exports = class Cliente {
 }
 
   static fetchAll() {
-      return db.execute('SELECT * FROM Clientes');
+      return db.execute('SELECT * FROM Clientes, Usuario');
   }
   //Este método servirá para guardar de manera persitente el nuevo objeto
         //Inserta un nuevo elemento en la tabla
