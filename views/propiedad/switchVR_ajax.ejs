@@ -1,0 +1,19 @@
+<script>
+    const updateV_R = (ID) => {
+        fetch('inicio/propiedad/updateVR', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ID: ID
+            }),
+        }).then(result => {
+            return result.json();
+        }).then(data => {
+            console.log(data);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+</script>
