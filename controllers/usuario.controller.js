@@ -225,8 +225,8 @@ exports.get_listAsesor = (request, response, next) => {
     Asesor.fetchAll()
         .then(([rows, fieldData])=>{
             console.log(rows);
-            response.render(path.join('usuarios','listClientes.ejs'),{
-                clientes: rows,
+            response.render(path.join('usuarios','listAsesores.ejs'),{
+                usuarios: rows,
                 info: info,
                 isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
                 user: request.session.user ? request.session.user : '',
