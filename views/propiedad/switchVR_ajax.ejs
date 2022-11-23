@@ -1,12 +1,13 @@
 <script>
-    const updateV_R = (ID) => {
+    const updateV_R = (ID, Precio) => {
         fetch('inicio/propiedad/updateVR', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                ID: ID
+                ID: ID,
+                Precio: Precio
             }),
         }).then(result => {
             return result.json();
