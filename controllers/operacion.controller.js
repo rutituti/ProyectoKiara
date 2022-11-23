@@ -142,13 +142,12 @@ exports.get_seg = (request, response, next) => {
  
     if (request.session.ubicacion === 'alquilar')
     {  
-        ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_ARRENDATARIO)
+        ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_ARRENDATARIO, request.session.idprop )
           .then(([rows5, fieldData]) => {
-            ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_OBLIGADOSOLID)
+            ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_OBLIGADOSOLID, request.session.idprop)
               .then(([rows6, fieldData]) => {
                 
-                        console.low(rows5[0]);
-                        console.low(rows6[0]);
+                   
                         Proceso_CV.fetchProcesoRA(usuario, request.params.id_p)
                             .then(([rows4, fieldData]) => {
                                 ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDATARIO)
@@ -173,6 +172,9 @@ exports.get_seg = (request, response, next) => {
                                                             nombre: request.session.nombre ? request.session.nombre : '',
                                                             registro: request.session. registro ? request.session. registro : '',
                                                             propiedad:   request.session.idprop  ? request.session.idprop : '',
+                                                            permisos: request.session.permisos ? request.session.permisos : '',
+                                                            rol : request.session.roles ? request.session.roles : '',
+                                                            cliente: usuario ? usuario : '',
                                                         }); 
                                                 
                                                 }).catch(error => { 
@@ -202,12 +204,12 @@ exports.get_seg = (request, response, next) => {
         console.log(request.session.idprop);
         Proceso_CV.fetchProcesoRA(usuario, request.params.id_p)
           .then(([rows4, fieldData]) => {
-            ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_ARRENDADOR)
+            ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_ARRENDADOR, request.params.id_p )
             .then(([rows5, fieldData]) => {
                    
-                    ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDADOR)
+                    ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDADOR,request.params.id_p)
                         .then(([rows, fieldData]) => {
-                            console.log(rows[0]);
+                         
                             console.log(rows5[0]);
                                 response.render(path.join('..','views','op_venta','segVenta.ejs'), {
                                     numdocs : rows[0],
@@ -244,9 +246,9 @@ exports.get_seg = (request, response, next) => {
         console.log(request.session.idprop);
      Proceso_CV.fetchProcesoCV(usuario, request.params.id_p)
       .then(([rows4, fieldData]) => {
-        ExpedienteRenta.fetchDocsVendedor(usuario,ExpedienteRenta.EXPEDIENTE_VENDEDOR)
+        ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_VENDEDOR, request.params.id_p )
           .then(([rows5, fieldData]) => {
-            ExpedienteRenta.fetchDocsVendedor(usuario,ExpedienteRenta.EXPEDIENTE_COPROPVENDEDOR)
+            ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_COPROPVENDEDOR, request.params.id_p )
             .then(([rows6, fieldData]) => {
                 ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_VENDEDOR)
                     .then(([rows, fieldData]) => {
@@ -306,36 +308,49 @@ exports.get_seg = (request, response, next) => {
 
         Proceso_CV.fetchProcesoCV(usuario, request.params.id_p)
         .then(([rows4, fieldData]) => {
+            ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_COMPRADOR, request.params.id_p )
+            .then(([rows5, fieldData]) => {
+              ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_COPROPCOMPRADOR, request.params.id_p )
+              .then(([rows6, fieldData]) => {
                 ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COMPRADOR)
                 .then(([rows, fieldData]) => {
 
-                    ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COPROPCOMPRADOR)
-                        .then(([rows2, fieldData]) => {
-                            //  console.log(rows2[0])
-                                            response.render(path.join('..','views','op_venta','segVenta.ejs'), {
-                                                numdocs : rows[0],
-                                                numdocs2 : rows2[0],
-                                                numdocs3 : request.session.numdocs3 ? request.session.numdocs3: 0,
-                                                seg_V: rows4[0],
-                                                info: request.session.info ? request.session.info : '',
-                                                isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
-                                                user: request.session.user ? request.session.user : '',
-                                                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-                                                nombre: request.session.nombre ? request.session.nombre : '',
-                                                registro: request.session. registro ? request.session. registro : '',
-                                                temp: request.session.temp ? request.session.temp : 0,
-                                                propiedad: request.session.idpropiedad ? request.session.idpropiedad : '',
-                                                permisos: request.session.permisos ? request.session.permisos : '',
-                                                rol : request.session.roles ? request.session.roles : '',
-                                                cliente: usuario ? usuario : '',
-                                            }); 
-                                    
-                        }).catch( error => { 
-                            console.log(error);
-                       });
-                }).catch( error => { 
-                     console.log(error);
+
+                                ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COPROPCOMPRADOR)
+                                    .then(([rows2, fieldData]) => {
+                                        //  console.log(rows2[0])
+                                                        response.render(path.join('..','views','op_venta','segVenta.ejs'), {
+                                                            numdocs : rows[0],
+                                                            numdocs2 : rows2[0],
+                                                            seg_V: rows4[0],
+                                                            numdocs3 : request.session.numdocs3 ? request.session.numdocs3: 0,
+                                                            desc_documentos_arre: rows5[0],
+                                                            desc_documentos_arre2: rows6[0],
+                                                            info: request.session.info ? request.session.info : '',
+                                                            isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+                                                            user: request.session.user ? request.session.user : '',
+                                                            ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                                                            nombre: request.session.nombre ? request.session.nombre : '',
+                                                            registro: request.session. registro ? request.session. registro : '',
+                                                            temp: request.session.temp ? request.session.temp : 0,
+                                                            propiedad: request.session.idpropiedad ? request.session.idpropiedad : '',
+                                                            permisos: request.session.permisos ? request.session.permisos : '',
+                                                            rol : request.session.roles ? request.session.roles : '',
+                                                            cliente: usuario ? usuario : '',
+                                                        }); 
+                                                
+                                    }).catch( error => { 
+                                        console.log(error);
+                                });
+                            }).catch( error => { 
+                                console.log(error);
+                        });
+                    }).catch( error => { 
+                        console.log(error);
                 });
+                            }).catch( error => { 
+                                console.log(error);
+                            });
             }).catch( error => { 
                 console.log(error);
            });
@@ -428,7 +443,6 @@ exports.get_operacion = (request, response, next) => {
     }
   
 };
-
 
 exports.get_vistasdocs = (request, response, next) => {
     //   request.session.ubicacion = request.params.operacion;
@@ -559,7 +573,7 @@ exports.get_vistasdocsProp = (request, response, next) => {
     
     console.log(request.file.path);
       console.log( request.session.user, request.session.docs, request.session.idexp, 'En revision', request.file.filename);
-      const expediente = new ExpedienteRenta( request.session.user, request.session.docs, request.session.idexp, 'En revision',request.file.filename);
+      const expediente = new ExpedienteRenta( request.session.user, request.params.id_p, request.session.docs, request.session.idexp, 'En revision',request.file.filename);
     expediente.save(); 
      
 
