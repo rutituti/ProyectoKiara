@@ -3,11 +3,24 @@ const Propiedad = require('../models/propiedad.model');
 
 
 
-//Método de búsqueda de propiedad para ser implementado con Ajax
+//Método de búsqueda de propiedad para ser implementado con Ajax en ventas
 
-exports.get_buscar =  (request, response, next) => {
+exports.get_buscarV =  (request, response, next) => {
     
-    Propiedad.find(request.params.valor_busqueda)
+    Propiedad.findV(request.params.valor_busqueda)
+        .then( ([rows, fieldData]) => {
+            response.status(200).json(rows);
+        }).catch( (error) => {
+            console.log(error);
+        });
+
+};
+
+//Método de búsqueda de propiedad para ser implementado con Ajax en rentas
+
+exports.get_buscarR =  (request, response, next) => {
+    
+    Propiedad.findR(request.params.valor_busqueda)
         .then( ([rows, fieldData]) => {
             response.status(200).json(rows);
         }).catch( (error) => {
