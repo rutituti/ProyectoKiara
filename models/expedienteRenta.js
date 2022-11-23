@@ -12,12 +12,13 @@ module.exports = class Expediente {
     static EXPEDIENTE_ARRENDADOR      = 7;
 
 
-    constructor(ID_Cliente, ID_TipoDoc, ID_TipoExp, Estado, URL){
+    constructor(ID_Cliente,IDpropiedad, ID_TipoDoc, ID_TipoExp, Estado, URL){
         this.ID_Cliente = ID_Cliente;
         this.ID_TipoDoc = ID_TipoDoc;
         this.ID_TipoExp = ID_TipoExp;
         this.estado = Estado;
         this.url = URL;
+        this.IDpropiedad = IDpropiedad;
     }
 
     //Documentos necesarios por el Vendedor
@@ -25,14 +26,14 @@ module.exports = class Expediente {
         return db.execute('CALL get_docs(?);',[ID_TiEC]);
     }
 
-    static fetchVerDocCliente(ID_TD,IDTE) {
-        return db.execute('CALL ver_documentos_expediente(?,?);',[ID_TD,IDTE]);
+    static fetchVerDocCliente(ID_TD,IDTE,IDprop) {
+        return db.execute('CALL ver_documentos_expediente(?,?,?);',[ID_TD,IDTE,IDprop]);
     }
 
     save(){ 
         return db.execute(
-            'INSERT INTO Expediente_Cliente(ID_Cliente, ID_TipoDoc, ID_TipoExp, Estado, URL) VALUES (?,?,?,?,?)',
-            [this.ID_Cliente, this.ID_TipoDoc, this.ID_TipoExp, this.estado, this.url]);
+            'INSERT INTO Expediente_Cliente(ID_Cliente, Id_propiedad, ID_TipoDoc, ID_TipoExp, Estado, URL) VALUES (?,?,?,?,?,?)',
+            [this.ID_Cliente,  this.IDpropiedad, this.ID_TipoDoc, this.ID_TipoExp, this.estado, this.url]);
     }
 
 }

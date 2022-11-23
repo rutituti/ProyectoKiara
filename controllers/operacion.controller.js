@@ -142,9 +142,9 @@ exports.get_seg = (request, response, next) => {
  
     if (request.session.ubicacion === 'alquilar')
     {  
-        ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_ARRENDATARIO)
+        ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_ARRENDATARIO, request.session.idprop )
           .then(([rows5, fieldData]) => {
-            ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_OBLIGADOSOLID)
+            ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_OBLIGADOSOLID, request.session.idprop)
               .then(([rows6, fieldData]) => {
                 
                         console.low(rows5[0]);
@@ -202,12 +202,12 @@ exports.get_seg = (request, response, next) => {
         console.log(request.session.idprop);
         Proceso_CV.fetchProcesoRA(usuario, request.params.id_p)
           .then(([rows4, fieldData]) => {
-            ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_ARRENDADOR)
+            ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_ARRENDADOR, request.params.id_p )
             .then(([rows5, fieldData]) => {
                    
-                    ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDADOR)
+                    ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDADOR,request.params.id_p)
                         .then(([rows, fieldData]) => {
-                            console.log(rows[0]);
+                         
                             console.log(rows5[0]);
                                 response.render(path.join('..','views','op_venta','segVenta.ejs'), {
                                     numdocs : rows[0],
@@ -428,7 +428,6 @@ exports.get_operacion = (request, response, next) => {
   
 };
 
-
 exports.get_vistasdocs = (request, response, next) => {
     //   request.session.ubicacion = request.params.operacion;
        request.session.docs      = request.params.nombre_doc;
@@ -558,7 +557,7 @@ exports.get_vistasdocsProp = (request, response, next) => {
     
     console.log(request.file.path);
       console.log( request.session.user, request.session.docs, request.session.idexp, 'En revision', request.file.filename);
-      const expediente = new ExpedienteRenta( request.session.user, request.session.docs, request.session.idexp, 'En revision',request.file.filename);
+      const expediente = new ExpedienteRenta( request.session.user, request.params.id_p, request.session.docs, request.session.idexp, 'En revision',request.file.filename);
     expediente.save(); 
      
 

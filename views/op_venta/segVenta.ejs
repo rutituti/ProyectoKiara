@@ -1,7 +1,5 @@
 <%- include('../includes/head.ejs') %>
     <body>
-
- 
         <div class="container">
         
             <%- include('../includes/sidebar.ejs', {
@@ -9,19 +7,12 @@
                 permisos:permisos,
                 rol:rol,
             }) %>
-
-
-            
-
             <section class="home-section ">
                 <div class="w-100">
 
                     <%- include('tabs.ejs') %>
-
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-
-
                             <br>
                             <br>
                             <br>
@@ -37,19 +28,13 @@
     
                                 }) %>
 
-
-
                             <% } else { %>
                                 <h3>NO SE HA INICIADO PROCESO</h3>
                             <% } %>
 
-
-
                         </div>
-
                         
                         <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                        
 
                             <br>
                             <br>
@@ -73,71 +58,56 @@
                                             </label>
                                             <br>
                                             <br>
-
-                                        
                                            
                                         <% } %>
                                         <br>
                                         <br>
-                                    <% } else { %>
+                            <% } else { %>
                                     <!--  <h3>No hay casas registradas</h3> -->
-                                    <% } %>
-            
-                        
-                                          
-                                       
-                                    
-                                          
-                                   
+                            <% } %>
             
                                     </div>
                                 </div>
-                                <% if (numdocs2.length >  0 || numdocs2 > 0) { %>
-                                    <div class=" row fixed-center container-fluid col-12 col-m-6 col-lg-12 bg-white border p-3 text-center"> 
-                                           
+
+                        <% if (numdocs2.length >  0 || numdocs2 > 0) { %>
+                        <div class=" row fixed-center container-fluid col-12 col-m-6 col-lg-12 bg-white border p-3 text-center">    
                                           
-                                      <h5 class="fixed-center"> EXPEDIENTE:  <%=numdocs[0].tipoExpCliente%>  </h5>
-                                        <div class="row fixed-center">  
+                            <h5 class="fixed-center"> EXPEDIENTE:  <%=numdocs2[0].tipoExpCliente%>  </h5>
+                                 <div class="row fixed-center">  
                                          
-                                            <% for (let r of numdocs2) { %>
+                                    <% for (let r of numdocs2) { %>
                                               
-                                                <label class=" fixed-center input-group-btn">
-                                                    <span class="text-center   border p-1  container-fluid  col-6 col-m-6 col-lg-8 btn btn-light btn-file" id="doc">
+                                        <label class=" fixed-center input-group-btn">
+                                            <span class="text-center   border p-1  container-fluid  col-6 col-m-6 col-lg-8 btn btn-light btn-file" id="doc">
                                                         Agregue <strong><%= r.Nombre%></strong> dando click en el boton
                                                     
-                                                    </span>
-                                                    <a href="/operacion/<%=ubicacion%>/seguimiento/<%=propiedad%>/expediente/<%= r.IDtipoExpCliente%>/<%= r.IDtipoDocCliente%>" class="btn btn-secondary btn-lg-4 " style="font-size: 10px;" role="button" aria-disabled="true">Subir archivo</a>
+                                            </span>
+                                            <a href="/operacion/<%=ubicacion%>/seguimiento/<%=propiedad%>/expediente/<%= r.IDtipoExpCliente%>/<%= r.IDtipoDocCliente%>" class="btn btn-secondary btn-lg-4 " style="font-size: 10px;" role="button" aria-disabled="true">Subir archivo</a>
                                                   
-                                                </label>
-                                                <br>
-                                                <br>
-    
-                                            
+                                         </label>
+
+                                        <br>
+                                        <br>
                                                
-                                            <% } %>
-                                            <br>
-                                            <br>
-                                        <% } else { %>
+                                     <% } %>
+
+                                     <br>
+                                    <br>
+
+                                </div>
+                        <% } else { %>
                                         <!--  <h3>No hay casas registradas</h3> -->
-                                        <% } %>
+                        <% } %>
                 
-                            
-                                              
-                                           
-                                        
-                                              
-                                       
                 
-                                        </div>
-                                    </div>
+                        </div>
             
-                                    <% if (numdocs3.length>  0 || numdocs3 > 0) { %>
-                                        <div class=" row fixed-center container-fluid col-12 col-m-6 col-lg-12 bg-white border p-3 text-center"> 
-                                               
-                                              
-                                          <h5 class="fixed-center"> EXPEDIENTE PROPIEDAD:  <%=numdocs3[0].tipoExpPropiedad%>  </h5>
-                                            <div class="row fixed-center">    
-                                                <% for (let r of numdocs3) { %>
+                        <% if (numdocs3.length>  0 || numdocs3 > 0) { %>
+                            <div class=" row fixed-center container-fluid col-12 col-m-6 col-lg-12 bg-white border p-3 text-center"> 
+                                 
+                                <h5 class="fixed-center"> EXPEDIENTE PROPIEDAD:  <%=numdocs3[0].tipoExpPropiedad%>  </h5>
+                                    <div class="row fixed-center">    
+                                        <% for (let r of numdocs3) { %>
                                                   
                                                     <label class=" fixed-center input-group-btn">
                                                         <span class="text-center   border p-1  container-fluid  col-6 col-m-6 col-lg-8 btn btn-light btn-file" id="doc">
@@ -153,46 +123,63 @@
                                                 <% } %>
                                                 <br>
                                                 <br>
-                                        <% } else { %>
+                                                
+                                     </div>
+                            </div>
+                            <% } else { %>
                                         <!--  <h3>No hay casas registradas</h3> -->
-                                        <% } %>
-                               
-                    
-                                
-                                                  
-                                               
-                                            
-                                                  
-                                           
-                    
-                                            </div>
-                                        </div>
+                            <% } %>
+                       
+                        </div>
 
 
+
+
+                        <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+                                       
+                        <% if (numdocs.length>  0 || numdocs > 0) { %>
+                            <div class=" row fixed-center container-fluid col-12 col-m-6 col-lg-12 bg-white border p-3 text-center"> 
+                                 
+                                <h5 class="fixed-center"> EXPEDIENTE PROPIEDAD:  <%=numdocs[0].tipoExpPropiedad%>  </h5>
+                                    <div class="row fixed-center">    
+                                        <% for (let r of desc_documentos_arre) { %>
+                                                  
+                                                    <label class=" fixed-center input-group-btn">
+                                                        <span class="text-center   border p-1  container-fluid  col-6 col-m-6 col-lg-8 btn btn-light btn-file" id="doc">
+                                                            Agregue <strong><%= r.Nombre%></strong> dando click en el boton
+                                                        
+                                                        </span>
+                                                        <a href="/uploads/<%= r.URL%>" class="btn btn-secondary btn-lg " style="font-size: 10px;" role="button" aria-disabled="true">Subir archivo</a>
+                                                    </label> 
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                  
+                                                <% } %>
+                                                <br>
+                                                <br>
+                                                
+                                     </div>
+                            </div>
+                            <% } else { %>
+                                        <!--  <h3>No hay casas registradas</h3> -->
+                            <% } %>
 
                         </div>
 
-                        
-                            <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
 
-
-                            <br>
-                            <br>
-                            <br>
-
-                        
-                                <h3>Consultar Documentos</h3>
-                           
-
-
-                        </div>
-
-                        <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div>
                         <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
                     </div>
+
                 </div>
+
+
             </section>
         
+            <br>
+            <br>
+            <br>
+
 
         <script src="/js/bootstrap.bundle.min.js"> </script>
         <script src="/js/sidenav.js"></script>
