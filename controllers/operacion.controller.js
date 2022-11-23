@@ -316,6 +316,7 @@ exports.get_seg = (request, response, next) => {
                                                 numdocs : rows[0],
                                                 numdocs2 : rows2[0],
                                                 numdocs3 : request.session.numdocs3 ? request.session.numdocs3: 0,
+                                                seg_V: rows4[0],
                                                 info: request.session.info ? request.session.info : '',
                                                 isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                                                 user: request.session.user ? request.session.user : '',
