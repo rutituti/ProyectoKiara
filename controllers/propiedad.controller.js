@@ -30,12 +30,30 @@ exports.new_propiety = (request, response, next) => {
 exports.get_newProperty = (request, response, next) => {
     let registro = '';
     let info = request.session.info ? request.session.info : '';
+    request.session.ubicacion = request.params.operacion;
     request.session.info = '';
     response.render(path.join('propiedad','propiedad.ejs'),{
         info: info,
         isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn: false,
         user: request.session.user ? request.session.user: '',
         permisos: request.session.permisos ? request.session.permisos : '',
+        ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+        nombre: request.session.nombre ? request.session.nombre : '',
+        registro: registro,
+        rol : request.session.roles ? request.session.roles : '',
+    });
+}
+exports.vista_casa = (request, response, next) => {
+    let registro = '';
+    let info = request.session.info ? request.session.info : '';
+    request.session.ubicacion = request.params.operacion;
+    request.session.info = '';
+    response.render(path.join('propiedad','vistaCasa.ejs'),{
+        info: info,
+        isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn: false,
+        user: request.session.user ? request.session.user: '',
+        permisos: request.session.permisos ? request.session.permisos : '',
+        ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
         nombre: request.session.nombre ? request.session.nombre : '',
         registro: registro,
         rol : request.session.roles ? request.session.roles : '',
@@ -43,49 +61,47 @@ exports.get_newProperty = (request, response, next) => {
 }
 
 exports.post_newProperty = (request, response, next) => {
-    let atributos = 
-        (atributos.request.body.ID = request.body.ID ? request.body.ID : '',
-        atributos.request.body.ID_tipoInmueble = request.body.ID_tipoInmueble ? request.body.ID_tipoInmueble : '',
-        atributos.request.body.Calle = request.body.Calle ? request.body.Calle : " ",
-        atributos.request.body.Numero = request.body.Numero ? request.body.Numero : '',
-        atributos.request.body.Colonia = request.body.Colonia ? request.body.Colonia : " ",
-        atributos.request.body.Codigo_postal = request.body.Codigo_postal ? request.body.Codigo_postal : '',
-        atributos.request.body.Municipio = request.body.Municipio ? request.body.Municipio : " ",
-        atributos.request.body.Estado = request.body.Estado ? request.body.Estado : " ",
-        atributos.request.body.ID_Pais = request.body.ID_Pais ? request.body.ID_Pais : '',
-        atributos.request.body.Longitud = request.body.Longitud ? request.body.Longitud : '',
-        atributos.request.body.Latitud = request.body.Latitud ? request.body.Latitud : '',
-        atributos.request.body.Operacion = request.body.Operacion ? request.body.Operacion : " ",
-        atributos.request.body.Terreno = request.body.Terreno ? request.body.Terreno : " ",
-        atributos.request.body.Privada_calle = request.body.Privada_calle ? request.body.Privada_calle : " ",
-        atributos.request.body.Precio = request.body.Precio ? request.body.Precio : '',
-        atributos.request.body.Uso_suelo = request.body.Uso_suelo ? request.body.Uso_suelo : " ",
-        atributos.request.body.Construccion = request.body.Construccion ? request.body.Construccion : '',
-        atributos.request.body.Descripcion = request.body.Descripcion ? request.body.Descripcion : " ",
-        atributos.request.body.Imagen = request.body.Imagen ? request.body.Imagen : " ",
-        atributos.request.body.Niveles = request.body.Niveles ? request.body.Niveles : '',
-        atributos.request.body.Habitaciones = request.body.Habitaciones ? request.body.Habitaciones : ' ',
-        atributos.request.body.Banios = request.body.Banios ? request.body.Banios : '',
-        atributos.request.body.Sala_comedor = request.body.Sala_comedor ? request.body.Sala_comedor : '',
-        atributos.request.body.Cocina = request.body.Cocina ? request.body.Cocina : '',
-        atributos.request.body.Estacionamiento = request.body.Estacionamiento ? request.body.Estacionamiento : '',
-        atributos.request.body.Gas = request.body.Gas ? request.body.Gas : " ",
-        atributos.request.body.Servicio_agua = request.body.Servicio_agua ? request.body.Servicio_agua : '',
-        atributos.request.body.Servicio_luz = request.body.Servicio_luz ? request.body.Servicio_luz : '',
-        atributos.request.body.Servicio_Drenaje = request.body.Servicio_Drenaje ? request.body.Servicio_Drenaje : '',
-        atributos.request.body.Tipo_desnivel = request.body.Tipo_desnivel ? request.body.Tipo_desnivel : '',
-        atributos.request.body.Forma_terreno = request.body.Forma_terreno ? request.body.Forma_terreno : "",
-        atributos.request.body.Medidas_frente = request.body.Medidas_frente ? request.body.Medidas_frente : '',
-        atributos.request.body.Medidas_fondo = request.body.Medidas_fondo ? request.body.Medidas_fondo : '')
+    let atributos = new Object();
+    atributos.ID_tipoInmueble= request.body.ID_tipoInmueble ? request.body.ID_tipoInmueble : ' ';
+    atributos.Calle           = request.body.Calle ? request.body.Calle : " ";
+    atributos.Numero         = request.body.Numero ? request.body.Numero : ' ';
+    atributos.Colonia        = request.body.Colonia ? request.body.Colonia : " ";
+    atributos.Codigo_postal  = request.body.Codigo_postal ? request.body.Codigo_postal : ' ';
+    atributos.Municipio      = request.body.Municipio ? request.body.Municipio : " ";
+    atributos.Estado         = request.body.Estado ? request.body.Estado : " ";
+    atributos.ID_Pais        = request.body.ID_Pais ? request.body.ID_Pais : null;
+    atributos.Longitud       = request.body.Longitud ? request.body.Longitud : 0;
+    atributos.Latitud        = request.body.Latitud ? request.body.Latitud : 0;
+    atributos.Operacion      = request.body.Operacion ? request.body.Operacion : " ";
+    atributos.Terreno        = request.body.Terreno ? request.body.Terreno : ' ';
+    atributos.Privada_calle  = request.body.Privada_calle ? request.body.Privada_calle : " ";
+    atributos.Precio         = request.body.Precio ? request.body.Precio : ' ';
+    atributos.Uso_suelo      = request.body.Uso_suelo ? request.body.Uso_suelo : " ";
+    atributos.Construccion   = request.body.Construccion ? request.body.Construccion : ' ';
+    atributos.Descripcion    = request.body.Descripcion ? request.body.Descripcion : " ";
+    atributos.Imagen         = request.body.Imagen ? request.body.Imagen : "Hola";
+    atributos.Niveles        = request.body.Niveles ? request.body.Niveles : ' ';
+    atributos.Habitaciones   = request.body.Habitaciones ? request.body.Habitaciones : ' ';
+    atributos.banios         = request.body.banios ? request.body.banios : ' ';
+    atributos.Sala_comedor   = request.body.Sala_comedor ? request.body.Sala_comedor : ' ';
+    atributos.Cocina         = request.body.Cocina ? request.body.Cocina : ' ';
+    atributos.Estacionamiento = request.body.Estacionamiento ? request.body.Estacionamiento : ' ';
+    atributos.Gas            = request.body.Gas ? request.body.Gas : " ";
+    atributos.Servicio_agua  = request.body.Servicio_agua ? request.body.Servicio_agua : ' ';
+    atributos.Servicio_luz   = request.body.Servicio_luz ? request.body.Servicio_luz : ' ';
+    atributos.Servicio_Drenaje = request.body.Servicio_Drenaje ? request.body.Servicio_Drenaje : ' ';
+    atributos.Tipo_desnivel  = request.body.Tipo_desnivel ? request.body.Tipo_desnivel : " ";
+    atributos.Forma_terreno  = request.body.Forma_terreno ? request.body.Forma_terreno : " ";
+    atributos.Medidas_frente = request.body.Medidas_frente ? request.body.Medidas_frente : ' ';
+    atributos.Medidas_fondo  = request.body.Medidas_fondo ? request.body.Medidas_fondo : ' ';
 
-    const propiedad = new
-        Propiedad(atributos);
+    const propiedad = new Propiedad(atributos);
     propiedad.save()
         .then(() => {
             console.log(atributos);
             response.redirect('/inicio');
         })
-        .catch(error => console.log(error));
+        .catch(console.log(request.body));
 }
 exports.post_deletePropiedad = (request, response, next) => {
     Propiedad.delete_propiedad(request.body.ID)

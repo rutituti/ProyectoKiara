@@ -66,13 +66,13 @@ app.use('/user', rutaUsuarios);
 const rutaPropiedades = require('./routes/propiedades.routes');
 app.use('/propiedades', rutaPropiedades);
 
-const csrfProtection = csrf();
-app.use(csrfProtection); 
+//const csrfProtection = csrf();
+//app.use(csrfProtection); 
 
-app.use((request, response, next) => {
+/*app.use((request, response, next) => {
     response.locals.csrfToken = request.csrfToken();
     next();
-});
+});*/
 
 // Agregar las cookies
 

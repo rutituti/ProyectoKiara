@@ -3,76 +3,76 @@ const db = require('../util/database');
 module.exports = class Propiedad{
     //constructor
     constructor(atributos){
-        ID                              =   atributos.ID;
-        ID_tipoInmueble                 =   atributos.ID_tipoInmueble;
-        Calle                           =   atributos.Calle;
-        Numero                          =   atributos.Numero;
-        Colonia                         =   atributos.Colonia;
-        Codigo_postal                   =   atributos.Codigo_postal;
-        Municipio                       =   atributos.Municipio;
-        Estado                          =   atributos.Estado;
-        ID_Pais                         =   atributos.ID_Pais;
-        Longitud                        =   atributos.Longitud;
-        Latitud                         =   atributos.Latitud;
-        Operacion                       =   atributos.Operacion;
-        Terreno                         =   atributos.Terreno;
-        Privada_calle                   =   atributos.Privada_calle;
-        Precio                          =   atributos.Precio;
-        Uso_suelo                       =   atributos.Uso_suelo;
-        Construccion                    =   atributos.Construccion;
-        Descripcion                     =   atributos.Descripcion;
-        Imagen                          =   atributos.Imagen;
-        Niveles                         =   atributos.Niveles;
-        Habitaciones                    =   atributos.Habitaciones;
-        Baños                           =   atributos.Baños;
-        Sala_comedor                    =   atributos.Sala_comedor;
-        Cocina                          =   atributos.Cocina;
-        Estacionamiento                 =   atributos.Estacionamiento;
-        Gas                             =   atributos.Gas;
-        Servicio_agua                   =   atributos.Servicio_agua;
-        Servicio_luz                    =   atributos.Servicio_luz;
-        Servicio_Drenaje                =   atributos.Servicio_Drenaje;
-        Tipo_desnivel                   =   atributos.Tipo_desnivel;
-        Forma_terreno                   =   atributos.Forma_terreno;
-        Medidas_fondo                   =   atributos.Medidas_fondo
-        Medidas_frente                  =   atributos.Medidas_frente;
+        this.ID_tipoInmueble                 =   atributos.ID_tipoInmueble,
+        this.Calle                           =   atributos.Calle,
+        this.Numero                          =   atributos.Numero,
+        this.Colonia                         =   atributos.Colonia;
+        this.Codigo_postal                   =   atributos.Codigo_postal;
+        this.Municipio                       =   atributos.Municipio;
+        this.Estado                          =   atributos.Estado;
+        this.ID_Pais                         =   atributos.ID_Pais,
+        this.Longitud                        =   atributos.Longitud,
+        this.Latitud                         =   atributos.Latitud,
+        this.Operacion                       =   atributos.Operacion;
+        this.Terreno                         =   atributos.Terreno;
+        this.Privada_calle                   =   atributos.Privada_calle;
+        this.Precio                          =   atributos.Precio;
+        this.Uso_suelo                       =   atributos.Uso_suelo;
+        this.Construccion                    =   atributos.Construccion;
+        this.Descripcion                     =   atributos.Descripcion;
+        this.Imagen                          =   atributos.Imagen,
+        this.Niveles                         =   atributos.Niveles;
+        this.Habitaciones                    =   atributos.Habitaciones;
+        this.banios                          =   atributos.banios;
+        this.Sala_comedor                    =   atributos.Sala_comedor;
+        this.Cocina                          =   atributos.Cocina;
+        this.Estacionamiento                 =   atributos.Estacionamiento;
+        this.Gas                             =   atributos.Gas;
+        this.Servicio_agua                   =   atributos.Servicio_agua;
+        this.Servicio_luz                    =   atributos.Servicio_luz;
+        this.Servicio_Drenaje                =   atributos.Servicio_Drenaje;
+        this.Tipo_desnivel                   =   atributos.Tipo_desnivel;
+        this.Forma_terreno                   =   atributos.Forma_terreno;
+        this.Medidas_fondo                   =   atributos.Medidas_fondo
+        this.Medidas_frente                  =   atributos.Medidas_frente;
     }
     //Método para salvar propiedades
     save() {
         return db.execute(
-            'INSERT INTO Propiedades (ID, ID_tipoInmueble, Calle, Numero, Colonia, Codigo_postal, Municipio, Estado, ID_Pais, Longitud, Latitud, Operacion, Terreno, Privada_calle, Precio, Uso_suelo, Construccion, Descripcion, Imagen, Niveles, Habitaciones, Baños, Sala_comedor, Cocina, Estacionamiento, Gas, Servicio_agua, Servicio_luz, Servicio_Drenaje, Tipo_desnivel, Forma_terreno, Medidas_frente, Medidas_fondo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, )', 
-            [this.ID, this.ID_tipoInmueble,
-                this.Calle,
-                this.Numero,
-                this.Colonia,
-                this.Codigo_postal,
-                this.Municipi,
-                this.Estado,
-                this.ID_Pais,
-                this.Longitud,
-                this.Latitud,
-                this.Operacion,
-                this.Terreno,
-                this.Privada_calle,
-                this.Precio,
-                this.Uso_suelo,
-                this.Construccion,
-                this.Descripcion,
-                this.Imagen,
-                this.Niveles,
-                this.Habitaciones,
-                this.Baños,
-                this.Sala_comedor,
-                this.Cocina,
-                this.Estacionamiento,
-                this.Gas,
-                this.Servicio_agua,
-                this.Servicio_luz,
-                this.Servicio_Drenaje,
-                this.Tipo_desnivel,
-                this.Forma_terreno,
-                this.Medidas_fondo,
-                this.Medidas_frente]);  
+            'INSERT INTO Propiedades (ID_tipoInmueble, Calle, Numero, Colonia, Codigo_postal, Municipio, Estado, ID_Pais, Longitud, Latitud, Operacion, Terreno, Privada_calle, Precio, Uso_suelo, Construccion, Descripcion, Imagen, Niveles, Habitaciones, Baños, Sala_comedor, Cocina, Estacionamiento, Gas, Servicio_agua, Servicio_luz, Servicio_Drenaje, Tipo_desnivel, Forma_terreno, Medidas_frente, Medidas_fondo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+            [
+                this.ID_tipoInmueble, //
+                this.Calle, //
+                this.Numero, //
+                this.Colonia, //
+                this.Codigo_postal, //
+                this.Municipio, //
+                this.Estado, //
+                this.ID_Pais, //
+                this.Longitud, //
+                this.Latitud, //
+                this.Operacion, //
+                this.Terreno, //
+                this.Privada_calle, //
+                this.Precio, //
+                this.Uso_suelo, //
+                this.Construccion, //
+                this.Descripcion, //
+                this.Imagen, //
+                this.Niveles, //
+                this.Habitaciones, //
+                this.banios, //
+                this.Sala_comedor, //
+                this.Cocina, //
+                this.Estacionamiento, //
+                this.Gas, //
+                this.Servicio_agua, //
+                this.Servicio_luz, //
+                this.Servicio_Drenaje, //
+                this.Tipo_desnivel, //
+                this.Forma_terreno, //
+                this.Medidas_fondo,  //
+                this.Medidas_frente]); // 
     }
     //Instruccion SQL para recuperar todas las propiedades
     static fetchAll() {
