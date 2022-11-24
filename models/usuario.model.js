@@ -22,9 +22,9 @@ module.exports = class Usuario {
             'UPDATE Usuario SET Nombres = ?, Primer_Apellido = ? WHERE id = ?', 
             [nombre, primer_apellido, username]);
             
-    }
+  }
  
-      save(){
+  save(){
         return bcrypt.hash(this.password,12)
           .then((password_cifrado) => {
           return db.execute(
