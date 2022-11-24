@@ -1,6 +1,7 @@
 //Linea de comando para la base de datos
 const db = require('../util/database');
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
+const User_Rol = require('./user_rol.model');
 module.exports = class Usuario {
 
   constructor(username,password, nombres, primer_apellido, segundo_apellido, telefono, email){  
@@ -15,6 +16,11 @@ module.exports = class Usuario {
 
   static fetchAll() {
       return db.execute('SELECT * FROM Usuario');
+  }
+
+  static fetchOne(username){
+    return db.execute('SELECT * FROM Usuario WHERE username = ?', [username]);
+
   }
 
   static edit(username, nombre, primer_apellido) {

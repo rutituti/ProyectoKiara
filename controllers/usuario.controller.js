@@ -131,11 +131,7 @@ exports.post_new_cliente = (request,response,next) => {
     .catch((error) => {
         console.log(error);
         
-    });
-
-    
-   
-    
+    });    
 }
 
 //Controlador para lista de asesores
