@@ -23,10 +23,10 @@ module.exports = class Usuario {
 
   }
 
-  static edit(username, nombre, primer_apellido) {
+  static edit(username, nombre, primer_apellido, segundo_apellido, telefono, email, password) {
         return db.execute(
             'UPDATE Usuario SET Nombres = ?, Primer_Apellido = ?, Segundo_Apellido = ?, Telefono = ?, Email = ?, password = ? WHERE id = ?', 
-            [nombre, primer_apellido, username]);
+            [nombre, primer_apellido, , segundo_apellido, telefono, email, password, username]);
             
   }
  
