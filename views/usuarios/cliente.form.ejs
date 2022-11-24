@@ -1,6 +1,13 @@
 
 <div>
 <form action="/user/new/cliente" method="POST">
+<% if (usuario === '') { %>
+    <form action="/user/new/cliente" method="POST"></form>
+<% } else { %>
+    <form action="/user/edit" method="POST"></form>
+    <input type="hidden" username="username" name="username" value="<%= usuario.username%>">
+<% } %>
+
     <br>
     <br>
 <div class="container">
@@ -20,7 +27,7 @@
             <div class="row g-3">
             <div class="col-sm-4">
                 <label for="Nombres" class="form-label">Nombres</label>
-                <input type="text" class="form-control" id="nombre" name="Nombres" placeholder="" value="" required>
+                <input type="text" class="form-control" id="nombre" name="Nombres" placeholder="" value="<%= usuario.Nombres ? usuario.Nombres : ''%>" required>
                 <div class="invalid-feedback">
                 Se requiere nombre 
                 </div>
@@ -28,7 +35,7 @@
 
             <div class="col-sm-4">
                 <label for="primerApellido" class="form-label">Primer Apellido</label>
-                <input type="text" class="form-control" id="nombre" name="primerApellido" placeholder="" value="" required>
+                <input type="text" class="form-control" id="nombre" name="primerApellido" placeholder="" value="<%= usuario.Primer_apellido ? usuario.Primer_apellido : ''%>" required>
                 <div class="invalid-feedback">
                 Se requiere Apellido
                 </div>
@@ -36,7 +43,7 @@
 
             <div class="col-sm-4">
                 <label for="segundoApellido" class="form-label">Segundo Apellido</label>
-                <input type="text" class="form-control" id="nombre" name="segundoApellido" placeholder="" value="" required>
+                <input type="text" class="form-control" id="nombre" name="segundoApellido" placeholder="" value="<%= usuario.Segundo_apellido ? usuario.Segundo_apellido : ''%>" required>
                 <div class="invalid-feedback">
                 Se requiere Apellido
                 </div>
@@ -44,7 +51,7 @@
 
             <div class="col-12">
                 <label for="email" class="form-label">Correo</label>
-                <input type="email" class="form-control" id="nombre" name="email" placeholder="you@example.com">
+                <input type="email" class="form-control" id="nombre" name="email" placeholder="you@example.com" value="<%= usuario.email ? usuario.email : ''%>">
                 <div class="invalid-feedback">
                 Por favor ingresa un correo válido.
                 </div>
@@ -60,7 +67,7 @@
 
             <div class="col-6">
                 <label for="contra" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="nombre" name="contra" required>
+                <input type="password" class="form-control" id="nombre" name="contra" value="<%= usuario.password ? usuario.password : ''%>"required>
                 <div class="invalid-feedback">
                     Contraseña requerido
                 </div>
@@ -68,7 +75,7 @@
 
             <div class="col-12">
                 <label for="telefono" class="form-label">Telefono</label>
-                <input type="text" class="form-control" id="nombre" name="telefono" placeholder="(44232456798)" required>
+                <input type="text" class="form-control" id="nombre" name="telefono" placeholder="(44232456798)" value="<%= usuario.Telefono ? usuario.Telefono : ''%>"required>
                 <div class="invalid-feedback">
                 Por favor ingresa un telefono
                 </div>
