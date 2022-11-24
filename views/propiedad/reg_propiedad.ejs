@@ -1,37 +1,272 @@
-<style>
-*{
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    height: 100%;
-}
-
-body {
-	background-color: #000000;
-}
-/*Card containing 2 cards*/
-.card0 {
-	margin: 40px 12px 15px 12px;
-	border: 0;
-}
-
-/*Left Side card*/
-.card1 {
-	margin: 0;
-	padding: 15px;
-	padding-top: 25px;
-	padding-bottom: 0px;
-	background: #263238;
-	height: 100%;
-}
-</style>
-<div class="container-fluis">
-    <div class="row justify-content-center">
-		<div class="col-12 col-lg-11">
-			<div class="card card0 rounded-0">
-            </div>
-        </div>
-    </div>
-</div>
+<br>
+<br>
+<br>
+<section class="vh-100" style="background-color: #eee;">
+	<div class="container h-100">
+	  <div class="row d-flex justify-content-center align-items-center h-100">
+		<div class="col-lg-12 col-xl-11">
+		  <div class="card text-black" style="border-radius: 25px;">
+			<div class="card-body p-md-5">
+			  <div class="row justify-content-center">
+				<div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+  
+				  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Registro de casa</p>
+  
+				  <form class="mx-1 mx-md-4" action="/inicio/registrarpropiedad " method="POST">
+					<div class="container">
+					<div class="row g-3">
+						<div class="col-sm-6 col-md-10 col-lg-10 col-xl-10">
+							<label for="Calle" class="form-label"><strong>Calle*</strong></label>
+							<input type="text" class="form-control" id="nombre" name="Calle" placeholder="" value="" required>
+							<div class="invalid-feedback">
+							Se requiere nombre 
+							</div>
+						</div>
+					</div>
+					
+					<div class="row g-3">
+						<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+							<label for="Colonia" class="form-label"><strong>Colonia*</strong></label>
+							<input type="text" class="form-control" id="nombre" name="Colonia" placeholder="" value="" required>
+							<div class="invalid-feedback">
+							Se requiere colonia 
+							</div>
+						</div>
+						<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+							<label for="Numero" class="form-label"><strong>No.</strong></label>
+							<input type="text" class="form-control" id="nombre" name="Numero" placeholder="" value="" required>
+						</div>
+						<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+							<label for="Codigo_postal" class="form-label"><strong>CP.*</strong></label>
+							<input type="text" class="form-control" id="nombre" name="Codigo_postal" placeholder="" value="" required>
+							<div class="invalid-feedback">
+							Se requiere colonia 
+							</div>
+						</div> 	
+					</div>
+					<div class="row g-3">
+						<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+							<label for="Municipio" class="form-label"><strong>Municipio*</strong></label>
+							<input type="text" class="form-control" id="nombre" name="Municipio" placeholder="" value="" required>
+							<div class="invalid-feedback">
+							Se requiere Municipio  
+							</div>
+						</div>
+						<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+							<label for="Estado" class="form-label"><strong>Estado*</strong></label>
+							<input type="text" class="form-control" id="nombre" name="Estado" placeholder="" value="" required>
+							<div class="invalid-feedback">
+							Se requiere Estado
+							</div>
+						</div> 	
+					</div>
+					<br>
+					<div class="row g-3">
+							<div class="input-group" for="ID_tipoInmueble">
+								<select class="form-select" id="nombre" aria-label="Example select with button addon" name="ID_tipoInmueble">
+								<option selected>Selecciona...</option>
+								<option value="1">Casa</option>
+								<option value="2">Departamento</option>
+								<option value="3">Terreno</option>
+								<option value="4">Loft</option>
+								<option value="5">Bodega</option>
+								<option value="6">Rancho</option>
+								<option value="7">Cuarto</option>
+								<option value="8">Penthouse</option>
+								<option value="9">Edificio</option>
+								<option value="10">Consultorio</option>
+								<option value="11">Local</option>
+								</select>
+								<button class="btn btn-primary" type="button">Tipo de Inmueble</button>
+							</div>
+					</div>
+					<br>
+					<div class="row g-3">
+						<div class="input-group" for="Operacion">
+							<select class="form-select" id="nombre" aria-label="Example select with button addon" name="Operacion">
+							<option selected>Selecciona...</option>
+							<option value="Venta">Venta</option>
+							<option value="Renta">Renta</option>
+							</select>
+							<button class="btn btn-primary" type="button">Operación</button>
+						</div>
+				</div>
+				<br>
+					<div class="row g-3">
+						<div class="input-group" for="Privada_calle">
+							<select class="form-select" id="nombre" aria-label="Example select with button addon" name="Privada_calle">
+							<option selected>Selecciona...</option>
+							<option value="Privada">Privada</option>
+							<option value="Calle">Calle</option>
+							</select>
+							<button class="btn btn-primary" type="button">Privada/Calle</button>
+						</div>
+				</div>
+				<br>
+				<div class="row g-3">
+					<div class="input-group" for="Uso_suelo">
+						<select class="form-select" id="nombre" aria-label="Example select with button addon" name="Uso_suelo">
+						<option selected>Selecciona...</option>
+						<option value="Comercial">Comercial</option>
+						<option value="Habitacional">Habitacional</option>
+						</select>
+						<button class="btn btn-primary" type="button">Uso de suelo</button>
+					</div>
+				</div>
+				</div>
+			</div>
+				<div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+				  <div class="container">
+					<div class="row g-3">
+						<div class="input-group" for="Niveles">
+							<select class="form-select" id="nombre" aria-label="Example select with button addon" name="Niveles">
+							<option selected>Selecciona...</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							</select>
+							<button class="btn btn-primary" type="button">Pisos</button>
+						</div>
+					</div>
+					<br>
+					<div class="row g-3">
+						<div class="input-group" for="Habitaciones">
+							<select class="form-select" id="nombre" aria-label="Example select with button addon" name="Habitaciones">
+							<option selected>Selecciona...</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							</select>
+							<button class="btn btn-primary" type="button">Recamaras</button>
+						</div>
+					</div>
+					<br>
+					<div class="row g-3">
+						<div class="input-group" for="banios">
+							<select class="form-select" id="nombre" aria-label="Example select with button addon" name="banios">
+							<option selected>Selecciona...</option>
+							<option value="1">1</option>
+							<option value="2">2.5</option>
+							<option value="3">3</option>
+							</select>
+							<button class="btn btn-primary" type="button">Baños</button>
+						</div>
+					</div>
+					<br>
+					<div class="row g-3">
+						<div class="input-group" for="Gas">
+							<select class="form-select" id="nombre" aria-label="Example select with button addon" name="Gas">
+							<option selected>Selecciona...</option>
+							<option value="Estacionario">Estacionario</option>
+							<option value="Natural">Natural</option>
+							</select>
+							<button class="btn btn-primary" type="button">Gas</button>
+						</div>
+					</div>
+					<br>
+					<div class="row g-3">
+						<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+							<label for="Terreno" class="form-label"><strong>Terreno*</strong></label>
+								<input type="text" class="form-control" id="nombre" name="Terreno" placeholder="" value="" required>
+								<div class="invalid-feedback">
+								Se requiere medidas del terreno
+								</div>
+						</div>
+						<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+							<label for="Construccion" class="form-label"><strong>Construcción*</strong></label>
+								<input type="text" class="form-control" id="nombre" name="Construccion" placeholder="" value="" required>
+								<div class="invalid-feedback">
+								Se requiere medidas de Cosntrucción
+								</div>
+						</div>
+						<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+							<label for="Medidas_frente" class="form-label"><strong>Frente*</strong></label>
+								<input type="text" class="form-control" id="nombre" name="Medidas_frente" placeholder="" value="" required>
+								<div class="invalid-feedback">
+								Se requiere medidas de Cosntrucción
+								</div>
+						</div>
+						<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+							<label for="Medidas_fondo" class="form-label"><strong>Fondo*</strong></label>
+								<input type="text" class="form-control" id="nombre" name="Medidas_fondo" placeholder="" value="" required>
+								<div class="invalid-feedback">
+								Se requiere medidas de Cosntrucción
+								</div>
+						</div>
+					</div>
+					<div class="row g-3">
+						<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+							<label for="Tipo_desnivel" class="form-label"><strong>Desnivel*</strong></label>
+								<input type="text" class="form-control" id="nombre" name="Tipo_desnivel" placeholder="" value="" required>
+								<div class="invalid-feedback">
+								Se requiere tipo de desnivel
+								</div>
+						</div>
+						<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+							<label for="Forma_terreno" class="form-label"><strong>Forma terreno*</strong></label>
+								<input type="text" class="form-control" id="nombre" name="Forma_terreno" placeholder="" value="" required>
+								<div class="invalid-feedback">
+								Se requiere forma del terreno
+								</div>
+						</div>
+					</div>
+					<br>
+					<div class="row g-3">
+						<strong>Caracteristicas del Inmueble:</strong>
+						<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+							<div class="checkbox">
+								<label for="Sala_comedor"><input type="checkbox" id="nombre" name="Sala_comedor" value="1"/> Sala Comedor</label>
+							  </div>
+							  <div class="checkbox">
+								<label for="Estacionamiento"><input type="checkbox" id="nombre" name="Estacionamiento" value="1"/> Estacionamiento</label>
+							  </div>
+							  <div class="checkbox">
+								<label for="Cocina"><input type="checkbox" id="nombre" name="Cocina" value="1"/> Cocina</label>
+							  </div>
+						</div>
+						<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+							<div class="checkbox">
+								<label for="Servicio_agua"><input type="checkbox" id="nombre" name="Servicio_agua" value="1"/> Servicio de agua</label>
+							  </div>
+							  <div class="checkbox">
+								<label for="Servicio_luz"><input type="checkbox" id="name" name="Servicio_luz" value="1"/> Servicio de luz</label>
+							  </div>
+							  <div class="checkbox">
+								<label for="Servicio_Drenaje"><input type="checkbox" id="name" name="Servicio_Drenaje" value="1"/> Servicio de drenaje</label>
+							  </div>
+						</div>
+					</div>
+					<div class="row g-3">
+						<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+							<label for="Precio" class="form-label"><strong>Precio*</strong></label>
+								<input type="text" class="form-control" id="nombre" name="Precio" placeholder="" value="" required>
+								<div class="invalid-feedback">
+								Se requiere tipo de desnivel
+								</div>
+						</div>
+					</div>
+					<div class="row g-3">
+						<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<label for="Descripcion" class="form-label"><strong>Descripción*</strong></label>
+								<input type="text" class="form-control" id="nombre" name="Descripcion" placeholder="" value="" required>
+								<div class="invalid-feedback">
+								Se requiere Estado
+								</div>
+						</div>
+					</div>
+					<br>
+					<div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+						<input type="submit" id="enviar" button class="w-100 btn btn-lg btn-primary" href="/inicio" name="enviar" value="Registrar">
+					</div>
+				</div>
+				  </form>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<br>
+	<br>
+  </section>
