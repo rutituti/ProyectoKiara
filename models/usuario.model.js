@@ -17,10 +17,14 @@ module.exports = class Usuario {
       return db.execute('SELECT * FROM Usuario');
   }
 
+  static fetchOne(){
+    return db.execute('SELECT * FROM Usuario WHERE username = ?', [username]);
+  }
+
   static edit(username, nombre, primer_apellido) {
         return db.execute(
-            'UPDATE Usuario SET Nombres = ?, Primer_Apellido = ? WHERE id = ?', 
-            [nombre, primer_apellido, username]);
+            'UPDATE Usuario SET Nombres = ?, Primer_Apellido = ?, Segundo_apellido = ?, Telefono = ?, username = ?, email = ?, password = ? WHERE id = ?', 
+            [nombre, primer_apellido, username, telefono, segundo_apellido, email, password]);
             
     }
  
