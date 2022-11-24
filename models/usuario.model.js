@@ -25,7 +25,7 @@ module.exports = class Usuario {
 
   static edit(username, nombre, primer_apellido) {
         return db.execute(
-            'UPDATE Usuario SET Nombres = ?, Primer_Apellido = ? WHERE id = ?', 
+            'UPDATE Usuario SET Nombres = ?, Primer_Apellido = ?, Segundo_Apellido = ?, Telefono = ?, Email = ?, password = ? WHERE id = ?', 
             [nombre, primer_apellido, username]);
             
   }
