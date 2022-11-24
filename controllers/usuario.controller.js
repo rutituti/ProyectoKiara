@@ -5,6 +5,7 @@ const User_Rol = require('../models/user_rol.model');
 const Usuario = require('../models/usuario.model');
 const bcrypt = require('bcryptjs');
 const { response } = require('express');
+const exp = require('constants');
 
 
 exports.get_new_admin = (request, response, next) => {
@@ -472,4 +473,28 @@ exports.get_listCliente = (request, response, next) => {
                 console.log(error);
         });
         
+};
+
+//Controlador editar usuario
+
+exports.get_editUser = (request, response, next) => {
+    Usuario.fetchOne(request.params.username)
+        .then(([rows, fieldData])=>{
+            response.render(path.join('usuarios','new_cliente.ejs'),{
+                usuario: rows[0] ? rows[0] : '',
+                info: '',
+            });
+        }).catch((error)=>{
+            console.log(error);
+        });
+};
+
+exports.post_editUser = (request, response, next) =>{
+    Usuario.edit(request.body.username, request.body.nombre, request.body.primer_apellido, request.body.segundo_apellido, request.body.telefono, request.body.email, request.body.password)
+        .then(()=>{
+            request.session.info = "La informacion del usuario" + request.body.nombre + " fue actualizada";
+            response.redirect('/inicio');
+        }).catch((error)=>{
+            console.log(error);
+        });
 };
