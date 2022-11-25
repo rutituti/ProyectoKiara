@@ -483,6 +483,13 @@ exports.get_editUser = (request, response, next) => {
             response.render(path.join('usuarios','edit_cliente.ejs'),{
                 usuario: rows[0] ? rows[0] : '',
                 info: '',
+                registro: registro,
+                isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
+                user: request.session.user ? request.session.user : '',
+                registro: request.session. registro ? request.session. registro : '',
+                nombre: request.session.nombre ? request.session.nombre : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
+                rol : request.session.roles ? request.session.roles : '',
             });
         }).catch((error)=>{
             console.log(error);
