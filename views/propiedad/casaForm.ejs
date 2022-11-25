@@ -9,7 +9,8 @@
 <link rel="stylesheet" href="/css/fluid-gallery.css">
 
 <div class="px-3">
-    <h4><strong> Puerta real</strong></h4>
+    <h4><strong> <%= casa[0].Calle %></strong></h4>
+    <%- console.log(casa[0].Calle) %>
     <div class="row px-3">AV PUERTA REAL, Fraccionamiento Puerta Real, Corregidora, Querétaro .</div>
     <div class="row px">
         <div class="col-6 col-sm-3">
@@ -27,7 +28,7 @@
 
         <div class="col-sm-12 col-md-4">
             <a class="lightbox" href="/images/casa.jpg">
-                <img src="/images/casa.jpg" alt="Bridge">
+                <img src="/uploads/<%= casa[0].Imagen%>" alt="Bridge">
             </a>
         </div>
         <div class="col-sm-6 col-md-4">

@@ -48,17 +48,23 @@ exports.vista_casa = (request, response, next) => {
     let info = request.session.info ? request.session.info : '';
     request.session.ubicacion = request.params.operacion;
     request.session.info = '';
-    response.render(path.join('propiedad','vistaCasa.ejs'),{
-        info: info,
-        isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn: false,
-        user: request.session.user ? request.session.user: '',
-        permisos: request.session.permisos ? request.session.permisos : '',
-        ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-        nombre: request.session.nombre ? request.session.nombre : '',
-        registro: registro,
-        rol : request.session.roles ? request.session.roles : '',
-    });
-}
+    Propiedad.getHome(request.params.valor_casa)
+    .then(([rows, fieldData]) => {
+        console.log(rows[0]);
+        response.render(path.join('propiedad','vistaCasa.ejs'),{
+            info: info,
+            casa: rows[0],
+            isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn: false,
+            user: request.session.user ? request.session.user: '',
+            permisos: request.session.permisos ? request.session.permisos : '',
+            ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+            nombre: request.session.nombre ? request.session.nombre : '',
+            registro: registro,
+            rol : request.session.roles ? request.session.roles : '',
+        });
+    })
+    .catch(error => {console.log(error)});
+};
 
 exports.post_newProperty = (request, response, next) => {
     let atributos = new Object();
@@ -79,7 +85,7 @@ exports.post_newProperty = (request, response, next) => {
     atributos.Uso_suelo      = request.body.Uso_suelo ? request.body.Uso_suelo : " ";
     atributos.Construccion   = request.body.Construccion ? request.body.Construccion : ' ';
     atributos.Descripcion    = request.body.Descripcion ? request.body.Descripcion : " ";
-    atributos.Imagen         = request.body.Imagen ? request.body.Imagen : "Hola";
+    atributos.doc            = request.file.filename ? request.file.filename : " ";
     atributos.Niveles        = request.body.Niveles ? request.body.Niveles : ' ';
     atributos.Habitaciones   = request.body.Habitaciones ? request.body.Habitaciones : ' ';
     atributos.banios         = request.body.banios ? request.body.banios : ' ';
@@ -94,7 +100,7 @@ exports.post_newProperty = (request, response, next) => {
     atributos.Forma_terreno  = request.body.Forma_terreno ? request.body.Forma_terreno : " ";
     atributos.Medidas_frente = request.body.Medidas_frente ? request.body.Medidas_frente : ' ';
     atributos.Medidas_fondo  = request.body.Medidas_fondo ? request.body.Medidas_fondo : ' ';
-
+    console.log(request.file);
     const propiedad = new Propiedad(atributos);
     propiedad.save()
         .then(() => {
@@ -114,6 +120,18 @@ exports.post_deletePropiedad = (request, response, next) => {
             }).catch(error => {console.log(error)});
         }).catch(error => {console.log(error)});
 };
+
+//Controlador para obtner la propiedad
+exports.get_casa = (request, response, next) => {
+    request.session.ubicacion = 'perfil'; 
+    
+    let registro = request.session.registro ? request.session.registro : '';
+    request.session.registro = '';
+    Propiedad.get_casa(request.params.idcasa)
+    .then(([rows, fieldData]) => {
+        console.log(rows);
+    });
+}
 
 //Controlador actualizar propiedad Venta => Renta
 

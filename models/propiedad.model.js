@@ -20,7 +20,7 @@ module.exports = class Propiedad{
         this.Uso_suelo                       =   atributos.Uso_suelo;
         this.Construccion                    =   atributos.Construccion;
         this.Descripcion                     =   atributos.Descripcion;
-        this.Imagen                          =   atributos.Imagen,
+        this.doc                             =   atributos.doc,
         this.Niveles                         =   atributos.Niveles;
         this.Habitaciones                    =   atributos.Habitaciones;
         this.banios                          =   atributos.banios;
@@ -58,7 +58,7 @@ module.exports = class Propiedad{
                 this.Uso_suelo, //
                 this.Construccion, //
                 this.Descripcion, //
-                this.Imagen, //
+                this.doc, //
                 this.Niveles, //
                 this.Habitaciones, //
                 this.banios, //
@@ -82,7 +82,13 @@ module.exports = class Propiedad{
     static fetchRenta(){
         return db.execute('SELECT * FROM Propiedades WHERE Operacion = "Renta"');
     }
-    
+    // Obtener la propiedad solcitada
+    static getHome(valor_casa) {
+        return db.execute(
+            'CALL get_casa(?)',
+            [valor_casa]
+        );
+    }
     //Instruccion SQL para ver solo propidades en venta
     
     static fetchVenta(){
