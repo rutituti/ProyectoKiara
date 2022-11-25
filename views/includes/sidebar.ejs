@@ -122,7 +122,25 @@
             </a>
             <span class="tooltip">Propiedades asignadas</span>
           </li>
+
+          <% if (ubicacion == 'misprocesos') {
+            active = 'active';
+          } else {
+            active = '';
+          }%>
+    
+          <li>
+            <a class="<%= active %>" href="/operacion/misprocesos">
+              <i class='bx bx-notepad' ></i>
+              <span class="links_name">Mis procesos</span>
+            </a>
+            <span class="tooltip">Mis procesos</span>
+          </li>
+
       <% } %>
+
+     
+  
       <!--FIN PESTAÑAS ASESOR-->
 
       <% if (ubicacion == 'config') {

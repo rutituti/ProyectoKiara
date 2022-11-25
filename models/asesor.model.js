@@ -32,4 +32,12 @@ module.exports = class Asesor {
         return db.execute('CALL delete_asesor(?);',[user]);
     }
 
+    static get_casas_opAsesor(id_asesor,id_cliente,tipo_cliente){
+        return db.execute('CALL get_casas_opAsesor(?,?,?)',[id_asesor,id_cliente,tipo_cliente]);
+    }
+
+    static get_procesos_idAsesor(id_asesor){
+        return db.execute('CALL get_procesos_asesor(?)',[id_asesor]);
+    }
+
 }
