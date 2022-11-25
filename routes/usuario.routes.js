@@ -41,4 +41,8 @@ router.post('/deleteC', userController.post_deleteCliente); //Ruta borrar client
 
 router.post('/deleteU', userController.post_deleteUsuario); //Ruta borrar usuario
 
+router.get('/edit/:username', userController.get_editUser); //Ruta editar usuario
+
+router.post('/edit', userController.post_editUser); //Ruta editar usuario POST
+
 module.exports = router;
