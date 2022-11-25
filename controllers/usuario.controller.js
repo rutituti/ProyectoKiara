@@ -480,7 +480,7 @@ exports.get_listCliente = (request, response, next) => {
 exports.get_editUser = (request, response, next) => {
     Usuario.fetchOne(request.params.username)
         .then(([rows, fieldData])=>{
-            response.render(path.join('usuarios','new_cliente.ejs'),{
+            response.render(path.join('usuarios','edit_cliente.ejs'),{
                 usuario: rows[0] ? rows[0] : '',
                 info: '',
             });
