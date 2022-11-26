@@ -9,9 +9,9 @@
 <link rel="stylesheet" href="/css/fluid-gallery.css">
 
 <div class="px-3">
-    <h4><strong> <%= casa[0].Calle %></strong></h4>
-    <%- console.log(casa[0].Calle) %>
-    <div class="row px-3">AV PUERTA REAL, Fraccionamiento Puerta Real, Corregidora, Querétaro .</div>
+    <h3><strong> <%= casa[0].Colonia %></strong></h3>
+    <%- console.log(casa[0].Colonia) %>
+    <div class="row px-3"><%= casa[0].Calle%> , <%=casa[0].Colonia%>, <%=casa[0].Numero%>, <%=casa[0].Municipio %></div>
     <div class="row px">
         <div class="col-6 col-sm-3">
             <button type="button" class="btn btn-success"
@@ -22,38 +22,142 @@
     </div>
 </div>
 <div>
-<div class="tz-gallery">
+<!-- ======= Portfolio Section ======= -->
+<div id="portfolio" class="portfolio-area area-padding fix">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="section-headline text-center">
+            <h2>Vista de las casa</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row wesome-project-1 fix">
+        <!-- Start Portfolio -page -->
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <ul id="portfolio-flters">
+            <li data-filter="*" class="filter-active">Todas</li>
+            <li data-filter=".filter-app">Vista 1</li>
+            <li data-filter=".filter-card">Vista 2</li>
+            <li data-filter=".filter-web">Vista 3</li>
+          </ul>
+        </div>
+      </div>
 
-    <div class="row">
+      <div class="row awesome-project-content portfolio-container">
 
-        <div class="col-sm-12 col-md-4">
-            <a class="lightbox" href="/images/casa.jpg">
-                <img src="/uploads/<%= casa[0].Imagen%>" alt="Bridge">
-            </a>
+        <!-- portfolio-item start -->
+        <div class="col-md-4 col-sm-4 col-xs-12 portfolio-item filter-app portfolio-item">
+          <div class="single-awesome-project">
+            <div class="awesome-img">
+              <a href="#"><img src="/uploads/<%= casa[0].Imagen%>" alt="" /></a>
+              <div class="add-actions text-center">
+                <div class="project-dec">
+                  <a class="portfolio-lightbox" data-gallery="myGallery" href="/uploads/<%= casa[0].Imagen%>">
+                    <h4>vista principal</h4>
+                    <span>Entrada</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-sm-6 col-md-4">
-            <a class="lightbox" href="/images/casa.jpg">
-                <img src="/images/casa.jpg" alt="Park">
-            </a>
+        <!-- portfolio-item end -->
+
+        <!-- portfolio-item start -->
+        <div class="col-md-4 col-sm-4 col-xs-12 portfolio-item filter-web">
+          <div class="single-awesome-project">
+            <div class="awesome-img">
+              <a href="#"><img src="/uploads/<%= casa[0].Imagen%>" alt="" /></a>
+              <div class="add-actions text-center">
+                <div class="project-dec">
+                  <a class="portfolio-lightbox" data-gallery="myGallery" href="/uploads/<%= casa[0].Imagen%>">
+                    <h4>Cocina</h4>
+                    <span>vista 1</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-sm-6 col-md-4">
-            <a class="lightbox" href="/images/casa.jpg">
-                <img src="/images/casa.jpg" alt="Tunnel">
-            </a>
+        <!-- portfolio-item end -->
+
+        <!-- portfolio-item start -->
+        <div class="col-md-4 col-sm-4 col-xs-12 portfolio-item filter-card">
+          <div class="single-awesome-project">
+            <div class="awesome-img">
+              <a href="#"><img src="/uploads/<%= casa[0].Imagen%>" alt="" /></a>
+              <div class="add-actions text-center">
+                <div class="project-dec">
+                  <a class="portfolio-lightbox" data-gallery="myGallery" href="/uploads/<%= casa[0].Imagen%>">
+                    <h4>Sala</h4>
+                    <span>vista 2</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-sm-6 col-md-8">
-            <a class="lightbox" href="/images/casa.jpg">
-                <img src="/images/casa.jpg" alt="Traffic">
-            </a>
+        <!-- portfolio-item end -->
+
+        <!-- portfolio-item start -->
+        <div class="col-md-4 col-sm-4 col-xs-12 portfolio-item filter-web">
+          <div class="single-awesome-project">
+            <div class="awesome-img">
+              <a href="#"><img src="/uploads/<%= casa[0].Imagen%>" alt="" /></a>
+              <div class="add-actions text-center">
+                <div class="project-dec">
+                  <a class="portfolio-lightbox" data-gallery="myGallery" href="/uploads/<%= casa[0].Imagen%>">
+                    <h4>Cuarto</h4>
+                    <span>vista 3</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-sm-6 col-md-4">
-            <a class="lightbox" href="/images/casa.jpg">
-                <img src="/images/casaprincipal.jpg" alt="Rails">
-            </a>
+        <!-- portfolio-item end -->
+
+        <!-- portfolio-item start -->
+        <div class="col-md-4 col-sm-4 col-xs-12 portfolio-item filter-app">
+          <div class="single-awesome-project">
+            <div class="awesome-img">
+              <a href="#"><img src="/uploads/<%= casa[0].Imagen%>" alt="" /></a>
+              <div class="add-actions text-center text-center">
+                <div class="project-dec">
+                  <a class="portfolio-lightbox" data-gallery="myGallery" href="/uploads/<%= casa[0].Imagen%>">
+                    <h4>Jardín</h4>
+                    <span>vista 4</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+        <!-- portfolio-item end -->
+
+        <!-- portfolio-item start -->
+        <div class="col-md-4 col-sm-4 col-xs-12 portfolio-item filter-web">
+          <div class="single-awesome-project">
+            <div class="awesome-img">
+              <a href="#"><img src="/uploads/<%= casa[0].Imagen%>" alt="" /></a>
+              <div class="add-actions text-center">
+                <div class="project-dec">
+                  <a class="portfolio-lightbox" data-gallery="myGallery" href="/uploads/<%= casa[0].Imagen%>">
+                    <h4>Baño</h4>
+                    <span>vista 5</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- portfolio-item end -->
+
+      </div>
     </div>
-</div>
-</div>
+  </div><!-- End Portfolio Section -->
+
 <div class="container">
     <div class="row">
         <hr>
@@ -68,7 +172,12 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    <img src="/images/area/favicon.ico"> 150 a 272 m² tot.
+                    <img src="/images/area/favicon.ico"> 
+                         <% if (casa[0].Estacionamiento > 0){ %>
+                            <h4>Estacionamiento</h4>
+                            <% } else { %> 
+                                <h4>No tiene Estacionamiento</h4>
+                            <% } %>
                     </img>
                 </div>
                 <div class="col-4">
@@ -78,24 +187,32 @@
             </div>
         </div>
         <div class="col-4">
-            <button type="button" class="btn btn-secondary btn-lg"><h3>Desde $2,000,000</h3></button>
+            <button type="button" class="btn btn-secondary btn-lg"><h3>Desde $ <%= casa[0].Precio %></h3></button>
         </div>
     </div>
 </div>
+<!---->
 <div class="container"><strong>Descripcion: </strong>
-<p>Aqui encontraras la mejor bienvienda con un buen diseño </p>
+<p><%= casa[0].Descripcion %> </p>
 </div>
 <div class="container"><strong>Caracterisitcas: </strong>
-    <p>Recamaras: </p>
-    <p>Baños: </p>
-    <p>Sala comedor: </p>
-    <p>Estacionamiento: </p>
-    <p>Forma del terreno: </p>
+    <p>Recamaras:  <%= casa[0].Habitaciones %> </p>
+    <p>Baños: <%= casa[0].Baños %> </p>
+    <% if (casa[0].Sala_Comedor > 0){ %>
+        <p>Sala comedor: Si</p>
+        <% } else { %> 
+        <p>Sala comedor: No</p>
+        <% } %>
+        <% if (casa[0].Sala_Comedor > 0){ %>
+            <p>Estacionamiento: Si</p>
+            <% } else { %> 
+                <p>Estacionamiento: No</p>
+            <% } %>
+    <p>Forma del terreno: <%= casa[0].Forma_Terreno %></p>
     <p><strong>Medidas: </strong></p>
-    <p>Frente: </p>
-    <p>Fondo: </p>
-
-    </div>
+    <p>Frente: <%= casa[0].Medidas_frente %></p>
+    <p>Fondo: <%= casa[0].Medidas_fondo %> </p>
+</div>
 <br><br>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
 <script>

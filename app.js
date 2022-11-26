@@ -8,6 +8,7 @@ const session = require('express-session'); // Trabajar con sessiones
 const csrf = require('csurf');
 
 const multer = require('multer'); // archivos 
+const multer2 = require('multer'); // archivos 
 
 var cont=0; 
 
@@ -36,8 +37,12 @@ const fileStorage = multer.diskStorage({
     },
 });
 
- 
-app.use(multer({ storage: fileStorage }).single('doc')); 
+app.use((request, response, next) => {
+    multer({ storage: fileStorage }).single('doc'),
+    next();
+})
+
+app.use(multer({ storage: fileStorage }).any('Imagen')); 
 
 app.use(cookieParser());
 
@@ -51,8 +56,10 @@ app.use((request, response, next) => {
     response.locals.sesion = request.session.info ? request.session.info : '';
     response.locals.user = request.session.user ? request.session.user : '';    
     response.locals.isLoggedIN = request.session.isLoggedIN ? request.session.isLoggedIN : '';
+    multer({ storage: fileStorage }).single('doc'),
     next();
 });
+
 */
 const rutas_inicio = require('./routes/inicio.routes');
 app.use('/inicio',rutas_inicio); // Modulo de pagina de Inicio
@@ -64,6 +71,7 @@ const rutaUsuarios = require('./routes/usuario.routes');
 app.use('/user', rutaUsuarios);
 
 const rutaPropiedades = require('./routes/propiedades.routes');
+const { response } = require('express');
 app.use('/propiedades', rutaPropiedades);
 
 //const csrfProtection = csrf();
