@@ -89,11 +89,28 @@
           <div class="col-sm-6 col-md-4 col-lg-4">
             <div class="p-5">
               <div class="card">
-                <img class="card-img-top" src="/images/casaprincipal.jpg" alt="Card image cap">
+                <img class="card-img-top" src="/uploads/<%= casa[0].Imagen %>" alt="Card image cap">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                  <h5 class="card-title"><strong><%= casa[0].Operacion %> en <%= casa[0].Calle %></strong></h5>
+                  <p class="card-text"><%= casa[2].Calle %>, <%= casa[2].Colonia %>, <%= casa[2].Numero %>, <%= casa[2].Estado %>.</p>
+                  <div class="row">
+                    <div class="col-4">
+                      <ulm>
+                        <span><%= casa[0].Construccion %> m2</span>
+                      </ulm>
+                    </div>
+                    <div class="col-6">
+                      <ulm>
+                        <span><%= casa[0].Habitaciones %> Cuarto(s)</span>
+                      </ulm>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <span><h4><%= casa[0].Operacion %>: $<%= casa[0].Precio %></h4></span>
+                  </div>
+                  <br>
+
+                  <a href="/inicio/vista/<%= casa[0].ID %>" class="btn btn-primary">¡Conoce más!</a>
                 </div>
               </div>
             </div>
@@ -101,11 +118,27 @@
           <div class="col-sm-6 col-md-4 col-lg-4">
             <div class="p-5">
               <div class="card">
-                <img class="card-img-top" src="/images/casaprincipal.jpg" alt="Card image cap">
+                <img class="card-img-top" src="/uploads/<%= casa[1].Imagen %>" alt="Card image cap">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                  <h5 class="card-title"><strong><%= casa[1].Operacion %> en <%= casa[1].Calle %></strong></h5>
+                  <p class="card-text"><%= casa[2].Calle %>, <%= casa[2].Colonia %>, <%= casa[2].Numero %>, <%= casa[2].Estado %>.</p>
+                  <div class="row">
+                    <div class="col-4">
+                      <ulm>
+                        <span><%= casa[1].Construccion %> m2</span>
+                      </ulm>
+                    </div>
+                    <div class="col-6">
+                      <ulm>
+                        <span><%= casa[1].Habitaciones %> Cuarto(s)</span>
+                      </ulm>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <span><h4><%= casa[1].Operacion %>: $<%= casa[1].Precio %></h4></span>
+                  </div>
+                  <br>
+                  <a href="/inicio/vista/<%= casa[1].ID %>" class="btn btn-primary">¡Conoce más!</a>
                 </div>
               </div>
             </div>
@@ -113,11 +146,28 @@
           <div class="col-sm-6 col-md-4 col-lg-4">
             <div class="p-5">
               <div class="card">
-                <img class="card-img-top" src="/images/casaprincipal.jpg" alt="Card image cap">
+                <img class="card-img-top" src="/uploads/<%= casa[2].Imagen %>" alt="Card image cap">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                  <h5 class="card-title"><strong><%= casa[2].Operacion %> en <%= casa[2].Calle %></strong></h5>
+                  <p class="card-text"><%= casa[2].Calle %>, <%= casa[2].Colonia %>, <%= casa[2].Numero %>, <%= casa[2].Estado %>.</p>
+                  <div class="row">
+                    <div class="col-4">
+                      <ulm>
+                        <span><%= casa[2].Construccion %> m2</span>
+                      </ulm>
+                    </div>
+                    <div class="col-6">
+                      <ulm>
+                        <span><%= casa[2].Habitaciones %> Cuarto(s)</span>
+                      </ulm>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <span><h4><%= casa[2].Operacion %>: $<%= casa[2].Precio %></h4></span>
+                  </div>
+                  <br>
+
+                  <a href="/inicio/vista/<%= casa[2].ID %>" class="btn btn-primary">¡Conoce más!</a>
                 </div>
               </div>
             </div>
@@ -131,5 +181,81 @@
   </main><!-- End #main -->
  
 </section><!-- End About Section -->
-  
+
+<script>
+  valor_busqueda = () => {
+      console.log("busqueda ajax");
+      let search_val = document.getElementById('text').value;
+      console.log(search_val);
+      
+      fetch('/inicio/propiedades/renta/buscar/' + search_val, {
+          method: 'GET',
+          headers: {
+              'Content-type': 'application/json',
+          }
+      }).then(result => {
+          return result.json();
+      }).then(data => {
+          console.log(data);
+              let html = '';
+      if(data.length > 0){
+          for(let propiedades of data){
+          html += '<div class="container py-2">';
+              html += '<div class="card">';
+                  html += '<div class="row ">';
+                      html += '<div class="col-md-7 px-3">';
+                          html += '<div class="card-block px-6">';
+                              html += '<h4 class="card-title"><h3><strong>' + propiedades.Colonia + ' ' + propiedades.Numero + '</h3></strong>';
+                                  html += '<h4 class="card-text">';
+                              html += propiedades.Municipio + ' , ' + propiedades.Calle + ' , ' + propiedades.Colonia + ' , ' + propiedades.Numero;
+                              html += '</h4>';
+                              html += '<p class="opacity-100">DESDE</p>';
+                              html += '<p class="card-text"><strong>MNX $' + propiedades.Precio + '</strong></p>';
+                              html += '<br>';
+                              html += '<a href="#" class="mt-auto btn btn-primary  ">Read More</a>';
+                              html += '</div>';
+                          html += '</div>';
+                              html += '<div class="col-md-5">';
+                                  html += '<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">';
+                                      html += '<div class="carousel-indicators">';
+                                          html += '<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>';
+                                          html += '<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>';
+                                          html += '<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>';
+
+                                      html += '</div>';
+                                          html += '<div class="carousel-inner">';
+                                              html += '<div class="carousel-item active" data-bs-interval="10000">';
+                                                  html += '<img width="550" height="280" src="/images/casa.jpg" class="d-block" alt="">';
+                                                  html += '<div class="carousel-caption d-none d-md-block">';
+                                              html += '</div>';
+                                          html += '</div>';
+                                          html += '<div class="carousel-item active" data-bs-interval="20000">';
+                                                          html += '<img class="d-block" src="/images/casaprincipal.jpg" width="550" height="280" alt="">';
+                                          html += '</div>';
+                                          html += '<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">';
+                                              html += '<span class="carousel-control-prev-icon" aria-hidden="true"></span>';
+                                              html += '<span class="visually-hidden">Previous</span>';
+                                          html += '</button>';
+                                          html += '<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">';
+                                              html += '<span class="carousel-control-next-icon" aria-hidden="true"></span>';
+                                              html += '<span class="visually-hidden">Next</span>'
+                                          html += '</button>';
+                          
+                                      html += '</div>';
+                                  html += '</div>';
+                              html += '</div>';
+                          html += '</div>';
+              html += '</div>';
+          html += '</div>';
+                          } 
+      }else{
+              html += '<h3>No hay casas registradas</h3>';
+          }
+          document.getElementById('resultado').innerHTML = html;
+      }).catch(err => {
+          console.log(err);
+      });
+  }
+  document.getElementById('button-addon2').onclick = valor_busqueda;
+</script>
     
