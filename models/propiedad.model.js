@@ -21,6 +21,10 @@ module.exports = class Propiedad{
         this.Construccion                    =   atributos.Construccion;
         this.Descripcion                     =   atributos.Descripcion;
         this.Imagen                          =   atributos.Imagen,
+        this.Imagen1                         =   atributos.Imagen1,
+        this.Imagen2                         =   atributos.Imagen2,
+        this.Imagen3                         =   atributos.Imagen3,
+        this.Imagen4                         =   atributos.Imagen4,
         this.Niveles                         =   atributos.Niveles;
         this.Habitaciones                    =   atributos.Habitaciones;
         this.banios                          =   atributos.banios;
@@ -39,7 +43,7 @@ module.exports = class Propiedad{
     //Método para salvar propiedades
     save() {
         return db.execute(
-            'INSERT INTO Propiedades (ID_tipoInmueble, Calle, Numero, Colonia, Codigo_postal, Municipio, Estado, ID_Pais, Longitud, Latitud, Operacion, Terreno, Privada_calle, Precio, Uso_suelo, Construccion, Descripcion, Imagen, Niveles, Habitaciones, Baños, Sala_comedor, Cocina, Estacionamiento, Gas, Servicio_agua, Servicio_luz, Servicio_Drenaje, Tipo_desnivel, Forma_terreno, Medidas_frente, Medidas_fondo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+            'INSERT INTO Propiedades (ID_tipoInmueble, Calle, Numero, Colonia, Codigo_postal, Municipio, Estado, ID_Pais, Longitud, Latitud, Operacion, Terreno, Privada_calle, Precio, Uso_suelo, Construccion, Descripcion, Imagen, Imagen1, Imagen2, Imagen3, Imagen4, Niveles, Habitaciones, Baños, Sala_comedor, Cocina, Estacionamiento, Gas, Servicio_agua, Servicio_luz, Servicio_Drenaje, Tipo_desnivel, Forma_terreno, Medidas_frente, Medidas_fondo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
             [
                 this.ID_tipoInmueble, //
                 this.Calle, //
@@ -58,7 +62,11 @@ module.exports = class Propiedad{
                 this.Uso_suelo, //
                 this.Construccion, //
                 this.Descripcion, //
-                this.Imagen, //
+                this.Imagen, 
+                this.Imagen1,
+                this.Imagen2,
+                this.Imagen3,
+                this.Imagen4,//
                 this.Niveles, //
                 this.Habitaciones, //
                 this.banios, //
@@ -82,7 +90,13 @@ module.exports = class Propiedad{
     static fetchRenta(){
         return db.execute('SELECT * FROM Propiedades WHERE Operacion = "Renta"');
     }
-    
+    // Obtener la propiedad solcitada
+    static getHome(valor_casa) {
+        return db.execute(
+            'CALL get_casa(?)',
+            [valor_casa]
+        );
+    }
     //Instruccion SQL para ver solo propidades en venta
     
     static fetchVenta(){
