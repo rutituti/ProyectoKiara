@@ -109,6 +109,10 @@ module.exports = class Propiedad{
     static fetchPropiedad(ID){
         return db.execute('SELECT * FROM Propiedades WHERE ID = ?', [ID]);
     }
+    // Funcion para recuperar las ultimas 3 propiedades
+    static lastProperty(){
+        return db.execute('SELECT * FROM Propiedades ORDER BY ID DESC LIMIT 3');
+    }
     //Instruccion SQL para buscar propiedad
     static find(valor_busqueda) {
         return db.execute('SELECT * FROM Propiedades WHERE Colonia LIKE ? OR Municipio LIKE ? OR Calle LIKE ? AND Operacion = "Renta" OR Operacion = "Venta"', ['%'+valor_busqueda+'%', '%'+valor_busqueda+'%', '%'+valor_busqueda+'%']);
