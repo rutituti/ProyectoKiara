@@ -217,6 +217,32 @@ exports.get_listCliente = (request, response, next) => {
         
 };
 
+//Controlador lista asesores
+
+exports.get_listAsesor = (request, response, next) => {
+    let info = request.session.info ? request.session.info : '';
+    request.session.info = '';
+
+    Asesor.fetchAll()
+        .then(([rows, fieldData])=>{
+            console.log(rows);
+            response.render(path.join('usuarios','listAsesores.ejs'),{
+                usuarios: rows,
+                info: info,
+                isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
+                user: request.session.user ? request.session.user : '',
+                nombre: request.session.nombre ? request.session.nombre : '',
+                registro: request.session. registro ? request.session. registro : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
+                rol : request.session.roles ? request.session.roles : '',
+            });
+            
+        }).catch((error)=>{
+                console.log(error);
+        });
+        
+};
+
 
 exports.get_login = (request, response, next) => {
     let registro = request.session.registro ? request.session.registro : '';
@@ -423,4 +449,32 @@ exports.post_deleteUsuario = (request, response, next) => {
                 });
             }).catch(error => {console.log(error)});
         }).catch(error => {console.log(error)});
+};
+
+//Controlador lista de clientes
+
+exports.get_listCliente = (request, response, next) => {
+    let info = request.session.info ? request.session.info : '';
+    let registro = '';
+    request.session.info = '';
+
+    Cliente.fetchAll()
+        .then(([rows, fieldData])=>{
+            console.log(rows);
+            response.render(path.join('usuarios','listClientes.ejs'),{
+                usuarios: rows,
+                info: info,
+                registro: registro,
+                isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
+                user: request.session.user ? request.session.user : '',
+                registro: request.session. registro ? request.session. registro : '',
+                nombre: request.session.nombre ? request.session.nombre : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
+                rol : request.session.roles ? request.session.roles : '',
+            });
+            
+        }).catch((error)=>{
+                console.log(error);
+        });
+        
 };

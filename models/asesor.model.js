@@ -9,7 +9,7 @@ module.exports = class Asesor {
     }
 
     static fetchAll() {
-        return db.execute('SELECT * FROM Asesores');
+        return db.execute('SELECT * FROM Asesores, Usuario WHERE Asesores.username = Usuario.username');
     }
     static get_clientes(user){
         return db.execute('CALL get_clientes_idAsesor(?);',[user]);

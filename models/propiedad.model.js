@@ -113,6 +113,19 @@ module.exports = class Propiedad{
     static find(valor_busqueda) {
         return db.execute('SELECT * FROM Propiedades WHERE Colonia LIKE ? OR Municipio LIKE ? OR Calle LIKE ? AND Operacion = "Renta" OR Operacion = "Venta"', ['%'+valor_busqueda+'%', '%'+valor_busqueda+'%', '%'+valor_busqueda+'%']);
     }
+
+    //Instruccion SQL para buscar propiedad en RENTA
+
+    static findR(valor_busqueda){
+        return db.execute('SELECT * FROM Propiedades WHERE Colonia LIKE ? OR Municipio LIKE ? OR Calle LIKE ? AND Operacion = "Renta"', ['%'+valor_busqueda+'%', '%'+valor_busqueda+'%', '%'+valor_busqueda+'%']);
+    }
+
+    //Instruccion SQL para buscar propiedad en VENTA
+
+    static findV(valor_busqueda){
+        return db.execute('SELECT * FROM Propiedades WHERE Colonia LIKE ? OR Municipio LIKE ? OR Calle LIKE ? AND Operacion = "Venta"', ['%'+valor_busqueda+'%', '%'+valor_busqueda+'%', '%'+valor_busqueda+'%']);
+    }
+
     //Instruccion SQL para editar propiedad
     static edit(id, nombre, descripcion) {
         return db.execute(

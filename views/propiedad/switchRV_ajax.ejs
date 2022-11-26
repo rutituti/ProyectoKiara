@@ -1,0 +1,20 @@
+<script>
+    const updateR_V = (ID, Precio) => {
+        fetch('inicio/propiedad/updateRV', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ID: ID,
+                Precio: Precio
+            }),
+        }).then(result => {
+            return result.json();
+        }).then(data => {
+            console.log(data);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+</script>

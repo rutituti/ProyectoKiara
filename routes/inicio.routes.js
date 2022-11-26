@@ -21,9 +21,9 @@ router.get('/propiedades/renta', inicioControllers.get_casas_renta); //Mostrar c
 
 router.get('/propiedades/venta', inicioControllers.get_casas_venta); //Mostrar casas en renta
 
-router.get('/propiedades/renta/buscar/:valor_busqueda', propiedadController.get_buscar); //buscar propiedades con ajax
+router.get('/propiedades/renta/buscar/:valor_busqueda', propiedadController.get_buscarR); //buscar propiedades con ajax
 
-router.get('/propiedades/venta/buscar/:valor_busqueda', propiedadController.get_buscar); //buscar propiedades con AJAX
+router.get('/propiedades/venta/buscar/:valor_busqueda', propiedadController.get_buscarV); //buscar propiedades con AJAX
 
 router.post('/registrarpropiedad', propiedadController.post_newProperty); //Formulario registro de propiedad -- borrar
 
