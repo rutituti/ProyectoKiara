@@ -100,6 +100,28 @@ exports.update_seg = (request, response, next) => {
     
 }
 
+exports.post_updateseg = (request, response, next) => {
+    ExpedientePropiedad.fetchactualizarestado(request.body.Estado,request.body.cliente,request.body.IDTipoexp,request.body.IDTipodoc)
+    .then(([rows, fieldData]) => {
+        console.log(rows[0]);
+        response.render(path.join('..','views','op_venta','mis_clientes.ejs'), {
+            clientes: rows[0],
+            info: request.session.info ? request.session.info : '',
+            isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+            user: request.session.user ? request.session.user : '',
+            ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+            nombre: request.session.nombre ? request.session.nombre : '',
+            registro: request.session. registro ? request.session. registro : '',
+            permisos: request.session.permisos ? request.session.permisos : '',
+            rol : request.session.roles ? request.session.roles : '',
+
+        }); 
+    })
+    .catch( error => { 
+        console.log(error)
+    });
+ 
+ }
 exports.get_mis_clientes = (request, response, next) => {
    
     
@@ -209,13 +231,13 @@ exports.get_seg = (request, response, next) => {
                    
                     ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDADOR,request.params.id_p)
                         .then(([rows, fieldData]) => {
-                            ExpedientePropiedad.fetchVerDocPropiedad(request.params.id_p,ExpedienteRenta.EXPEDIENTE_ARRENDADOR)
-                            .then(([rows7, fieldData]) => {
+
                             console.log(rows5[0]);
                                 response.render(path.join('..','views','op_venta','segVenta.ejs'), {
                                     numdocs : rows[0],
                                     seg_V: rows4[0],
                                     desc_documentos_arre: rows5[0],
+                                    desc_documentos_arre2: 0,
                                     info: request.session.info ? request.session.info : '',
                                     isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                                     user: request.session.user ? request.session.user : '',
@@ -235,9 +257,7 @@ exports.get_seg = (request, response, next) => {
                         }).catch( error => { 
                                 console.log(error);
                         });
-            }).catch( error => { 
-                console.log(error);
-            });
+          
         }).catch( error => { 
             console.log(error);
         });
