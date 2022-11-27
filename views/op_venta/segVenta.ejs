@@ -49,11 +49,11 @@
                                         <% for (let r of numdocs) { %>
                                           
                                             <label class=" fixed-center input-group-btn">
-                                                <span class="text-center   border p-1  container-fluid  col-6 col-m-6 col-lg-8 btn btn-light btn-file" id="doc">
+                                                <span class="text-center   border p-1  container-fluid  col-6 col-m-6 col-lg-8 btn btn-primarys btn-file" id="doc">
                                                     Agregue <strong><%= r.Nombre%></strong> dando click en el boton
                                                 
                                                 </span>
-                                                <a href="/operacion/<%=ubicacion%>/seguimiento/<%=propiedad%>/expediente/<%= r.IDtipoExpCliente%>/<%= r.IDtipoDocCliente%>" class="btn btn-secondary btn-lg-4 " style="font-size: 10px;" role="button" aria-disabled="true">Subir archivo</a>
+                                                <a href="/operacion/<%=ubicacion%>/seguimiento/<%=propiedad%>/expediente/<%= r.IDtipoExpCliente%>/<%= r.IDtipoDocCliente%>" class="btn btn-primary btn-lg-4 " style="font-size: 10px;" role="button" aria-disabled="true">Subir archivo</a>
                                                 
                                             </label>
                                             <br>
@@ -82,7 +82,7 @@
                                                         Agregue <strong><%= r.Nombre%></strong> dando click en el boton
                                                     
                                             </span>
-                                            <a href="/operacion/<%=ubicacion%>/seguimiento/<%=propiedad%>/expediente/<%= r.IDtipoExpCliente%>/<%= r.IDtipoDocCliente%>" class="btn btn-secondary btn-lg-4 " style="font-size: 10px;" role="button" aria-disabled="true">Subir archivo</a>
+                                            <a href="/operacion/<%=ubicacion%>/seguimiento/<%=propiedad%>/expediente/<%= r.IDtipoExpCliente%>/<%= r.IDtipoDocCliente%>" class="btn btn-primary btn-lg-4 " style="font-size: 10px;" role="button" aria-disabled="true">Subir archivo</a>
                                                   
                                          </label>
 
@@ -114,7 +114,7 @@
                                                             Agregue <strong><%= r.tipoDocPropiedad%></strong> dando click en el boton
                                                         
                                                         </span>
-                                                        <a href="/operacion/<%=ubicacion%>/seguimiento/<%=propiedad%>/expedienteprop/<%= r.IDtipoExpProp%>/<%= r.IDtipoDocProp%>" class="btn btn-secondary btn-lg " style="font-size: 10px;" role="button" aria-disabled="true">Subir archivo</a>
+                                                        <a href="/operacion/<%=ubicacion%>/seguimiento/<%=propiedad%>/expedienteprop/<%= r.IDtipoExpProp%>/<%= r.IDtipoDocProp%>" class="btn btn-primary btn-lg-4 " style="font-size: 10px;"role="button" aria-disabled="true">Subir archivo</a>
                                                     </label> 
                                                         <br>
                                                         <br>
@@ -135,37 +135,89 @@
 
 
 
-                        <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-                                       
-                        <% if (numdocs.length>  0 || numdocs > 0) { %>
-                            <div class=" row fixed-center container-fluid col-12 col-m-6 col-lg-12 bg-white border p-3 text-center"> 
+            <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+                <div class=" row justify-content-starts container-fluid col-12 col-m-1 col-lg-12 bg-white border p-3 text-center" >            
+                        <% if (desc_documentos_arre.length>  0 || desc_documentos_arre > 0) { %>
+                            
                                  
-                                <h5 class="fixed-center"> EXPEDIENTE PROPIEDAD:  <%=numdocs[0].tipoExpPropiedad%>  </h5>
-                                    <div class="row fixed-center">    
+                                <h5 class="text-center"> EXPEDIENTE :  <%=numdocs[0].tipoExpCliente%>  </h5>
+                                    <div class="row container-fluid">    
                                         <% for (let r of desc_documentos_arre) { %>
+                        
+                                            <label class=" fixed-center input-group-btn">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <div class="col-sm-1 col-md-1 col-lg-2">
+                                                    <div class="form-group">   
+                                                        <select class="form-select"  style="font-size: 10px;"  id="Estado" >
+                                                            <option value="<%= r.Estado%>" selected><%= r.Estado%></option>
+                                                            <option value="Aprobado" >Completado</option>
+                                                            <option value="En revision">En proceso</option>
+                                                            <option value="Rechazado">No aprobado</option>
+                                                            
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <i class='bx bxs-save bx-sm' style="justify-content: left;" onclick="actualizar(<%= r.Estado%>"></i>
+                                                <span class="text-center   border p-1  container-fluid  col-5 col-m-5 col-lg-7 btn btn-primarys btn-file" id="doc">
+                                                    Descargue <strong><%= r.Nombre%></strong> dando click en el boton
+                                                
+                                                </span>
+                                                <a href="/uploads/<%=r.URL%>" class="btn btn-primary btn-lg-4 " style="font-size: 10px;" role="button" aria-disabled="true">Ver archivo</a>
+                                                
+                                                
+                                                
+                                            </label>
+                                            <br>
+                                            <br> 
                                                   
-                                                    <label class=" fixed-center input-group-btn">
-                                                        <span class="text-center   border p-1  container-fluid  col-6 col-m-6 col-lg-8 btn btn-light btn-file" id="doc">
-                                                            Agregue <strong><%= r.Nombre%></strong> dando click en el boton
-                                                        
-                                                        </span>
-                                                        <a href="/uploads/<%= r.URL%>" class="btn btn-secondary btn-lg " style="font-size: 10px;" role="button" aria-disabled="true">Subir archivo</a>
-                                                    </label> 
-                                                        <br>
-                                                        <br>
-                                                        <br>
-                                                  
-                                                <% } %>
+                                        <% } %>
                                                 <br>
                                                 <br>
                                                 
                                      </div>
-                            </div>
+                 
                             <% } else { %>
-                                        <!--  <h3>No hay casas registradas</h3> -->
+                                <h5 class="text-center"> No hay docuentos registrados en <%=numdocs[0].tipoExpCliente%></h5>
                             <% } %>
+                </div>
 
-                        </div>
+                <div class=" row  container-fluid col-12 col-m-1 col-lg-12 bg-white border p-3 text-center">            
+                    <% if (desc_documentos_arre2.length>  0 || desc_documentos_arre2 > 0) { %>
+                        
+                             
+                            <h5 class="text-center"> EXPEDIENTE :  <%=numdocs2[0].tipoExpCliente%>  </h5>
+                                <div class="row container-fluid">    
+                                    <% for (let r of desc_documentos_arre2) { %>
+                                              
+                                        <label class=" fixed-center input-group-btn">
+                                            <span class="text-center   border p-1  container-fluid  col-6 col-m-6 col-lg-8 btn btn-primarys btn-file" id="doc">
+                                                Descargue <strong><%= r.Nombre%></strong> dando click en el boton
+                                            
+                                            </span>
+                                            <a href="/uploads/<%=r.URL%>" class="btn btn-primary btn-lg-4 " style="font-size: 10px;" role="button" aria-disabled="true">Ver archivo</a>
+                                            
+                                        </label>
+                                        <br>
+                                        <br> 
+                                              
+                                    <% } %>
+                                            <br>
+                                            <br>
+                                            
+                                 </div>
+             
+                        <% } else { %>
+                            <h5 class="text-center"> No hay docuentos registrados en <%=numdocs[0].tipoExpCliente%></h5>
+                        <% } %>
+            </div>
+             
+
+                        
+                                       
+                       
+    
+             
+            </div>
 
 
                         <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
@@ -187,3 +239,31 @@
     
     
     </html>
+    <script>
+
+        const actualizar = (Estado) => {
+            //const csrf = document.getElementById('_csrf').value;
+    
+            fetch('/operacion/<%=ubicacion%>/seguimiento/<%=cliente%>/<%=propiedad%>', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    estado_act: document.getElementById(Estado).value,
+                    //_csrf: csrf,
+                }),
+            }).then(result => {
+                return result.json(); //Regresa otra promesa
+            }).then(data => {
+                
+                document.location.reload();
+    
+                
+            }).catch(err => {
+                console.log(err);
+            });
+    
+        }
+        
+    </script>
