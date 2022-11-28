@@ -107,25 +107,16 @@ exports.post_new_proceso = (request, response, next) => {
 };
 
 exports.post_updateseg = (request, response, next) => {
-    ExpedientePropiedad.fetchactualizarestado(request.body.Estado,request.body.cliente,request.body.IDTipoexp,request.body.IDTipodoc)
+   console.log(request.body.estado,request.body.id_cliente,request.body.id_tipoExp,request.body.id_propiedad,request.body.id_tipoDoc);
+    ExpedientePropiedad.fetchactualizarestado(request.body.estado,request.body.id_cliente,request.body.id_tipoExp,request.body.id_propiedad,request.body.id_tipoDoc)
     .then(([rows, fieldData]) => {
-        console.log(rows[0]);
-        response.render(path.join('..','views','op_venta','mis_clientes.ejs'), {
-            clientes: rows[0],
-            info: request.session.info ? request.session.info : '',
-            isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
-            user: request.session.user ? request.session.user : '',
-            ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-            nombre: request.session.nombre ? request.session.nombre : '',
-            registro: request.session. registro ? request.session. registro : '',
-            permisos: request.session.permisos ? request.session.permisos : '',
-            rol : request.session.roles ? request.session.roles : '',
 
-        }); 
     })
     .catch( error => { 
         console.log(error)
-    });
+    }); 
+
+    console.log(request.body);
  
  }
 
@@ -189,7 +180,7 @@ exports.get_seg = (request, response, next) => {
         usuario = request.params.cliente;
     }
 
-    console.log('USUARIO '+usuario);
+    //console.log('USUARIO '+usuario);
 
     request.session.ubicacion = request.params.operacion;
     request.session.idprop    = request.params.id_p;
@@ -254,8 +245,8 @@ exports.get_seg = (request, response, next) => {
     {
         request.session.numdocs2=0;
         request.session.numdocs3=0;
-        console.log(request.session.ubicacion);
-        console.log(request.session.idprop);
+        //console.log(request.session.ubicacion);
+       // console.log(request.session.idprop);
         Proceso_CV.fetchProcesoRA(usuario, request.params.id_p)
           .then(([rows4, fieldData]) => {
             ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_ARRENDADOR, request.params.id_p )
@@ -264,7 +255,7 @@ exports.get_seg = (request, response, next) => {
                     ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDADOR,request.params.id_p)
                         .then(([rows, fieldData]) => {
 
-                            console.log(rows5[0]);
+                           // console.log(rows5[0]);
                                 response.render(path.join('..','views','op_venta','segVenta.ejs'), {
                                     numdocs : rows[0],
                                     seg_V: rows4[0],
@@ -297,8 +288,8 @@ exports.get_seg = (request, response, next) => {
 
     } else if (request.session.ubicacion === 'venta')
     {
-        console.log(request.session.ubicacion);
-        console.log(request.session.idprop);
+        //console.log(request.session.ubicacion);
+        //console.log(request.session.idprop);
      Proceso_CV.fetchProcesoCV(usuario, request.params.id_p)
       .then(([rows4, fieldData]) => {
         ExpedientePropiedad.fetchVerDocPropiedad(request.params.id_p,ExpedienteRenta.EXPEDIENTE_VENDEDOR)
@@ -309,8 +300,8 @@ exports.get_seg = (request, response, next) => {
                     .then(([rows6, fieldData]) => {
                         ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_VENDEDOR)
                             .then(([rows, fieldData]) => {
-                                console.log('HolaS');
-                                console.log(rows[0]);
+                                //console.log('HolaS');
+                                //console.log(rows[0]);
                                 ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COPROPVENDEDOR)
                                     .then(([rows2, fieldData]) => {
                                         
@@ -365,7 +356,7 @@ exports.get_seg = (request, response, next) => {
         request.session.numdocs2=0;
         request.session.numdocs3=0;
         console.log(request.session.ubicacion);
-        console.log(request.session.idprop);
+        //console.log(request.session.idprop);
 
         Proceso_CV.fetchProcesoCV(usuario, request.params.id_p)
         .then(([rows4, fieldData]) => {
@@ -436,7 +427,7 @@ exports.get_operacion = (request, response, next) => {
         Proceso_CV.fetch_casasVR_idC(usuario,request.params.operacion)
         .then(([rows, fieldData]) => {
             //console.log(request.session.info);
-            console.log("GET CASA EN VENTA");
+            //console.log("GET CASA EN VENTA");
             //console.log(rows);
             response.render(path.join('..','views','op_venta','casasV.ejs'), {
                 casas_V: rows[0],
@@ -672,6 +663,7 @@ exports.get_vistasdocsProp = (request, response, next) => {
     request.session.ubicacion = request.params.operacion;
     request.session.idexp     = request.params.tipo_expProp;
     request.session.idprop    = request.params.id_p;
+
      // console.log(request.params.nombre_doc,request.params.operacion,request.params.tipo_exp);
         if (request.session.docs == '1')
         {
@@ -710,7 +702,7 @@ exports.get_vistasdocsProp = (request, response, next) => {
         {
            request.session.documento='Documento cancelacion de hipoteca'; 
         }
-        
+      //  console.log(request.files[0].filename);
        response.render(path.join('..','views','op_venta','vistassubirdocsprop.ejs'), {
            nombredocumento: request.session.documento ? request.session.documento : '',
            info: request.session.info ? request.session.info : '',
@@ -733,10 +725,15 @@ exports.get_vistasdocsProp = (request, response, next) => {
     request.session.idexp     = request.params.tipo_exp;
     request.session.idprop    = request.params.id_p;
     
-     
+     if(request.files[0] == null)
+     {
+        
+          alert('Tiene que ingresar un documento');
+
+     }else{
       const expediente = new ExpedienteRenta( request.session.user, request.params.id_p, request.session.docs, request.session.idexp, 'En revision',request.files[0].filename);
     expediente.save(); 
-     
+     }
 
      response.redirect('/user/perfil'); 
 };

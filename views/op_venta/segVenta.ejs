@@ -143,28 +143,37 @@
                                 <h5 class="text-center"> EXPEDIENTE :  <%=numdocs[0].tipoExpCliente%>  </h5>
                                     <div class="row container-fluid">    
                                         <% for (let r of desc_documentos_arre) { %>
-                        
+                                            <%= console.log('IDS DOCUMENTOS')%>
+                                            <%= console.log(r)%>
                                             <label class=" fixed-center input-group-btn">
                                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <div class="col-sm-1 col-md-1 col-lg-2">
                                                     <div class="form-group">   
-                                                        <select class="form-select"  style="font-size: 10px;"  id="Estado" >
+                                                        <select class="form-select"  style="font-size: 10px;"  id="<%= r.ID_TipoDoc %>,<%= r.ID_TipoExp %>" >
                                                             <option value="<%= r.Estado%>" selected><%= r.Estado%></option>
-                                                            <option value="Aprobado" >Completado</option>
-                                                            <option value="En revision">En proceso</option>
-                                                            <option value="Rechazado">No aprobado</option>
+                                                            <option value="Aprobado" >Aprobado</option>
+                                                            <option value="En revision">En revision</option>
+                                                            <option value="Rechazado">Rechazado</option>
+                                                          
                                                             
+                                                           
                                                         </select>
+                                                     
                                                     </div>
                                                 </div>
-                                                <i class='bx bxs-save bx-sm' style="justify-content: left;" onclick="actualizar(<%= r.Estado%>"></i>
+                                                <div class="col-sm-1 col-md-1 col-lg-2">  <i class='bx bxs-save bx-sm' style="justify-content: left;" onclick="actualizarestado('<%= r.ID_TipoDoc %>,<%= r.ID_TipoExp %>','<%= r.ID_Cliente %>',<%= r.Id_propiedad %>,<%= r.ID_TipoDoc %>,<%= r.ID_TipoExp %>)"></i> </div>
+                                                
                                                 <span class="text-center   border p-1  container-fluid  col-5 col-m-5 col-lg-7 btn btn-primarys btn-file" id="doc">
                                                     Descargue <strong><%= r.Nombre%></strong> dando click en el boton
                                                 
                                                 </span>
-                                                <a href="/uploads/<%=r.URL%>" class="btn btn-primary btn-lg-4 " style="font-size: 10px;" role="button" aria-disabled="true">Ver archivo</a>
-                                                
-                                                
+
+                                                 <a href="/uploads/<%=r.URL%>" class="btn btn-primary btn-lg-4 " style="font-size: 10px;" role="button" aria-disabled="true">Ver archivo</a>
+                                                 
+                                                 <% if(r.Estado=='Aprobado'){ %>
+                                                    <div class="col-sm-1 col-md-1 col-lg-2"><%=r.Estado%></div>
+                                                     <% } %>
+                                               
                                                 
                                             </label>
                                             <br>
@@ -235,22 +244,31 @@
 
         <script src="/js/bootstrap.bundle.min.js"> </script>
         <script src="/js/sidenav.js"></script>
+       
     </body>
     
     
     </html>
     <script>
 
-        const actualizar = (Estado) => {
+        const actualizarestado = (id_select, id_cliente, id_propiedad, id_tipoDoc, id_tipoExp) => {
             //const csrf = document.getElementById('_csrf').value;
-    
-            fetch('/operacion/<%=ubicacion%>/seguimiento/<%=cliente%>/<%=propiedad%>', {
+
+         //   console.log(Estado);
+                        fetch('/operacion/seguimiento/update2', {
+               
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    estado_act: document.getElementById(Estado).value,
+                    
+                    id_select : id_select,
+                    id_cliente : id_cliente,
+                    id_propiedad : id_propiedad,
+                    id_tipoDoc : id_tipoDoc,
+                    id_tipoExp : id_tipoExp,
+                    estado : document.getElementById(id_select).value,
                     //_csrf: csrf,
                 }),
             }).then(result => {

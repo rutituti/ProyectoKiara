@@ -26,7 +26,10 @@ router.post('/:operacion/seguimiento/:id_p/expediente/:tipo_exp/:nombre_doc',isA
 
 router.get('/:operacion/seguimiento/:cliente/:id_p',isAuth, segControllers.get_seg);//Seguimiento para editar
 
-router.post('/:operacion/seguimiento/:cliente/:id_p',isAuth, segControllers.post_updateseg);
+
+router.get('/:operacion/seguimiento/:cliente/:id_p',isAuth, segControllers.get_seg);
+router.post('/seguimiento/update2',isAuth, segControllers.post_updateseg);
+
 
 router.get ('/:operacion/seguimiento/:id_p/expedienteprop/:tipo_expProp/:nombre_docProp',isAuth, segControllers.get_vistasdocsProp);
 
