@@ -100,10 +100,34 @@ exports.update_seg = (request, response, next) => {
     
 }
 
+
 exports.post_new_proceso = (request, response, next) => {
     response.send('FORMULARIO REGISTRO PROCESO');
         
 };
+
+exports.post_updateseg = (request, response, next) => {
+    ExpedientePropiedad.fetchactualizarestado(request.body.Estado,request.body.cliente,request.body.IDTipoexp,request.body.IDTipodoc)
+    .then(([rows, fieldData]) => {
+        console.log(rows[0]);
+        response.render(path.join('..','views','op_venta','mis_clientes.ejs'), {
+            clientes: rows[0],
+            info: request.session.info ? request.session.info : '',
+            isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+            user: request.session.user ? request.session.user : '',
+            ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+            nombre: request.session.nombre ? request.session.nombre : '',
+            registro: request.session. registro ? request.session. registro : '',
+            permisos: request.session.permisos ? request.session.permisos : '',
+            rol : request.session.roles ? request.session.roles : '',
+
+        }); 
+    })
+    .catch( error => { 
+        console.log(error)
+    });
+ 
+ }
 
 exports.get_mis_clientes = (request, response, next) => {
     request.session.ubicacion = 'misclientes';
@@ -239,12 +263,13 @@ exports.get_seg = (request, response, next) => {
                    
                     ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDADOR,request.params.id_p)
                         .then(([rows, fieldData]) => {
-                         
+
                             console.log(rows5[0]);
                                 response.render(path.join('..','views','op_venta','segVenta.ejs'), {
                                     numdocs : rows[0],
                                     seg_V: rows4[0],
                                     desc_documentos_arre: rows5[0],
+                                    desc_documentos_arre2: 0,
                                     info: request.session.info ? request.session.info : '',
                                     isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                                     user: request.session.user ? request.session.user : '',
@@ -258,13 +283,13 @@ exports.get_seg = (request, response, next) => {
                                     rol : request.session.roles ? request.session.roles : '',
                                     cliente: usuario ? usuario : '',
                                 }); 
-                                    
+                            }).catch( error => { 
+                                console.log(error);
+                            });                                    
                         }).catch( error => { 
                                 console.log(error);
                         });
-            }).catch( error => { 
-                console.log(error);
-            });
+          
         }).catch( error => { 
             console.log(error);
         });
@@ -276,54 +301,60 @@ exports.get_seg = (request, response, next) => {
         console.log(request.session.idprop);
      Proceso_CV.fetchProcesoCV(usuario, request.params.id_p)
       .then(([rows4, fieldData]) => {
-        ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_VENDEDOR, request.params.id_p )
-          .then(([rows5, fieldData]) => {
-            ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_COPROPVENDEDOR, request.params.id_p )
-            .then(([rows6, fieldData]) => {
-                ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_VENDEDOR)
-                    .then(([rows, fieldData]) => {
-                        console.log('HolaS');
-                        console.log(rows[0]);
-                        ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COPROPVENDEDOR)
-                            .then(([rows2, fieldData]) => {
-                                
-                                ExpedientePropiedad.fetchDocsProp(ExpedientePropiedad.EXPEDIENTE_VENTA)
-                                    .then(([rows3, fieldData]) => {
-                                        //console.log(rows[3]);
-                                    console.log(rows3[0]);
-                                            response.render(path.join('..','views','op_venta','segVenta.ejs'), {
-                                                numdocs : rows[0],
-                                                numdocs2 : rows2[0],
-                                                numdocs3 : rows3[0],
-                                                seg_V: rows4[0],
-                                                desc_documentos_arre: rows5[0],
-                                                desc_documentos_arre2: rows6[0],
-                                                info: request.session.info ? request.session.info : '',
-                                                isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
-                                                user: request.session.user ? request.session.user : '',
-                                                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-                                                nombre: request.session.nombre ? request.session.nombre : '',
-                                                registro: request.session. registro ? request.session. registro : '',
-                                                propiedad:   request.session.idprop  ? request.session.idprop : '',
-                                                permisos: request.session.permisos ? request.session.permisos : '',
-                                                rol : request.session.roles ? request.session.roles : '',
-                                                cliente: usuario ? usuario : '',
-                                            }); 
-                                        }).catch( error => { 
-                                            console.log(error);
-                                        });  
+        ExpedientePropiedad.fetchVerDocPropiedad(request.params.id_p,ExpedienteRenta.EXPEDIENTE_VENDEDOR)
+          .then(([rows7, fieldData]) => {
+                ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_VENDEDOR, request.params.id_p )
+                .then(([rows5, fieldData]) => {
+                    ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_COPROPVENDEDOR, request.params.id_p )
+                    .then(([rows6, fieldData]) => {
+                        ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_VENDEDOR)
+                            .then(([rows, fieldData]) => {
+                                console.log('HolaS');
+                                console.log(rows[0]);
+                                ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_COPROPVENDEDOR)
+                                    .then(([rows2, fieldData]) => {
+                                        
+                                        ExpedientePropiedad.fetchDocsProp(ExpedientePropiedad.EXPEDIENTE_VENTA)
+                                            .then(([rows3, fieldData]) => {
+                                                //console.log(rows[3]);
+                                            console.log(rows3[0]);
+                                                    response.render(path.join('..','views','op_venta','segVenta.ejs'), {
+                                                        numdocs : rows[0],
+                                                        numdocs2 : rows2[0],
+                                                        numdocs3 : rows3[0],
+                                                        seg_V: rows4[0],
+                                                        desc_documentos_arre: rows5[0],
+                                                        desc_documentos_arre2: rows6[0],
+                                                        desc_documentos_propiedad: rows7[0],
+                                                        info: request.session.info ? request.session.info : '',
+                                                        isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+                                                        user: request.session.user ? request.session.user : '',
+                                                        ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                                                        nombre: request.session.nombre ? request.session.nombre : '',
+                                                        registro: request.session. registro ? request.session. registro : '',
+                                                        propiedad:   request.session.idprop  ? request.session.idprop : '',
+                                                        permisos: request.session.permisos ? request.session.permisos : '',
+                                                        rol : request.session.roles ? request.session.roles : '',
+                                                        cliente: usuario ? usuario : '',
+                                                    }); 
+                                                }).catch( error => { 
+                                                    console.log(error);
+                                                });  
+                                }).catch( error => { 
+                                    console.log(error);
+                                }); 
+                            }).catch( error => { 
+                                        console.log(error);
+                            }); 
                         }).catch( error => { 
                             console.log(error);
-                        }); 
+                        });  
                     }).catch( error => { 
-                                console.log(error);
-                    }); 
+                        console.log(error);
+                    });   
                 }).catch( error => { 
                     console.log(error);
-                });  
-            }).catch( error => { 
-                console.log(error);
-            });   
+                });
         }).catch( error => { 
             console.log(error);
         }); 
@@ -702,9 +733,8 @@ exports.get_vistasdocsProp = (request, response, next) => {
     request.session.idexp     = request.params.tipo_exp;
     request.session.idprop    = request.params.id_p;
     
-    console.log(request.file.path);
-      console.log( request.session.user, request.session.docs, request.session.idexp, 'En revision', request.file.filename);
-      const expediente = new ExpedienteRenta( request.session.user, request.params.id_p, request.session.docs, request.session.idexp, 'En revision',request.file.filename);
+     
+      const expediente = new ExpedienteRenta( request.session.user, request.params.id_p, request.session.docs, request.session.idexp, 'En revision',request.files[0].filename);
     expediente.save(); 
      
 
@@ -720,7 +750,7 @@ exports.post_docsProp = (request, response, next) => {
     // console.log(request.session.user, request.session.docs, request.session.idexp, 'En Revision', request.file.filename);
 //    request.session.docs = request.params.nombre_doc;
    //  console.log(request.session.user,request.params.nombre_doc,request.file.filename,request.session.id_tip_expC,request.session.id_tip_DdocC);
-     const expediente2 = new ExpedientePropiedad(request.session.idprop , request.session.docs, request.session.idexp, 'En Revision', request.file.filename);
+     const expediente2 = new ExpedientePropiedad(request.params.id_p, request.params.nombre_docProp, request.params.tipo_expProp, 'En Revision', request.files[0].filename);
      expediente2.save();  
  
       response.redirect('/user/perfil'); 

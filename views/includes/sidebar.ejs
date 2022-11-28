@@ -139,8 +139,23 @@
 
       <% } %>
 
+
      
-  
+
+      <% if (ubicacion == 'registrarpropiedad') {
+        active = 'active';
+      } else {
+        active = '';
+      }%>
+
+      <li>
+        <a class="<%= active %>" href="/inicio/registrarpropiedad">
+          <i class='bx bxs-contact'></i>
+          <span class="links_name">Registrar Propiedad</span>
+        </a>
+        <span class="tooltip">Registrar Propiedad</span>
+      </li>
+
       <!--FIN PESTAÑAS ASESOR-->
 
       <% if (ubicacion == 'config') {

@@ -70,14 +70,22 @@ exports.get_casas = (request, response, next) => {
 
 exports.get_root = (request, response, next) => {
     let registro = '';
-    response.render(path.join('..','views','pagina_inicio','new.ejs'),{
-        registro: registro,
-        isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
-        user: request.session.user ? request.session.user : '',
-        nombre: request.session.nombre ? request.session.nombre : '',
-        permisos: request.session.permisos ? request.session.permisos : '',
-        rol : request.session.roles ? request.session.roles : '',
-    });
+    Propiedad.lastProperty()
+    .then(([rows, fieldData]) => {
+        response.render(path.join('..','views','pagina_inicio','new.ejs'),{
+            registro: registro,
+            casa: rows,
+            isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+            user: request.session.user ? request.session.user : '',
+            nombre: request.session.nombre ? request.session.nombre : '',
+            permisos: request.session.permisos ? request.session.permisos : '',
+            rol : request.session.roles ? request.session.roles : '',
+        });
+        console.log(rows[1]);
+    })
+    .catch(error => {
+        console.log(error);
+    });  
 };
 
 exports.getSesion = (request, response, next) => {

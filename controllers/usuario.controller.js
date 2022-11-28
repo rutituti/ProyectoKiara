@@ -5,6 +5,7 @@ const User_Rol = require('../models/user_rol.model');
 const Usuario = require('../models/usuario.model');
 const bcrypt = require('bcryptjs');
 const { response } = require('express');
+const { profile } = require('console');
 
 
 exports.get_new_admin = (request, response, next) => {
@@ -351,7 +352,7 @@ exports.get_profile= (request, response, next) => {
             
             Usuario.getUser(request.session.user)
             .then(([rows, fieldData]) => {
-        
+                console.log(rows);
                 response.render(path.join('..','views','perfil','perfil.ejs'), {
                 profile: rows,
                 isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
@@ -362,8 +363,8 @@ exports.get_profile= (request, response, next) => {
                 permisos: request.session.permisos ? request.session.permisos : '',
                 rol : request.session.roles ? request.session.roles : '',
                 registro: registro,
-            
-                }); 
+                
+                });
             })
                 .catch( error => { 
                 console.log(error)
