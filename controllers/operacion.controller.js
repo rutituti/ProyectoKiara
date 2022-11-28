@@ -100,6 +100,12 @@ exports.update_seg = (request, response, next) => {
     
 }
 
+
+exports.post_new_proceso = (request, response, next) => {
+    response.send('FORMULARIO REGISTRO PROCESO');
+        
+};
+
 exports.post_updateseg = (request, response, next) => {
    console.log(request.body.estado,request.body.id_cliente,request.body.id_tipoExp,request.body.id_propiedad,request.body.id_tipoDoc);
     ExpedientePropiedad.fetchactualizarestado(request.body.estado,request.body.id_cliente,request.body.id_tipoExp,request.body.id_propiedad,request.body.id_tipoDoc)
@@ -113,9 +119,9 @@ exports.post_updateseg = (request, response, next) => {
     console.log(request.body);
  
  }
+
 exports.get_mis_clientes = (request, response, next) => {
-   
-    
+    request.session.ubicacion = 'misclientes';
     Asesor.get_clientes(request.session.user)
         .then(([rows, fieldData]) => {
             console.log(rows[0]);
@@ -135,6 +141,32 @@ exports.get_mis_clientes = (request, response, next) => {
         .catch( error => { 
             console.log(error)
         });
+        
+};
+
+exports.get_procesos = (request, response, next) => {
+    request.session.ubicacion = 'misprocesos';
+    
+    Asesor.get_procesos_idAsesor(request.session.user)
+    .then(([rows, fieldData]) => {
+        console.log(rows[0]);
+        response.render(path.join('..','views','op_venta','mis_procesos.ejs'), {
+            procesos: rows[0],
+            info: request.session.info ? request.session.info : '',
+            isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+            user: request.session.user ? request.session.user : '',
+            ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+            nombre: request.session.nombre ? request.session.nombre : '',
+            registro: request.session. registro ? request.session. registro : '',
+            permisos: request.session.permisos ? request.session.permisos : '',
+            rol : request.session.roles ? request.session.roles : '',
+
+        }); 
+    })
+    .catch( error => { 
+        console.log(error)
+    });
+       
         
 };
 
@@ -380,7 +412,7 @@ exports.get_seg = (request, response, next) => {
 };
 
 
-
+//El cliente puede consultar las propiedades que esta vendiendo, comprando, rentando y alquilando
 exports.get_operacion = (request, response, next) => {
     request.session.ubicacion = request.params.operacion;
     let usuario = '';
@@ -462,6 +494,107 @@ exports.get_operacion = (request, response, next) => {
 
     }
   
+};
+
+exports.get_operacion_asesor = (request, response, next) => {
+    request.session.ubicacion = request.params.operacion;
+    let usuario = '';
+    usuario = request.params.cliente;
+    request.session.ubicacion = request.params.operacion;
+    
+    if (request.session.ubicacion === 'renta' )
+    {
+        Asesor.get_casas_opAsesor(request.session.user,usuario,'Arrendador')
+        .then(([rows, fieldData]) => {
+            //console.log(request.session.info);
+            console.log("OPERACION "+ request.session.ubicacion+" DE MI CLIENTE "+usuario);
+            //console.log(rows);
+            response.render(path.join('..','views','op_venta','casasV.ejs'), {
+                casas_V: rows[0],
+                info: request.session.info ? request.session.info : '',
+                isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+                user: request.session.user ? request.session.user : '',
+                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                nombre: request.session.nombre ? request.session.nombre : '',
+                registro: request.session. registro ? request.session. registro : '',
+                cliente: usuario ? usuario : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
+                rol : request.session.roles ? request.session.roles : '',
+
+                }); 
+            }).catch( error => { 
+            console.log(error);
+            });
+
+    }else if(request.session.ubicacion === 'venta'){
+        Asesor.get_casas_opAsesor(request.session.user,usuario,'Vendedor')
+        .then(([rows, fieldData]) => {
+            //console.log(request.session.info);
+            console.log("OPERACION "+ request.session.ubicacion+" DE MI CLIENTE "+usuario);
+            //console.log(rows);
+            response.render(path.join('..','views','op_venta','casasV.ejs'), {
+                casas_V: rows[0],
+                info: request.session.info ? request.session.info : '',
+                isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+                user: request.session.user ? request.session.user : '',
+                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                nombre: request.session.nombre ? request.session.nombre : '',
+                registro: request.session. registro ? request.session. registro : '',
+                cliente: usuario ? usuario : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
+                rol : request.session.roles ? request.session.roles : '',
+
+                }); 
+            }).catch( error => { 
+            console.log(error);
+            });
+
+    }else if (request.session.ubicacion === 'alquilar' ){
+        Asesor.get_casas_opAsesor(request.session.user,usuario,'Arrendatario')
+        .then(([rows, fieldData]) => {
+            //console.log(request.session.info);
+            console.log("OPERACION "+ request.session.ubicacion+" DE MI CLIENTE "+usuario);
+            //console.log(rows);
+            response.render(path.join('..','views','op_venta','casasV.ejs'), {
+                casas_V: rows[0],
+                info: request.session.info ? request.session.info : '',
+                isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+                user: request.session.user ? request.session.user : '',
+                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                nombre: request.session.nombre ? request.session.nombre : '',
+                registro: request.session. registro ? request.session. registro : '',
+                cliente: usuario ? usuario : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
+                rol : request.session.roles ? request.session.roles : '',
+
+                }); 
+            }).catch( error => { 
+            console.log(error);
+            });
+    }else if (request.session.ubicacion === 'compra' ){
+        Asesor.get_casas_opAsesor(request.session.user,usuario,'Comprador')
+        .then(([rows, fieldData]) => {
+            //console.log(request.session.info);
+            console.log("OPERACION "+ request.session.ubicacion+" DE MI CLIENTE "+usuario);
+            //console.log(rows);
+            response.render(path.join('..','views','op_venta','casasV.ejs'), {
+                casas_V: rows[0],
+                info: request.session.info ? request.session.info : '',
+                isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+                user: request.session.user ? request.session.user : '',
+                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                nombre: request.session.nombre ? request.session.nombre : '',
+                registro: request.session. registro ? request.session. registro : '',
+                cliente: usuario ? usuario : '',
+                permisos: request.session.permisos ? request.session.permisos : '',
+                rol : request.session.roles ? request.session.roles : '',
+
+                }); 
+            }).catch( error => { 
+            console.log(error);
+            });
+    }
+    
 };
 
 exports.get_vistasdocs = (request, response, next) => {

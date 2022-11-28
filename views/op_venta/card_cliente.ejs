@@ -11,12 +11,12 @@
             <p class="card-text"><strong>Ocupacion:</strong> <%= clientes.Ocupacion %>  </p>
 
             <p class="card-text"><strong>Estado Civil:</strong>  <%= clientes.Estado_civil %> </p>
-
+              <hr>
             <p><strong>Operaciones</strong></p>
-            <a href="/operacion/venta/<%= clientes.ID_Cliente %>" class="btn btn-primary">Venta</a>
-            <a href="/operacion/comprar/<%= clientes.ID_Cliente %>" class="btn btn-primary">Compra</a>
-            <a href="/operacion/renta/<%= clientes.ID_Cliente %>" class="btn btn-primary">Renta</a>
-            <a href="/operacion/alquilar/<%= clientes.ID_Cliente %>" class="btn btn-primary">Alquilar</a>
+            <a href="/operacion/misclientes/venta/<%= clientes.ID_Cliente %>" class="btn btn-primary">Venta</a>
+            <a href="/operacion/misclientes/compra/<%= clientes.ID_Cliente %>" class="btn btn-primary">Compra</a>
+            <a href="/operacion/misclientes/renta/<%= clientes.ID_Cliente %>" class="btn btn-primary">Renta</a>
+            <a href="/operacion/misclientes/alquilar/<%= clientes.ID_Cliente %>" class="btn btn-primary">Alquilar</a>
           
           </div>
       </div>
