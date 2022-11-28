@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql-kiara.alwaysdata.net
--- Generation Time: Nov 17, 2022 at 08:50 PM
+-- Generation Time: Nov 24, 2022 at 12:14 AM
 -- Server version: 10.6.7-MariaDB
 -- PHP Version: 7.4.19
 
@@ -99,6 +99,35 @@ CREATE DEFINER=`kiara`@`%` PROCEDURE `update_RenVen` (IN `U_ID` INT, IN `U_Preci
 SET Operacion = 'Venta', Precio = U_Precio 
 WHERE Propiedades.ID = U_ID$$
 
+CREATE DEFINER=`kiara`@`%` PROCEDURE `update_VenRen` (IN `U_ID` INT, IN `U_Precio` INT)   UPDATE Propiedades
+SET Operacion = 'Renta', Precio = U_Precio 
+WHERE Propiedades.ID = U_ID$$
+
+CREATE DEFINER=`kiara`@`%` PROCEDURE `ver_documento` (IN `U_IDtipoDoc` INT, IN `U_ID_tipoExp` INT, IN `U_IDCliente` VARCHAR(400))   SELECT *
+FROM Expediente_Cliente
+WHERE ID_Cliente = U_IDCliente AND ID_TipoDoc = U_IDtipoDoc AND ID_TipoExp=U_ID_tipoExp
+ORDER BY Fecha DESC
+LIMIT 1$$
+
+CREATE DEFINER=`kiara`@`%` PROCEDURE `ver_documentos_expediente` (IN `U_IDCliente` VARCHAR(400), IN `U_IDExp` INT, IN `U_IDprop` INT)   SELECT *
+FROM Expediente_Cliente E, Tipo_docCliente T
+WHERE E.ID_TipoDoc = T.ID AND Fecha IN (
+SELECT MAX(Fecha)
+FROM Expediente_Cliente
+WHERE ID_Cliente=U_IDCliente AND ID_Tipoexp=U_IDExp AND ID_propiedad = U_IDprop
+GROUP BY ID_TipoDoc
+)
+GROUP BY E.ID_TipoDoc$$
+
+CREATE DEFINER=`kiara`@`%` PROCEDURE `ver_documentos_expropiedad` (IN `U_ID_propiedad` INT, IN `U_IDTipoexpProp` INT)   SELECT *
+FROM Expediente_Propiedad P, Tipo_docPropiedad T
+WHERE P.ID_TipoDoc = T.ID AND Fecha IN  (
+SELECT MAX(Fecha) 
+FROM Expediente_Propiedad
+WHERE ID_TipoExp=U_IDTipoexpProp AND ID_propiedad = U_ID_propiedad
+GROUP BY ID_TipoDoc
+)$$
+
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -170,6 +199,7 @@ CREATE TABLE `Clientes` (
 --
 
 INSERT INTO `Clientes` (`username`, `Ocupacion`, `Estado_civil`) VALUES
+('artur', 'empleado', 'soltero'),
 ('c01', 'empleado', 'n/a'),
 ('c02', 'socio', 'n/a'),
 ('c03', 'empleado', 'n/a'),
@@ -241,6 +271,7 @@ INSERT INTO `Cronograma_venta` (`Numero`, `Nombre`, `Tiempo_estimado`) VALUES
 CREATE TABLE `Expediente_Cliente` (
   `ID` int(11) NOT NULL,
   `ID_Cliente` varchar(18) CHARACTER SET utf8mb4 NOT NULL,
+  `Id_propiedad` int(11) NOT NULL,
   `ID_TipoDoc` int(11) NOT NULL,
   `ID_TipoExp` int(11) NOT NULL,
   `Fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -252,96 +283,24 @@ CREATE TABLE `Expediente_Cliente` (
 -- Dumping data for table `Expediente_Cliente`
 --
 
-INSERT INTO `Expediente_Cliente` (`ID`, `ID_Cliente`, `ID_TipoDoc`, `ID_TipoExp`, `Fecha`, `Estado`, `URL`) VALUES
-(114, 'c08', 2, 6, '2022-11-13 21:27:43', 'En Revision', '0102022152742Ine.png'),
-(115, 'c08', 3, 6, '2022-11-13 21:27:43', 'En Revision', '0102022152742comprobantedomicilio.png'),
-(116, 'c08', 11, 6, '2022-11-13 21:27:43', 'En Revision', '0102022152742solicitudarrendamiento.png'),
-(117, 'c08', 2, 6, '2022-11-13 21:31:12', 'En Revision', '0102022153112Ine.png'),
-(118, 'c08', 3, 6, '2022-11-13 21:31:13', 'En Revision', '0102022153112comprobantedomicilio.png'),
-(119, 'c08', 11, 6, '2022-11-13 21:31:13', 'En Revision', '0102022153112solicitudarrendamiento.png'),
-(120, 'c08', 2, 6, '2022-11-13 21:55:17', 'En Revision', '0102022155516Ine.png'),
-(121, 'c08', 3, 6, '2022-11-13 21:55:18', 'En Revision', '0102022155516comprobantedomicilio.png'),
-(122, 'c08', 11, 6, '2022-11-13 21:55:18', 'En Revision', '0102022155516solicitudarrendamiento.png'),
-(123, 'c08', 2, 6, '2022-11-13 21:57:23', 'En Revision', '0102022155722Ine.png'),
-(124, 'c08', 3, 6, '2022-11-13 21:57:23', 'En Revision', '0102022155722comprobantedomicilio.png'),
-(125, 'c08', 11, 6, '2022-11-13 21:57:24', 'En Revision', '0102022155722solicitudarrendamiento.png'),
-(126, 'c08', 2, 6, '2022-11-14 00:11:34', 'En Revision', '0102022181134Ine.png'),
-(127, 'c08', 3, 6, '2022-11-14 00:11:35', 'En Revision', '0102022181134comprobantedomicilio.png'),
-(128, 'c08', 11, 6, '2022-11-14 00:11:35', 'En Revision', '0102022181134solicitudarrendamiento.png'),
-(129, 'c08', 2, 6, '2022-11-14 00:11:35', 'En Revision', '0102022181134comprobanteingresos.png'),
-(130, 'c08', 2, 5, '2022-11-14 00:14:08', 'En Revision', '010202218148Ine.png'),
-(131, 'c08', 2, 5, '2022-11-14 00:16:05', 'En Revision', '010202218165DIagrama de casos de uso A01700396.drawio.png'),
-(132, 'c08', 2, 5, '2022-11-14 00:18:05', 'En Revision', '010202218185Ine.png'),
-(133, 'c08', 3, 5, '2022-11-14 00:18:06', 'En Revision', '010202218185comprobantedomicilio.png'),
-(134, 'c08', 8, 5, '2022-11-14 00:18:06', 'En Revision', '010202218185solicitudarrendamiento.png'),
-(135, 'c08', 11, 5, '2022-11-14 00:18:06', 'En Revision', '010202218185comprobanteingresos.png'),
-(136, 'c08', 2, 5, '2022-11-14 04:39:11', 'En Revision', '0102022223911Ine.png'),
-(137, 'c08', 3, 5, '2022-11-14 04:39:11', 'En Revision', '0102022223911comprobantedomicilio.png'),
-(138, 'c08', 8, 5, '2022-11-14 04:39:11', 'En Revision', '0102022223911solicitudarrendamiento.png'),
-(139, 'c08', 11, 5, '2022-11-14 04:39:11', 'En Revision', '0102022223911comprobanteingresos.png'),
-(140, 'c08', 2, 5, '2022-11-14 04:40:42', 'En Revision', '0102022224041Ine.png'),
-(141, 'c08', 3, 5, '2022-11-14 04:40:42', 'En Revision', '0102022224041comprobantedomicilio.png'),
-(142, 'c08', 8, 5, '2022-11-14 04:40:42', 'En Revision', '0102022224041comprobanteingresos.png'),
-(143, 'c08', 2, 5, '2022-11-14 04:43:22', 'En Revision', '0102022224322Ine.png'),
-(144, 'c08', 3, 5, '2022-11-14 04:43:22', 'En Revision', '0102022224322comprobantedomicilio.png'),
-(145, 'c08', 8, 5, '2022-11-14 04:43:22', 'En Revision', '0102022224322solicitudarrendamiento.png'),
-(146, 'c08', 2, 5, '2022-11-14 04:58:01', 'En Revision', '010202222581Ine.png'),
-(147, 'c08', 3, 5, '2022-11-14 04:58:01', 'En Revision', '010202222581comprobantedomicilio.png'),
-(148, 'c08', 8, 5, '2022-11-14 04:58:01', 'En Revision', '010202222581solicitudarrendamiento.png'),
-(149, 'c08', 11, 5, '2022-11-14 04:58:02', 'En Revision', '010202222581comprobanteingresos.png'),
-(150, 'c08', 2, 5, '2022-11-14 04:59:48', 'En Revision', '0102022225948Ine.png'),
-(151, 'c08', 3, 5, '2022-11-14 04:59:48', 'En Revision', '0102022225948comprobantedomicilio.png'),
-(152, 'c08', 8, 5, '2022-11-14 04:59:48', 'En Revision', '0102022225948solicitudarrendamiento.png'),
-(153, 'c08', 11, 5, '2022-11-14 04:59:49', 'En Revision', '0102022225948comprobanteingresos.png'),
-(154, 'c08', 2, 5, '2022-11-14 05:03:18', 'En Revision', '010202223318Ine.png'),
-(155, 'c08', 3, 5, '2022-11-14 05:03:19', 'En Revision', '010202223318comprobantedomicilio.png'),
-(156, 'c08', 8, 5, '2022-11-14 05:03:19', 'En Revision', '010202223318solicitudarrendamiento.png'),
-(157, 'c08', 11, 5, '2022-11-14 05:03:19', 'En Revision', '010202223318comprobanteingresos.png'),
-(158, 'c08', 2, 5, '2022-11-14 14:34:21', 'En Revision', '110202283419Ine.png'),
-(159, 'c08', 3, 5, '2022-11-14 14:34:21', 'En Revision', '110202283419comprobantedomicilio.png'),
-(160, 'c08', 8, 5, '2022-11-14 14:34:21', 'En Revision', '110202283419solicitudarrendamiento.png'),
-(161, 'c08', 11, 5, '2022-11-14 14:34:21', 'En Revision', '110202283419comprobanteingresos.png'),
-(162, 'c08', 2, 5, '2022-11-14 14:41:41', 'En Revision', '110202284140Ine.png'),
-(163, 'c08', 3, 5, '2022-11-14 14:41:42', 'En Revision', '110202284140comprobantedomicilio.png'),
-(164, 'c08', 8, 5, '2022-11-14 14:41:42', 'En Revision', '110202284140solicitudarrendamiento.png'),
-(165, 'c08', 11, 5, '2022-11-14 14:41:42', 'En Revision', '110202284140comprobanteingresos.png'),
-(166, 'c08', 2, 5, '2022-11-14 14:42:10', 'En Revision', '11020228429Ine.png'),
-(167, 'c08', 3, 5, '2022-11-14 14:42:10', 'En Revision', '11020228429comprobantedomicilio.png'),
-(168, 'c08', 8, 5, '2022-11-14 14:42:10', 'En Revision', '11020228429comprobanteingresos.png'),
-(169, 'c08', 2, 5, '2022-11-14 21:19:50', 'En Revision', '1102022151949Ine.png'),
-(170, 'c08', 3, 5, '2022-11-14 21:19:50', 'En Revision', '1102022151949comprobantedomicilio.png'),
-(171, 'c08', 8, 5, '2022-11-14 21:19:50', 'En Revision', '1102022151949solicitudarrendamiento.png'),
-(172, 'c08', 11, 5, '2022-11-14 21:19:50', 'En Revision', '1102022151949comprobanteingresos.png'),
-(173, 'c08', 11, 5, '2022-11-15 22:25:03', 'En Revision', '210202216253chapman.pdf'),
-(174, 'c08', 11, 5, '2022-11-15 22:26:23', 'En Revision', '2102022162623chapman.pdf'),
-(175, 'c08', 11, 5, '2022-11-15 22:27:38', 'En Revision', '2102022162738Fuentes de Iluminacion_A01274389.pdf'),
-(176, 'c08', 11, 5, '2022-11-15 22:29:35', 'En Revision', '2102022162935chapman.pdf'),
-(177, 'c08', 11, 5, '2022-11-15 23:33:23', 'En Revision', '2102022173323Fuentes de Iluminacion_A01274389.pdf'),
-(178, 'c08', 11, 5, '2022-11-15 23:34:13', 'En Revision', '2102022173413comprobantedomicilio.png'),
-(179, 'c08', 2, 5, '2022-11-15 23:36:37', 'En Revision', '2102022173637Ine.png'),
-(180, 'c08', 3, 5, '2022-11-15 23:37:18', 'En Revision', '2102022173718comprobantedomicilio.png'),
-(181, 'c08', 5, 1, '2022-11-15 23:37:56', 'En Revision', '2102022173756ParalelizaciÃ³n-en-CUDA-y-validaciÃ³n-de-correcciÃ³n-de-traslapes-en-sistema-de-partÃ­culas-coloidales.pdf'),
-(182, 'c08', 1, 2, '2022-11-15 23:48:19', 'En Revision', '2102022174819Ine.png'),
-(183, 'c08', 2, 6, '2022-11-15 23:49:48', 'En Revision', '2102022174948chapman.pdf'),
-(184, 'c07', 2, 5, '2022-11-16 00:20:38', 'En Revision', '2102022182038Ine.png'),
-(185, 'c08', 2, 5, '2022-11-16 00:27:45', 'En Revision', '2102022182745Ine.png'),
-(186, 'c08', 3, 5, '2022-11-16 00:29:00', 'En Revision', '210202218290comprobantedomicilio.png'),
-(187, 'c08', 8, 5, '2022-11-16 00:29:46', 'En Revision', '2102022182946solicitudarrendamiento.png'),
-(188, 'c08', 11, 5, '2022-11-16 00:30:32', 'En Revision', '2102022183032comprobanteingresos.png'),
-(189, 'c08', 2, 6, '2022-11-16 00:31:05', 'En Revision', '210202218315Ine.png'),
-(190, 'c08', 3, 6, '2022-11-16 00:32:08', 'En Revision', '210202218328comprobantedomicilio.png'),
-(191, 'c08', 11, 6, '2022-11-16 00:32:47', 'En Revision', '2102022183247comprobanteingresos.png'),
-(192, 'c08', 2, 7, '2022-11-16 00:33:41', 'En Revision', '2102022183342Ine.png'),
-(193, 'c08', 3, 7, '2022-11-16 00:35:39', 'En Revision', '2102022183539comprobanteingresos.png'),
-(194, 'c08', 7, 7, '2022-11-16 00:36:57', 'En Revision', '2102022183657estado_cuenta_bancario.png'),
-(195, 'c08', 2, 5, '2022-11-16 00:39:47', 'En Revision', '2102022183947Ine.png'),
-(196, 'c08', 2, 5, '2022-11-16 00:53:42', 'En Revision', '2102022185342Ine.png'),
-(197, 'c08', 1, 1, '2022-11-16 16:40:55', 'En Revision', '3102022104055graph description voc and practice HowComGraphStd.pdf'),
-(198, 'c08', 1, 1, '2022-11-16 16:51:32', 'En Revision', '3102022105132sodapdf-converted(1).pdf'),
-(199, 'c08', 1, 1, '2022-11-16 23:53:47', 'En revision', '3102022175346ParalelizaciÃ³n-en-CUDA-y-validaciÃ³n-de-correcciÃ³n-de-traslapes-en-sistema-de-partÃ­culas-coloidales.pdf'),
-(200, 'c08', 3, 2, '2022-11-16 23:54:58', 'En revision', '3102022175458sodapdf-converted(1).pdf'),
-(201, 'c08', 3, 2, '2022-11-16 23:58:30', 'En revision', '3102022175830sodapdf-converted.pdf'),
-(202, 'c08', 3, 2, '2022-11-17 00:00:22', 'En revision', '310202218022HkPHmH0X.pdf');
+INSERT INTO `Expediente_Cliente` (`ID`, `ID_Cliente`, `Id_propiedad`, `ID_TipoDoc`, `ID_TipoExp`, `Fecha`, `Estado`, `URL`) VALUES
+(216, 'c08', 41, 7, 7, '2022-11-23 14:58:16', 'En revision', 'public\\uploads\\110202213944INE.pdf'),
+(217, 'c08', 41, 7, 7, '2022-11-23 14:58:16', 'En revision', 'public\\uploads\\110202213404612-Oscilaciones.pdf'),
+(218, 'c08', 41, 7, 7, '2022-11-23 14:58:16', 'En revision', 'public\\uploads\\1102022134948Anuncio_Cambio_VTC.pdf'),
+(219, 'c08', 41, 7, 7, '2022-11-23 14:58:16', 'En revision', 'public\\uploads\\1102022135538ex_a01274389.pdf'),
+(220, 'c08', 41, 7, 7, '2022-11-23 14:58:16', 'En revision', '1102022135828Anuncio_Cambio_VTC.pdf'),
+(221, 'c08', 41, 7, 7, '2022-11-23 14:58:16', 'En revision', '2102022161320OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(222, 'c08', 41, 7, 7, '2022-11-22 23:14:33', 'En revision', '2102022161411OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(223, 'c08', 41, 7, 7, '2022-11-23 14:58:16', 'En revision', '2102022161615OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(226, 'c08', 42, 7, 7, '2022-11-23 14:58:16', 'En revision', '2102022191958OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(227, 'c08', 42, 7, 7, '2022-11-23 14:58:16', 'En revision', '2102022195832Onboarding_documents_for_Gilberto__Valenciap.pdf'),
+(228, 'c08', 42, 7, 7, '2022-11-23 01:59:07', 'En revision', '210202219596OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(229, 'c08', 41, 1, 1, '2022-11-23 02:21:41', 'En revision', '2102022202140OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(230, 'c08', 42, 7, 7, '2022-11-23 14:58:16', 'En revision', '2102022202214OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(231, 'c08', 42, 7, 7, '2022-11-23 14:58:16', 'En revision', '2102022202453OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(232, 'c08', 43, 7, 7, '2022-11-23 14:58:16', 'En revision', '2102022202710OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(233, 'c08', 41, 1, 1, '2022-11-23 02:31:28', 'En revision', '2102022203127(2) Crear anuncio _ Facebook.pdf'),
+(234, 'c08', 41, 2, 1, '2022-11-23 02:52:48', 'En revision', '2102022205246OBTENER GLOBALPROTECT WINDOWS.pdf');
 
 -- --------------------------------------------------------
 
@@ -354,10 +313,30 @@ CREATE TABLE `Expediente_Propiedad` (
   `ID_Propiedad` int(11) NOT NULL,
   `ID_TipoDoc` int(11) NOT NULL,
   `ID_TipoExp` int(11) NOT NULL,
-  `Fecha` date NOT NULL,
+  `Fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `Estado` varchar(20) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `URL` varchar(400) COLLATE utf8mb4_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Dumping data for table `Expediente_Propiedad`
+--
+
+INSERT INTO `Expediente_Propiedad` (`ID`, `ID_Propiedad`, `ID_TipoDoc`, `ID_TipoExp`, `Fecha`, `Estado`, `URL`) VALUES
+(4, 41, 6, 1, '2022-11-18 00:41:02', 'En Revision', '410202218412fQwht;5u}2@9c}fxj8QGTJzV{Y8,$%ch%neae9Av-yYawXJ-.mQk(jSMcf&!RDXDx2E6XiG9&RGeyCeQ.pdf'),
+(5, 41, 5, 1, '2022-11-18 00:46:43', 'En Revision', '4102022184643doc1_amlo.pdf');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Opcionador_propiedad`
+--
+
+CREATE TABLE `Opcionador_propiedad` (
+  `ID_Asesor` varchar(18) NOT NULL,
+  `ID_Propiedad` int(11) NOT NULL,
+  `Fecha` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -710,17 +689,50 @@ INSERT INTO `Proceso_CompraVenta` (`ID`, `ID_Cliente`, `Numero_etapa`, `ID_Propi
 (29, 'c07', 9, 4, 'Vendedor', 'No iniciado', '2022-11-16 03:03:56', '0000-00-00 00:00:00'),
 (30, 'c07', 10, 4, 'Vendedor', 'No iniciado', '2022-11-16 03:03:56', '0000-00-00 00:00:00'),
 (31, 'c07', 11, 4, 'Vendedor', 'No iniciado', '2022-11-16 03:03:56', '0000-00-00 00:00:00'),
-(32, 'c08', 1, 41, 'Vendedor', 'No aprobado', '2022-11-17 20:46:11', '2022-09-08 22:00:00'),
-(33, 'c08', 2, 41, 'Vendedor', 'En proceso', '2022-11-17 20:47:45', '0000-00-00 00:00:00'),
-(34, 'c08', 3, 41, 'Vendedor', 'Completado', '2022-11-17 20:47:21', '2022-11-17 19:49:55'),
-(35, 'c08', 4, 41, 'Vendedor', 'Completado', '2022-11-16 03:03:56', '2022-09-14 22:00:00'),
+(32, 'c08', 1, 41, 'Vendedor', 'En proceso', '2022-11-17 20:46:11', '2022-11-21 18:27:07'),
+(33, 'c08', 2, 41, 'Vendedor', 'No aprobado', '2022-11-17 20:47:45', '2022-11-18 00:53:54'),
+(34, 'c08', 3, 41, 'Vendedor', 'No aprobado', '2022-11-17 20:47:21', '2022-11-18 00:53:57'),
+(35, 'c08', 4, 41, 'Vendedor', 'En proceso', '2022-11-16 03:03:56', '2022-11-18 00:54:23'),
 (36, 'c08', 5, 41, 'Vendedor', 'Completado', '2022-11-16 03:03:56', '2022-09-18 22:00:00'),
 (37, 'c08', 6, 41, 'Vendedor', 'Completado', '2022-11-16 03:03:56', '2022-11-01 18:48:10'),
 (38, 'c08', 7, 41, 'Vendedor', 'Completado', '2022-11-16 03:03:56', '2022-09-18 22:00:00'),
 (39, 'c08', 8, 41, 'Vendedor', 'Completado', '2022-11-16 03:03:56', '2022-09-25 22:00:00'),
 (40, 'c08', 9, 41, 'Vendedor', 'En proceso', '2022-11-16 03:03:56', '0000-00-00 00:00:00'),
 (41, 'c08', 10, 41, 'Vendedor', 'En proceso', '2022-11-16 03:03:56', '2022-11-17 19:50:16'),
-(42, 'c08', 11, 41, 'Vendedor', 'No iniciado', '2022-11-16 03:03:56', '0000-00-00 00:00:00');
+(42, 'c08', 11, 41, 'Vendedor', 'No aprobado', '2022-11-16 03:03:56', '2022-11-18 00:27:03'),
+(43, 'artur', 1, 41, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(44, 'artur', 2, 41, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(45, 'artur', 3, 41, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(46, 'artur', 4, 41, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(47, 'artur', 5, 41, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(48, 'artur', 6, 41, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(49, 'artur', 7, 41, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(50, 'artur', 8, 41, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(51, 'artur', 9, 41, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(52, 'artur', 10, 41, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(53, 'artur', 11, 41, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(54, 'artur', 1, 45, 'Vendedor', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(55, 'artur', 2, 45, 'Vendedor', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(56, 'artur', 3, 45, 'Vendedor', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(57, 'artur', 4, 45, 'Vendedor', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(58, 'artur', 5, 45, 'Vendedor', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(59, 'artur', 6, 45, 'Vendedor', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(60, 'artur', 7, 45, 'Vendedor', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(61, 'artur', 8, 45, 'Vendedor', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(62, 'artur', 9, 45, 'Vendedor', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(63, 'artur', 10, 45, 'Vendedor', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(64, 'artur', 11, 45, 'Vendedor', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(65, 'c08', 1, 45, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(66, 'c08', 2, 45, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(67, 'c08', 3, 45, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(68, 'c08', 4, 45, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(69, 'c08', 5, 45, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(70, 'c08', 6, 45, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(71, 'c08', 7, 45, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(72, 'c08', 8, 45, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(73, 'c08', 9, 45, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(74, 'c08', 10, 45, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(75, 'c08', 11, 45, 'Comprador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -763,11 +775,29 @@ INSERT INTO `Proceso_renta` (`ID`, `ID_Cliente`, `Numero_etapa`, `ID_Propiedad`,
 (17, 'c04', 5, 1, 'Arrendatario', 'Completado', '2022-10-19 02:45:43', '2022-09-25 22:00:00'),
 (18, 'c04', 6, 1, 'Arrendatario', 'Completado', '2022-10-19 02:45:43', '2022-09-26 22:00:00'),
 (19, 'c08', 1, 42, 'Arrendador', 'No aprobado', '2022-11-16 17:04:40', '2022-11-17 19:39:13'),
-(20, 'c08', 2, 42, 'Arrendador', 'Completado', '2022-11-16 12:23:52', '2022-11-17 18:44:46'),
+(20, 'c08', 2, 42, 'Arrendador', 'En proceso', '2022-11-16 12:23:52', '2022-11-17 22:22:24'),
 (21, 'c08', 3, 42, 'Arrendador', 'Completado', '2022-11-16 12:28:39', '2022-11-17 18:41:58'),
 (22, 'c08', 4, 42, 'Arrendador', 'Completado', '2022-11-16 12:42:25', '2022-11-16 18:42:25'),
 (23, 'c08', 5, 42, 'Arrendador', 'Completado', '2022-11-16 16:19:08', '2022-11-16 22:19:09'),
-(24, 'c08', 6, 42, 'Arrendador', 'No aprobado', '2022-11-16 12:42:33', '2022-11-16 22:40:25');
+(24, 'c08', 6, 42, 'Arrendador', 'No aprobado', '2022-11-16 12:42:33', '2022-11-16 22:40:25'),
+(29, 'artur', 1, 42, 'Arrendatario', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(30, 'artur', 2, 42, 'Arrendatario', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(31, 'artur', 3, 42, 'Arrendatario', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(32, 'artur', 4, 42, 'Arrendatario', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(33, 'artur', 5, 42, 'Arrendatario', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(34, 'artur', 6, 42, 'Arrendatario', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(35, 'artur', 1, 46, 'Arrendador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(36, 'artur', 2, 46, 'Arrendador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(37, 'artur', 3, 46, 'Arrendador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(38, 'artur', 4, 46, 'Arrendador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(39, 'artur', 5, 46, 'Arrendador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(40, 'artur', 6, 46, 'Arrendador', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(41, 'c08', 1, 46, 'Arrendatario', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(42, 'c08', 2, 46, 'Arrendatario', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(43, 'c08', 3, 46, 'Arrendatario', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(44, 'c08', 4, 46, 'Arrendatario', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(45, 'c08', 5, 46, 'Arrendatario', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(46, 'c08', 6, 46, 'Arrendatario', 'No iniciado', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -784,7 +814,7 @@ CREATE TABLE `Propiedades` (
   `Codigo_postal` int(11) NOT NULL,
   `Municipio` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `Estado` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `ID_pais` int(11) NOT NULL,
+  `ID_pais` int(11) DEFAULT NULL,
   `Longitud` float NOT NULL,
   `Latitud` float NOT NULL,
   `Operacion` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
@@ -823,8 +853,11 @@ INSERT INTO `Propiedades` (`ID`, `ID_tipoInmueble`, `Calle`, `Numero`, `Colonia`
 (41, 1, 'Sendero de las Misiones', '27', 'Milenio III', 76060, 'Queretaro', 'Queretaro', 115, 0, 0, 'Venta', 300, 'Calle', 1000, 'Habitacional', 200, '', '', 2, 3, 2.5, 1, 1, 3, 'estacionario', 0, 0, 0, '', '', 0, 0),
 (42, 2, 'Florencio Rosas', '4 Int 101', 'Cimatario', 76030, 'Queretaro', 'Queretaro', 115, 0, 0, 'Renta', 300, 'Calle', 1000, 'Habitacional', 200, '', '', 1, 2, 1, 1, 1, 1, 'estacionario', 0, 0, 0, '', '', 0, 0),
 (43, 1, 'Marques de Jelves', '115', 'Lomas del Marques', 76010, 'Queretaro', 'Queretaro', 115, 0, 0, 'Renta', 300, 'Calle', 1000, 'Habitacional', 200, '', '', 1, 2, 1, 1, 1, 2, 'estacionario', 0, 0, 0, '', '', 0, 0),
-(45, 1, 'Vellejo', '69', 'Lomas Turbas', 69420, 'Queretaro', 'Queretaro', 115, 69.245, 69.254, 'Venta', 5.332, 'XXX', 10000, 'Residencial', 3.45, 'bien shila', '', 3, 3, 3, 1, 1, 1, 'Si', 1, 1, 1, 'chico', 'grande', 5.3, 4.3),
-(46, 1, 'Vellejo', '23', 'Lomas Turbas', 69420, 'Queretaro', 'Queretaro', 115, 69.245, 69.254, 'Venta', 0, 'XXX', 1000000, 'Residencial', 3.45, 'Bien shila', '', 3, 3, 3, 1, 1, 1, 'Si', 1, 1, 1, 'chico', 'grande', 5.3, 4.3);
+(45, 1, 'Vellejo', '69', 'Lomas Turbas', 69420, 'Queretaro', 'Queretaro', 115, 69.245, 69.254, 'Venta', 5.332, 'Calle', 10000, 'Residencial', 3.45, 'bien shila', '', 3, 3, 3, 1, 1, 1, 'Si', 1, 1, 1, 'chico', 'grande', 5.3, 4.3),
+(46, 1, 'Vellejo', '23', 'Lomas Turbas', 69420, 'Queretaro', 'Queretaro', 115, 69.245, 69.254, 'Renta', 0, 'Calle', 1000000, 'Residencial', 3.45, 'Bien shila', '', 3, 3, 3, 1, 1, 1, 'Si', 1, 1, 1, 'chico', 'grande', 5.3, 4.3),
+(50, 1, 'Torneros', '322', 'Los sabinos', 76148, 'Queretaro', 'Queretaro', NULL, 0, 0, 'Venta', 120, 'Privada', 2000000, '2', 300, 'jardín, roof garden, cochera', 'Hola', 3, 3, 3, 1, 1, 1, 'Natural', 1, 1, 1, 'plano', 'rectangular', 12, 10),
+(666, 1, 'Bullshit', '1', 'Lomas Turbas', 69420, 'Texcaca', 'EdoMex', 115, 69.245, 69.254, 'Renta', 5.332, 'XXX', 50000, 'z', 3.45, 'edc', '', 3, 3, 3, 1, 1, 1, 'Si', 1, 1, 1, 'chico', 'grande', 5.3, 4.3),
+(667, 1, 'Bullshit 2', '2', 'texpopo', 69420, 'Lomas turbas', 'Oaxaca', 115, 69.34, 45.32, 'Venta', 0.4444, 'brrr', 900000, 'loquequieras', 5.35, 'sdfsdf', '', 2, 2, 2, 1, 1, 1, 'no', 1, 1, 1, 'no', 'no', 133.134, 123324);
 
 -- --------------------------------------------------------
 
@@ -849,7 +882,9 @@ INSERT INTO `Propiedad_propietario` (`ID_Propiedad`, `ID_Cliente`, `Fecha`) VALU
 (4, 'c07', '2022-10-19 00:38:10'),
 (41, 'c08', '2022-10-19 00:38:10'),
 (42, 'c08', '2022-10-19 00:38:10'),
-(43, 'c08', '2022-10-19 00:38:10');
+(43, 'c08', '2022-10-19 00:38:10'),
+(45, 'artur', '2022-11-23 14:31:14'),
+(46, 'artur', '2022-11-23 14:31:14');
 
 -- --------------------------------------------------------
 
@@ -1123,6 +1158,7 @@ CREATE TABLE `user_rol` (
 
 INSERT INTO `user_rol` (`id_user`, `id_rol`, `created_at`) VALUES
 ('AIVT700616MDFTLR09', 1, '2022-11-07 17:51:32'),
+('artur', 3, '2022-11-23 14:26:57'),
 ('BAHV691210MDFZRR10', 1, '2022-11-07 17:51:32'),
 ('BAHV691210MDFZRR10', 2, '2022-11-07 17:51:32'),
 ('c01', 3, '2022-11-07 17:51:32'),
@@ -1161,6 +1197,7 @@ CREATE TABLE `Usuario` (
 
 INSERT INTO `Usuario` (`username`, `password`, `Nombres`, `Primer_apellido`, `Segundo_apellido`, `Telefono`, `email`) VALUES
 ('AIVT700616MDFTLR09', '$2a$12$AuUZ5GOvcayx9ygPcLlPdO4DWdXVHALa9br/GEL41KxibHEmjsMnm', 'Maria Teresa', 'Atilano', 'Villanueva', '4426328759', 'tere.kiarainmuebles@gmail.com'),
+('artur', '$2a$12$G.hJcuAZXPa5DrQGTRbv1eRQTyjYAIlyIDP409OU/1HNIkvdCHaBO', 'Arturo', 'Valencia', 'Acosta', '4421275142', 'ejemplo@gmail.com'),
 ('BAHV691210MDFZRR10', '$2a$12$fb3aBuwrZe0wtywLNy9kTOJe3k/UzK3e4mK3LgYeoTbp.QEBl3AT.', 'Virginia', 'Baza', 'Herrera', '4427967322', 'virginia.kiarainmuebles@gmail.com'),
 ('c01', '$2a$12$iuIb.GEeD3VhtZPH9ECs8u8YwirkpoabI3dUUJ0oW1GBH11.bkpE6', 'Hector Román', 'Calderón', 'Cibrian', '4421815772', 'hrcalderon@live.com.mx'),
 ('c02', '$2a$12$4eHzEuJK901aKsFVgnyIueX9i3icEi727kJBWBKBeJPoEpe/4eEoG', 'Hugo Alexis', 'Trujillo', 'Sánchez', '44226582959', 'alexiscryowelding@gmail.com'),
@@ -1192,7 +1229,8 @@ ALTER TABLE `Asesores`
 --
 ALTER TABLE `Asesor_cliente`
   ADD PRIMARY KEY (`ID_Asesor`,`ID_Cliente`),
-  ADD KEY `ID_Cliente` (`ID_Cliente`);
+  ADD KEY `ID_Cliente` (`ID_Cliente`),
+  ADD KEY `ID_Asesor` (`ID_Asesor`,`ID_Cliente`,`Fecha`);
 
 --
 -- Indexes for table `Clientes`
@@ -1219,7 +1257,8 @@ ALTER TABLE `Expediente_Cliente`
   ADD PRIMARY KEY (`ID`,`ID_Cliente`,`ID_TipoDoc`,`ID_TipoExp`,`Fecha`),
   ADD KEY `ID_TipoExp` (`ID_TipoExp`),
   ADD KEY `ID_TipoDoc` (`ID_TipoDoc`),
-  ADD KEY `ID_Cliente` (`ID_Cliente`);
+  ADD KEY `ID_Cliente` (`ID_Cliente`,`ID_TipoDoc`,`ID_TipoExp`,`Fecha`,`Id_propiedad`),
+  ADD KEY `Id_propiedad` (`Id_propiedad`);
 
 --
 -- Indexes for table `Expediente_Propiedad`
@@ -1229,6 +1268,13 @@ ALTER TABLE `Expediente_Propiedad`
   ADD KEY `ID_Propiedad` (`ID_Propiedad`),
   ADD KEY `ID_TipoExp` (`ID_TipoExp`),
   ADD KEY `ID_TipoDoc` (`ID_TipoDoc`);
+
+--
+-- Indexes for table `Opcionador_propiedad`
+--
+ALTER TABLE `Opcionador_propiedad`
+  ADD PRIMARY KEY (`ID_Asesor`,`ID_Propiedad`),
+  ADD KEY `ID_Asesor` (`ID_Asesor`,`ID_Propiedad`,`Fecha`);
 
 --
 -- Indexes for table `Op_comercial`
@@ -1383,7 +1429,13 @@ ALTER TABLE `Cronograma_venta`
 -- AUTO_INCREMENT for table `Expediente_Cliente`
 --
 ALTER TABLE `Expediente_Cliente`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
+
+--
+-- AUTO_INCREMENT for table `Expediente_Propiedad`
+--
+ALTER TABLE `Expediente_Propiedad`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `Paises`
@@ -1401,19 +1453,19 @@ ALTER TABLE `Permisos`
 -- AUTO_INCREMENT for table `Proceso_CompraVenta`
 --
 ALTER TABLE `Proceso_CompraVenta`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `Proceso_renta`
 --
 ALTER TABLE `Proceso_renta`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `Propiedades`
 --
 ALTER TABLE `Propiedades`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=668;
 
 --
 -- AUTO_INCREMENT for table `Roles`
@@ -1480,7 +1532,8 @@ ALTER TABLE `Clientes`
 ALTER TABLE `Expediente_Cliente`
   ADD CONSTRAINT `Expediente_Cliente_ibfk_2` FOREIGN KEY (`ID_TipoExp`) REFERENCES `Tipo_ExpCliente` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `Expediente_Cliente_ibfk_3` FOREIGN KEY (`ID_TipoDoc`) REFERENCES `Tipo_docCliente` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Expediente_Cliente_ibfk_4` FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Expediente_Cliente_ibfk_4` FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Expediente_Cliente_ibfk_5` FOREIGN KEY (`Id_propiedad`) REFERENCES `Propiedades` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Expediente_Propiedad`

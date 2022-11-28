@@ -1,0 +1,98 @@
+<div class="container ">
+  <!-- Card Start -->
+  <div class="card" >
+    <div class="row ">
+      
+
+      <div class="col-md-6 ">
+      <div class="card mb-4" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img class="card-img-top" src="/images/perfil.png" alt="Card image cap"  height="200">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h4 class="card-title"><h4><strong>Cliente </strong></h4>
+              <h4 class="card-text">
+                <%= procesos.Nombres %> <%= procesos.Primer_apellido %> <%= procesos.Segundo_apellido %>
+              </h4>
+              <p class="opacity-100">
+                <strong>Usuario: </strong> <%= procesos.ID_Cliente %> <br>
+                <strong>Tel: </strong> <%= procesos.Telefono %> <br>
+                <strong>email: </strong> <%= procesos.email %> 
+              </p>
+              <% 
+                    let operacion
+                    let param_ubicacion
+                    if (procesos.Tipo_Cliente == 'Vendedor')
+                    {
+                      param_ubicacion = 'venta'
+                      operacion = 'VENDIENDO';
+                    }
+                      
+                    if (procesos.Tipo_Cliente == 'Comprador')
+                    {
+                      param_ubicacion = 'compra'
+                      operacion = 'COMPRANDO';
+                    }
+
+                    if (procesos.Tipo_Cliente == 'Arrendatario')
+                    {
+                      param_ubicacion = 'alquilar'
+                      operacion = 'ALQUILANDO';
+                    }
+
+                    if (procesos.Tipo_Cliente == 'Arrendador')
+                    {
+                      param_ubicacion = 'renta'
+                      operacion = 'RENTANDO';
+                    }
+                      
+                    %>
+              <p class="card-text"><strong class="text-primary"><%= operacion %> (<%= procesos.Tipo_Cliente %> )</strong></p>
+              <br>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      
+
+      <div class="col-md-6 ">
+      <div class="card mb-4" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-5">
+            <img class="card-img-top" src="/images/casaprincipal.jpg" alt="Card image cap" height="265" >
+          </div>
+          <div class="col-md-7">
+            <div class="card-body">
+              <h4 class="card-title"><h4><strong>Propiedad </h4></strong>
+              <h4 class="card-text">
+                <%= procesos.Calle %>  <%= procesos.Numero %> 
+              </h4>
+              <p class="opacity-100"><%= procesos.Colonia %> , CP: <%= procesos.Codigo_postal %></p>
+              <p class="opacity-100"><%= procesos.Municipio %>, <%= procesos.Estado %>, <%= procesos.Pais %></p>
+              <p class="card-text"><strong class="text-primary"> <%= procesos.tipoInmueble %> </strong></p>
+            
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      
+    </div>
+    <br>
+      <div class="row">
+        
+          <a href="/operacion/<%= param_ubicacion%>/seguimiento/<%= procesos.ID_Cliente %>/<%= procesos.ID_Propiedad %>" class="mt-auto btn btn-primary  ">Seguimiento</a>
+        
+      </div>
+    
+    </div>
+  </div>
+  <!-- End of card -->
+
+</div>
