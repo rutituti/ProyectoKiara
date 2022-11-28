@@ -25,7 +25,12 @@ module.exports = class Expediente {
     static fetchDocsVendedor(ID_TiEC) {
         return db.execute('CALL get_docs(?);',[ID_TiEC]);
     }
-
+    static fetchactualizarestado(Estado,ID_Cliente,ID_Tipoexp,ID_Tipoprop,ID_TipoDoc) {
+       
+        
+        return db.execute('CALL actualizar_estadodoc(?,?,?,?,?);',[Estado,ID_Cliente,ID_Tipoexp,ID_Tipoprop,ID_TipoDoc]);
+    }
+    
     static fetchVerDocCliente(ID_TD,IDTE,IDprop) {
         return db.execute('CALL ver_documentos_expediente(?,?,?);',[ID_TD,IDTE,IDprop]);
     }
