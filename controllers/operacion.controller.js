@@ -100,6 +100,11 @@ exports.update_seg = (request, response, next) => {
     
 }
 
+exports.post_new_proceso = (request, response, next) => {
+    response.send('FORMULARIO REGISTRO PROCESO');
+        
+};
+
 exports.get_mis_clientes = (request, response, next) => {
     request.session.ubicacion = 'misclientes';
     Asesor.get_clientes(request.session.user)

@@ -8,6 +8,8 @@ const router = express.Router();
 //Rutas de seguimiento 
 
 //router.get('/configuraciones',isAuth, segControllers.get_config); //Mostrar pagina de configuracion
+router.get('/new',isAuth, segControllers.post_new_proceso);
+
 router.get('/misprocesos',isAuth, segControllers.get_procesos);// despliega las propiedades de una operacion asignada al asesor
 
 router.get('/misclientes/:operacion/:cliente',isAuth, segControllers.get_operacion_asesor);// despliega las propiedades de una operacion asignada al asesor
