@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql-kiara.alwaysdata.net
--- Generation Time: Nov 24, 2022 at 12:14 AM
+-- Generation Time: Nov 29, 2022 at 02:05 AM
 -- Server version: 10.6.7-MariaDB
 -- PHP Version: 7.4.19
 
@@ -25,6 +25,11 @@ DELIMITER $$
 --
 -- Procedures
 --
+CREATE DEFINER=`kiara`@`%` PROCEDURE `actualizar_estadodoc` (IN `U_Estadodoc` VARCHAR(400), IN `U_IDCliente` VARCHAR(400), IN `U_IDTipoexp` INT, IN `U_IDTipoprop` INT, IN `U_IDTipodoc` INT)   UPDATE Expediente_Cliente SET Estado=U_Estadodoc
+WHERE ID_Cliente=U_IDCliente AND ID_Tipoexp=U_IDTipoexp AND ID_Propiedad=U_IDTipoprop AND ID_Tipodoc=U_IDTipodoc
+ORDER BY Fecha DESC
+LIMIT 1$$
+
 CREATE DEFINER=`kiara`@`%` PROCEDURE `delete_asesor` (IN `U_ID_Asesor` VARCHAR(20))   DELETE 
 FROM Asesores
 WHERE Asesores.CURP = U_ID_Asesor$$
@@ -49,6 +54,10 @@ CREATE DEFINER=`kiara`@`%` PROCEDURE `get_asesor_idP` (IN `U_Propiedad` INT)   S
 FROM Asesores A, Clientes C, Asesor_cliente AC, Propiedad_propietario PP, Propiedades P
 WHERE C.username=AC.ID_Cliente AND AC.ID_Asesor=A.CURP AND PP.ID_Cliente=C.username AND PP.ID_Propiedad=P.ID AND P.ID=U_Propiedad$$
 
+CREATE DEFINER=`kiara`@`%` PROCEDURE `get_casa` (IN `U_casa` VARCHAR(18))   SELECT *
+FROM Propiedades
+WHERE Propiedades.ID = U_casa$$
+
 CREATE DEFINER=`kiara`@`%` PROCEDURE `get_casasA_idC` (IN `U_ID_Cliente` VARCHAR(18))   SELECT C.username,PR.ID_Propiedad, TI.tipoInmueble, P.Calle, P.Numero,P.Colonia, P.Codigo_postal, P.Municipio, P.Estado, Paises.Pais ,TI.tipoInmueble
 	   ,P.Niveles,P.Habitaciones,P.Baños,P.Cocina,P.Sala_Comedor,P.Estacionamiento,P.Gas
 FROM Clientes C, Proceso_renta PR, Propiedades P, Tipo_inmueble TI, Paises
@@ -67,13 +76,19 @@ FROM Propiedad_propietario PP, Clientes C, Propiedades P, Tipo_inmueble TI,Paise
 WHERE PP.ID_Propiedad=P.ID AND PP.ID_Cliente=C.username AND TI.ID=P.ID_tipoInmueble AND P.ID_pais=Paises.ID AND PP.ID_Cliente=U_ID_Cliente
       AND P.Operacion=U_Operacion$$
 
+CREATE DEFINER=`kiara`@`%` PROCEDURE `get_casas_opAsesor` (IN `ID_Asesor` VARCHAR(18), IN `ID_Cliente` VARCHAR(18), IN `ID_TipoC` VARCHAR(15))   SELECT AC.ID_Cliente,U.Nombres,U.Primer_apellido,U.Segundo_apellido,U.Telefono,U.email, C.Ocupacion, C.Estado_civil, AC.Id_propiedad,AC.Tipo_Cliente,
+		AC.ID_Propiedad,P.Calle,P.Numero,P.Colonia,P.Codigo_postal,P.Municipio,P.Estado,Paises.Pais ,TI.tipoInmueble,P.Niveles,P.Habitaciones, P.Baños,P.Cocina,P.Sala_Comedor,P.Estacionamiento,P.Gas, P.Operacion
+FROM Asesores A, Asesor_cliente AC, Clientes C, Usuario U, Propiedades P, Tipo_inmueble TI,Paises
+WHERE A.username =AC.ID_Asesor  AND  AC.ID_Cliente = C.username AND C.username = U.username AND AC.ID_Propiedad=P.ID AND P.ID_tipoInmueble=TI.ID AND P.ID_pais=Paises.ID AND AC.ID_Asesor = ID_Asesor AND AC.ID_Cliente= ID_Cliente AND AC.Tipo_Cliente=ID_TipoC$$
+
 CREATE DEFINER=`kiara`@`%` PROCEDURE `get_cliente` (IN `U_username` VARCHAR(18))   SELECT *
 FROM Clientes 
 WHERE Clientes.username = U_username$$
 
-CREATE DEFINER=`kiara`@`%` PROCEDURE `get_clientes_idAsesor` (IN `ID_Asesor` VARCHAR(18))   SELECT AC.ID_Cliente,U.Nombres,U.Primer_apellido,U.Segundo_apellido,U.Telefono,U.email, C.Ocupacion, C.Estado_civil
+CREATE DEFINER=`kiara`@`%` PROCEDURE `get_clientes_idAsesor` (IN `ID_Asesor` VARCHAR(18))   SELECT AC.ID_Cliente,U.Nombres,U.Primer_apellido,U.Segundo_apellido,U.Telefono,U.email, C.Ocupacion, C.Estado_civil, AC.Id_propiedad,AC.Tipo_Cliente
 FROM Asesores A, Asesor_cliente AC, Clientes C, Usuario U
-WHERE A.username =AC.ID_Asesor  AND  AC.ID_Cliente = C.username AND C.username = U.username AND AC.ID_Asesor = ID_Asesor$$
+WHERE A.username =AC.ID_Asesor  AND  AC.ID_Cliente = C.username AND C.username = U.username AND AC.ID_Asesor = ID_Asesor
+GROUP BY U.username$$
 
 CREATE DEFINER=`kiara`@`%` PROCEDURE `get_docs` (IN `U_TipoID_ExpCliente` INT)   SELECT Td.ID AS 'IDtipoDocCliente', Te.ID AS 'IDtipoExpCliente', Te.tipoExpCliente, Td.Nombre FROM Tipo_ExpCliente Te, Restriccion_TED_cliente R, Tipo_docCliente Td WHERE R.ID_tipoExpC = Te.ID AND Te.ID=U_TipoID_ExpCliente AND Td.ID = R.ID_tipoDocC$$
 
@@ -90,6 +105,11 @@ WHERE PV.Numero_etapa=CV.Numero AND PV.ID_Cliente=U_ID_Cliente AND PV.ID_Propied
 CREATE DEFINER=`kiara`@`%` PROCEDURE `get_procesoRA` (IN `U_ID_Cliente` VARCHAR(18), IN `U_ID_Propiedad` INT)   SELECT PR.ID, PR.Numero_etapa, PR.tipoCliente, CR.Nombre, PR.Estado, PR.Fecha_Start, PR.Fecha_End, CR.Tiempo_estimado
 FROM Proceso_renta PR, Cronograma_renta CR
 WHERE PR.Numero_etapa=CR.Numero AND PR.ID_Cliente=U_ID_Cliente AND PR.ID_Propiedad=U_ID_Propiedad$$
+
+CREATE DEFINER=`kiara`@`%` PROCEDURE `get_procesos_asesor` (IN `ID_Asesor` VARCHAR(18))   SELECT AC.ID_Cliente,U.Nombres,U.Primer_apellido,U.Segundo_apellido,U.Telefono,U.email, C.Ocupacion, C.Estado_civil, AC.Id_propiedad,AC.Tipo_Cliente,
+		AC.ID_Propiedad,P.Calle,P.Numero,P.Colonia,P.Codigo_postal,P.Municipio,P.Estado,Paises.Pais ,TI.tipoInmueble,P.Niveles,P.Habitaciones, P.Baños,P.Cocina,P.Sala_Comedor,P.Estacionamiento,P.Gas, P.Operacion
+FROM Asesores A, Asesor_cliente AC, Clientes C, Usuario U, Propiedades P, Tipo_inmueble TI,Paises
+WHERE A.username =AC.ID_Asesor  AND  AC.ID_Cliente = C.username AND C.username = U.username AND AC.ID_Propiedad=P.ID AND P.ID_tipoInmueble=TI.ID AND P.ID_pais=Paises.ID AND AC.ID_Asesor = ID_Asesor$$
 
 CREATE DEFINER=`kiara`@`%` PROCEDURE `get_rol` (IN `U_username` VARCHAR(18))   SELECT R.Nombre
 FROM Usuario U, user_rol UR, Roles R
@@ -163,24 +183,27 @@ INSERT INTO `Asesores` (`username`, `CURP`) VALUES
 
 CREATE TABLE `Asesor_cliente` (
   `ID_Asesor` varchar(18) CHARACTER SET utf8mb4 NOT NULL,
-  `ID_Cliente` varchar(18) CHARACTER SET utf8mb4 NOT NULL,
-  `Fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `ID_Cliente` varchar(18) CHARACTER SET utf8mb4 DEFAULT NULL,
+  `Fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `ID_Propiedad` int(11) NOT NULL,
+  `Tipo_Cliente` varchar(15) CHARACTER SET utf8mb4 DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Dumping data for table `Asesor_cliente`
 --
 
-INSERT INTO `Asesor_cliente` (`ID_Asesor`, `ID_Cliente`, `Fecha`) VALUES
-('AIVT700616MDFTLR09', 'c01', '2022-10-18 23:56:27'),
-('AIVT700616MDFTLR09', 'c02', '2022-10-18 23:56:27'),
-('AIVT700616MDFTLR09', 'c05', '2022-10-18 23:56:27'),
-('AIVT700616MDFTLR09', 'c06', '2022-10-18 23:56:27'),
-('BAHV691210MDFZRR10', 'c03', '2022-10-18 23:56:27'),
-('BAHV691210MDFZRR10', 'c04', '2022-10-18 23:56:27'),
-('elenanito', 'c08', '2022-11-14 17:04:43'),
-('GUME791116MDFTRS05', 'c07', '2022-10-18 23:56:27'),
-('roy', 'c08', '2022-11-14 17:04:43');
+INSERT INTO `Asesor_cliente` (`ID_Asesor`, `ID_Cliente`, `Fecha`, `ID_Propiedad`, `Tipo_Cliente`) VALUES
+('AIVT700616MDFTLR09', 'c05', '2022-11-23 23:56:30', 3, 'Comprador'),
+('AIVT700616MDFTLR09', 'c06', '2022-11-23 23:56:34', 3, 'Vendedor'),
+('AIVT700616MDFTLR09', 'c01', '2022-11-24 00:04:58', 1, 'Arrendatario'),
+('AIVT700616MDFTLR09', 'c02', '2022-11-24 00:05:25', 4, 'Comprador'),
+('BAHV691210MDFZRR10', 'c03', '2022-11-24 00:04:46', 1, 'Arrendador'),
+('BAHV691210MDFZRR10', 'c04', '2022-11-24 00:04:53', 1, 'Arrendatario'),
+('elenanito', 'c08', '2022-11-23 23:20:07', 42, 'Arrendador'),
+('GUME791116MDFTRS05', 'c07', '2022-11-24 00:04:16', 4, 'Vendedor'),
+('roy', 'c08', '2022-11-23 23:20:11', 41, 'Vendedor'),
+('roy', NULL, '2022-11-24 21:54:52', 666, NULL);
 
 -- --------------------------------------------------------
 
@@ -199,6 +222,7 @@ CREATE TABLE `Clientes` (
 --
 
 INSERT INTO `Clientes` (`username`, `Ocupacion`, `Estado_civil`) VALUES
+('2', 'tes', 'tes'),
 ('artur', 'empleado', 'soltero'),
 ('c01', 'empleado', 'n/a'),
 ('c02', 'socio', 'n/a'),
@@ -207,7 +231,8 @@ INSERT INTO `Clientes` (`username`, `Ocupacion`, `Estado_civil`) VALUES
 ('c05', 'psicologo', 'casado'),
 ('c06', 'doctor', 'casado'),
 ('c07', 'ama de casa', 'soltero'),
-('c08', 'estudiante', 'soltero');
+('c08', 'estudiante', 'soltero'),
+('test', 'dc', 'divorciado');
 
 -- --------------------------------------------------------
 
@@ -284,7 +309,7 @@ CREATE TABLE `Expediente_Cliente` (
 --
 
 INSERT INTO `Expediente_Cliente` (`ID`, `ID_Cliente`, `Id_propiedad`, `ID_TipoDoc`, `ID_TipoExp`, `Fecha`, `Estado`, `URL`) VALUES
-(216, 'c08', 41, 7, 7, '2022-11-23 14:58:16', 'En revision', 'public\\uploads\\110202213944INE.pdf'),
+(216, 'c08', 41, 7, 7, '2022-11-27 15:48:48', 'Aprobado', 'public\\uploads\\110202213944INE.pdf'),
 (217, 'c08', 41, 7, 7, '2022-11-23 14:58:16', 'En revision', 'public\\uploads\\110202213404612-Oscilaciones.pdf'),
 (218, 'c08', 41, 7, 7, '2022-11-23 14:58:16', 'En revision', 'public\\uploads\\1102022134948Anuncio_Cambio_VTC.pdf'),
 (219, 'c08', 41, 7, 7, '2022-11-23 14:58:16', 'En revision', 'public\\uploads\\1102022135538ex_a01274389.pdf'),
@@ -300,7 +325,19 @@ INSERT INTO `Expediente_Cliente` (`ID`, `ID_Cliente`, `Id_propiedad`, `ID_TipoDo
 (231, 'c08', 42, 7, 7, '2022-11-23 14:58:16', 'En revision', '2102022202453OBTENER GLOBALPROTECT WINDOWS.pdf'),
 (232, 'c08', 43, 7, 7, '2022-11-23 14:58:16', 'En revision', '2102022202710OBTENER GLOBALPROTECT WINDOWS.pdf'),
 (233, 'c08', 41, 1, 1, '2022-11-23 02:31:28', 'En revision', '2102022203127(2) Crear anuncio _ Facebook.pdf'),
-(234, 'c08', 41, 2, 1, '2022-11-23 02:52:48', 'En revision', '2102022205246OBTENER GLOBALPROTECT WINDOWS.pdf');
+(234, 'c08', 41, 2, 1, '2022-11-28 22:38:18', 'En revision', '2102022205246OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(235, 'c08', 45, 1, 3, '2022-11-24 23:26:00', 'En revision', '410202217260OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(237, 'c08', 41, 1, 1, '2022-11-27 05:07:44', 'En revision', '610202223744TareaMod_A01273602.pdf'),
+(238, 'c08', 41, 5, 1, '2022-11-28 22:38:28', 'Aprobado', '6102022231721Practica 4.pdf'),
+(239, 'c08', 41, 3, 2, '2022-11-27 06:15:33', 'En revision', '010202201534Multiprocesadores AD 2022.pdf'),
+(240, 'c08', 41, 2, 2, '2022-11-27 06:16:28', 'En revision', '010202201628OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(241, 'c08', 46, 2, 5, '2022-11-27 06:18:19', 'En revision', '010202201819OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(242, 'c08', 46, 3, 6, '2022-11-27 06:27:43', 'En revision', '010202202743OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(243, 'c08', 46, 11, 6, '2022-11-27 06:30:16', 'En revision', '010202203016Requirements_Gilberto Valencia Acosta.pdf'),
+(244, 'c08', 42, 3, 7, '2022-11-27 06:35:06', 'En revision', '01020220356Moldeo por inyecciÃ³n de cerÃ¡micas - PDF Descargar libre.pdf'),
+(245, 'c08', 42, 7, 7, '2022-11-27 06:35:58', 'En revision', '010202203558(1) Crear anuncio _ Facebook.pdf'),
+(246, 'c08', 41, 1, 1, '2022-11-28 22:43:47', 'Aprobado', '0102022155653OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(247, 'c08', 41, 1, 2, '2022-11-28 21:17:12', 'En revision', '1102022151712OBTENER GLOBALPROTECT WINDOWS.pdf');
 
 -- --------------------------------------------------------
 
@@ -324,7 +361,11 @@ CREATE TABLE `Expediente_Propiedad` (
 
 INSERT INTO `Expediente_Propiedad` (`ID`, `ID_Propiedad`, `ID_TipoDoc`, `ID_TipoExp`, `Fecha`, `Estado`, `URL`) VALUES
 (4, 41, 6, 1, '2022-11-18 00:41:02', 'En Revision', '410202218412fQwht;5u}2@9c}fxj8QGTJzV{Y8,$%ch%neae9Av-yYawXJ-.mQk(jSMcf&!RDXDx2E6XiG9&RGeyCeQ.pdf'),
-(5, 41, 5, 1, '2022-11-18 00:46:43', 'En Revision', '4102022184643doc1_amlo.pdf');
+(5, 41, 5, 1, '2022-11-18 00:46:43', 'En Revision', '4102022184643doc1_amlo.pdf'),
+(6, 41, 1, 1, '2022-11-27 05:00:02', 'En Revision', '61020222302OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(7, 41, 1, 1, '2022-11-27 05:12:29', 'En Revision', '6102022231229OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(8, 41, 4, 1, '2022-11-27 05:14:03', 'En Revision', '610202223143PrÃ¡ctica AnimaciÃ³n PacMan.pdf'),
+(9, 41, 4, 1, '2022-11-27 05:17:51', 'En Revision', '6102022231751Lab 8.1.4.9_A01273602.docx.pdf');
 
 -- --------------------------------------------------------
 
@@ -634,7 +675,8 @@ INSERT INTO `Permisos` (`Id`, `Descripcion`, `created_at`) VALUES
 (11, 'consultar_clientes', '2022-11-07 17:44:04'),
 (12, 'consultar_cronograma_personal', '2022-11-17 19:34:15'),
 (13, 'consultar_propiedades', '2022-11-07 17:54:09'),
-(14, 'consultar_cronograma_clientes', '2022-11-17 19:35:51');
+(14, 'consultar_cronograma_clientes', '2022-11-17 19:35:51'),
+(15, 'actulizar_estado_documento', '2022-11-24 21:25:05');
 
 -- --------------------------------------------------------
 
@@ -689,8 +731,8 @@ INSERT INTO `Proceso_CompraVenta` (`ID`, `ID_Cliente`, `Numero_etapa`, `ID_Propi
 (29, 'c07', 9, 4, 'Vendedor', 'No iniciado', '2022-11-16 03:03:56', '0000-00-00 00:00:00'),
 (30, 'c07', 10, 4, 'Vendedor', 'No iniciado', '2022-11-16 03:03:56', '0000-00-00 00:00:00'),
 (31, 'c07', 11, 4, 'Vendedor', 'No iniciado', '2022-11-16 03:03:56', '0000-00-00 00:00:00'),
-(32, 'c08', 1, 41, 'Vendedor', 'En proceso', '2022-11-17 20:46:11', '2022-11-21 18:27:07'),
-(33, 'c08', 2, 41, 'Vendedor', 'No aprobado', '2022-11-17 20:47:45', '2022-11-18 00:53:54'),
+(32, 'c08', 1, 41, 'Vendedor', 'En proceso', '2022-11-17 20:46:11', '2022-11-27 17:58:09'),
+(33, 'c08', 2, 41, 'Vendedor', 'En proceso', '2022-11-17 20:47:45', '2022-11-27 17:44:37'),
 (34, 'c08', 3, 41, 'Vendedor', 'No aprobado', '2022-11-17 20:47:21', '2022-11-18 00:53:57'),
 (35, 'c08', 4, 41, 'Vendedor', 'En proceso', '2022-11-16 03:03:56', '2022-11-18 00:54:23'),
 (36, 'c08', 5, 41, 'Vendedor', 'Completado', '2022-11-16 03:03:56', '2022-09-18 22:00:00'),
@@ -762,7 +804,7 @@ INSERT INTO `Proceso_renta` (`ID`, `ID_Cliente`, `Numero_etapa`, `ID_Propiedad`,
 (4, 'c01', 4, 1, 'Arrendatario', 'Completado', '2022-11-16 02:57:59', '2022-09-20 22:00:00'),
 (5, 'c01', 5, 1, 'Arrendatario', 'Completado', '2022-10-19 02:45:43', '2022-09-25 22:00:00'),
 (6, 'c01', 6, 1, 'Arrendatario', 'Completado', '2022-10-19 02:45:43', '2022-09-27 22:00:00'),
-(7, 'c03', 1, 1, 'Arrendador', 'Completado', '2022-10-19 02:45:43', '2022-09-13 22:00:00'),
+(7, 'c03', 1, 1, 'Arrendador', 'No aprobado', '2022-10-19 02:45:43', '2022-11-24 01:09:16'),
 (8, 'c03', 2, 1, 'Arrendador', 'Completado', '2022-10-19 02:45:43', '2022-09-18 22:00:00'),
 (9, 'c03', 3, 1, 'Arrendador', 'Completado', '2022-10-19 02:45:43', '2022-09-18 22:00:00'),
 (10, 'c03', 4, 1, 'Arrendador', 'Completado', '2022-10-19 02:45:43', '2022-09-20 22:00:00'),
@@ -774,7 +816,7 @@ INSERT INTO `Proceso_renta` (`ID`, `ID_Cliente`, `Numero_etapa`, `ID_Propiedad`,
 (16, 'c04', 4, 1, 'Arrendatario', 'Completado', '2022-10-19 02:45:43', '2022-09-22 22:00:00'),
 (17, 'c04', 5, 1, 'Arrendatario', 'Completado', '2022-10-19 02:45:43', '2022-09-25 22:00:00'),
 (18, 'c04', 6, 1, 'Arrendatario', 'Completado', '2022-10-19 02:45:43', '2022-09-26 22:00:00'),
-(19, 'c08', 1, 42, 'Arrendador', 'No aprobado', '2022-11-16 17:04:40', '2022-11-17 19:39:13'),
+(19, 'c08', 1, 42, 'Arrendador', 'No aprobado', '2022-11-16 17:04:40', '2022-11-27 06:42:13'),
 (20, 'c08', 2, 42, 'Arrendador', 'En proceso', '2022-11-16 12:23:52', '2022-11-17 22:22:24'),
 (21, 'c08', 3, 42, 'Arrendador', 'Completado', '2022-11-16 12:28:39', '2022-11-17 18:41:58'),
 (22, 'c08', 4, 42, 'Arrendador', 'Completado', '2022-11-16 12:42:25', '2022-11-16 18:42:25'),
@@ -825,6 +867,10 @@ CREATE TABLE `Propiedades` (
   `Construccion` float NOT NULL,
   `Descripcion` varchar(400) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `Imagen` varchar(400) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `Imagen1` varchar(40) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `Imagen2` varchar(40) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `Imagen3` varchar(40) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `Imagen4` varchar(40) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `Niveles` int(11) NOT NULL,
   `Habitaciones` int(11) NOT NULL,
   `Baños` float NOT NULL,
@@ -845,19 +891,23 @@ CREATE TABLE `Propiedades` (
 -- Dumping data for table `Propiedades`
 --
 
-INSERT INTO `Propiedades` (`ID`, `ID_tipoInmueble`, `Calle`, `Numero`, `Colonia`, `Codigo_postal`, `Municipio`, `Estado`, `ID_pais`, `Longitud`, `Latitud`, `Operacion`, `Terreno`, `Privada_calle`, `Precio`, `Uso_suelo`, `Construccion`, `Descripcion`, `Imagen`, `Niveles`, `Habitaciones`, `Baños`, `Sala_Comedor`, `Cocina`, `Estacionamiento`, `Gas`, `Servicio_Agua`, `Servicio_Luz`, `Servicio_Drenaje`, `Tipo_desnivel`, `Forma_terreno`, `Medidas_frente`, `Medidas_fondo`) VALUES
-(1, 1, 'Sendero del Silencio', '39', 'Milenio III', 76060, 'Queretaro', 'Queretaro', 115, 0, 0, 'Renta', 144, 'Calle', 13900, 'habitacional', 167, 'Frente a area verde', '', 2, 3, 2.5, 1, 1, 1, 'estacionario', 0, 0, 0, '', '', 0, 0),
-(2, 5, 'Torneros', '102', 'Peñuelas', 76148, 'Queretaro', 'Queretaro', 115, 0, 0, 'Renta', 120, 'Calle', 12000, 'comercial', 120, '', '', 1, 2, 1, 0, 0, 0, '', 0, 0, 0, '', '', 0, 0),
-(3, 1, 'Callejon de Los Mendoza', '13', 'Hacienda San Gabriel', 76904, 'Corregidora', 'Queretaro', 115, 0, 0, 'Venta', 161, 'Privada', 2470000, 'habitacional', 178, '', '', 2, 3, 2.5, 1, 1, 2, 'estacionario', 0, 0, 0, '', '', 0, 0),
-(4, 3, 'Datil', '39', 'Real del Bosque', 76922, 'Corregidora', 'Queretaro', 115, 0, 0, 'Venta', 223, 'Privada', 1475000, 'habitacional', 0, '', '', 0, 0, 0, 0, 0, 0, '', 1, 1, 1, 'Plano', 'Regular', 10, 28),
-(41, 1, 'Sendero de las Misiones', '27', 'Milenio III', 76060, 'Queretaro', 'Queretaro', 115, 0, 0, 'Venta', 300, 'Calle', 1000, 'Habitacional', 200, '', '', 2, 3, 2.5, 1, 1, 3, 'estacionario', 0, 0, 0, '', '', 0, 0),
-(42, 2, 'Florencio Rosas', '4 Int 101', 'Cimatario', 76030, 'Queretaro', 'Queretaro', 115, 0, 0, 'Renta', 300, 'Calle', 1000, 'Habitacional', 200, '', '', 1, 2, 1, 1, 1, 1, 'estacionario', 0, 0, 0, '', '', 0, 0),
-(43, 1, 'Marques de Jelves', '115', 'Lomas del Marques', 76010, 'Queretaro', 'Queretaro', 115, 0, 0, 'Renta', 300, 'Calle', 1000, 'Habitacional', 200, '', '', 1, 2, 1, 1, 1, 2, 'estacionario', 0, 0, 0, '', '', 0, 0),
-(45, 1, 'Vellejo', '69', 'Lomas Turbas', 69420, 'Queretaro', 'Queretaro', 115, 69.245, 69.254, 'Venta', 5.332, 'Calle', 10000, 'Residencial', 3.45, 'bien shila', '', 3, 3, 3, 1, 1, 1, 'Si', 1, 1, 1, 'chico', 'grande', 5.3, 4.3),
-(46, 1, 'Vellejo', '23', 'Lomas Turbas', 69420, 'Queretaro', 'Queretaro', 115, 69.245, 69.254, 'Renta', 0, 'Calle', 1000000, 'Residencial', 3.45, 'Bien shila', '', 3, 3, 3, 1, 1, 1, 'Si', 1, 1, 1, 'chico', 'grande', 5.3, 4.3),
-(50, 1, 'Torneros', '322', 'Los sabinos', 76148, 'Queretaro', 'Queretaro', NULL, 0, 0, 'Venta', 120, 'Privada', 2000000, '2', 300, 'jardín, roof garden, cochera', 'Hola', 3, 3, 3, 1, 1, 1, 'Natural', 1, 1, 1, 'plano', 'rectangular', 12, 10),
-(666, 1, 'Bullshit', '1', 'Lomas Turbas', 69420, 'Texcaca', 'EdoMex', 115, 69.245, 69.254, 'Renta', 5.332, 'XXX', 50000, 'z', 3.45, 'edc', '', 3, 3, 3, 1, 1, 1, 'Si', 1, 1, 1, 'chico', 'grande', 5.3, 4.3),
-(667, 1, 'Bullshit 2', '2', 'texpopo', 69420, 'Lomas turbas', 'Oaxaca', 115, 69.34, 45.32, 'Venta', 0.4444, 'brrr', 900000, 'loquequieras', 5.35, 'sdfsdf', '', 2, 2, 2, 1, 1, 1, 'no', 1, 1, 1, 'no', 'no', 133.134, 123324);
+INSERT INTO `Propiedades` (`ID`, `ID_tipoInmueble`, `Calle`, `Numero`, `Colonia`, `Codigo_postal`, `Municipio`, `Estado`, `ID_pais`, `Longitud`, `Latitud`, `Operacion`, `Terreno`, `Privada_calle`, `Precio`, `Uso_suelo`, `Construccion`, `Descripcion`, `Imagen`, `Imagen1`, `Imagen2`, `Imagen3`, `Imagen4`, `Niveles`, `Habitaciones`, `Baños`, `Sala_Comedor`, `Cocina`, `Estacionamiento`, `Gas`, `Servicio_Agua`, `Servicio_Luz`, `Servicio_Drenaje`, `Tipo_desnivel`, `Forma_terreno`, `Medidas_frente`, `Medidas_fondo`) VALUES
+(1, 1, 'Sendero del Silencio', '39', 'Milenio III', 76060, 'Queretaro', 'Queretaro', 115, 0, 0, 'Renta', 144, 'Calle', 13900, 'habitacional', 167, 'Frente a area verde', '', '', '', '', '', 2, 3, 2.5, 1, 1, 1, 'estacionario', 0, 0, 0, '', '', 0, 0),
+(2, 5, 'Torneros', '102', 'Peñuelas', 76148, 'Queretaro', 'Queretaro', 115, 0, 0, 'Renta', 120, 'Calle', 12000, 'comercial', 120, '', '', '', '', '', '', 1, 2, 1, 0, 0, 0, '', 0, 0, 0, '', '', 0, 0),
+(3, 1, 'Callejon de Los Mendoza', '13', 'Hacienda San Gabriel', 76904, 'Corregidora', 'Queretaro', 115, 0, 0, 'Venta', 161, 'Privada', 2470000, 'habitacional', 178, '', '', '', '', '', '', 2, 3, 2.5, 1, 1, 2, 'estacionario', 0, 0, 0, '', '', 0, 0),
+(4, 3, 'Datil', '39', 'Real del Bosque', 76922, 'Corregidora', 'Queretaro', 115, 0, 0, 'Venta', 223, 'Privada', 1475000, 'habitacional', 0, '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, '', 1, 1, 1, 'Plano', 'Regular', 10, 28),
+(41, 1, 'Sendero de las Misiones', '27', 'Milenio III', 76060, 'Queretaro', 'Queretaro', 115, 0, 0, 'Venta', 300, 'Calle', 1000, 'Habitacional', 200, '', '', '', '', '', '', 2, 3, 2.5, 1, 1, 3, 'estacionario', 0, 0, 0, '', '', 0, 0),
+(42, 2, 'Florencio Rosas', '4 Int 101', 'Cimatario', 76030, 'Queretaro', 'Queretaro', 115, 0, 0, 'Renta', 300, 'Calle', 1000, 'Habitacional', 200, '', '', '', '', '', '', 1, 2, 1, 1, 1, 1, 'estacionario', 0, 0, 0, '', '', 0, 0),
+(43, 1, 'Marques de Jelves', '115', 'Lomas del Marques', 76010, 'Queretaro', 'Queretaro', 115, 0, 0, 'Renta', 300, 'Calle', 1000, 'Habitacional', 200, '', '', '', '', '', '', 1, 2, 1, 1, 1, 2, 'estacionario', 0, 0, 0, '', '', 0, 0),
+(45, 1, 'Vellejo', '69', 'Lomas Turbas', 69420, 'Queretaro', 'Queretaro', 115, 69.245, 69.254, 'Venta', 5.332, 'Calle', 10000, 'Residencial', 3.45, 'bien shila', '', '', '', '', '', 3, 3, 3, 1, 1, 1, 'Si', 1, 1, 1, 'chico', 'grande', 5.3, 4.3),
+(46, 1, 'Vellejo', '23', 'Lomas Turbas', 69420, 'Queretaro', 'Queretaro', 115, 69.245, 69.254, 'Renta', 0, 'Calle', 1000000, 'Residencial', 3.45, 'Bien shila', '', '', '', '', '', 3, 3, 3, 1, 1, 1, 'Si', 1, 1, 1, 'chico', 'grande', 5.3, 4.3),
+(50, 1, 'Torneros', '322', 'Los sabinos', 76148, 'Queretaro', 'Queretaro', NULL, 0, 0, 'Venta', 120, 'Privada', 2000000, '2', 300, 'jardín, roof garden, cochera', 'Hola', '', '', '', '', 3, 3, 3, 1, 1, 1, 'Natural', 1, 1, 1, 'plano', 'rectangular', 12, 10),
+(666, 1, 'Bullshit', '1', 'Lomas Turbas', 69420, 'Texcaca', 'EdoMex', 115, 69.245, 69.254, 'Renta', 5.332, 'XXX', 50000, 'z', 3.45, 'edc', '', '', '', '', '', 3, 3, 3, 1, 1, 1, 'Si', 1, 1, 1, 'chico', 'grande', 5.3, 4.3),
+(667, 1, 'Bullshit 2', '2', 'texpopo', 69420, 'Lomas turbas', 'Oaxaca', 115, 69.34, 45.32, 'Venta', 0.4444, 'brrr', 900000, 'loquequieras', 5.35, 'sdfsdf', '', '', '', '', '', 2, 2, 2, 1, 1, 1, 'no', 1, 1, 1, 'no', 'no', 133.134, 123324),
+(670, 2, 'Torneros', '322', 'Los sabinos', 76148, 'Queretaro', 'Queretaro', NULL, 0, 0, 'Venta', 120, 'Privada', 2000000, 'Comercial', 300, 'jardín, roof garden, cochera', ' ', '', '', '', '', 2, 1, 2, 1, 1, 1, 'Natural', 1, 1, 1, 'plano', 'rectangular', 12, 10),
+(671, 2, 'Torneros', '322', 'Los sabinos', 76148, 'Queretaro', 'Queretaro', NULL, 0, 0, 'Renta', 120, 'Privada', 10000, 'Comercial', 300, 'jardín, roof garden, cochera', '41020222097peakpx.jpg', '', '', '', '', 2, 2, 2, 1, 1, 1, 'Natural', 1, 1, 1, 'plano', 'rectangular', 12, 10),
+(672, 1, 'Torneros', '322', 'Los sabinos', 76148, 'Queretaro', 'Queretaro', NULL, 0, 0, 'Venta', 120, 'Privada', 2000000, 'Comercial', 300, 'jardín, roof garden, cochera', '4102022212330peakpx.jpg', '4102022212330thumb-1920-888417.jpg', '41020222123301524581.jpg', '4102022212330wallpaperflare.com_wallpape', '41020222123301524602.jpg', 3, 3, 3, 1, 1, 1, 'Natural', 1, 1, 1, 'plano', 'rectangular', 12, 10),
+(673, 1, 'Torneros', '322', 'Los sabinos', 76148, 'Queretaro', 'Queretaro', NULL, 0, 0, 'Venta', 120, 'Privada', 10000, 'Comercial', 300, 'jardín, roof garden, cochera', '4102022213422362481.jpg', '41020222134221524571.jpg', '41020222134221524581.jpg', '41020222134221524602.jpg', '4102022213422peakpx.jpg', 3, 2, 2, 1, 1, 1, 'Natural', 1, 1, 1, 'plano', 'rectangular', 12, 10);
 
 -- --------------------------------------------------------
 
@@ -1157,6 +1207,7 @@ CREATE TABLE `user_rol` (
 --
 
 INSERT INTO `user_rol` (`id_user`, `id_rol`, `created_at`) VALUES
+('2', 3, '2022-11-25 00:40:46'),
 ('AIVT700616MDFTLR09', 1, '2022-11-07 17:51:32'),
 ('artur', 3, '2022-11-23 14:26:57'),
 ('BAHV691210MDFZRR10', 1, '2022-11-07 17:51:32'),
@@ -1173,7 +1224,8 @@ INSERT INTO `user_rol` (`id_user`, `id_rol`, `created_at`) VALUES
 ('elenanito', 1, '2022-11-14 18:43:13'),
 ('GUME791116MDFTRS05', 1, '2022-11-07 17:51:32'),
 ('MASJ711117HDFRLM01', 1, '2022-11-07 17:51:32'),
-('roy', 1, '2022-11-14 18:43:13');
+('roy', 1, '2022-11-14 18:43:13'),
+('test', 3, '2022-11-25 00:11:40');
 
 -- --------------------------------------------------------
 
@@ -1196,6 +1248,7 @@ CREATE TABLE `Usuario` (
 --
 
 INSERT INTO `Usuario` (`username`, `password`, `Nombres`, `Primer_apellido`, `Segundo_apellido`, `Telefono`, `email`) VALUES
+('2', '$2a$12$UOZWdKKK7yiojUz/fE6nJOyb11UwgJLspCgfInqiMdVdZlHm2Wa3m', 'test2', '2', '2', '5555555555', '2@2.com'),
 ('AIVT700616MDFTLR09', '$2a$12$AuUZ5GOvcayx9ygPcLlPdO4DWdXVHALa9br/GEL41KxibHEmjsMnm', 'Maria Teresa', 'Atilano', 'Villanueva', '4426328759', 'tere.kiarainmuebles@gmail.com'),
 ('artur', '$2a$12$G.hJcuAZXPa5DrQGTRbv1eRQTyjYAIlyIDP409OU/1HNIkvdCHaBO', 'Arturo', 'Valencia', 'Acosta', '4421275142', 'ejemplo@gmail.com'),
 ('BAHV691210MDFZRR10', '$2a$12$fb3aBuwrZe0wtywLNy9kTOJe3k/UzK3e4mK3LgYeoTbp.QEBl3AT.', 'Virginia', 'Baza', 'Herrera', '4427967322', 'virginia.kiarainmuebles@gmail.com'),
@@ -1212,6 +1265,7 @@ INSERT INTO `Usuario` (`username`, `password`, `Nombres`, `Primer_apellido`, `Se
 ('GUME791116MDFTRS05', '$2a$12$GT0NAb.mKHB2Z4MSkFSpuerVtMcgS4N3.MA.mdYJx0de7kqctRKOm', 'Maria Esther', 'Gutierrez', 'Martinez', '4426037195', 'esther.kiarainmuebles@gmail.com'),
 ('MASJ711117HDFRLM01', '$2a$12$peXrFbdn6EdHMTtHmq7FeufIvvngVnWmlGSi0qg46707rRiFgHIyK', 'Jaime', 'Martinez', 'Salcedo', '4428789389', 'jaime.kiarainmuebles@gmail.com'),
 ('roy', '$2a$12$0C3E45eHuTfzl6H9Le3J6.cu1QgHmFDSM6X8YPzDGPA3TiG0fEMXi', 'Rodrigo', 'Reyes', 'Castro', '', 'roy@gmail.com'),
+('test', '$2a$12$OLZZCQ1bUC3g7nUxZFF7fO1qfDchpi/2F40.cyeQksEhOyuI3.9y.', 'test', 'test', 'test', '5555555555', 'testing@testing.com'),
 ('YURB771212MDFZGL05', '$2a$12$s2NMNHJRP6.GK5bb5p/qUe/HoPwlj/1yxhkMHmQhLfj.D8AxS6LcG', 'Karla', 'Yzunza', 'Rugarcia', '4423217554', 'karla.kiarainmuebles@gmail.com');
 
 --
@@ -1228,9 +1282,8 @@ ALTER TABLE `Asesores`
 -- Indexes for table `Asesor_cliente`
 --
 ALTER TABLE `Asesor_cliente`
-  ADD PRIMARY KEY (`ID_Asesor`,`ID_Cliente`),
-  ADD KEY `ID_Cliente` (`ID_Cliente`),
-  ADD KEY `ID_Asesor` (`ID_Asesor`,`ID_Cliente`,`Fecha`);
+  ADD PRIMARY KEY (`ID_Asesor`,`Fecha`),
+  ADD KEY `ID_Asesor_2` (`ID_Asesor`,`ID_Cliente`,`Fecha`,`ID_Propiedad`);
 
 --
 -- Indexes for table `Clientes`
@@ -1429,13 +1482,13 @@ ALTER TABLE `Cronograma_venta`
 -- AUTO_INCREMENT for table `Expediente_Cliente`
 --
 ALTER TABLE `Expediente_Cliente`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=248;
 
 --
 -- AUTO_INCREMENT for table `Expediente_Propiedad`
 --
 ALTER TABLE `Expediente_Propiedad`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `Paises`
@@ -1447,7 +1500,7 @@ ALTER TABLE `Paises`
 -- AUTO_INCREMENT for table `Permisos`
 --
 ALTER TABLE `Permisos`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `Proceso_CompraVenta`
@@ -1465,7 +1518,7 @@ ALTER TABLE `Proceso_renta`
 -- AUTO_INCREMENT for table `Propiedades`
 --
 ALTER TABLE `Propiedades`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=668;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=674;
 
 --
 -- AUTO_INCREMENT for table `Roles`
@@ -1518,7 +1571,8 @@ ALTER TABLE `Asesores`
 --
 ALTER TABLE `Asesor_cliente`
   ADD CONSTRAINT `Asesor_cliente_ibfk_1` FOREIGN KEY (`ID_Asesor`) REFERENCES `Asesores` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Asesor_cliente_ibfk_2` FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Asesor_cliente_ibfk_2` FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Asesor_cliente_ibfk_3` FOREIGN KEY (`ID_Propiedad`) REFERENCES `Propiedades` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Clientes`
