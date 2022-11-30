@@ -186,7 +186,7 @@
                     </img>
                 </div>
                 <div class="col-4">
-                    <img src="/images/area/favicon.ico"> <h4><%= casa[0].Construccion %> m² tot Contruccion.</h4>
+                    <img src="/images/favicon.ico"> <h4><%= casa[0].Construccion %> m² tot Contruccion.</h4>
                     </img>
                 </div>
             </div>
@@ -222,24 +222,57 @@
          
     </div>
     
-        <div class="col-4">
-          <div class="container p-3">
-            <div class="card border-primary mb-3" style="max-width: 30rem;">
-              <div class="card-header"><strong>¿Interesado?</strong> </div>
+                <%console.log(opcionador) %>
+                <%if (opcionador[0].Nombres == ' '){ %>
+                  <% if (permisos.indexOf('registrar_propiedad') != -1) { %>
+                  <div class="col-4">
+                    <div class="container ">
+                      <div class="card border-primary " style="max-width: 40rem;">
+                        <div class="card-header"><strong>Registrar asesor opcionador</strong> </div>
+                          <div class="card-body text-primary">
+                              <div class="row">
+                                <form action="/inicio/vista/<%= casa[0].ID %>" method="POST">
+                                  <input type="hidden" id="ID_operacion" name="ID_operacion" value="<%= casa[0].Operacion %>">
+                                  <select class="form-select" aria-label="Default select example" id="ID_opcionador"  name="ID_opcionador">
+                                    <option value="">Slecciones un asesor ...</option>
+                                    <<% for (let a of asesores) { %>
+                                      <option value="<%= a.username %>"><%= a.Nombres %> <%= a.Primer_apellido %> <%= a.Segundo_apellido %></option>
+                                    <% } %>
+                                  </select>
+                                    
+                                    <button type="submit" class="btn btn-primary">Registrar Opcionador</button>
+                                  </fieldset>
+                                </form>
+                                
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                  <% } %>
+                <%  } else {%>
+          <div class="col-4">
+            <div class="container p-3">
+              <div class="card border-primary mb-3" style="max-width: 40rem;">
+            <div class="card-header"><strong>¿Interesado?</strong> </div>
               <div class="card-body text-primary">
-                <h4 class="card-title">Contactate con <strong> <%= opcionador[0].Nombres %> <%= opcionador[0].Primer_apellido %>  <%= opcionador[0].Segundo_apellido %> </strong> </h4>
-                <p>
-                  para el seguimiento de <%= casa[0].Calle %> <%= casa[0].Numero %> <%= casa[0].Colonia %>
-                </p>
-                <p><strong>Contactar por email: </strong> </p>
-                <a href="mailto:<%= opcionador[0].email %> " class="text-secondary"><%= opcionador[0].email %>   </a>
-                <br><br>
-                <a href="https://wa.me/<%= opcionador[0].Telefono %> " class="btn btn-success">Contactar por WhatsApp  <i class="bi bi-whatsapp"></i></a>
-                
+                  <h4 class="card-title">Contactate con <strong> <%= opcionador[0].Nombres %> <%= opcionador[0].Primer_apellido %>  <%= opcionador[0].Segundo_apellido %> </strong> </h4>
+                  <p>
+                    para el seguimiento de <%= casa[0].Calle %> <%= casa[0].Numero %> <%= casa[0].Colonia %>
+                  </p>
+                  <p><strong>Contactar por email: </strong> </p>
+                  <a href="mailto:<%= opcionador[0].email %> " class="text-secondary"><%= opcionador[0].email %>   </a>
+                  <br><br>
+                  <a href="https://wa.me/<%= opcionador[0].Telefono %> " class="btn btn-success">Contactar por WhatsApp  <i class="bi bi-whatsapp"></i></a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+                <%  } %>
+        
+                  
+                
+           
 
   </div>
 

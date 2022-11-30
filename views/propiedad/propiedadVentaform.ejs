@@ -13,8 +13,10 @@
             <p class="card-text"><strong>MNX $<%= propiedades.Precio %></strong></p>
             <br>
             <a href="#" class="mt-auto btn btn-primary  ">Read More</a>
-            <a href="#" class="mt-auto btn btn-secondary  ">Cambio a renta</a>
-            <a href="#" onclick="if(confirm('¿Desea eliminar esta propiedad?')) eliminar('<%= propiedades.ID %>')"class="mt-auto btn btn-danger  ">BORRAR</a>
+            <% if (permisos.indexOf('registrar_propiedad') != -1) { %>
+              <a href="#" class="mt-auto btn btn-secondary  ">Cambio a renta</a>
+              <a href="#" onclick="if(confirm('¿Desea eliminar esta propiedad?')) eliminar('<%= propiedades.ID %>')"class="mt-auto btn btn-danger  ">BORRAR</a>
+            <% }%>
           </div>
         </div>
         <!-- Carousel start -->

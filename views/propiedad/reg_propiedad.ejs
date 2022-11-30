@@ -9,12 +9,28 @@
 		  <div class="card text-black" style="border-radius: 25px;">
 			<div class="card-body p-md-5">
 			  <div class="row justify-content-center">
-				<div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+				<div class="col-md-10 col-lg-6 col-xl-6 order-2 order-lg-1">
   
 				  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Registro de casa</p>
-  
+
 				  <form class="mx-1 mx-md-4" action="/inicio/registrarpropiedad " method="POST" enctype="multipart/form-data">
 					<div class="container">
+						  <!--
+							  <div class="row g-3">
+								  <div class="input-group" for="ID_opcionador">
+									  <select class="form-select" id="ID_opcionador" aria-label="Example select with button addon" name="ID_opcionador">
+										  <% for (let a of asesores) { %>
+											  <option value="<%= a.username %>"><%= a.Nombres %> <%= a.Primer_apellido %> <%= a.Segundo_apellido %></option>
+										  <% } %>
+									  </select>
+									  <button class="btn btn-danger" type="button">Asesor Opcionador</button>
+									  
+								  </div>
+								  
+						  </div>
+	
+  -->
+					
 					<div class="row g-3">
 						<div class="col-sm-6 col-md-10 col-lg-10 col-xl-10">
 							<label for="Calle" class="form-label"><strong>Calle*</strong></label>
@@ -157,7 +173,7 @@
 				</div>
 				</div>
 			</div>
-				<div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+				<div class="col-md-10 col-lg-6 col-xl-6 d-flex align-items-center order-1 order-lg-2">
 				  <div class="container">
 					<div class="row g-3">
 						<div class="input-group" for="Niveles">

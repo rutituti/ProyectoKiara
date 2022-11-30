@@ -1,4 +1,5 @@
 const path = require('path');
+const Asesor = require('../models/asesor.model');
 const Propiedad = require('../models/propiedad.model');
 
 
@@ -45,46 +46,106 @@ exports.get_newProperty = (request, response, next) => {
     let info = request.session.info ? request.session.info : '';
     request.session.ubicacion = request.params.operacion;
     request.session.info = '';
-    response.render(path.join('propiedad','propiedad.ejs'),{
-        info: info,
-        isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
-        user: request.session.user ? request.session.user: '',
-        permisos: request.session.permisos ? request.session.permisos : '',
-        ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-        nombre: request.session.nombre ? request.session.nombre : '',
-        registro: registro,
-        rol : request.session.roles ? request.session.roles : '',
+    Asesor.fetchAll().then( ([asesores, fieldData]) => {
+        console.log(asesores);
+        response.render(path.join('propiedad','propiedad.ejs'),{
+            info: info,
+            asesores : asesores,
+            isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+            user: request.session.user ? request.session.user: '',
+            permisos: request.session.permisos ? request.session.permisos : '',
+            ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+            nombre: request.session.nombre ? request.session.nombre : '',
+            registro: registro,
+            rol : request.session.roles ? request.session.roles : '',
+        });
+    }).catch( (error) => {
+        console.log(error);
     });
+    
 }
+
+exports.post_opcionador = (request, response, next) => {
+    console.log(request.body);
+    let tipo_cliente;
+    if(request.body.ID_operacion == 'Renta')
+        tipo_cliente = 'Arrendador';
+    if(request.body.ID_operacion == 'Venta')
+        tipo_cliente = 'Vendedor';
+    Propiedad.save_opcionador(request.body.ID_opcionador,request.params.valor_casa,tipo_cliente)
+    .then(([opcionador, fieldData]) => {
+        console.log('OPCIONADOR REGISTRADOR EXITOSAMENTE');
+        response.redirect('/inicio/propiedades/renta');
+    }).catch(error => {console.log(error)});
+    
+};
+
 exports.vista_casa = (request, response, next) => {
     let registro = '';
     let info = request.session.info ? request.session.info : '';
     request.session.ubicacion = request.params.operacion;
     request.session.info = '';
     Propiedad.get_opcionador(request.params.valor_casa).then(([opcionador, fieldData]) => {
-        Propiedad.getHome(request.params.valor_casa)
-        .then(([casa, fieldData]) => {
-            console.log( casa[0]);
-            response.render(path.join('propiedad','vistaCasa.ejs'),{
-                info: info,
-                casa: casa[0],
-                opcionador : opcionador[0],
-                isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn: false,
-                user: request.session.user ? request.session.user: '',
-                permisos: request.session.permisos ? request.session.permisos : '',
-                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-                nombre: request.session.nombre ? request.session.nombre : '',
-                registro: registro,
-                rol : request.session.roles ? request.session.roles : '',
-            });
-        }).catch(error => {console.log(error)});
+        console.log( opcionador[0]);
+        let value = [[{ 
+            Nombres: ' ',
+            Primer_apellido: ' ',
+            Segundo_apellido: ' ',
+            Telefono: ' ',
+            email: ' '}],[{otro: 'otra cosa'}]
+        ];
+        
+        if(opcionador[0] == ''){
+            console.log('NO HAY OPCIONADOR');
+            Asesor.fetchAll().then(([asesores, fieldData]) => {
+                Propiedad.getHome(request.params.valor_casa)
+                .then(([casa, fieldData]) => {
+                    console.log(casa[0]);
+                    response.render(path.join('propiedad','vistaCasa.ejs'),{
+                        info: info,
+                        casa: casa[0],
+                        opcionador : value[0],
+                        asesores : asesores,
+                        isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn: false,
+                        user: request.session.user ? request.session.user: '',
+                        permisos: request.session.permisos ? request.session.permisos : '',
+                        ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                        nombre: request.session.nombre ? request.session.nombre : '',
+                        registro: registro,
+                        rol : request.session.roles ? request.session.roles : '',
+                    });
+                }).catch(error => {console.log(error)});
+
+            }).catch(error => {console.log(error)});
+        }else{
+            console.log('OPCIONADIR');
+            Propiedad.getHome(request.params.valor_casa)
+            .then(([casa, fieldData]) => {
+                
+                response.render(path.join('propiedad','vistaCasa.ejs'),{
+                    info: info,
+                    casa: casa[0],
+                    opcionador : opcionador[0] ? opcionador[0] : '',
+                    isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn: false,
+                    user: request.session.user ? request.session.user: '',
+                    permisos: request.session.permisos ? request.session.permisos : '',
+                    ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                    nombre: request.session.nombre ? request.session.nombre : '',
+                    registro: registro,
+                    rol : request.session.roles ? request.session.roles : '',
+                });
+            }).catch(error => {console.log(error)});
+
+        }
+            
+        
 
     }).catch(error => {console.log(error)});
 };
 
 exports.post_newProperty = (request, response, next) => {
     let atributos = new Object();
-    atributos.ID_tipoInmueble= request.body.ID_tipoInmueble ? request.body.ID_tipoInmueble : ' ';
+    atributos.ID_tipoInmueble = request.body.ID_tipoInmueble ? request.body.ID_tipoInmueble : ' ';
     atributos.Calle           = request.body.Calle ? request.body.Calle : " ";
     atributos.Numero         = request.body.Numero ? request.body.Numero : ' ';
     atributos.Colonia        = request.body.Colonia ? request.body.Colonia : " ";
@@ -124,6 +185,7 @@ exports.post_newProperty = (request, response, next) => {
     const propiedad = new Propiedad(atributos);
     propiedad.save()
         .then(() => {
+            
             console.log(atributos);
             response.redirect('/inicio');
         })
@@ -180,3 +242,4 @@ exports.post_updateRenVen = (request, response, next) => {
             }).catch(error => {console.log(error)});
         }).catch(error => {console.log(error)});
 };
+
