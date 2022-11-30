@@ -2,8 +2,11 @@ const path = require('path');
 const Proceso_CV = require('../models/proceso_CV.model');
 const ExpedienteRenta = require('../models/expedienteRenta');
 const Asesor = require('../models/asesor.model');
+const Cliente = require('../models/cliente.model');
 const ExpedientePropiedad = require('../models/expedientePropiedad');
 const ExpedienteProp = require('../models/expedientePropiedad');
+const Propiedad = require('../models/propiedad.model');
+
 
 exports.update_seg = (request, response, next) => {
    
@@ -101,8 +104,142 @@ exports.update_seg = (request, response, next) => {
 }
 
 
+exports.get_new_proceso = (request, response, next) => {
+    let registro = '';
+    Cliente.fetchAll().then(([clientes, fieldData]) => {
+        Asesor.fetchAll().then(([asesores, fieldData]) => {
+            Propiedad.fetchCasas().then(([propiedades, fieldData]) => {
+                response.render(path.join('..','views','op_venta','reg_proceso.ejs'),{
+                    info: request.session.info ? request.session.info : '',
+                    isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
+                    user: request.session.user ? request.session.user: '',
+                    permisos: request.session.permisos ? request.session.permisos : '',
+                    ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                    nombre: request.session.nombre ? request.session.nombre : '',
+                    registro: registro,
+                    rol : request.session.roles ? request.session.roles : '',
+                    clientes : clientes,
+                    asesores : asesores,
+                    propiedades : propiedades,
+                });
+
+            }).catch( error => { 
+                console.log(error)
+            }); 
+        }).catch( error => { 
+            console.log(error)
+        });   
+    }).catch( error => { 
+        console.log(error)
+    });
+   
+        
+};
+
 exports.post_new_proceso = (request, response, next) => {
-    response.send('FORMULARIO REGISTRO PROCESO');
+    console.log(request.body);
+
+    if(request.body.ID_operacion == 'Renta' )
+    {
+        Proceso_CV.fetchCronogramaRA().then(([crngr_RA, fieldData]) => {
+            Propiedad.asign_owner(request.body.ID_propiedad,request.body.ID_Cliente).then(() => {
+                Proceso_CV.save_proceso_owner(request.body.ID_Asesor,request.body.ID_Cliente,request.body.ID_propiedad,'Arrendador').then(() => {
+                    for(let cra of crngr_RA ){
+                        const etapa = new Proceso_CV(request.body.ID_Cliente, cra.Numero, request.body.ID_propiedad, 'Arrendador','No Iniciado');
+                        etapa.save_RA().then(() => {
+                            //console.log(etapa);
+                        }).catch((error) => {
+                            console.log(error);
+                        });
+                    }
+                }).catch((error) => {
+                    console.log(error);
+                });
+            }).catch((error) => {
+                console.log(error);
+            });
+            
+        }).catch( error => { 
+            console.log(error)
+        });
+            
+    }
+
+    if(request.body.ID_operacion == 'Alquilar' )
+    {
+        Proceso_CV.fetchCronogramaRA().then(([crngr_RA, fieldData]) => {
+            Proceso_CV.save_proceso(request.body.ID_Asesor,request.body.ID_Cliente,request.body.ID_propiedad,'Arrendatario').then(() => {
+                for(let cra of crngr_RA ){
+                    const etapa = new Proceso_CV(request.body.ID_Cliente, cra.Numero, request.body.ID_propiedad, 'Arrendatario','No Iniciado');
+                    etapa.save_RA().then(() => {
+                    }).catch((error) => {
+                        console.log(error);
+                    });
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
+            
+            
+           
+
+        }).catch( error => { 
+            console.log(error)
+        });
+            
+    }
+
+    if(request.body.ID_operacion == 'Venta' )
+    {
+        Proceso_CV.fetchCronogramaCV().then(([crngr_CV, fieldData]) => {
+            Propiedad.asign_owner(request.body.ID_propiedad,request.body.ID_Cliente).then(() => {
+                Proceso_CV.save_proceso_owner(request.body.ID_Asesor,request.body.ID_Cliente,request.body.ID_propiedad,'Vendedor').then(() => {
+                    for(let cra of crngr_CV ){
+                        const etapa = new Proceso_CV(request.body.ID_Cliente, cra.Numero, request.body.ID_propiedad, 'Vendedor','No Iniciado');
+                        etapa.save_CV().then(() => {
+                            //console.log(etapa);
+                        }).catch((error) => {
+                            console.log(error);
+                        });
+                    }
+                }).catch((error) => {
+                    console.log(error);
+                });
+            }).catch((error) => {
+                console.log(error);
+            });
+            
+        }).catch( error => { 
+            console.log(error)
+        });
+            
+    }
+
+    if(request.body.ID_operacion == 'Compra' )
+    {
+        Proceso_CV.fetchCronogramaCV().then(([crngr_CV, fieldData]) => {
+            Proceso_CV.save_proceso(request.body.ID_Asesor,request.body.ID_Cliente,request.body.ID_propiedad,'Comprador').then(() => {
+                for(let cra of crngr_CV ){
+                    const etapa = new Proceso_CV(request.body.ID_Cliente, cra.Numero, request.body.ID_propiedad, 'Comprador','No Iniciado');
+                    etapa.save_CV().then(() => {
+                    }).catch((error) => {
+                        console.log(error);
+                    });
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
+            
+            
+           
+
+        }).catch( error => { 
+            console.log(error)
+        });
+            
+    }
+    
+   
         
 };
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql-kiara.alwaysdata.net
--- Generation Time: Nov 29, 2022 at 02:05 AM
+-- Generation Time: Nov 29, 2022 at 11:57 PM
 -- Server version: 10.6.7-MariaDB
 -- PHP Version: 7.4.19
 
@@ -194,16 +194,16 @@ CREATE TABLE `Asesor_cliente` (
 --
 
 INSERT INTO `Asesor_cliente` (`ID_Asesor`, `ID_Cliente`, `Fecha`, `ID_Propiedad`, `Tipo_Cliente`) VALUES
-('AIVT700616MDFTLR09', 'c05', '2022-11-23 23:56:30', 3, 'Comprador'),
-('AIVT700616MDFTLR09', 'c06', '2022-11-23 23:56:34', 3, 'Vendedor'),
-('AIVT700616MDFTLR09', 'c01', '2022-11-24 00:04:58', 1, 'Arrendatario'),
-('AIVT700616MDFTLR09', 'c02', '2022-11-24 00:05:25', 4, 'Comprador'),
-('BAHV691210MDFZRR10', 'c03', '2022-11-24 00:04:46', 1, 'Arrendador'),
-('BAHV691210MDFZRR10', 'c04', '2022-11-24 00:04:53', 1, 'Arrendatario'),
-('elenanito', 'c08', '2022-11-23 23:20:07', 42, 'Arrendador'),
-('GUME791116MDFTRS05', 'c07', '2022-11-24 00:04:16', 4, 'Vendedor'),
-('roy', 'c08', '2022-11-23 23:20:11', 41, 'Vendedor'),
-('roy', NULL, '2022-11-24 21:54:52', 666, NULL);
+('AIVT700616MDFTLR09', 'c01', '2022-11-29 22:31:15', 1, 'Arrendatario'),
+('AIVT700616MDFTLR09', 'c02', '2022-11-29 22:31:20', 2, 'Comprador'),
+('AIVT700616MDFTLR09', 'c05', '2022-11-29 22:31:25', 3, 'Comprador'),
+('AIVT700616MDFTLR09', 'c06', '2022-11-29 22:31:30', 3, 'Vendedor'),
+('BAHV691210MDFZRR10', 'c03', '2022-11-29 22:31:38', 1, 'Arrendador'),
+('BAHV691210MDFZRR10', 'c04', '2022-11-29 22:31:58', 1, 'Arrendatario'),
+('elenanito', 'c08', '2022-11-29 22:32:22', 42, 'Arrendador'),
+('GUME791116MDFTRS05', 'c07', '2022-11-29 22:32:27', 4, 'Vendedor'),
+('roy', NULL, '2022-11-29 22:29:03', 666, ''),
+('roy', 'c08', '2022-11-29 22:32:36', 41, 'Vendedor');
 
 -- --------------------------------------------------------
 
@@ -222,7 +222,6 @@ CREATE TABLE `Clientes` (
 --
 
 INSERT INTO `Clientes` (`username`, `Ocupacion`, `Estado_civil`) VALUES
-('2', 'tes', 'tes'),
 ('artur', 'empleado', 'soltero'),
 ('c01', 'empleado', 'n/a'),
 ('c02', 'socio', 'n/a'),
@@ -232,7 +231,7 @@ INSERT INTO `Clientes` (`username`, `Ocupacion`, `Estado_civil`) VALUES
 ('c06', 'doctor', 'casado'),
 ('c07', 'ama de casa', 'soltero'),
 ('c08', 'estudiante', 'soltero'),
-('test', 'dc', 'divorciado');
+('test1', 'empelado', 'soltero');
 
 -- --------------------------------------------------------
 
@@ -337,7 +336,14 @@ INSERT INTO `Expediente_Cliente` (`ID`, `ID_Cliente`, `Id_propiedad`, `ID_TipoDo
 (244, 'c08', 42, 3, 7, '2022-11-27 06:35:06', 'En revision', '01020220356Moldeo por inyecciÃ³n de cerÃ¡micas - PDF Descargar libre.pdf'),
 (245, 'c08', 42, 7, 7, '2022-11-27 06:35:58', 'En revision', '010202203558(1) Crear anuncio _ Facebook.pdf'),
 (246, 'c08', 41, 1, 1, '2022-11-28 22:43:47', 'Aprobado', '0102022155653OBTENER GLOBALPROTECT WINDOWS.pdf'),
-(247, 'c08', 41, 1, 2, '2022-11-28 21:17:12', 'En revision', '1102022151712OBTENER GLOBALPROTECT WINDOWS.pdf');
+(247, 'c08', 41, 1, 2, '2022-11-28 21:17:12', 'En revision', '1102022151712OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(248, 'c08', 41, 3, 1, '2022-11-29 01:17:51', 'En revision', '1102022191750OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(249, 'c08', 41, 1, 1, '2022-11-29 01:23:51', 'En revision', '1102022192350OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(250, 'c08', 46, 2, 5, '2022-11-29 01:36:09', 'En revision', '110202219368OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(252, 'c08', 41, 1, 1, '2022-11-29 01:42:25', 'En revision', '1102022194225OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(253, 'c08', 41, 1, 1, '2022-11-29 01:44:13', 'En revision', '1102022194412OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(254, 'c08', 41, 1, 1, '2022-11-29 02:54:49', 'En revision', '1102022205448OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(255, 'c08', 45, 2, 3, '2022-11-29 21:45:59', 'En revision', '2102022154559OBTENER GLOBALPROTECT WINDOWS.pdf');
 
 -- --------------------------------------------------------
 
@@ -365,7 +371,12 @@ INSERT INTO `Expediente_Propiedad` (`ID`, `ID_Propiedad`, `ID_TipoDoc`, `ID_Tipo
 (6, 41, 1, 1, '2022-11-27 05:00:02', 'En Revision', '61020222302OBTENER GLOBALPROTECT WINDOWS.pdf'),
 (7, 41, 1, 1, '2022-11-27 05:12:29', 'En Revision', '6102022231229OBTENER GLOBALPROTECT WINDOWS.pdf'),
 (8, 41, 4, 1, '2022-11-27 05:14:03', 'En Revision', '610202223143PrÃ¡ctica AnimaciÃ³n PacMan.pdf'),
-(9, 41, 4, 1, '2022-11-27 05:17:51', 'En Revision', '6102022231751Lab 8.1.4.9_A01273602.docx.pdf');
+(9, 41, 4, 1, '2022-11-27 05:17:51', 'En Revision', '6102022231751Lab 8.1.4.9_A01273602.docx.pdf'),
+(10, 46, 3, 2, '2022-11-29 03:14:14', 'En Revision', '1102022211413OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(11, 46, 3, 2, '2022-11-29 03:15:56', 'En Revision', '1102022211555OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(12, 41, 1, 1, '2022-11-29 05:14:45', 'En Revision', '1102022231445OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(13, 41, 9, 1, '2022-11-29 05:18:38', 'En Revision', '1102022231838OBTENER GLOBALPROTECT WINDOWS.pdf'),
+(14, 41, 7, 1, '2022-11-29 20:57:23', 'En Revision', '2102022145723OBTENER GLOBALPROTECT WINDOWS.pdf');
 
 -- --------------------------------------------------------
 
@@ -378,6 +389,17 @@ CREATE TABLE `Opcionador_propiedad` (
   `ID_Propiedad` int(11) NOT NULL,
   `Fecha` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `Opcionador_propiedad`
+--
+
+INSERT INTO `Opcionador_propiedad` (`ID_Asesor`, `ID_Propiedad`, `Fecha`) VALUES
+('AIVT700616MDFTLR09', 3, '2022-11-29 22:18:30'),
+('BAHV691210MDFZRR10', 1, '2022-11-29 22:18:30'),
+('elenanito', 42, '2022-11-29 22:18:30'),
+('GUME791116MDFTRS05', 4, '2022-11-29 22:18:30'),
+('roy', 41, '2022-11-29 22:18:30');
 
 -- --------------------------------------------------------
 
@@ -1207,7 +1229,6 @@ CREATE TABLE `user_rol` (
 --
 
 INSERT INTO `user_rol` (`id_user`, `id_rol`, `created_at`) VALUES
-('2', 3, '2022-11-25 00:40:46'),
 ('AIVT700616MDFTLR09', 1, '2022-11-07 17:51:32'),
 ('artur', 3, '2022-11-23 14:26:57'),
 ('BAHV691210MDFZRR10', 1, '2022-11-07 17:51:32'),
@@ -1225,7 +1246,7 @@ INSERT INTO `user_rol` (`id_user`, `id_rol`, `created_at`) VALUES
 ('GUME791116MDFTRS05', 1, '2022-11-07 17:51:32'),
 ('MASJ711117HDFRLM01', 1, '2022-11-07 17:51:32'),
 ('roy', 1, '2022-11-14 18:43:13'),
-('test', 3, '2022-11-25 00:11:40');
+('test1', 3, '2022-11-29 22:34:59');
 
 -- --------------------------------------------------------
 
@@ -1248,7 +1269,6 @@ CREATE TABLE `Usuario` (
 --
 
 INSERT INTO `Usuario` (`username`, `password`, `Nombres`, `Primer_apellido`, `Segundo_apellido`, `Telefono`, `email`) VALUES
-('2', '$2a$12$UOZWdKKK7yiojUz/fE6nJOyb11UwgJLspCgfInqiMdVdZlHm2Wa3m', 'test2', '2', '2', '5555555555', '2@2.com'),
 ('AIVT700616MDFTLR09', '$2a$12$AuUZ5GOvcayx9ygPcLlPdO4DWdXVHALa9br/GEL41KxibHEmjsMnm', 'Maria Teresa', 'Atilano', 'Villanueva', '4426328759', 'tere.kiarainmuebles@gmail.com'),
 ('artur', '$2a$12$G.hJcuAZXPa5DrQGTRbv1eRQTyjYAIlyIDP409OU/1HNIkvdCHaBO', 'Arturo', 'Valencia', 'Acosta', '4421275142', 'ejemplo@gmail.com'),
 ('BAHV691210MDFZRR10', '$2a$12$fb3aBuwrZe0wtywLNy9kTOJe3k/UzK3e4mK3LgYeoTbp.QEBl3AT.', 'Virginia', 'Baza', 'Herrera', '4427967322', 'virginia.kiarainmuebles@gmail.com'),
@@ -1265,7 +1285,7 @@ INSERT INTO `Usuario` (`username`, `password`, `Nombres`, `Primer_apellido`, `Se
 ('GUME791116MDFTRS05', '$2a$12$GT0NAb.mKHB2Z4MSkFSpuerVtMcgS4N3.MA.mdYJx0de7kqctRKOm', 'Maria Esther', 'Gutierrez', 'Martinez', '4426037195', 'esther.kiarainmuebles@gmail.com'),
 ('MASJ711117HDFRLM01', '$2a$12$peXrFbdn6EdHMTtHmq7FeufIvvngVnWmlGSi0qg46707rRiFgHIyK', 'Jaime', 'Martinez', 'Salcedo', '4428789389', 'jaime.kiarainmuebles@gmail.com'),
 ('roy', '$2a$12$0C3E45eHuTfzl6H9Le3J6.cu1QgHmFDSM6X8YPzDGPA3TiG0fEMXi', 'Rodrigo', 'Reyes', 'Castro', '', 'roy@gmail.com'),
-('test', '$2a$12$OLZZCQ1bUC3g7nUxZFF7fO1qfDchpi/2F40.cyeQksEhOyuI3.9y.', 'test', 'test', 'test', '5555555555', 'testing@testing.com'),
+('test1', '$2a$12$xqv3cnzif1nPQuPH.Es8EuIsiyMbL9dN/so6D4ljrdOi8uBYgsTpm', 'Maria test', 'Test', 'Test', '14426126384', 'prueba1@outlook.com'),
 ('YURB771212MDFZGL05', '$2a$12$s2NMNHJRP6.GK5bb5p/qUe/HoPwlj/1yxhkMHmQhLfj.D8AxS6LcG', 'Karla', 'Yzunza', 'Rugarcia', '4423217554', 'karla.kiarainmuebles@gmail.com');
 
 --
@@ -1282,8 +1302,9 @@ ALTER TABLE `Asesores`
 -- Indexes for table `Asesor_cliente`
 --
 ALTER TABLE `Asesor_cliente`
-  ADD PRIMARY KEY (`ID_Asesor`,`Fecha`),
-  ADD KEY `ID_Asesor_2` (`ID_Asesor`,`ID_Cliente`,`Fecha`,`ID_Propiedad`);
+  ADD PRIMARY KEY (`ID_Asesor`,`Fecha`,`ID_Propiedad`),
+  ADD KEY `ID_Cliente` (`ID_Cliente`),
+  ADD KEY `ID_Propiedad` (`ID_Propiedad`);
 
 --
 -- Indexes for table `Clientes`
@@ -1327,7 +1348,8 @@ ALTER TABLE `Expediente_Propiedad`
 --
 ALTER TABLE `Opcionador_propiedad`
   ADD PRIMARY KEY (`ID_Asesor`,`ID_Propiedad`),
-  ADD KEY `ID_Asesor` (`ID_Asesor`,`ID_Propiedad`,`Fecha`);
+  ADD KEY `ID_Asesor` (`ID_Asesor`,`ID_Propiedad`,`Fecha`),
+  ADD KEY `ID_Propiedad` (`ID_Propiedad`);
 
 --
 -- Indexes for table `Op_comercial`
@@ -1482,13 +1504,13 @@ ALTER TABLE `Cronograma_venta`
 -- AUTO_INCREMENT for table `Expediente_Cliente`
 --
 ALTER TABLE `Expediente_Cliente`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=248;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=256;
 
 --
 -- AUTO_INCREMENT for table `Expediente_Propiedad`
 --
 ALTER TABLE `Expediente_Propiedad`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `Paises`
@@ -1596,6 +1618,13 @@ ALTER TABLE `Expediente_Propiedad`
   ADD CONSTRAINT `Expediente_Propiedad_ibfk_1` FOREIGN KEY (`ID_Propiedad`) REFERENCES `Propiedades` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `Expediente_Propiedad_ibfk_2` FOREIGN KEY (`ID_TipoExp`) REFERENCES `Tipo_ExpPropiedad` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `Expediente_Propiedad_ibfk_3` FOREIGN KEY (`ID_TipoDoc`) REFERENCES `Tipo_docPropiedad` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `Opcionador_propiedad`
+--
+ALTER TABLE `Opcionador_propiedad`
+  ADD CONSTRAINT `Opcionador_propiedad_ibfk_1` FOREIGN KEY (`ID_Asesor`) REFERENCES `Asesor_cliente` (`ID_Asesor`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Opcionador_propiedad_ibfk_2` FOREIGN KEY (`ID_Propiedad`) REFERENCES `Propiedades` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Proceso_CompraVenta`

@@ -1,0 +1,10 @@
+<%- include('../includes/head.ejs', {
+    isLoggedIn: isLoggedIn,
+    user: user,
+}) %>
+<%- include('reg_proceso.form.ejs', {
+    clientes : clientes,
+    asesores : asesores,
+    propiedades : propiedades,
+}) %>
+<%- include('../includes/foot.ejs') %>

@@ -3,19 +3,41 @@ const db = require('../util/database');
 module.exports = class Proceso_CV {
 
     //Constructor de la clase. Sirve para crear un nuevo objeto, y en él se definen las propiedades del modelo
-    constructor(num_etapa, estado, propiedad, Fecha_end) {
+    constructor(id_cliente,num_etapa, id_propiedad,tipo_cliente, estado) {
+        this.id_cliente = id_cliente;
         this.num_etapa = num_etapa;
+        this.id_propiedad = id_propiedad;
+        this.tipo_cliente = tipo_cliente;
         this.estado = estado ? estado : 'No Iniciado';
-        this.propiedad = propiedad;
-        this.Fecha_end = Fecha_end ? Fecha_end: '0000-00-00';
+        
+        
     }
 
     //Este método servirá para guardar de manera persistente el nuevo objeto. 
-    save(id_cliente, id_propiedad,tipo_cliente) {
+    save_CV() {
         return db.execute(
-            'INSERT INTO Proceso_CompraVenta (ID_Cliente, Numero_etapa, ID_Propiedad,Tipo_Cliente, Estado, Fecha_EndV) VALUES (?, ?, ?, ?,?)', 
-            [id_cliente, this.num_etapa, id_propiedad,tipo_cliente, this.estado, this.Fecha_end]);
+            'INSERT INTO Proceso_CompraVenta (ID_Cliente, Numero_etapa, ID_Propiedad,tipoCliente, Estado) VALUES (?, ?, ?, ?,?)', 
+            [this.id_cliente, this.num_etapa, this.id_propiedad,this.tipo_cliente, this.estado]);
             
+    }
+
+    save_RA() {
+        return db.execute(
+            'INSERT INTO Proceso_renta (ID_Cliente, Numero_etapa, ID_Propiedad,tipoCliente, Estado) VALUES (?, ?, ?, ?,?)', 
+            [this.id_cliente, this.num_etapa, this.id_propiedad,this.tipo_cliente, this.estado]);
+            
+    }
+
+    static save_proceso(id_asesor, id_cliente, id_propiedad, tipo_cliente){
+        return db.execute(
+            'INSERT INTO Asesor_cliente (ID_Asesor, ID_Cliente , ID_Propiedad, Tipo_Cliente) VALUES (?, ?, ?, ?)', 
+            [id_asesor, id_cliente, id_propiedad, tipo_cliente]);
+    }
+
+    static save_proceso_owner(id_asesor, id_cliente, id_propiedad, tipo_cliente){
+        return db.execute(
+            'UPDATE Asesor_cliente SET ID_Cliente = ?, Tipo_Cliente = ? WHERE Asesor_cliente.ID_Asesor = ? AND Asesor_cliente.ID_Propiedad = ? AND Asesor_cliente.ID_Cliente IS NULL', 
+            [id_cliente, tipo_cliente, id_asesor,  id_propiedad ]);
     }
 
     static edit_RA(id_poc,estado,fecha_start){
@@ -80,10 +102,13 @@ module.exports = class Proceso_CV {
         return db.execute('SELECT Fecha_Start FROM Proceso_CompraVenta WHERE ID=?',[id_proceso]);
     }
 
- 
+    static fetchCronogramaRA(){
+        return db.execute('SELECT * FROM Cronograma_renta');
+    }
 
-
- 
+    static fetchCronogramaCV(){
+        return db.execute('SELECT * FROM Cronograma_venta');
+    }
 
 
 }
