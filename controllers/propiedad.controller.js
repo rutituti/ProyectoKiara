@@ -61,22 +61,25 @@ exports.vista_casa = (request, response, next) => {
     let info = request.session.info ? request.session.info : '';
     request.session.ubicacion = request.params.operacion;
     request.session.info = '';
-    Propiedad.getHome(request.params.valor_casa)
-    .then(([rows, fieldData]) => {
-        console.log(rows[0]);
-        response.render(path.join('propiedad','vistaCasa.ejs'),{
-            info: info,
-            casa: rows[0],
-            isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn: false,
-            user: request.session.user ? request.session.user: '',
-            permisos: request.session.permisos ? request.session.permisos : '',
-            ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
-            nombre: request.session.nombre ? request.session.nombre : '',
-            registro: registro,
-            rol : request.session.roles ? request.session.roles : '',
-        });
-    })
-    .catch(error => {console.log(error)});
+    Propiedad.get_opcionador(request.params.valor_casa).then(([opcionador, fieldData]) => {
+        Propiedad.getHome(request.params.valor_casa)
+        .then(([casa, fieldData]) => {
+            console.log( casa[0]);
+            response.render(path.join('propiedad','vistaCasa.ejs'),{
+                info: info,
+                casa: casa[0],
+                opcionador : opcionador[0],
+                isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn: false,
+                user: request.session.user ? request.session.user: '',
+                permisos: request.session.permisos ? request.session.permisos : '',
+                ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
+                nombre: request.session.nombre ? request.session.nombre : '',
+                registro: registro,
+                rol : request.session.roles ? request.session.roles : '',
+            });
+        }).catch(error => {console.log(error)});
+
+    }).catch(error => {console.log(error)});
 };
 
 exports.post_newProperty = (request, response, next) => {

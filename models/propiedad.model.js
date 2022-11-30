@@ -164,4 +164,11 @@ module.exports = class Propiedad{
             'INSERT INTO Propiedad_propietario (ID_Propiedad, ID_Cliente) VALUES (?, ?)', 
             [id_propiedad, id_cliente]);
     }
+
+    static get_opcionador(id_propiedad){
+        return db.execute(
+            'CALL get_opcionador(?)',
+            [id_propiedad]
+        );
+    }
 }
