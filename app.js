@@ -51,16 +51,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
 }));
-/*
-app.use((request, response, next) => {
-    response.locals.sesion = request.session.info ? request.session.info : '';
-    response.locals.user = request.session.user ? request.session.user : '';    
-    response.locals.isLoggedIN = request.session.isLoggedIN ? request.session.isLoggedIN : '';
-    multer({ storage: fileStorage }).single('doc'),
-    next();
-});
 
-*/
 const rutas_inicio = require('./routes/inicio.routes');
 app.use('/inicio',rutas_inicio); // Modulo de pagina de Inicio
 

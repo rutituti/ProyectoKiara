@@ -32,6 +32,8 @@ router.get('/registrarpropiedad',isAuth , propiedadController.get_newProperty); 
 
 router.get('/vista/:valor_casa',propiedadController.vista_casa); //Buscar la casa en base a su ID
 
+router.post('/vista/:valor_casa',propiedadController.post_opcionador); //Buscar la casa en base a su ID
+
 router.get('/propiedades', inicioControllers.get_casas); //Mostrar listado de propiedades totales
 
 router.get('/propiedades', inicioControllers.get_casas); //Mostrar listado de propiedades totales

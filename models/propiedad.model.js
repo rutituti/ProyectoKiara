@@ -40,6 +40,8 @@ module.exports = class Propiedad{
         this.Medidas_fondo                   =   atributos.Medidas_fondo
         this.Medidas_frente                  =   atributos.Medidas_frente;
     }
+    
+  
     //Método para salvar propiedades
     save() {
         return db.execute(
@@ -164,4 +166,19 @@ module.exports = class Propiedad{
             'INSERT INTO Propiedad_propietario (ID_Propiedad, ID_Cliente) VALUES (?, ?)', 
             [id_propiedad, id_cliente]);
     }
+
+    static get_opcionador(id_propiedad){
+        return db.execute(
+            'CALL get_opcionador(?)',
+            [id_propiedad]
+        );
+    }
+
+    static save_opcionador(id_asesor,id_propiedad,tipo_cliente){
+        return db.execute(
+            'INSERT INTO Asesor_cliente (ID_Asesor, ID_Propiedad, Tipo_Cliente) VALUES (?, ?, ?)', 
+            [id_asesor, id_propiedad, tipo_cliente]);
+    }
+
+   
 }
