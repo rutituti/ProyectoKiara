@@ -10,7 +10,7 @@ module.exports = class Propiedad{
         this.Codigo_postal                   =   atributos.Codigo_postal;
         this.Municipio                       =   atributos.Municipio;
         this.Estado                          =   atributos.Estado;
-        this.ID_Pais                         =   atributos.ID_Pais,
+        this.ID_Pais                         =   atributos.ID_Pais ? atributos.ID_Pais : 115,
         this.Longitud                        =   atributos.Longitud,
         this.Latitud                         =   atributos.Latitud,
         this.Operacion                       =   atributos.Operacion;
@@ -86,6 +86,9 @@ module.exports = class Propiedad{
     static fetchAll() {
         return db.execute('SELECT * FROM Propiedades');
     }
+    static fetchCasas() {
+        return db.execute('SELECT P.ID,TI.tipoInmueble,P.Calle,P.Numero,P.Colonia,P.Codigo_postal,P.Municipio,P.Estado,P.Operacion FROM Propiedades P, Tipo_inmueble TI WHERE P.ID_tipoInmueble = TI.ID');
+    }
     //Instruccion SQL para ver solo propiedades en renta
     static fetchRenta(){
         return db.execute('SELECT * FROM Propiedades WHERE Operacion = "Renta"');
@@ -154,5 +157,11 @@ module.exports = class Propiedad{
             'CALL update_RenVen(?,?)',
             [ID,Precio]
         );
+    }
+
+    static asign_owner(id_propiedad, id_cliente){
+        return db.execute(
+            'INSERT INTO Propiedad_propietario (ID_Propiedad, ID_Cliente) VALUES (?, ?)', 
+            [id_propiedad, id_cliente]);
     }
 }

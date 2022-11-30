@@ -6,6 +6,7 @@ const inicioControllers = require("../controllers/inicio.controller");
 const sesionController = require("../controllers/usuario.controller");
 const operacionController = require("../controllers/operacion.controller");
 const propiedadController = require("../controllers/propiedad.controller");
+const isAuth = require('../util/is-auth');
 
 
 /*
@@ -25,9 +26,9 @@ router.get('/propiedades/renta/buscar/:valor_busqueda', propiedadController.get_
 
 router.get('/propiedades/venta/buscar/:valor_busqueda', propiedadController.get_buscarV); //buscar propiedades con AJAX
 
-router.post('/registrarpropiedad', propiedadController.post_newProperty); //Formulario registro de propiedad -- borrar
+router.post('/registrarpropiedad',isAuth, propiedadController.post_newProperty); //Formulario registro de propiedad -- borrar
 
-router.get('/registrarpropiedad', propiedadController.get_newProperty); //Formulario registro de propiedad -- borrar
+router.get('/registrarpropiedad',isAuth , propiedadController.get_newProperty); //Formulario registro de propiedad -- borrar
 
 router.get('/vista/:valor_casa',propiedadController.vista_casa); //Buscar la casa en base a su ID
 
@@ -35,11 +36,11 @@ router.get('/propiedades', inicioControllers.get_casas); //Mostrar listado de pr
 
 router.get('/propiedades', inicioControllers.get_casas); //Mostrar listado de propiedades totales
 
-router.post('/propiedades/deleteP', propiedadController.post_deletePropiedad); //Ruta eliminar propiedad
+router.post('/propiedades/deleteP',isAuth, propiedadController.post_deletePropiedad); //Ruta eliminar propiedad
 
-router.post('/propiedades/updateVR', propiedadController.post_updateVenRen); //Ruta acuatlizar Ven=>Ren
+router.post('/propiedades/updateVR',isAuth, propiedadController.post_updateVenRen); //Ruta acuatlizar Ven=>Ren
 
-router.post('/propiedades/updateRV', propiedadController.post_updateRenVen); //Ruta actualizar Ren=>Ven
+router.post('/propiedades/updateRV',isAuth, propiedadController.post_updateRenVen); //Ruta actualizar Ren=>Ven
 
 
 /*

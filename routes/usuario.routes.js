@@ -4,7 +4,6 @@ const router = express.Router();
 
 const userController = require("../controllers/usuario.controller");
 const propiedadController = require("../controllers/propiedad.controller")
-
 const isAuth = require('../util/is-auth');
 
 router.post('/new/admin',userController.post_new_admin);

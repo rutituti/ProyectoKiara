@@ -47,7 +47,7 @@ exports.get_newProperty = (request, response, next) => {
     request.session.info = '';
     response.render(path.join('propiedad','propiedad.ejs'),{
         info: info,
-        isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn: false,
+        isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
         user: request.session.user ? request.session.user: '',
         permisos: request.session.permisos ? request.session.permisos : '',
         ubicacion: request.session.ubicacion ? request.session.ubicacion : '',
