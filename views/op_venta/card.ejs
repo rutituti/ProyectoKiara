@@ -3,17 +3,22 @@
   <div class="card" style="width: 21rem;">
     <img class="card-img-top" src="/images/casaprincipal.jpg" alt="Card image cap">
     <div class="card-body">
+      
       <h4 class="card-title"><%= casas_V.Calle %> <%= casas_V.Numero %></h4>
       <h5 class="card-title"><%= casas_V.Colonia %> CP <%= casas_V.Codigo_postal %></h5>
       <h6 class="card-title"><%= casas_V.Municipio %>, <%= casas_V.Estado %> <%= casas_V.Pais %></h6>
-      
       <p class="card-text"><%= casas_V.tipoInmueble %> con <%= casas_V.Habitaciones %> recamaras y 3 baños</p>
+
       <% if (permisos.indexOf('consultar_cronograma_personal') != -1) { %>
-        <a href="/operacion/<%= ubicacion%>/seguimiento/<%= casas_V.ID_Propiedad %>" class="btn btn-primary">Seguimiento</a>
+        <a href="/operacion/<%= ubicacion %>/seguimiento/<%= casas_V.ID_Propiedad %>" class="btn btn-primary">Seguimiento</a>
       <% } %>
+
       <% if (permisos.indexOf('actualizar_cronograma') != -1) { %>
-        <a href="/operacion/<%= ubicacion%>/seguimiento/<%= cliente %>/<%= casas_V.ID_Propiedad %>" class="btn btn-primary">Seguimiento</a>
+        <a href="/operacion/<%= ubicacion %>/seguimiento/<%= cliente %>/<%= casas_V.ID_Propiedad %>" class="btn btn-primary">Seguimiento</a>
       <% } %>
+
+      
+      
     </div>
   </div>
 </div>
