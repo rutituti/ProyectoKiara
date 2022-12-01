@@ -243,17 +243,34 @@ exports.post_new_proceso = (request, response, next) => {
         
 };
 
-exports.post_updateseg = (request, response, next) => {
+exports.get_updateestadoccliente = (request, response, next) => {
     console.log(request.body.estado,request.body.id_cliente,request.body.id_tipoExp,request.body.id_propiedad,request.body.id_tipoDoc);
-     ExpedientePropiedad.fetchactualizarestado(request.body.estado,request.body.id_cliente,request.body.id_tipoExp,request.body.id_propiedad,request.body.id_tipoDoc)
+     ExpedienteRenta.fetchactualizarestado(request.body.estado,request.body.id_cliente,request.body.id_tipoExp,request.body.id_propiedad,request.body.id_tipoDoc)
      .then(([rows, fieldData]) => {
- 
+      
      })
      .catch( error => { 
          console.log(error)
      }); 
  
      console.log(request.body);
+  
+  }
+
+  exports.get_updateestadocprop= (request, response, next) => {
+
+    ExpedientePropiedad.fetchactualizarestado(request.body.estado,request.body.id_tipoExp,request.body.id_propiedad,request.body.id_tipoDoc)
+    .then(([rows, fieldData]) => {
+        response.status(200).json({
+                            
+            mensaje: "El estado del documento: "+ request.body.nombredoc + " se modifico a "+request.body.estado,
+            proceso: rows,
+        });
+    })
+    .catch( error => { 
+        console.log(error)
+    }); 
+    // console.log(request.body);
   
   }
 
@@ -328,13 +345,14 @@ exports.get_seg = (request, response, next) => {
           .then(([rows5, fieldData]) => {
             ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_OBLIGADOSOLID, request.session.idprop)
               .then(([rows6, fieldData]) => {
-                
+                ExpedientePropiedad.fetchVerDocPropiedad( request.session.idprop,ExpedientePropiedad.EXPEDIENTE_RENTA)
+                .then(([rows7, fieldData]) => {
                    
                         Proceso_CV.fetchProcesoRA(usuario, request.params.id_p)
                             .then(([rows4, fieldData]) => {
                                 ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_ARRENDATARIO)
                                     .then(([rows, fieldData]) => {
-                                        console.log(rows[0]);
+                                        console.log(rows7[0]);
                                         ExpedienteRenta.fetchDocsVendedor(ExpedienteRenta.EXPEDIENTE_OBLIGADOSOLID)
                                             .then(([rows2, fieldData]) => {
                                                 ExpedientePropiedad.fetchDocsProp(ExpedientePropiedad.EXPEDIENTE_RENTA)
@@ -346,6 +364,8 @@ exports.get_seg = (request, response, next) => {
                                                             numdocs3: rows3[0],
                                                             desc_documentos_arre: rows5[0],
                                                             desc_documentos_arre2: rows6[0],
+                                                            desc_documentos_arre3: rows7[0],
+
                                                             seg_V: rows4[0],
                                                             info: request.session.info ? request.session.info : '',
                                                             isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
@@ -374,6 +394,9 @@ exports.get_seg = (request, response, next) => {
                 }).catch( error => { 
                     console.log(error);
                 });
+            }).catch( error => { 
+                console.log(error);
+            })
         }).catch( error => { 
             console.log(error);
         });
@@ -382,6 +405,7 @@ exports.get_seg = (request, response, next) => {
     {
         request.session.numdocs2=0;
         request.session.numdocs3=0;
+        desc_documentos_arre3=0;
         //console.log(request.session.ubicacion);
        // console.log(request.session.idprop);
         Proceso_CV.fetchProcesoRA(usuario, request.params.id_p)
@@ -398,6 +422,7 @@ exports.get_seg = (request, response, next) => {
                                     seg_V: rows4[0],
                                     desc_documentos_arre: rows5[0],
                                     desc_documentos_arre2: 0,
+                                    desc_documentos_arre3: request.session.desc_documentos_arre3 ? request.session.desc_documentos_arre3 : 0,
                                     info: request.session.info ? request.session.info : '',
                                     isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                                     user: request.session.user ? request.session.user : '',
@@ -429,7 +454,7 @@ exports.get_seg = (request, response, next) => {
         //console.log(request.session.idprop);
      Proceso_CV.fetchProcesoCV(usuario, request.params.id_p)
       .then(([rows4, fieldData]) => {
-        ExpedientePropiedad.fetchVerDocPropiedad(request.params.id_p,ExpedienteRenta.EXPEDIENTE_VENDEDOR)
+        ExpedientePropiedad.fetchVerDocPropiedad(request.params.id_p,ExpedientePropiedad.EXPEDIENTE_VENTA)
           .then(([rows7, fieldData]) => {
                 ExpedienteRenta.fetchVerDocCliente(usuario,ExpedienteRenta.EXPEDIENTE_VENDEDOR, request.params.id_p )
                 .then(([rows5, fieldData]) => {
@@ -453,7 +478,7 @@ exports.get_seg = (request, response, next) => {
                                                         seg_V: rows4[0],
                                                         desc_documentos_arre: rows5[0],
                                                         desc_documentos_arre2: rows6[0],
-                                                        desc_documentos_propiedad: rows7[0],
+                                                        desc_documentos_arre3: rows7[0],
                                                         info: request.session.info ? request.session.info : '',
                                                         isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                                                         user: request.session.user ? request.session.user : '',
@@ -492,6 +517,7 @@ exports.get_seg = (request, response, next) => {
     {
         request.session.numdocs2=0;
         request.session.numdocs3=0;
+        request.session.desc_documentos_arre3=0;
         console.log(request.session.ubicacion);
         //console.log(request.session.idprop);
 
@@ -515,6 +541,7 @@ exports.get_seg = (request, response, next) => {
                                                             numdocs3 : request.session.numdocs3 ? request.session.numdocs3: 0,
                                                             desc_documentos_arre: rows5[0],
                                                             desc_documentos_arre2: rows6[0],
+                                                            desc_documentos_arre3: request.session.desc_documentos_arre3 ? request.session.desc_documentos_arre3:0,
                                                             info: request.session.info ? request.session.info : '',
                                                             isLoggedIn: request.session.isLoggedIN ? request.session.isLoggedIN : false,
                                                             user: request.session.user ? request.session.user : '',

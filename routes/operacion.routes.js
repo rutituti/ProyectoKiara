@@ -30,7 +30,8 @@ router.get('/:operacion/seguimiento/:cliente/:id_p',isAuth, segControllers.get_s
 
 
 router.get('/:operacion/seguimiento/:cliente/:id_p',isAuth, segControllers.get_seg);
-router.post('/seguimiento/update2',isAuth, segControllers.post_updateseg);
+router.post('/seguimiento/update2',isAuth, segControllers.get_updateestadoccliente);
+router.post('/seguimiento/update3',isAuth, segControllers.get_updateestadocprop);
 
 
 router.get ('/:operacion/seguimiento/:id_p/expedienteprop/:tipo_expProp/:nombre_docProp',isAuth, segControllers.get_vistasdocsProp);

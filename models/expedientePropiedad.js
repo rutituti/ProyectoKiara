@@ -20,8 +20,8 @@ module.exports = class ExpedienteProp {
         return db.execute('CALL get_docs_propiedades(?);',[ID_TiEP]);
     }
 
-    static fetchactualizarestado(Estado,ID_Cliente,ID_Tipoexp,ID_Tipoprop,ID_TipoDoc) {
-        return db.execute('CALL actualizar_estadodoc(?,?,?,?,?);',[Estado,ID_Cliente,ID_Tipoexp,ID_Tipoprop,ID_TipoDoc]);
+    static fetchactualizarestado(Estado,ID_Tipoexp,ID_Tipoprop,ID_TipoDoc) {
+        return db.execute('CALL  actualizar_estadodoc_propiedad(?,?,?,?);',[Estado,ID_Tipoexp,ID_Tipoprop,ID_TipoDoc]);
     }
 
     static fetchVerDocPropiedad(IDprop,IDTE) {
