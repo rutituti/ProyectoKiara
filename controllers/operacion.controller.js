@@ -244,18 +244,18 @@ exports.post_new_proceso = (request, response, next) => {
 };
 
 exports.post_updateseg = (request, response, next) => {
-   console.log(request.body.estado,request.body.id_cliente,request.body.id_tipoExp,request.body.id_propiedad,request.body.id_tipoDoc);
-    ExpedientePropiedad.fetchactualizarestado(request.body.estado,request.body.id_cliente,request.body.id_tipoExp,request.body.id_propiedad,request.body.id_tipoDoc)
-    .then(([rows, fieldData]) => {
-
-    })
-    .catch( error => { 
-        console.log(error)
-    }); 
-
-    console.log(request.body);
+    console.log(request.body.estado,request.body.id_cliente,request.body.id_tipoExp,request.body.id_propiedad,request.body.id_tipoDoc);
+     ExpedientePropiedad.fetchactualizarestado(request.body.estado,request.body.id_cliente,request.body.id_tipoExp,request.body.id_propiedad,request.body.id_tipoDoc)
+     .then(([rows, fieldData]) => {
  
- }
+     })
+     .catch( error => { 
+         console.log(error)
+     }); 
+ 
+     console.log(request.body);
+  
+  }
 
 exports.get_mis_clientes = (request, response, next) => {
     request.session.ubicacion = 'misclientes';
@@ -522,7 +522,7 @@ exports.get_seg = (request, response, next) => {
                                                             nombre: request.session.nombre ? request.session.nombre : '',
                                                             registro: request.session. registro ? request.session. registro : '',
                                                             temp: request.session.temp ? request.session.temp : 0,
-                                                            propiedad: request.session.idpropiedad ? request.session.idpropiedad : '',
+                                                            propiedad:   request.session.idprop  ? request.session.idprop : '',
                                                             permisos: request.session.permisos ? request.session.permisos : '',
                                                             rol : request.session.roles ? request.session.roles : '',
                                                             cliente: usuario ? usuario : '',
@@ -865,14 +865,23 @@ exports.get_vistasdocsProp = (request, response, next) => {
      if(request.files[0] == null)
      {
         
-          alert('Tiene que ingresar un documento');
-
+       
+       request.session.docs      = request.params.nombre_doc;
+       request.session.ubicacion = request.params.operacion;
+       request.session.idexp     = request.params.tipo_exp;
+       request.session.idprop    = request.params.id_p;
+    
+    var route= "/operacion/"+request.params.operacion+"/seguimiento/"+ request.params.id_p+"/expediente/"+request.params.tipo_exp+"/"+request.params.nombre_doc;
+    console.log(route);
+    response.redirect(route); 
      }else{
       const expediente = new ExpedienteRenta( request.session.user, request.params.id_p, request.session.docs, request.session.idexp, 'En revision',request.files[0].filename);
     expediente.save(); 
      }
 
-     response.redirect('/user/perfil'); 
+     var route2= "/operacion/"+request.params.operacion+"/seguimiento/"+ request.params.id_p;
+ 
+     response.redirect(route2); 
 };
 
 exports.post_docsProp = (request, response, next) => {
@@ -881,11 +890,9 @@ exports.post_docsProp = (request, response, next) => {
     request.session.idexp     = request.params.tipo_expProp;
     request.session.idprop    = request.params.id_p;
  
-    // console.log(request.session.user, request.session.docs, request.session.idexp, 'En Revision', request.file.filename);
-//    request.session.docs = request.params.nombre_doc;
-   //  console.log(request.session.user,request.params.nombre_doc,request.file.filename,request.session.id_tip_expC,request.session.id_tip_DdocC);
      const expediente2 = new ExpedientePropiedad(request.params.id_p, request.params.nombre_docProp, request.params.tipo_expProp, 'En Revision', request.files[0].filename);
      expediente2.save();  
- 
-      response.redirect('/user/perfil'); 
+      var route= "/operacion/"+request.params.operacion+"/seguimiento/"+ request.params.id_p+"/expedienteprop/"+request.params.tipo_expProp+"/"+request.params.nombre_docProp;
+      console.log(route);
+      response.redirect(route); 
  };
