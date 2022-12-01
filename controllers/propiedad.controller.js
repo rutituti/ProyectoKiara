@@ -179,8 +179,8 @@ exports.post_newProperty = (request, response, next) => {
     atributos.Servicio_Drenaje = request.body.Servicio_Drenaje ? request.body.Servicio_Drenaje : ' ';
     atributos.Tipo_desnivel  = request.body.Tipo_desnivel ? request.body.Tipo_desnivel : " ";
     atributos.Forma_terreno  = request.body.Forma_terreno ? request.body.Forma_terreno : " ";
-    atributos.Medidas_frente = request.body.Medidas_frente ? request.body.Medidas_frente : ' ';
-    atributos.Medidas_fondo  = request.body.Medidas_fondo ? request.body.Medidas_fondo : ' ';
+    atributos.Medidas_frente = request.body.Medidas_frente ? request.body.Medidas_frente : 0;
+    atributos.Medidas_fondo  = request.body.Medidas_fondo ? request.body.Medidas_fondo : 0;
     console.log(request.files[2]);
     const propiedad = new Propiedad(atributos);
     propiedad.save()
