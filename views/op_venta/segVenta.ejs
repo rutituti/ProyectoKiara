@@ -136,90 +136,151 @@
 
 
             <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-                <div class=" row justify-content-starts container-fluid col-12 col-m-1 col-lg-12 bg-white border p-3 text-center" >            
-                        <% if (desc_documentos_arre.length>  0 || desc_documentos_arre > 0) { %>
-                            
-                                 
-                                <h5 class="text-center"> EXPEDIENTE :  <%=numdocs[0].tipoExpCliente%>  </h5>
-                                    <div class="row container-fluid">    
-                                        <% for (let r of desc_documentos_arre) { %>
-                                            <%= console.log('IDS DOCUMENTOS')%>
-                                            <%= console.log(r)%>
-                                            <label class=" fixed-center input-group-btn">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <div class="col-sm-1 col-md-1 col-lg-2">
-                                                    <div class="form-group">   
-                                                        <select class="form-select"  style="font-size: 10px;"  id="<%= r.ID_TipoDoc %>,<%= r.ID_TipoExp %>" >
-                                                            <option value="<%= r.Estado%>" selected><%= r.Estado%></option>
-                                                            <option value="Aprobado" >Aprobado</option>
-                                                            <option value="En revision">En revision</option>
-                                                            <option value="Rechazado">Rechazado</option>
-                                                          
-                                                            
-                                                           
-                                                        </select>
-                                                     
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-1 col-md-1 col-lg-2">  <i class='bx bxs-save bx-sm' style="justify-content: left;" onclick="actualizarestado('<%= r.ID_TipoDoc %>,<%= r.ID_TipoExp %>','<%= r.ID_Cliente %>',<%= r.Id_propiedad %>,<%= r.ID_TipoDoc %>,<%= r.ID_TipoExp %>)"></i> </div>
-                                                
-                                                <span class="text-center   border p-1  container-fluid  col-5 col-m-5 col-lg-7 btn btn-primarys btn-file" id="doc">
-                                                    Descargue <strong><%= r.Nombre%></strong> dando click en el boton
-                                                
-                                                </span>
+                
 
-                                                 <a href="/uploads/<%=r.URL%>" class="btn btn-primary btn-lg-4 " style="font-size: 10px;" role="button" aria-disabled="true">Ver archivo</a>
-                                                 
-                                                 <% if(r.Estado=='Aprobado'){ %>
-                                                    <div class="col-sm-1 col-md-1 col-lg-2"><%=r.Estado%></div>
-                                                     <% } %>
+                <div class="row container-fluid  bg-white border p-3" style="justify-content:flex-start ">
+                    <% if (desc_documentos_arre.length>  0 || desc_documentos_arre > 0) { %>
+                              
+                                     
+                          <h5 class="text-center"> EXPEDIENTE :  <%=numdocs[0].tipoExpCliente%>  </h5>        
+                    
+                    
+                        <% for (let r of desc_documentos_arre) { %>
+                            <%= console.log('IDS DOCUMENTOS')%>
+                            <%= console.log(r)%>
+                            <% if (permisos.indexOf('actualizar_cronograma') != -1) { %>
+                                <div class="col container-fluid " >
+                                    <label>
+                                        <div class="form-group container-fluid ">   
+                                            <select class="form-select container-fluid col-lg-8"  style="font-size: 8px;"  id="<%= r.ID_TipoDoc %>,<%= r.ID_TipoExp %>" >
+                                                <option value="<%= r.Estado%>" selected><%= r.Estado%></option>
+                                                <option value="Aprobado" >Aprobado</option>
+                                                <option value="En revision">En revision</option>
+                                                <option value="Rechazado">Rechazado</option>
+                                              
+                                                
                                                
-                                                
-                                            </label>
-                                            <br>
-                                            <br> 
-                                                  
-                                        <% } %>
-                                                <br>
-                                                <br>
-                                                
-                                     </div>
-                 
-                            <% } else { %>
-                                <h5 class="text-center"> No hay docuentos registrados en <%=numdocs[0].tipoExpCliente%></h5>
-                            <% } %>
-                </div>
-
-                <div class=" row  container-fluid col-12 col-m-1 col-lg-12 bg-white border p-3 text-center">            
-                    <% if (desc_documentos_arre2.length>  0 || desc_documentos_arre2 > 0) { %>
+                                            </select>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="col container-fluid ">
                         
-                             
-                            <h5 class="text-center"> EXPEDIENTE :  <%=numdocs2[0].tipoExpCliente%>  </h5>
-                                <div class="row container-fluid">    
-                                    <% for (let r of desc_documentos_arre2) { %>
-                                              
-                                        <label class=" fixed-center input-group-btn">
-                                            <span class="text-center   border p-1  container-fluid  col-6 col-m-6 col-lg-8 btn btn-primarys btn-file" id="doc">
-                                                Descargue <strong><%= r.Nombre%></strong> dando click en el boton
-                                            
-                                            </span>
-                                            <a href="/uploads/<%=r.URL%>" class="btn btn-primary btn-lg-4 " style="font-size: 10px;" role="button" aria-disabled="true">Ver archivo</a>
-                                            
-                                        </label>
-                                        <br>
-                                        <br> 
-                                              
-                                    <% } %>
-                                            <br>
-                                            <br>
-                                            
-                                 </div>
-             
+                                    <i class='bx bxs-save bx-sm' style="justify-content: left;" onclick="actualizarestado('<%= r.ID_TipoDoc %>,<%= r.ID_TipoExp %>','<%= r.ID_Cliente %>',<%= r.Id_propiedad %>,<%= r.ID_TipoDoc %>,<%= r.ID_TipoExp %>)"></i>
+                                </div>
+                                <% }%> 
+                        
+                                <div class="col container-fluid col-md-6 col-md-offset-3 col-lg-6">
+                                    <span class="text-center   border p-1  container-fluid   btn btn-primarys btn-file" id="doc">
+                                        Descargue <strong><%= r.Nombre%></strong> dando click en el boton
+                                    
+                                    </span>
+                        
+                                </div>
+                                <div class="col  container-fluid ">
+                                    <a href="/uploads/<%=r.URL%>" class="btn btn-primary btn-lg-4 " style="font-size: 10px;" role="button" aria-disabled="true">Ver archivo</a>
+                                </div>
+                        
+                                <div class="col container-fluid " style="font-size: 12px;">
+                                    
+                                    <% if (r.Estado == 'Aprobado') { %>
+                                    <strong> <p class="text-center " style="color:rgba(97, 230, 20, 0.959)" > Aprobado<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                      </svg></p>    </strong>   
+                                    <% } else if(r.Estado == 'En revision'){ %> 
+                                        <strong> <p class="text-center " style="color:rgba(214, 180, 7, 0.959)" >En revision<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
+                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                                          </svg></p>    </strong>   
+                                    <% } else if(r.Estado == 'Rechazado'){ %> 
+                                     
+                                        <strong> <p class="text-center " style="color:rgba(232, 6, 6, 0.959)" >Rechazado<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                                          </svg></p>    </strong>   
+                                    <% }%> 
+                                </div>
+                               
+                                <div class="row"> 
+                                </div>
+                                
+                                <% } %>
+                       
                         <% } else { %>
-                            <h5 class="text-center"> No hay docuentos registrados en <%=numdocs[0].tipoExpCliente%></h5>
+                            <h5 class="text-center"> No hay docuentos registrados en </h5>
                         <% } %>
-            </div>
-             
+                   
+                    </div>
+    
+                    <div class="row container-fluid  bg-white border p-3" style="justify-content:flex-start ">
+                        <% if (desc_documentos_arre2.length>  0 || desc_documentos_arre2 > 0) { %>
+                                  
+                                         
+                              <h5 class="text-center"> EXPEDIENTE :  <%=numdocs2[0].tipoExpCliente%>  </h5>        
+                        
+                        
+                            <% for (let r of desc_documentos_arre2) { %>
+                                <%= console.log('IDS DOCUMENTOS')%>
+                                <%= console.log(r)%>
+                                <% if (permisos.indexOf('actualizar_cronograma') != -1) { %>
+                                    <div class="col container-fluid " >
+                                        <label>
+                                            <div class="form-group container-fluid ">   
+                                                <select class="form-select container-fluid col-lg-8"  style="font-size: 8px;"  id="<%= r.ID_TipoDoc %>,<%= r.ID_TipoExp %>" >
+                                                    <option value="<%= r.Estado%>" selected><%= r.Estado%></option>
+                                                    <option value="Aprobado" >Aprobado</option>
+                                                    <option value="En revision">En revision</option>
+                                                    <option value="Rechazado">Rechazado</option>
+                                                  
+                                                    
+                                                   
+                                                </select>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col container-fluid ">
+                            
+                                        <i class='bx bxs-save bx-sm' style="justify-content: left;" onclick="actualizarestado('<%= r.ID_TipoDoc %>,<%= r.ID_TipoExp %>','<%= r.ID_Cliente %>',<%= r.Id_propiedad %>,<%= r.ID_TipoDoc %>,<%= r.ID_TipoExp %>)"></i>
+                                    </div>
+                            
+                                    <% } %>
+                                    <div class="col container-fluid col-md-6 col-md-offset-3 col-lg-6">
+                                        <span class="text-center   border p-1  container-fluid   btn btn-primarys btn-file" id="doc">
+                                            Descargue <strong><%= r.Nombre%></strong> dando click en el boton
+                                        
+                                        </span>
+                            
+                                    </div>
+                                    <div class="col  container-fluid ">
+                                        <a href="/uploads/<%=r.URL%>" class="btn btn-primary btn-lg-4 " style="font-size: 10px;" role="button" aria-disabled="true">Ver archivo</a>
+                                    </div>
+                            
+                                    <div class="col container-fluid " style="font-size: 12px;">
+                                        
+                                        <% if (r.Estado == 'Aprobado') { %>
+                                        <strong> <p class="text-center " style="color:rgba(97, 230, 20, 0.959)" > Aprobado<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                          </svg></p>    </strong>   
+                                        <% } else if(r.Estado == 'En revision'){ %> 
+                                            <strong> <p class="text-center " style="color:rgba(214, 180, 7, 0.959)" >En revision<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
+                                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                                              </svg></p>    </strong>   
+                                        <% } else if(r.Estado == 'Rechazado'){ %> 
+                                         
+                                            <strong> <p class="text-center " style="color:rgba(232, 6, 6, 0.959)" >Rechazado<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                                              </svg></p>    </strong>   
+                                        <% }%> 
+                                    </div>
+                                   
+                                    <div class="row"> 
+                                    </div>
+                                    
+                                    <% } %>
+                           
+                            <% } else { %>
+                                <h5 class="text-center"> No hay docuentos registrados en </h5>
+                            <% } %>
+                       
+                        </div>
 
                         
                                        
