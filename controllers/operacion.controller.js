@@ -247,7 +247,10 @@ exports.get_updateestadoccliente = (request, response, next) => {
     console.log(request.body.estado,request.body.id_cliente,request.body.id_tipoExp,request.body.id_propiedad,request.body.id_tipoDoc);
      ExpedienteRenta.fetchactualizarestado(request.body.estado,request.body.id_cliente,request.body.id_tipoExp,request.body.id_propiedad,request.body.id_tipoDoc)
      .then(([rows, fieldData]) => {
-      
+        response.status(200).json({
+                            
+ 
+        });
      })
      .catch( error => { 
          console.log(error)
@@ -263,8 +266,7 @@ exports.get_updateestadoccliente = (request, response, next) => {
     .then(([rows, fieldData]) => {
         response.status(200).json({
                             
-            mensaje: "El estado del documento: "+ request.body.nombredoc + " se modifico a "+request.body.estado,
-            proceso: rows,
+ 
         });
     })
     .catch( error => { 
